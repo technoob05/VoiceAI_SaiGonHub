@@ -1,0 +1,290 @@
+{
+  "config": {
+    "n": 5,
+    "target": "en",
+    "seed": 42,
+    "baseline": {
+      "asr_id": "vinai/PhoWhisper-small",
+      "mt_id": "facebook/nllb-200-distilled-600M",
+      "device": "cpu",
+      "asr_lang": "vi",
+      "max_new_tokens": 256
+    },
+    "fast": {
+      "asr_ct2_dir": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\raw\\models_ct2\\phowhisper-small-int8",
+      "mt_ct2_dir": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\raw\\models_ct2\\nllb-200-distilled-600M-int8",
+      "mt_tokenizer_hf": "facebook/nllb-200-distilled-600M",
+      "asr_lang": "vi",
+      "asr_compute_type": "int8",
+      "mt_compute_type": "int8",
+      "asr_beam": 1,
+      "mt_beam": 1,
+      "asr_vad_filter": true,
+      "asr_vad_min_silence_ms": 500,
+      "max_decoding_length": 256,
+      "ct2_intra_threads": 0,
+      "ct2_inter_threads": 1,
+      "load_parallel": true
+    }
+  },
+  "baseline": {
+    "samples": [
+      {
+        "utt_id": "VIVOSDEV17_109",
+        "duration_s": 3.812,
+        "vi_ref": "MỘT BÀ SANG TRỌNG ĐẾN GẶP BÁC SĨ TRẺ KHÁM BỆNH BÁC SĨ HỎI",
+        "vi_hyp": "một bà sang trọng đến gặp bác sĩ trẻ khám bệnh bác sĩ hỏi.",
+        "tgt": "A lady of high class came to see a young doctor and asked him.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 25256.6,
+          "mt": 12591.2,
+          "tts": 6483.3,
+          "total": 44331.1
+        }
+      },
+      {
+        "utt_id": "VIVOSDEV01_R099",
+        "duration_s": 3.875,
+        "vi_ref": "NHƯNG TÔI THÍCH XEM BỘ PHIM TRUYỆN PHÁT NGAY SAU CHƯƠNG TRÌNH NÀY",
+        "vi_hyp": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này.",
+        "tgt": "But I like to watch the movie after this show.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 21076.4,
+          "mt": 6683.0,
+          "tts": 3247.3,
+          "total": 31006.7
+        }
+      },
+      {
+        "utt_id": "VIVOSDEV02_R076",
+        "duration_s": 2.969,
+        "vi_ref": "THAY VÌ BỐN GIỜ NHƯ TRƯỚC ĐÂY",
+        "vi_hyp": "thay vì bốn giờ như trước đây.",
+        "tgt": "Instead of four hours like before.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 15138.4,
+          "mt": 4372.3,
+          "tts": 4542.3,
+          "total": 24053.0
+        }
+      },
+      {
+        "utt_id": "VIVOSDEV19_279",
+        "duration_s": 3.624,
+        "vi_ref": "NỢ MỘT CUỘC CHIẾN CHỐNG THAM NHŨNG VẪN CHƯA VÀO ĐÂU",
+        "vi_hyp": "nợ một cuộc chiến chống tham nhũng vẫn chưa vào đâu.",
+        "tgt": "The debt to a corruption war is not yet in place.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 11627.4,
+          "mt": 6626.5,
+          "tts": 3154.6,
+          "total": 21408.5
+        }
+      },
+      {
+        "utt_id": "VIVOSDEV08_005",
+        "duration_s": 3.406,
+        "vi_ref": "CÂY CỔ THỤ ẤY BẤT CHỢT BỊ BỆNH TẬT QUẬT NGÃ",
+        "vi_hyp": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã.",
+        "tgt": "The old tree suddenly fell ill.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 13790.3,
+          "mt": 2453.5,
+          "tts": 1699.9,
+          "total": 17943.8
+        }
+      }
+    ],
+    "aggregate": {
+      "n": 5,
+      "latency_ms_asr": {
+        "mean": 17377.8,
+        "std": 5628.2,
+        "p50": 15138.4,
+        "p95": 25256.6,
+        "p99": 25256.6,
+        "min": 11627.4,
+        "max": 25256.6
+      },
+      "latency_ms_mt": {
+        "mean": 6545.3,
+        "std": 3809.3,
+        "p50": 6626.5,
+        "p95": 12591.2,
+        "p99": 12591.2,
+        "min": 2453.5,
+        "max": 12591.2
+      },
+      "latency_ms_tts": {
+        "mean": 3825.5,
+        "std": 1794.5,
+        "p50": 3247.3,
+        "p95": 6483.3,
+        "p99": 6483.3,
+        "min": 1699.9,
+        "max": 6483.3
+      },
+      "latency_ms_total": {
+        "mean": 27748.6,
+        "std": 10435.3,
+        "p50": 24053.0,
+        "p95": 44331.1,
+        "p99": 44331.1,
+        "min": 17943.8,
+        "max": 44331.1
+      },
+      "rtf": {
+        "mean": 7.8,
+        "std": 2.5,
+        "p50": 8.0,
+        "p95": 11.6,
+        "p99": 11.6,
+        "min": 5.3,
+        "max": 11.6
+      },
+      "wer_mean": 0.0,
+      "ter_mean": 0.0,
+      "audio_total_seconds": 17.7
+    }
+  },
+  "fast": {
+    "samples": [
+      {
+        "utt_id": "VIVOSDEV17_109",
+        "duration_s": 3.812,
+        "vi_ref": "MỘT BÀ SANG TRỌNG ĐẾN GẶP BÁC SĨ TRẺ KHÁM BỆNH BÁC SĨ HỎI",
+        "vi_hyp": "một bà sang trọng đến gặp bác sĩ trẻ khám bệnh bác sĩ hỏi.",
+        "tgt": "A lady of high class came to see a young doctor and asked him.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 6074.8,
+          "mt": 2262.5,
+          "tts": 3512.8,
+          "total": 11850.1
+        }
+      },
+      {
+        "utt_id": "VIVOSDEV01_R099",
+        "duration_s": 3.875,
+        "vi_ref": "NHƯNG TÔI THÍCH XEM BỘ PHIM TRUYỆN PHÁT NGAY SAU CHƯƠNG TRÌNH NÀY",
+        "vi_hyp": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này.",
+        "tgt": "But I like to watch the movie right after this show.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 4669.0,
+          "mt": 697.1,
+          "tts": 2136.4,
+          "total": 7502.5
+        }
+      },
+      {
+        "utt_id": "VIVOSDEV02_R076",
+        "duration_s": 2.969,
+        "vi_ref": "THAY VÌ BỐN GIỜ NHƯ TRƯỚC ĐÂY",
+        "vi_hyp": "thay vì bốn giờ như trước đây.",
+        "tgt": "Instead of four hours like before.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 4261.4,
+          "mt": 369.4,
+          "tts": 1565.5,
+          "total": 6196.3
+        }
+      },
+      {
+        "utt_id": "VIVOSDEV19_279",
+        "duration_s": 3.624,
+        "vi_ref": "NỢ MỘT CUỘC CHIẾN CHỐNG THAM NHŨNG VẪN CHƯA VÀO ĐÂU",
+        "vi_hyp": "nợ một cuộc chiến chống tham nhũng vẫn chưa vào đâu.",
+        "tgt": "The debt to a corruption war is not yet in place.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 3794.2,
+          "mt": 565.7,
+          "tts": 2058.5,
+          "total": 6418.4
+        }
+      },
+      {
+        "utt_id": "VIVOSDEV08_005",
+        "duration_s": 3.406,
+        "vi_ref": "CÂY CỔ THỤ ẤY BẤT CHỢT BỊ BỆNH TẬT QUẬT NGÃ",
+        "vi_hyp": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã.",
+        "tgt": "The old tree suddenly fell ill.",
+        "wer": 0.0,
+        "ter": 0.0,
+        "latency_ms": {
+          "asr": 3898.0,
+          "mt": 362.6,
+          "tts": 1536.7,
+          "total": 5797.2
+        }
+      }
+    ],
+    "aggregate": {
+      "n": 5,
+      "latency_ms_asr": {
+        "mean": 4539.5,
+        "std": 924.4,
+        "p50": 4261.4,
+        "p95": 6074.8,
+        "p99": 6074.8,
+        "min": 3794.2,
+        "max": 6074.8
+      },
+      "latency_ms_mt": {
+        "mean": 851.5,
+        "std": 801.2,
+        "p50": 565.7,
+        "p95": 2262.5,
+        "p99": 2262.5,
+        "min": 362.6,
+        "max": 2262.5
+      },
+      "latency_ms_tts": {
+        "mean": 2162.0,
+        "std": 803.6,
+        "p50": 2058.5,
+        "p95": 3512.8,
+        "p99": 3512.8,
+        "min": 1536.7,
+        "max": 3512.8
+      },
+      "latency_ms_total": {
+        "mean": 7552.9,
+        "std": 2483.9,
+        "p50": 6418.4,
+        "p95": 11850.1,
+        "p99": 11850.1,
+        "min": 5797.2,
+        "max": 11850.1
+      },
+      "rtf": {
+        "mean": 2.1,
+        "std": 0.6,
+        "p50": 1.9,
+        "p95": 3.1,
+        "p99": 3.1,
+        "min": 1.7,
+        "max": 3.1
+      },
+      "wer_mean": 0.0,
+      "ter_mean": 0.0,
+      "audio_total_seconds": 17.7
+    }
+  }
+}

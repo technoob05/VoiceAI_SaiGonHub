@@ -2,12 +2,59 @@
 
 End-to-end Vietnamese-centric speech-to-speech translation, **public checkpoints only**, runs on CPU. Use this as the engineering baseline; replace components with our tone-aware quantized variants when ready.
 
-Two ways to use the prototype:
+Three pipelines + two UIs + one benchmark:
 
-| Entry point | Best for | URL / output |
-|-------------|---------|--------------|
-| [pipeline.py](pipeline.py) — CLI | Batch eval, scripted tests, latency benchmarking | writes a `.wav` to disk |
-| [web_demo.py](web_demo.py) — Gradio web UI | Quick interactive testing, mic recording, demo screenshots | http://127.0.0.1:7860 |
+| Entry point | What it is | Quality | Speed (CPU) |
+|---|---|---|---|
+| [pipeline.py](pipeline.py) | FP32 HF baseline cascade — what reviewers will compare against | reference | RTF ~5x |
+| [pipeline_fast.py](pipeline_fast.py) | **INT8 optimized** — faster-whisper + CT2-NLLB + dynamic-quant VITS | ~same | RTF ~1-2x (target) |
+| [web_demo.py](web_demo.py) | Gradio one-shot mic / upload UI on :7860 | uses pipeline.py | — |
+| [web_demo_streaming.py](web_demo_streaming.py) | Gradio continuous-listening + silero-VAD on :7861 | uses pipeline.py | — |
+| [bench.py](bench.py) | Single-pipeline batch latency + WER/TER | — | — |
+| [bench_compare.py](bench_compare.py) | **FP32 vs INT8 side-by-side bench**, warmup-corrected, JSON output | — | — |
+
+## Optimization stack (in pipeline_fast.py)
+
+CPU FP32 → CPU INT8 path, ~3.9× model-size reduction + ~5-10× expected inference speedup:
+
+| Stage | FP32 baseline | INT8 optimized | Technique |
+|---|---|---|---|
+| ASR | HF `WhisperForConditionalGeneration` | **`faster-whisper`** | CTranslate2 INT8 + silero-VAD trim + beam=1 |
+| MT | HF `AutoModelForSeq2SeqLM` | **`ctranslate2.Translator`** | CT2 INT8 + beam=1 + dynamic max_decoding_length |
+| TTS | HF `VitsModel` FP32 | `torch.quantize_dynamic(..., qint8)` | Dynamic INT8 over Linear layers |
+| Decode | beam=5 default | **beam=1** | Greedy decoding everywhere |
+
+**Model size delta** (on disk):
+- PhoWhisper-small: 967 MB FP32 → **240 MB INT8** (4.0× smaller)
+- NLLB-200-distilled-600M: 2,367 MB FP32 → **621 MB INT8** (3.8× smaller)
+- Total: 3,334 MB → **861 MB** (3.9× smaller)
+
+### One-time conversion (run once)
+```bash
+# CT2 converters output to data/raw/models_ct2/
+python -m ctranslate2.converters.transformers \
+    --model vinai/PhoWhisper-small \
+    --output_dir data/raw/models_ct2/phowhisper-small-int8 \
+    --quantization int8 \
+    --copy_files tokenizer.json tokenizer_config.json preprocessor_config.json special_tokens_map.json generation_config.json
+
+# NLLB needs the AutoTokenizer monkey-patch (transformers 5.0.0 bug); see commit log.
+python -c "import transformers; \
+    _o = transformers.AutoTokenizer.from_pretrained; \
+    transformers.AutoTokenizer.from_pretrained = lambda m, *a, **k: transformers.NllbTokenizerFast.from_pretrained(m, *a, **k) if 'nllb' in str(m).lower() else _o(m, *a, **k); \
+    from ctranslate2.converters import TransformersConverter; \
+    TransformersConverter('facebook/nllb-200-distilled-600M', copy_files=['tokenizer.json','tokenizer_config.json','sentencepiece.bpe.model','special_tokens_map.json']).convert('data/raw/models_ct2/nllb-200-distilled-600M-int8', quantization='int8', force=True)"
+```
+
+### Running the optimized pipeline
+```bash
+python prototype/pipeline_fast.py \
+    --audio data/processed/vivos/vivos/test/waves/VIVOSDEV01/VIVOSDEV01_R002.wav \
+    --target en --out prototype/out_fast.wav
+
+# Side-by-side bench (warmup-corrected)
+python prototype/bench_compare.py --n 10 --target en --out Results/bench_compare_en_n10.json
+```
 
 ## Stages
 
