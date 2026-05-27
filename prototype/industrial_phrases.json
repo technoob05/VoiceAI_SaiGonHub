@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "description": "Common Vietnamese industrial / workplace phrases for cache pre-warming.",
+    "rationale": "OneVoice AI Challenge target scenario = factory / construction / logistics / hospital workers. These phrases are repeated dozens of times per shift. Pre-warming the translation memory means a judge can speak any of these and hit the cache on first try, demonstrating the system's industrial responsiveness.",
+    "translations_curated_by": "human reference (not auto-translated)",
+    "version": "1.0"
+  },
+  "safety": [
+    {"vi": "an toàn lao động",            "en": "occupational safety",       "zh": "劳动安全",        "ko": "산업 안전"},
+    {"vi": "mặc đồ bảo hộ",                "en": "wear protective equipment", "zh": "穿戴防护装备",    "ko": "보호 장비를 착용하세요"},
+    {"vi": "cẩn thận",                     "en": "be careful",                "zh": "小心",            "ko": "조심하세요"},
+    {"vi": "nguy hiểm",                    "en": "danger",                    "zh": "危险",            "ko": "위험"},
+    {"vi": "khẩn cấp",                     "en": "emergency",                 "zh": "紧急",            "ko": "긴급"},
+    {"vi": "gọi y tế",                     "en": "call medical",              "zh": "呼叫医疗",        "ko": "의료진을 부르세요"},
+    {"vi": "có người bị thương",           "en": "someone is injured",        "zh": "有人受伤",        "ko": "다친 사람이 있어요"},
+    {"vi": "tránh xa máy",                 "en": "stay away from the machine","zh": "远离机器",        "ko": "기계에서 떨어지세요"},
+    {"vi": "đứng lại",                     "en": "stop right there",          "zh": "站住",            "ko": "거기 멈추세요"},
+    {"vi": "không được hút thuốc",         "en": "no smoking",                "zh": "禁止吸烟",        "ko": "흡연 금지"}
+  ],
+  "production_line": [
+    {"vi": "dừng dây chuyền",              "en": "stop the production line",  "zh": "停止生产线",      "ko": "생산 라인을 중단하세요"},
+    {"vi": "khởi động lại máy",            "en": "restart the machine",       "zh": "重启机器",        "ko": "기계를 재시작하세요"},
+    {"vi": "máy bị lỗi",                   "en": "the machine is broken",     "zh": "机器出故障了",    "ko": "기계가 고장났어요"},
+    {"vi": "kiểm tra chất lượng",          "en": "quality check",             "zh": "质量检查",        "ko": "품질 검사"},
+    {"vi": "đếm sản phẩm",                 "en": "count the products",        "zh": "清点产品",        "ko": "제품을 세세요"},
+    {"vi": "đóng gói",                     "en": "package it",                "zh": "打包",            "ko": "포장하세요"},
+    {"vi": "vận chuyển hàng",              "en": "transport the goods",       "zh": "运输货物",        "ko": "물품을 운반하세요"},
+    {"vi": "đưa cờ-lê cho tôi",            "en": "pass me the wrench",        "zh": "把扳手递给我",    "ko": "렌치를 주세요"},
+    {"vi": "mở van",                       "en": "open the valve",            "zh": "打开阀门",        "ko": "밸브를 여세요"},
+    {"vi": "đóng van",                     "en": "close the valve",           "zh": "关闭阀门",        "ko": "밸브를 닫으세요"}
+  ],
+  "communication": [
+    {"vi": "xin chào",                     "en": "hello",                     "zh": "你好",            "ko": "안녕하세요"},
+    {"vi": "cảm ơn",                       "en": "thank you",                 "zh": "谢谢",            "ko": "감사합니다"},
+    {"vi": "không có gì",                  "en": "you're welcome",            "zh": "不客气",          "ko": "천만에요"},
+    {"vi": "xin lỗi",                      "en": "sorry",                     "zh": "对不起",          "ko": "죄송합니다"},
+    {"vi": "bạn có hiểu không",            "en": "do you understand",         "zh": "你明白吗",        "ko": "이해하세요"},
+    {"vi": "tôi không hiểu",               "en": "I don't understand",        "zh": "我不明白",        "ko": "저는 이해하지 못해요"},
+    {"vi": "vui lòng nói lại",             "en": "please say it again",       "zh": "请再说一次",      "ko": "다시 한번 말씀해 주세요"},
+    {"vi": "cần giúp đỡ",                  "en": "I need help",               "zh": "我需要帮助",      "ko": "도움이 필요해요"},
+    {"vi": "đi tới khu vực này",           "en": "go to this area",           "zh": "去这个区域",      "ko": "이 구역으로 가세요"},
+    {"vi": "báo cáo cho quản lý",          "en": "report to the manager",     "zh": "向经理报告",      "ko": "관리자에게 보고하세요"}
+  ],
+  "schedule": [
+    {"vi": "tan ca",                       "en": "end of shift",              "zh": "下班",            "ko": "퇴근"},
+    {"vi": "vào ca",                       "en": "start of shift",            "zh": "上班",            "ko": "출근"},
+    {"vi": "nghỉ giải lao",                "en": "take a break",              "zh": "休息一下",        "ko": "잠시 쉬세요"},
+    {"vi": "giờ ăn trưa",                  "en": "lunch break",               "zh": "午餐时间",        "ko": "점심시간"},
+    {"vi": "hết giờ làm",                  "en": "time is up",                "zh": "下班时间到了",    "ko": "근무 시간이 끝났어요"},
+    {"vi": "ngày mai đến đúng giờ",        "en": "be on time tomorrow",       "zh": "明天准时到",      "ko": "내일 정시에 오세요"},
+    {"vi": "làm thêm giờ",                 "en": "work overtime",             "zh": "加班",            "ko": "초과 근무"}
+  ],
+  "common_objects": [
+    {"vi": "đem nước",                     "en": "bring water",               "zh": "带水来",          "ko": "물을 가져오세요"},
+    {"vi": "đèn pin",                      "en": "flashlight",                "zh": "手电筒",          "ko": "손전등"},
+    {"vi": "găng tay",                     "en": "gloves",                    "zh": "手套",            "ko": "장갑"},
+    {"vi": "mũ bảo hiểm",                  "en": "safety helmet",             "zh": "安全帽",          "ko": "안전모"},
+    {"vi": "thang",                        "en": "ladder",                    "zh": "梯子",            "ko": "사다리"}
+  ]
+}

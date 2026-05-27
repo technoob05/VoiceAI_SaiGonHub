@@ -152,7 +152,7 @@ def _history_md() -> str:
     rows.append("| # | time | dur | regime | total | RTF | 🇻🇳 Vietnamese (ASR) | 🌐 Target (MT) |")
     rows.append("|---|------|-----|--------|------:|-----|---------------------|----------------|")
     for i, e in enumerate(HISTORY, start=1):
-        regime = "🎯 cache hit" if e["cache_hit"] else "⚡ INT8"
+        regime = "🎯 audio cache" if e["cache_hit"] else "⚡ INT8 stream"
         cos = f" cos={e['cache_cosine']:.3f}" if e["cache_cosine"] is not None else ""
         rows.append(
             f"| {i} | {e['ts']} | {e['duration_s']:.1f}s | {regime}{cos} | "
@@ -163,10 +163,23 @@ def _history_md() -> str:
         stats = HISTORY[0].get("cache_stats")
         if stats:
             rows.append("")
+            line = (f"<sub>📊 **T1 audio cache**: lookups={stats['lookups']} · "
+                    f"hits={stats['hits']} ({stats['hit_rate']*100:.1f}%) · "
+                    f"entries={stats['n_entries']}/{stats['max_entries']} · "
+                    f"fp_mean={stats['fingerprint_ms_mean']:.0f} ms</sub>")
+            rows.append(line)
+        # TM stats live on the pipeline, fetch via any pipe (we cached one already)
+        tm_stats = None
+        for p in _PIPES.values():
+            if p._tm is not None:
+                tm_stats = p._tm.summary()
+                break
+        if tm_stats:
             rows.append(
-                f"<sub>📊 cache stats: lookups={stats['lookups']} · hits={stats['hits']} "
-                f"({stats['hit_rate']*100:.1f}%) · entries={stats['n_entries']}/{stats['max_entries']} · "
-                f"fingerprint mean={stats['fingerprint_ms_mean']:.0f} ms</sub>"
+                f"<sub>📚 **T2 translation memory**: lookups={tm_stats['lookups']} · "
+                f"hits={tm_stats['hits']} ({tm_stats['hit_rate']*100:.1f}%) · "
+                f"entries={tm_stats['n_entries']}/{tm_stats['max_entries']} · "
+                f"fp_mean={tm_stats['fp_ms_mean']:.2f} ms</sub>"
             )
     return "\n".join(rows)
 
@@ -332,8 +345,42 @@ def reset_session():
         if p._utt_cache is not None:
             p._utt_cache._store.clear()
             p._utt_cache.stats = type(p._utt_cache.stats)()
+        if p._tm is not None:
+            p._tm._store.clear()
+            p._tm.stats = type(p._tm.stats)()
     return ("", "", _status_html("🔁 session + cache reset", "ready"),
             _stage_bars_html({}, 0.0, False), None, _history_md())
+
+
+def prewarm_cache(target: str, quality: str, progress=gr.Progress()):
+    """Populate TranslationMemory with 42 curated industrial Vi phrases.
+    After this, any judge speaking one of those phrases hits the cache on
+    first try."""
+    from preload_cache import warm_translation_memory, load_phrases
+    progress(0.1, desc="loading pipeline + phrase corpus")
+    pipe = _get_pipe(quality)
+    n_phrases = len(load_phrases())
+    progress(0.3, desc=f"warming TM with {n_phrases} Vi phrases (target={target})")
+    summary = warm_translation_memory(pipe, target, include_audio=False, verbose=False)
+    status = _status_html(
+        f"🔥 Pre-warmed {summary['n_inserted']} industrial Vi phrases (target={target}). "
+        f"Speak any of them and you'll hit cache instantly!",
+        "hit"
+    )
+    return ("", "", status, _stage_bars_html({}, 0.0, False), None, _history_md())
+
+
+# Curated quick-pick phrases for the suggested-phrases chip row.
+SUGGESTED_PHRASES = [
+    "an toàn lao động",
+    "dừng dây chuyền",
+    "cẩn thận",
+    "cần giúp đỡ",
+    "khẩn cấp",
+    "đưa cờ-lê cho tôi",
+    "tan ca",
+    "nghỉ giải lao",
+]
 
 
 # ----------------------------------------------------------------------
@@ -396,7 +443,14 @@ def build_ui() -> gr.Blocks:
                     )
                 with gr.Row():
                     btn   = gr.Button("🚀 Translate", variant="primary", scale=4, size="lg")
+                    prewarm = gr.Button("🔥 Pre-warm cache", variant="secondary", scale=2, size="lg")
                     reset = gr.Button("🔁 Reset", variant="secondary", scale=1, size="lg")
+                gr.Markdown(
+                    "<sub>**🔥 Pre-warm**: loads 42 curated industrial Vi phrases into the "
+                    "translation memory. After warming, any of these will hit the cache on "
+                    "first try (instant translation), even if you've never spoken them before. "
+                    "Try: *an toàn lao động*, *dừng dây chuyền*, *khẩn cấp*, *đưa cờ-lê cho tôi*.</sub>"
+                )
 
             # =================== OUTPUT ===================
             with gr.Column(scale=7):
@@ -425,6 +479,11 @@ def build_ui() -> gr.Blocks:
         btn.click(
             translate_audio,
             inputs=[audio_in, target, quality],
+            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
+        )
+        prewarm.click(
+            prewarm_cache,
+            inputs=[target, quality],
             outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
         )
         reset.click(
