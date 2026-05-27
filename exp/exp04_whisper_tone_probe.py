@@ -337,7 +337,7 @@ def main() -> int:
     # ----- save -----
     out_dir = Path(cfg.OUTPUT_DIR); out_dir.mkdir(parents=True, exist_ok=True)
     out_file = out_dir / f"{cfg.EXP_ID}_whisper_tone_probe.json"
-    out_file.write_text(json.dumps({
+    out_file.write_text(encoding="utf-8", data=json.dumps({
         "config":       asdict(cfg),
         "n_layers":     n_layers,
         "n_utterances": len(utts) - skipped,

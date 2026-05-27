@@ -1,0 +1,150 @@
+{
+  "config": {
+    "asr_id": "vinai/PhoWhisper-small",
+    "mt_id": "facebook/nllb-200-distilled-600M",
+    "device": "cpu",
+    "asr_lang": "vi",
+    "max_new_tokens": 256,
+    "target": "en",
+    "n": 5,
+    "seed": 42
+  },
+  "samples": [
+    {
+      "utt_id": "VIVOSDEV17_109",
+      "audio_duration_s": 3.812,
+      "vi_ref": "MỘT BÀ SANG TRỌNG ĐẾN GẶP BÁC SĨ TRẺ KHÁM BỆNH BÁC SĨ HỎI",
+      "vi_hyp": "một bà sang trọng đến gặp bác sĩ trẻ khám bệnh bác sĩ hỏi.",
+      "tgt_text": "A lady of high class came to see a young doctor and asked him.",
+      "wer": 0.0,
+      "ter": 0.0,
+      "ter_given_base_ok": 0.0,
+      "n_syllables": 14,
+      "latency_ms": {
+        "asr": 8045.3,
+        "mt": 5455.1,
+        "tts": 3208.8,
+        "total": 16709.2
+      }
+    },
+    {
+      "utt_id": "VIVOSDEV01_R099",
+      "audio_duration_s": 3.875,
+      "vi_ref": "NHƯNG TÔI THÍCH XEM BỘ PHIM TRUYỆN PHÁT NGAY SAU CHƯƠNG TRÌNH NÀY",
+      "vi_hyp": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này.",
+      "tgt_text": "But I like to watch the movie after this show.",
+      "wer": 0.0,
+      "ter": 0.0,
+      "ter_given_base_ok": 0.0,
+      "n_syllables": 13,
+      "latency_ms": {
+        "asr": 7995.1,
+        "mt": 2834.8,
+        "tts": 2105.6,
+        "total": 12935.5
+      }
+    },
+    {
+      "utt_id": "VIVOSDEV02_R076",
+      "audio_duration_s": 2.969,
+      "vi_ref": "THAY VÌ BỐN GIỜ NHƯ TRƯỚC ĐÂY",
+      "vi_hyp": "thay vì bốn giờ như trước đây.",
+      "tgt_text": "Instead of four hours like before.",
+      "wer": 0.0,
+      "ter": 0.0,
+      "ter_given_base_ok": 0.0,
+      "n_syllables": 7,
+      "latency_ms": {
+        "asr": 4351.7,
+        "mt": 2130.3,
+        "tts": 2694.6,
+        "total": 9176.6
+      }
+    },
+    {
+      "utt_id": "VIVOSDEV19_279",
+      "audio_duration_s": 3.624,
+      "vi_ref": "NỢ MỘT CUỘC CHIẾN CHỐNG THAM NHŨNG VẪN CHƯA VÀO ĐÂU",
+      "vi_hyp": "nợ một cuộc chiến chống tham nhũng vẫn chưa vào đâu.",
+      "tgt_text": "The debt to a corruption war is not yet in place.",
+      "wer": 0.0,
+      "ter": 0.0,
+      "ter_given_base_ok": 0.0,
+      "n_syllables": 11,
+      "latency_ms": {
+        "asr": 15036.9,
+        "mt": 9716.2,
+        "tts": 5486.1,
+        "total": 30239.2
+      }
+    },
+    {
+      "utt_id": "VIVOSDEV08_005",
+      "audio_duration_s": 3.406,
+      "vi_ref": "CÂY CỔ THỤ ẤY BẤT CHỢT BỊ BỆNH TẬT QUẬT NGÃ",
+      "vi_hyp": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã.",
+      "tgt_text": "The old tree suddenly fell ill.",
+      "wer": 0.0,
+      "ter": 0.0,
+      "ter_given_base_ok": 0.0,
+      "n_syllables": 11,
+      "latency_ms": {
+        "asr": 15479.6,
+        "mt": 5392.2,
+        "tts": 5574.3,
+        "total": 26446.1
+      }
+    }
+  ],
+  "aggregate": {
+    "latency_ms_asr": {
+      "mean": 10181.72,
+      "std": 4872.76,
+      "p50": 8045.3,
+      "p95": 15479.6,
+      "p99": 15479.6,
+      "min": 4351.7,
+      "max": 15479.6
+    },
+    "latency_ms_mt": {
+      "mean": 5105.72,
+      "std": 2977.87,
+      "p50": 5392.2,
+      "p95": 9716.2,
+      "p99": 9716.2,
+      "min": 2130.3,
+      "max": 9716.2
+    },
+    "latency_ms_tts": {
+      "mean": 3813.88,
+      "std": 1614.97,
+      "p50": 3208.8,
+      "p95": 5574.3,
+      "p99": 5574.3,
+      "min": 2105.6,
+      "max": 5574.3
+    },
+    "latency_ms_total": {
+      "mean": 19101.32,
+      "std": 8947.59,
+      "p50": 16709.2,
+      "p95": 30239.2,
+      "p99": 30239.2,
+      "min": 9176.6,
+      "max": 30239.2
+    },
+    "rtf": {
+      "mean": 5.38,
+      "std": 2.49,
+      "p50": 4.38,
+      "p95": 8.34,
+      "p99": 8.34,
+      "min": 3.09,
+      "max": 8.34
+    },
+    "wer_mean": 0.0,
+    "ter_mean": 0.0,
+    "audio_total_seconds": 17.7,
+    "wall_clock_seconds": 95.6
+  }
+}

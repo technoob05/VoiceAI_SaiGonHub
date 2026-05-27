@@ -375,7 +375,7 @@ def main() -> int:
     }
     Path(cfg.OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
     out = Path(cfg.OUTPUT_DIR) / f"{cfg.EXP_ID}_ter_metric.json"
-    out.write_text(json.dumps(result, indent=2, ensure_ascii=False))
+    out.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"[done] wrote {out}")
     print(json.dumps(metrics, indent=2, ensure_ascii=False))
     return 0

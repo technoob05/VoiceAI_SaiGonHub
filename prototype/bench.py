@@ -205,7 +205,7 @@ def main() -> int:
     }
     out = Path(args.out or f"Results/bench_phowhisper_fp32_{args.target}_n{len(per_sample)}.json")
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(result, indent=2, ensure_ascii=False))
+    out.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\n[done] wrote {out}")
     return 0
 
