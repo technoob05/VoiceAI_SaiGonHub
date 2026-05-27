@@ -1,0 +1,69 @@
+# ---------- Large data: regenerate via data/download/ scripts ----------
+data/raw/
+data/processed/
+kaggle_uploads/*.zip
+kaggle_uploads/build_log.txt
+
+# ---------- Generated audio / logs ----------
+*.wav
+*.mp3
+*.flac
+*.ogg
+prototype/*.log
+prototype/web_outputs/
+*.log
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+ENV/
+
+# ---------- HuggingFace caches (paranoia — never commit weights) ----------
+.cache/
+hf_cache/
+**/hf_cache/
+
+# ---------- Editor / OS ----------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# ---------- Local secrets ----------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ---------- Build artifacts ----------
+build/
+dist/
+*.so
+*.pyd
+
+# ---------- Jupyter / notebooks (we keep .py self-contained instead) ----------
+*.ipynb
+
+# ---------- Paper drafts (not yet built) ----------
+docs/paper/build/
+docs/paper/*.aux
+docs/paper/*.bbl
+docs/paper/*.blg
+docs/paper/*.log
+docs/paper/*.out
+docs/paper/*.toc
+
+# ---------- Reserve room for results JSON (DO track these) ----------
+# Results/*.json   <- intentionally NOT ignored; we track exp outputs

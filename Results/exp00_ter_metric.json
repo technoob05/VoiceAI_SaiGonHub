@@ -1,0 +1,39 @@
+{
+  "config": {
+    "EXP_ID": "exp00",
+    "MODEL_ID": "vinai/PhoWhisper-small",
+    "DATASET_ID": "AILAB-VNUHCM/vivos",
+    "SPLIT": "test",
+    "MAX_SAMPLES": 500,
+    "BATCH_SIZE": 8,
+    "NUM_WORKERS": 2,
+    "SEED": 42,
+    "LANGUAGE": "vi",
+    "OUTPUT_DIR": "Results",
+    "DEVICE": "auto",
+    "DTYPE": "auto",
+    "DATA_ROOT": "data/processed/vivos"
+  },
+  "metrics": {
+    "ref_syllables": 6,
+    "hyp_syllables": 6,
+    "subs": 2,
+    "ins": 0,
+    "dels": 0,
+    "base_matches": 4,
+    "tone_only_errors": 2,
+    "base_errors": 0,
+    "wer": 0.3333333333333333,
+    "ter": 0.3333333333333333,
+    "ter_given_base_ok": 0.3333333333333333,
+    "confusion": {
+      "huyen->ngang": 1,
+      "nga->ngang": 1
+    },
+    "n_test_utterances": 0,
+    "model_size_mb": null,
+    "mode": "self-test-only"
+  },
+  "wall_clock_seconds": 74.1,
+  "host": "local"
+}
