@@ -120,6 +120,10 @@ class TwoStreamCache:
         )
 
     def lookup(self, fp: TwoStreamFingerprint, target_lang: str) -> Optional[dict]:
+        """Return a dict compatible with UtteranceCache.lookup() so the rest
+        of the pipeline can use either cache interchangeably.
+        Extra fields: tone_score, segment_score, both_streams_agree.
+        """
         self.stats.lookups += 1
         best_id = None
         best_tone, best_seg = -1.0, -1.0
@@ -152,7 +156,16 @@ class TwoStreamCache:
             self.stats.hits += 1
             entry = self._store.pop(best_tone_id)
             self._store[best_tone_id] = entry
-            return {**entry, "tone_score": best_tone, "segment_score": best_seg}
+            # Combined cosine for downstream code that expects single score:
+            # use harmonic mean (penalizes the weaker stream).
+            combined = 2 * best_tone * best_seg / max(best_tone + best_seg, 1e-9)
+            return {
+                **entry,
+                "cosine":             combined,
+                "tone_score":         best_tone,
+                "segment_score":      best_seg,
+                "both_streams_agree": True,
+            }
         return None
 
     def put(self, fp: TwoStreamFingerprint, target_lang: str, result: dict) -> None:

@@ -145,12 +145,15 @@ def main() -> int:
     ap.add_argument("--phrases-per-worker", type=int, default=2)
     ap.add_argument("--repeats",         type=int, default=3)
     ap.add_argument("--out",             default="Results/worker_simulation.json")
+    ap.add_argument("--prewarm",         action="store_true", help="Pre-warm T2 with 42 industrial Vi phrases before each scenario")
+    ap.add_argument("--two-stream",      action="store_true", help="Use two-stream voting cache (paper §3.5)")
     args = ap.parse_args()
 
     from pipeline_fast import FastCascadeS2ST, FastPipelineConfig
-    cfg = FastPipelineConfig(cache_enabled=True, tm_enabled=True, tone_vad_enabled=False)
+    cfg = FastPipelineConfig(cache_enabled=True, tm_enabled=True, tone_vad_enabled=False,
+                              cache_two_stream=args.two_stream)
     pipe = FastCascadeS2ST(cfg)
-    print("[init] warming pipeline ...")
+    print(f"[init] warming pipeline (two_stream={args.two_stream}, prewarm={args.prewarm}) ...")
     pipe._ensure_asr()
     pipe._ensure_mt()
     pipe._ensure_tts("en")
@@ -158,10 +161,25 @@ def main() -> int:
 
     scenarios = []
     for w in args.workers:
-        print(f"\n===== scenario: {w} workers × {args.phrases_per_worker} phrases × {args.repeats} repeats =====")
+        print(f"\n===== scenario: {w} workers × {args.phrases_per_worker} phrases × {args.repeats} repeats "
+              f"(prewarm={args.prewarm}, two_stream={args.two_stream}) =====")
         # Reset caches between scenarios so each one is independent
-        if pipe._utt_cache: pipe._utt_cache._store.clear()
-        if pipe._tm:        pipe._tm._store.clear()
+        if pipe._utt_cache:
+            if hasattr(pipe._utt_cache, "_store"):
+                pipe._utt_cache._store.clear()
+            if hasattr(pipe._utt_cache, "stats"):
+                pipe._utt_cache.stats = type(pipe._utt_cache.stats)()
+        if pipe._tm:
+            pipe._tm._store.clear()
+            pipe._tm.stats = type(pipe._tm.stats)()
+        # Optionally pre-warm T2 with industrial phrases
+        if args.prewarm and pipe._tm is not None:
+            try:
+                from preload_cache import warm_translation_memory
+                warm_summary = warm_translation_memory(pipe, "en", include_audio=False, verbose=False)
+                print(f"  [prewarm] loaded {warm_summary['n_inserted']} industrial Vi phrases into TM")
+            except Exception as e:
+                print(f"  [warn] prewarm failed: {e}")
         res = simulate(pipe, w, args.phrases_per_worker, args.repeats)
         scenarios.append(res)
         if "error" in res:

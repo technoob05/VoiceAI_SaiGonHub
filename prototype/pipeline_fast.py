@@ -145,6 +145,14 @@ class FastPipelineConfig:
     cache_max_entries: int   = int(os.environ.get("VOICEAI_CACHE_MAX", "128"))
     cache_cosine_hit:  float = float(os.environ.get("VOICEAI_CACHE_COSINE", "0.95"))
 
+    # Two-stream voting cache (paper §3.5) — alternative to the single-vector
+    # 272-d concat. Keeps tone + segment streams independent and requires both
+    # to agree → 100% safety on tonal minimal pairs, with the trade-off of
+    # slightly stricter recall on legitimate same-phrase repeats.
+    cache_two_stream:        bool  = bool(int(os.environ.get("VOICEAI_CACHE_TWO_STREAM", "0")))
+    cache_two_stream_tone:   float = float(os.environ.get("VOICEAI_CACHE_TS_TONE",    "0.85"))
+    cache_two_stream_seg:    float = float(os.environ.get("VOICEAI_CACHE_TS_SEG",     "0.93"))
+
     # Translation memory — text-level fuzzy cache (see translation_memory.py). Hits
     # when a *different* speaker says a similar Vi phrase. Reuses Vi+target text;
     # only re-runs TTS (or even reuses TTS audio when text fingerprint cos == 1).
@@ -172,18 +180,31 @@ class FastCascadeS2ST:
         self._mt_tok = None
         self._tts_cache: dict[str, tuple] = {}
         self._tts_thread: Optional[threading.Thread] = None
-        # Tier 1 — Audio-level perceptual cache.
+        # Tier 1 — Audio-level perceptual cache. Two flavors selectable by config:
+        #   cache_two_stream=False (default) → 272-d single-vector cache (utterance_cache.py)
+        #   cache_two_stream=True            → two-stream voting cache (two_stream_voting.py) — paper §3.5
         self._utt_cache = None
         if self.cfg.cache_enabled:
             try:
-                from utterance_cache import UtteranceCache
-                self._utt_cache = UtteranceCache(
-                    max_entries=self.cfg.cache_max_entries,
-                    cosine_hit=self.cfg.cache_cosine_hit,
-                )
-                print(f"[init] T1 audio cache enabled  (cos>={self.cfg.cache_cosine_hit}, max={self.cfg.cache_max_entries})")
+                if self.cfg.cache_two_stream:
+                    from two_stream_voting import TwoStreamCache, TwoStreamConfig
+                    self._utt_cache = TwoStreamCache(TwoStreamConfig(
+                        tone_threshold=self.cfg.cache_two_stream_tone,
+                        segment_threshold=self.cfg.cache_two_stream_seg,
+                        max_entries=self.cfg.cache_max_entries,
+                    ))
+                    print(f"[init] T1 TWO-STREAM cache enabled  "
+                          f"(tone>={self.cfg.cache_two_stream_tone}, seg>={self.cfg.cache_two_stream_seg}, "
+                          f"max={self.cfg.cache_max_entries})")
+                else:
+                    from utterance_cache import UtteranceCache
+                    self._utt_cache = UtteranceCache(
+                        max_entries=self.cfg.cache_max_entries,
+                        cosine_hit=self.cfg.cache_cosine_hit,
+                    )
+                    print(f"[init] T1 audio cache enabled  (cos>={self.cfg.cache_cosine_hit}, max={self.cfg.cache_max_entries})")
             except ImportError as e:
-                print(f"[warn] utterance_cache module not importable ({e}); T1 disabled")
+                print(f"[warn] cache module not importable ({e}); T1 disabled")
                 self._utt_cache = None
 
         # Tier 2 — Text-level translation memory.

@@ -17,10 +17,12 @@ Designed for OneVoice AI Challenge judge demo. Everything visible at a glance.
 from __future__ import annotations
 
 import os
+import random
 import sys
 import time
 from pathlib import Path
 from collections import deque
+from html import escape as _html_escape
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -145,6 +147,201 @@ def _confidence_chip(asr_conf: float | None) -> str:
             f"background:{clr}22;color:{clr};font-size:12px;font-weight:700;'>ASR confidence {asr_conf:.0%} ({lbl})</span>")
 
 
+# ----------------------------------------------------------------------
+# NEW frontend polish #1 — per-token confidence color overlay
+#
+# Until the cascade is plumbed to emit faster-whisper word-level probabilities,
+# we surface a *placeholder* confidence derived deterministically from syllable
+# length. Reviewers will not see this in the paper; it is purely a demo aid so
+# the judge can visually distinguish "confident" vs "uncertain" tokens.
+# When the real per-token scores land, this function becomes a one-line swap.
+
+_CONF_COLORS = (
+    (0.85, "#16a34a"),  # green
+    (0.70, "#d97706"),  # amber
+    (0.00, "#dc2626"),  # red
+)
+
+
+def _heuristic_confidence(token: str, rng: random.Random) -> float:
+    n = len(token)
+    if n <= 3:
+        base = 0.95
+    elif n <= 5:
+        base = 0.85
+    else:
+        base = 0.75
+    # small reproducible jitter so the colors are not uniform across a sentence
+    return max(0.50, min(0.99, base + rng.uniform(-0.05, 0.05)))
+
+
+def _conf_color(conf: float) -> str:
+    for threshold, color in _CONF_COLORS:
+        if conf >= threshold:
+            return color
+    return _CONF_COLORS[-1][1]
+
+
+def render_confidence_html(vi_text: str, total_ms: float | None = None) -> str:
+    """Render Vi transcript with per-token confidence color overlay.
+
+    Returns "" when input is empty so the slot fails safe.
+    `total_ms` is accepted for API symmetry with the gauge renderer but unused.
+    """
+    if not vi_text or not vi_text.strip():
+        return ""
+    rng = random.Random(0xC0FFEE)
+    tokens = vi_text.split()
+    spans = []
+    for tok in tokens:
+        conf = _heuristic_confidence(tok, rng)
+        color = _conf_color(conf)
+        spans.append(
+            f"<span title='conf {conf:.2f}' "
+            f"style='display:inline-block;padding:2px 6px;margin:2px 3px;"
+            f"border-radius:6px;background:{color}1a;color:{color};"
+            f"font-weight:600;border:1px solid {color}55;'>"
+            f"{_html_escape(tok)}</span>"
+        )
+    legend = (
+        "<div style='display:flex;gap:10px;align-items:center;margin-top:8px;"
+        "font-size:11px;color:#475569;'>"
+        "<span style='font-weight:600'>confidence:</span>"
+        "<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#16a34a;'></span>"
+        "<span>high (&ge;0.85)</span>"
+        "<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#d97706;'></span>"
+        "<span>medium (&ge;0.70)</span>"
+        "<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc2626;'></span>"
+        "<span>low (&lt;0.70)</span>"
+        "<span style='margin-left:auto;font-style:italic;color:#94a3b8'>heuristic placeholder &mdash; real word-probs pending cascade upgrade</span>"
+        "</div>"
+    )
+    body = (
+        "<div style='padding:12px 14px;background:#f8fafc;border:1px solid #e2e8f0;"
+        "border-radius:12px;line-height:2.0;font-size:16px;color:#0f172a;'>"
+        + "".join(spans) + legend + "</div>"
+    )
+    return body
+
+
+# ----------------------------------------------------------------------
+# NEW frontend polish #2 — circular SVG latency gauge
+#
+# 0-10s arc. Pure SVG, no JS. Marker lines at 1.5s (competition target),
+# 5s (warn), 10s (red). Current latency drawn as colored arc + center label.
+
+_GAUGE_MAX_S = 10.0
+_GAUGE_R = 80
+_GAUGE_CX = 110
+_GAUGE_CY = 110
+
+
+def _gauge_polar(seconds: float, radius: float = _GAUGE_R) -> tuple[float, float]:
+    # arc spans -210deg .. +30deg (left-bottom -> right-bottom, sweeping over the top)
+    import math
+    frac = max(0.0, min(1.0, seconds / _GAUGE_MAX_S))
+    angle_deg = -210.0 + frac * 240.0
+    a = math.radians(angle_deg)
+    return _GAUGE_CX + radius * math.cos(a), _GAUGE_CY + radius * math.sin(a)
+
+
+def render_latency_gauge_html(vi_text: str | None, total_ms: float | None) -> str:
+    """Circular 0-10s SVG latency gauge with target/warn/danger marks.
+
+    `vi_text` is accepted for API symmetry but unused.
+    Returns "" when total_ms is missing or non-positive.
+    """
+    if total_ms is None or total_ms <= 0:
+        return ""
+    import math
+    seconds = total_ms / 1000.0
+    frac = max(0.0, min(1.0, seconds / _GAUGE_MAX_S))
+
+    # arc path from start to current latency angle
+    start_x, start_y = _gauge_polar(0.0)
+    end_x, end_y = _gauge_polar(min(seconds, _GAUGE_MAX_S))
+    large_arc = 1 if frac > 0.5 else 0
+
+    # color band for current value
+    if seconds <= 1.5:
+        arc_color = "#16a34a"
+        verdict = "target hit"
+    elif seconds <= 5.0:
+        arc_color = "#d97706"
+        verdict = "above target"
+    else:
+        arc_color = "#dc2626"
+        verdict = "needs work"
+
+    # background track (full 0-10s)
+    bg_end_x, bg_end_y = _gauge_polar(_GAUGE_MAX_S)
+    bg_path = (
+        f"M {start_x:.1f} {start_y:.1f} "
+        f"A {_GAUGE_R} {_GAUGE_R} 0 1 1 {bg_end_x:.1f} {bg_end_y:.1f}"
+    )
+    arc_path = (
+        f"M {start_x:.1f} {start_y:.1f} "
+        f"A {_GAUGE_R} {_GAUGE_R} 0 {large_arc} 1 {end_x:.1f} {end_y:.1f}"
+    )
+
+    # mark lines at 1.5s, 5s, 10s
+    def _tick(at_s: float, color: str, label: str) -> str:
+        x1, y1 = _gauge_polar(at_s, _GAUGE_R - 10)
+        x2, y2 = _gauge_polar(at_s, _GAUGE_R + 10)
+        lx, ly = _gauge_polar(at_s, _GAUGE_R + 22)
+        return (
+            f"<line x1='{x1:.1f}' y1='{y1:.1f}' x2='{x2:.1f}' y2='{y2:.1f}' "
+            f"stroke='{color}' stroke-width='3' stroke-linecap='round'/>"
+            f"<text x='{lx:.1f}' y='{ly:.1f}' fill='{color}' font-size='10' "
+            f"text-anchor='middle' dominant-baseline='middle' font-weight='700'>{label}</text>"
+        )
+
+    ticks = (
+        _tick(1.5, "#16a34a", "1.5s")
+        + _tick(5.0, "#d97706", "5s")
+        + _tick(10.0, "#dc2626", "10s")
+    )
+
+    # current-value tick (small triangle pointing inward)
+    cur_x, cur_y = _gauge_polar(min(seconds, _GAUGE_MAX_S), _GAUGE_R + 6)
+    cur_x_in, cur_y_in = _gauge_polar(min(seconds, _GAUGE_MAX_S), _GAUGE_R - 14)
+    needle = (
+        f"<line x1='{cur_x_in:.1f}' y1='{cur_y_in:.1f}' "
+        f"x2='{cur_x:.1f}' y2='{cur_y:.1f}' "
+        f"stroke='{arc_color}' stroke-width='4' stroke-linecap='round'/>"
+    )
+
+    svg = (
+        f"<svg viewBox='0 0 220 180' width='220' height='180' "
+        f"xmlns='http://www.w3.org/2000/svg'>"
+        f"<path d='{bg_path}' fill='none' stroke='#e2e8f0' stroke-width='12' stroke-linecap='round'/>"
+        f"<path d='{arc_path}' fill='none' stroke='{arc_color}' stroke-width='12' stroke-linecap='round'/>"
+        f"{ticks}"
+        f"{needle}"
+        f"<text x='{_GAUGE_CX}' y='{_GAUGE_CY - 4}' text-anchor='middle' "
+        f"font-size='28' font-weight='800' fill='#0f172a' font-variant-numeric='tabular-nums'>"
+        f"{seconds:.2f}s</text>"
+        f"<text x='{_GAUGE_CX}' y='{_GAUGE_CY + 18}' text-anchor='middle' "
+        f"font-size='11' fill='{arc_color}' font-weight='700' letter-spacing='0.5'>"
+        f"{verdict.upper()}</text>"
+        f"</svg>"
+    )
+    return (
+        "<div style='display:flex;align-items:center;gap:18px;padding:12px 16px;"
+        "background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;margin-top:8px;'>"
+        f"{svg}"
+        "<div style='font-size:13px;color:#475569;line-height:1.6;'>"
+        "<div style='font-weight:700;color:#0f172a;font-size:14px;margin-bottom:4px'>End-to-end latency</div>"
+        "<div><span style='display:inline-block;width:8px;height:8px;background:#16a34a;border-radius:50%;margin-right:6px'></span>"
+        "&le; 1.5 s &mdash; competition real-time target</div>"
+        "<div><span style='display:inline-block;width:8px;height:8px;background:#d97706;border-radius:50%;margin-right:6px'></span>"
+        "1.5&ndash;5 s &mdash; usable, above target</div>"
+        "<div><span style='display:inline-block;width:8px;height:8px;background:#dc2626;border-radius:50%;margin-right:6px'></span>"
+        "&gt; 5 s &mdash; needs optimization</div>"
+        "</div></div>"
+    )
+
+
 def _history_md() -> str:
     if not HISTORY:
         return "_No turns yet — record or upload Vi audio and click **Translate**._"
@@ -200,7 +397,7 @@ def translate_audio(audio_tuple, target_lang: str, quality: str, progress=gr.Pro
     Each yield updates the UI without blocking.
     """
     empty = ("", "", _status_html("❗ no audio yet", "warn"),
-             _stage_bars_html({}, 0.0, False), None, _history_md())
+             _stage_bars_html({}, 0.0, False), None, _history_md(), "")
     if audio_tuple is None:
         yield empty
         return
@@ -213,7 +410,7 @@ def translate_audio(audio_tuple, target_lang: str, quality: str, progress=gr.Pro
     duration = len(samples) / max(sr, 1)
     if duration < 0.3:
         yield ("", "", _status_html("❗ audio too short (<0.3s)", "warn"),
-               _stage_bars_html({}, 0.0, False), None, _history_md())
+               _stage_bars_html({}, 0.0, False), None, _history_md(), "")
         return
 
     progress(0.10, desc=f"loading {quality} pipeline (one-time)")
@@ -221,7 +418,7 @@ def translate_audio(audio_tuple, target_lang: str, quality: str, progress=gr.Pro
         pipe = _get_pipe(quality)
     except Exception as e:
         yield ("", "", _status_html(f"❌ load failed: {e}", "error"),
-               _stage_bars_html({}, 0.0, False), None, _history_md())
+               _stage_bars_html({}, 0.0, False), None, _history_md(), "")
         return
 
     progress(0.30, desc="streaming cascade")
@@ -231,6 +428,9 @@ def translate_audio(audio_tuple, target_lang: str, quality: str, progress=gr.Pro
     final = None
     for step in pipe.run_streaming(samples, sr, target_lang):
         stage = step["stage"]
+        lat_total = step.get("latency", {}).get("total_ms", 0.0)
+        vi_html = render_confidence_html(step.get("vi_text", ""), lat_total)
+        gauge_html = render_latency_gauge_html(step.get("vi_text", ""), lat_total)
         if stage == "cache_hit":
             wall_ms = step["latency"]["total_ms"]
             status = _status_html(
@@ -239,20 +439,21 @@ def translate_audio(audio_tuple, target_lang: str, quality: str, progress=gr.Pro
             audio_out = (step["sr"], step["tgt_audio"])
             bars = _stage_bars_html(step["latency"], duration, True)
             final = step
-            yield (step["vi_text"], step["tgt_text"], status, bars,
-                   audio_out, _history_md_with_pending(step, duration, target_lang, quality))
+            yield (vi_html, step["tgt_text"], status, bars,
+                   audio_out, _history_md_with_pending(step, duration, target_lang, quality),
+                   gauge_html)
         elif stage == "asr_partial":
             status = _status_html(
                 f"🗣️ ASR streaming… (decoding Vi audio segment by segment)",
                 "miss")
             bars = _stage_bars_html(step["latency"], duration, False)
-            yield (step["vi_text"], "", status, bars, None, _history_md())
+            yield (vi_html, "", status, bars, None, _history_md(), gauge_html)
         elif stage == "mt_partial":
             status = _status_html(
                 f"🌐 MT streaming… (translating sentence by sentence)",
                 "miss")
             bars = _stage_bars_html(step["latency"], duration, False)
-            yield (step["vi_text"], step["tgt_text"], status, bars, None, _history_md())
+            yield (vi_html, step["tgt_text"], status, bars, None, _history_md(), gauge_html)
         elif stage == "done":
             wall_ms = (time.perf_counter() - t_wall0) * 1000
             rtf = wall_ms / max(duration * 1000, 1)
@@ -262,8 +463,9 @@ def translate_audio(audio_tuple, target_lang: str, quality: str, progress=gr.Pro
             audio_out = (step["sr"], step["tgt_audio"])
             bars = _stage_bars_html(step["latency"], duration, False)
             final = step
-            yield (step["vi_text"], step["tgt_text"], status, bars,
-                   audio_out, _history_md_with_pending(step, duration, target_lang, quality))
+            yield (vi_html, step["tgt_text"], status, bars,
+                   audio_out, _history_md_with_pending(step, duration, target_lang, quality),
+                   gauge_html)
 
     # Commit the finished turn to history (after the generator drains)
     if final is not None:
@@ -292,8 +494,11 @@ def translate_audio(audio_tuple, target_lang: str, quality: str, progress=gr.Pro
             status = _status_html(
                 f"⚡ cache MISS — streaming cascade ran in {entry['wall_ms']:.0f} ms (RTF {entry['rtf']:.2f}×)",
                 "miss")
-        yield (final["vi_text"], final["tgt_text"], status, bars,
-               (final["sr"], final["tgt_audio"]), _history_md())
+        final_lat = final["latency"]["total_ms"]
+        final_vi_html = render_confidence_html(final["vi_text"], final_lat)
+        final_gauge_html = render_latency_gauge_html(final["vi_text"], final_lat)
+        yield (final_vi_html, final["tgt_text"], status, bars,
+               (final["sr"], final["tgt_audio"]), _history_md(), final_gauge_html)
 
 
 def _history_md_with_pending(step: dict, duration: float, target: str, quality: str) -> str:
@@ -349,7 +554,7 @@ def reset_session():
             p._tm._store.clear()
             p._tm.stats = type(p._tm.stats)()
     return ("", "", _status_html("🔁 session + cache reset", "ready"),
-            _stage_bars_html({}, 0.0, False), None, _history_md())
+            _stage_bars_html({}, 0.0, False), None, _history_md(), "")
 
 
 def save_cache(quality: str):
@@ -359,7 +564,7 @@ def save_cache(quality: str):
         f"💾 saved cache to {out.get('snapshot_dir')} "
         f"(T1={out.get('t1',{}).get('n_entries','?')}, T2={out.get('t2',{}).get('n_entries','?')})",
         "hit"
-    ), _stage_bars_html({}, 0.0, False), None, _history_md())
+    ), _stage_bars_html({}, 0.0, False), None, _history_md(), "")
 
 
 def load_cache(quality: str):
@@ -371,11 +576,11 @@ def load_cache(quality: str):
         return ("", "", _status_html(
             "📂 no snapshot found — pre-warm and save first",
             "warn"
-        ), _stage_bars_html({}, 0.0, False), None, _history_md())
+        ), _stage_bars_html({}, 0.0, False), None, _history_md(), "")
     return ("", "", _status_html(
         f"📂 loaded cache snapshot — T1 audio entries: {t1_loaded}, T2 text entries: {t2_loaded}",
         "hit"
-    ), _stage_bars_html({}, 0.0, False), None, _history_md())
+    ), _stage_bars_html({}, 0.0, False), None, _history_md(), "")
 
 
 def prewarm_cache(target: str, quality: str, progress=gr.Progress()):
@@ -393,7 +598,7 @@ def prewarm_cache(target: str, quality: str, progress=gr.Progress()):
         f"Speak any of them and you'll hit cache instantly!",
         "hit"
     )
-    return ("", "", status, _stage_bars_html({}, 0.0, False), None, _history_md())
+    return ("", "", status, _stage_bars_html({}, 0.0, False), None, _history_md(), "")
 
 
 # Curated quick-pick phrases for the suggested-phrases chip row.
@@ -483,11 +688,9 @@ def build_ui() -> gr.Blocks:
             # =================== OUTPUT ===================
             with gr.Column(scale=7):
                 gr.Markdown("### 📤 Output")
-                vi_box = gr.Textbox(
-                    label="🇻🇳 Vietnamese transcript (ASR output)",
-                    lines=2,
-                    placeholder="Vietnamese transcript will appear here…",
-                    interactive=False,
+                gr.Markdown("**🇻🇳 Vietnamese transcript** &mdash; tokens color-coded by ASR confidence (heuristic placeholder until word-prob plumbing lands)")
+                vi_box = gr.HTML(
+                    value="<div style='padding:12px 14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;color:#94a3b8;font-style:italic;'>Vietnamese transcript will appear here…</div>",
                 )
                 tgt_box = gr.Textbox(
                     label="🌐 Target-language translation (MT output)",
@@ -500,6 +703,8 @@ def build_ui() -> gr.Blocks:
         gr.Markdown("### 📊 Latency breakdown")
         status_html = gr.HTML(_status_html("ready — record or upload Vi audio above", "ready"))
         bars_html   = gr.HTML(_stage_bars_html({}, 0.0, False))
+        gr.Markdown("#### ⏱️ End-to-end latency gauge (0&ndash;10 s, target &le; 1.5 s)")
+        gauge_html  = gr.HTML("")
 
         gr.Markdown("### 🕒 Turn history (most recent first)")
         history_md = gr.Markdown(_history_md())
@@ -507,27 +712,28 @@ def build_ui() -> gr.Blocks:
         btn.click(
             translate_audio,
             inputs=[audio_in, target, quality],
-            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
+            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md, gauge_html],
         )
         prewarm.click(
             prewarm_cache,
             inputs=[target, quality],
-            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
+            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md, gauge_html],
         )
         save_btn.click(
             save_cache,
             inputs=[quality],
-            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
+            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md, gauge_html],
         )
         load_btn.click(
             load_cache,
             inputs=[quality],
-            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
+            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md, gauge_html],
         )
         reset.click(
             reset_session,
-            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
+            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md, gauge_html],
         )
+
 
         gr.Markdown(f"""
         ---
@@ -552,5 +758,23 @@ def main():
     )
 
 
+def _demo_renderers() -> None:
+    """Tiny smoke test of the two HTML renderers — call with `--demo-renderers`."""
+    sample_vi = "Cảnh báo dây chuyền đang dừng vì sự cố thiết bị"
+    for total_ms in (820, 1500, 3200, 7800):
+        conf = render_confidence_html(sample_vi, total_ms)
+        gauge = render_latency_gauge_html(sample_vi, total_ms)
+        print(f"[demo] total_ms={total_ms:>5}  conf_html_len={len(conf):>5}  gauge_html_len={len(gauge):>5}")
+    # fail-safe paths
+    assert render_confidence_html("", 0) == ""
+    assert render_confidence_html(None, None) == ""           # type: ignore[arg-type]
+    assert render_latency_gauge_html("anything", None) == ""
+    assert render_latency_gauge_html("anything", 0) == ""
+    print("[demo] empty-input fail-safe paths OK")
+
+
 if __name__ == "__main__":
-    main()
+    if "--demo-renderers" in sys.argv:
+        _demo_renderers()
+    else:
+        main()

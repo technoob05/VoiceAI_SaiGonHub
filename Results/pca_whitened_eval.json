@@ -1,0 +1,16 @@
+{
+  "n_train_samples": 20,
+  "fingerprint_dim": 272,
+  "results": {
+    "naive_l2": {
+      "intra_tone_cos": 0.9175,
+      "inter_syl_cos": 0.8995,
+      "protect_gap": -0.0181
+    },
+    "pca_whitened": {
+      "intra_tone_cos": 0.6483,
+      "inter_syl_cos": 0.5789,
+      "protect_gap": -0.0694
+    }
+  }
+}
