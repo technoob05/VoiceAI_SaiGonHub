@@ -128,12 +128,68 @@ Cascaded CPU inference on a single VIVOSDEV01_R002 utterance, same input, identi
 | **INT8 cascade warmed** (faster-whisper + CT2-NLLB + dyn-INT8 VITS) | **6,703 ms** | **1.65×** | **5.4×** |
 | **INT8 + tonal-perceptual cache hit** | **25 ms** | **0.01×** | **1,441×** |
 
-Tonal-perceptual cache is novel: 272-dim fingerprint = Vi tone histogram + temporal-subsampled MFCC + first-difference deltas + F0 stats + energy stats. Discrimination on VIVOS speakers: self-match cos 1.00, jittered same-phrase 0.95-0.99, different-phrase 0.82-0.91 → clean 4pp gap at threshold 0.95. See [prototype/utterance_cache.py](prototype/utterance_cache.py) and [prototype/demo_wow.py](prototype/demo_wow.py).
+Tonal-perceptual cache is novel: 272-dim fingerprint = Vi tone histogram + temporal-subsampled MFCC + first-difference deltas + F0 stats + energy stats. Discrimination on VIVOS speakers: self-match cos 1.00, jittered same-phrase 0.95-0.99, different-phrase 0.82-0.91 → clean 4pp gap at threshold 0.95.
+
+## Optimization stack — 8 layers for paper sections
+
+| § | Layer | File | Novel? | Speedup contribution |
+|---|---|---|---|---|
+| 3.1 | **INT8 substrate** | [pipeline_fast.py](prototype/pipeline_fast.py) | engineering | 5.4× cascade |
+| 3.2 | **Streaming progressive UI** | [pipeline_fast.py::run_streaming](prototype/pipeline_fast.py) | UX | perceived <1s |
+| 3.3 | **Tonal-perceptual audio cache (T1)** | [utterance_cache.py](prototype/utterance_cache.py) | **novel** | 1,441× on hit |
+| 3.4 | **Diacritic-robust text cache (T2)** | [translation_memory.py](prototype/translation_memory.py) | **novel** | skip MT (~3× on cross-speaker hit) |
+| 3.5 | **Industrial-phrase pre-warming** | [industrial_phrases.json](prototype/industrial_phrases.json) + [preload_cache.py](prototype/preload_cache.py) | **novel** | 1st-time hit |
+| 3.6 | **Tonal-language VAD** | [tone_vad.py](prototype/tone_vad.py) | **novel** | rejects garbage (~10 ms) |
+| 3.7 | **Persistent cache snapshots** | [persistent_cache.py](prototype/persistent_cache.py) | engineering | cross-session reuse |
+| 3.8 | **(planned) tone-aware mixed-precision quantization** | [CLAUDE.md](CLAUDE.md) §4 + `exp/exp04..07_*.py` | **novel** — method-paper spine | INT4 + tone preservation |
 
 Reproduce:
 ```bash
 python prototype/bench_compare.py --n 5 --target en --out Results/bench_compare_en_n5.json
-python prototype/demo_wow.py --target en       # 3-regime side-by-side
+python prototype/demo_wow.py --target en       # 3-regime CLI side-by-side
+python prototype/web_demo_wow.py               # Gradio live UI on :7862
+```
+
+### Architecture (cascade with cache tiers)
+
+```
+                  audio
+                    │
+                    ▼
+              ┌───────────┐    reject?
+              │ tone-VAD  ├──── 🛑 noise / silence / hum
+              └─────┬─────┘
+                    │ accept
+                    ▼
+              ┌───────────┐    hit (cos ≥ 0.95)
+              │ T1 audio  ├──── 🎯 reuse vi + tgt + audio (~25 ms)
+              │   cache   │
+              └─────┬─────┘
+                    │ miss
+                    ▼
+              ┌───────────┐
+              │ faster-   │ ← INT8, streaming, emits partial Vi text
+              │ whisper   │
+              └─────┬─────┘
+                    │ vi_text
+                    ▼
+              ┌───────────┐    hit (cos ≥ 0.80)
+              │ T2 text   ├──── 🔁 reuse tgt, run TTS only (~3 s)
+              │   memory  │
+              └─────┬─────┘
+                    │ miss
+                    ▼
+              ┌───────────┐
+              │ CT2 NLLB  │ ← INT8, sentence-by-sentence
+              └─────┬─────┘
+                    │ tgt_text
+                    ▼
+              ┌───────────┐
+              │ MMS-TTS   │ ← dyn-INT8 Linear quantization
+              └─────┬─────┘
+                    │
+                    ▼
+                 target speech
 ```
 
 ## Status
