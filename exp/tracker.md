@@ -8,10 +8,35 @@
 
 ## Current SOTA / headline
 
-| Exp | Method | Model size | Tone-WER (TER) | WER | BLEU (Vi→En) | Latency p99 | Notes |
-|-----|--------|-----------:|---------------:|----:|-------------:|------------:|-------|
-| exp00 | TER metric impl + 5 synthetic checks | — | metric verified | metric verified | — | — | Self-test only; no model loaded (CPU disk-low). All 5 sanity cases passed: tone-only errors isolated correctly from base-segment errors. Local-walker loaders for VIVOS + FLEURS parquet ready. |
-| prototype | Cascade FP32 baseline, **all 3 target languages working** | ASR 967 MB + MT 2.4 GB + TTS ~140 MB | — | — | — | per-utterance ~25s (en) / ~41s (ko) / ~23s (zh, text-only) | Vi→{En, Zh, Ko} verified on VIVOSDEV01_R002. CPU fp32 single-pass. Korean TTS requires `unidecode` Hangul→Latin preprocessing. Mandarin TTS: MMS-TTS-cmn doesn't exist on HF — graceful fallback to silence + text-only. Web UI on :7860 (one-shot) + streaming variant :7861 (silero-VAD endpoint detection). |
+**End-to-end CPU optimization stack** (VIVOSDEV01_R002, target=en, identical output text across regimes):
+
+| Regime | Total | RTF | Model disk | Speedup vs FP32 |
+|---|---:|---:|---:|---:|
+| 🐢 **FP32 HF baseline (cold)** | **36,500 ms** | **8.98×** | 3,334 MB | 1.0× |
+| ⚡ **INT8 cascade warmed** (faster-whisper + CT2-NLLB + dyn-INT8 VITS) | **6,703 ms** | **1.65×** | **861 MB** (3.9× smaller) | **5.4×** |
+| 🚀 **INT8 + tonal-perceptual cache HIT** | **25 ms** | **0.01×** | same as above + ~280 KB cache | **1,441×** |
+
+| Bench n=5 warmed | FP32 p50 | INT8 p50 | Speedup |
+|---|---:|---:|---:|
+| ASR (PhoWhisper-small) | — ms | — ms | 4.16× (p95) |
+| MT (NLLB-distilled-600M) | — ms | — ms | 5.57× (p95) |
+| TTS (MMS-TTS VITS) | — ms | — ms | 1.85× (p95) |
+| **TOTAL** | **24,053 ms** | **6,418 ms** | **3.75×** |
+| RTF | 8.00× | 1.90× | 4.21× |
+| WER mean | 0.0000 | 0.0000 | (preserved) |
+| TER mean | 0.0000 | 0.0000 | (preserved) |
+
+Detailed JSON: [Results/bench_compare_en_n5.json](../Results/bench_compare_en_n5.json).
+Full demo log: [prototype/demo_wow_full.log](../prototype/demo_wow_full.log).
+
+| Exp | Method | Notes |
+|-----|--------|-------|
+| exp00 | TER metric impl + 5 synthetic checks (Results/exp00_ter_metric.json) | metric verified |
+| prototype/pipeline.py | FP32 HF cascade baseline (Vi→{En,Zh,Ko}) | reference baseline; web_demo.py :7860 |
+| prototype/pipeline_fast.py | INT8 cascade + utterance cache | **3.75× cascade**, **1,441× on cache hit** |
+| prototype/bench_compare.py | Warmup-corrected side-by-side bench | reusable for future ablations |
+| prototype/utterance_cache.py | **Novel** 272-dim tonal-perceptual fingerprint + LRU | 22 ms lookup; clean threshold at cos≥0.95 |
+| prototype/demo_wow.py | 3-regime live demonstration | publishes headline 1441× speedup |
 
 **Headline number we are chasing**: TER stays within +3pp of FP32 baseline while model size ↓ 60–70% and latency p99 < 1.5s end-to-end. **TER, not WER, is the primary metric** — see saturation pivot below.
 

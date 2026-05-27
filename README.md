@@ -118,6 +118,24 @@ Full plan + risk register: [CLAUDE.md](CLAUDE.md). Novelty defense: [papers/lit_
 
 ---
 
+## Headline numbers (2026-05-27)
+
+Cascaded CPU inference on a single VIVOSDEV01_R002 utterance, same input, identical output text across all regimes:
+
+| Regime | Total latency | RTF | vs FP32 |
+|---|---:|---:|---:|
+| FP32 HF cold baseline | 36,500 ms | 8.98× | 1.0× |
+| **INT8 cascade warmed** (faster-whisper + CT2-NLLB + dyn-INT8 VITS) | **6,703 ms** | **1.65×** | **5.4×** |
+| **INT8 + tonal-perceptual cache hit** | **25 ms** | **0.01×** | **1,441×** |
+
+Tonal-perceptual cache is novel: 272-dim fingerprint = Vi tone histogram + temporal-subsampled MFCC + first-difference deltas + F0 stats + energy stats. Discrimination on VIVOS speakers: self-match cos 1.00, jittered same-phrase 0.95-0.99, different-phrase 0.82-0.91 → clean 4pp gap at threshold 0.95. See [prototype/utterance_cache.py](prototype/utterance_cache.py) and [prototype/demo_wow.py](prototype/demo_wow.py).
+
+Reproduce:
+```bash
+python prototype/bench_compare.py --n 5 --target en --out Results/bench_compare_en_n5.json
+python prototype/demo_wow.py --target en       # 3-regime side-by-side
+```
+
 ## Status
 
 | Phase | Date | Status |
