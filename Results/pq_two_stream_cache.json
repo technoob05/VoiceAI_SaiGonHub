@@ -1,0 +1,45 @@
+{
+  "round_trip": {
+    "n_entries": 20,
+    "hits": 15,
+    "hit_rate": 0.75,
+    "mean_cosine": 0.9869
+  },
+  "memory": {
+    "n_entries": 200,
+    "raw_per_entry": 1064,
+    "pq_per_entry": 25,
+    "raw_total_bytes": 212800,
+    "pq_total_bytes": 5000,
+    "compression_ratio": 42.56,
+    "trained": true
+  },
+  "minimal_pair_safety": {
+    "total": 25,
+    "correct_misses": 22,
+    "false_hits": 3,
+    "correct_miss_rate": 0.88
+  },
+  "cache_summary": {
+    "n_entries": 41,
+    "tone_bytes": 492,
+    "segment_bytes": 533,
+    "total_bytes": 1025,
+    "trained": true,
+    "max_entries": 4096,
+    "lookups": 25,
+    "hits": 3,
+    "both_hits": 3,
+    "tone_only_hits": 1,
+    "segment_only_hits": 11,
+    "hit_rate": 0.12,
+    "seg_threshold_cfg": 0.93,
+    "seg_threshold_effective": 0.8525,
+    "pq_self_error": {
+      "mean": 0.013741861650942155,
+      "std": 0.02126734338550785,
+      "max": 0.04057702186401002,
+      "n": 8
+    }
+  }
+}
