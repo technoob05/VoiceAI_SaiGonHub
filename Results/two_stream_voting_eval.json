@@ -1,0 +1,15 @@
+{
+  "self_hit_rate": 1.0,
+  "tonal_variant_correct_miss_rate": 1.0,
+  "tonal_variant_false_hit_rate": 0.0,
+  "cache_stats": {
+    "n_entries": 5,
+    "max_entries": 128,
+    "lookups": 25,
+    "hits": 0,
+    "both_hits": 0,
+    "tone_only_hits": 3,
+    "segment_only_hits": 5,
+    "hit_rate": 0.0
+  }
+}

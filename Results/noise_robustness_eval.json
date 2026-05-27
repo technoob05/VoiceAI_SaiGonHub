@@ -1,0 +1,101 @@
+{
+  "n_utterances": 10,
+  "snr_curves": [
+    {
+      "snr_db_target": 40.0,
+      "snr_db_est_in_mean": 27.72,
+      "snr_db_est_out_mean": 27.72,
+      "cache_cosine_raw_mean": 0.9957,
+      "cache_cosine_raw_std": 0.0035,
+      "cache_cosine_filtered_mean": 0.9957,
+      "cache_cosine_filtered_std": 0.0035,
+      "hits_raw_at_0.95": 10,
+      "hits_filtered_at_0.95": 10,
+      "n_total": 10
+    },
+    {
+      "snr_db_target": 30.0,
+      "snr_db_est_in_mean": 25.29,
+      "snr_db_est_out_mean": 25.29,
+      "cache_cosine_raw_mean": 0.9844,
+      "cache_cosine_raw_std": 0.0081,
+      "cache_cosine_filtered_mean": 0.9844,
+      "cache_cosine_filtered_std": 0.0081,
+      "hits_raw_at_0.95": 10,
+      "hits_filtered_at_0.95": 10,
+      "n_total": 10
+    },
+    {
+      "snr_db_target": 20.0,
+      "snr_db_est_in_mean": 13.58,
+      "snr_db_est_out_mean": 11.07,
+      "cache_cosine_raw_mean": 0.9511,
+      "cache_cosine_raw_std": 0.0244,
+      "cache_cosine_filtered_mean": 0.9708,
+      "cache_cosine_filtered_std": 0.0072,
+      "hits_raw_at_0.95": 6,
+      "hits_filtered_at_0.95": 10,
+      "n_total": 10
+    },
+    {
+      "snr_db_target": 15.0,
+      "snr_db_est_in_mean": 6.83,
+      "snr_db_est_out_mean": 1.03,
+      "cache_cosine_raw_mean": 0.8941,
+      "cache_cosine_raw_std": 0.067,
+      "cache_cosine_filtered_mean": 0.9621,
+      "cache_cosine_filtered_std": 0.011,
+      "hits_raw_at_0.95": 3,
+      "hits_filtered_at_0.95": 9,
+      "n_total": 10
+    },
+    {
+      "snr_db_target": 10.0,
+      "snr_db_est_in_mean": 4.25,
+      "snr_db_est_out_mean": -3.75,
+      "cache_cosine_raw_mean": 0.6994,
+      "cache_cosine_raw_std": 0.2139,
+      "cache_cosine_filtered_mean": 0.9469,
+      "cache_cosine_filtered_std": 0.0115,
+      "hits_raw_at_0.95": 0,
+      "hits_filtered_at_0.95": 5,
+      "n_total": 10
+    },
+    {
+      "snr_db_target": 5.0,
+      "snr_db_est_in_mean": 2.4,
+      "snr_db_est_out_mean": -8.58,
+      "cache_cosine_raw_mean": 0.2092,
+      "cache_cosine_raw_std": 0.3764,
+      "cache_cosine_filtered_mean": 0.9212,
+      "cache_cosine_filtered_std": 0.0185,
+      "hits_raw_at_0.95": 0,
+      "hits_filtered_at_0.95": 0,
+      "n_total": 10
+    },
+    {
+      "snr_db_target": 0.0,
+      "snr_db_est_in_mean": 1.28,
+      "snr_db_est_out_mean": -13.01,
+      "cache_cosine_raw_mean": -0.4509,
+      "cache_cosine_raw_std": 0.1151,
+      "cache_cosine_filtered_mean": 0.8937,
+      "cache_cosine_filtered_std": 0.0248,
+      "hits_raw_at_0.95": 0,
+      "hits_filtered_at_0.95": 0,
+      "n_total": 10
+    },
+    {
+      "snr_db_target": -5.0,
+      "snr_db_est_in_mean": 0.58,
+      "snr_db_est_out_mean": -16.51,
+      "cache_cosine_raw_mean": -0.6978,
+      "cache_cosine_raw_std": 0.0464,
+      "cache_cosine_filtered_mean": 0.8185,
+      "cache_cosine_filtered_std": 0.0599,
+      "hits_raw_at_0.95": 0,
+      "hits_filtered_at_0.95": 0,
+      "n_total": 10
+    }
+  ]
+}

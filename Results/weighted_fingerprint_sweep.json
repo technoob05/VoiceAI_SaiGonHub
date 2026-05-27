@@ -1,0 +1,167 @@
+{
+  "syllable_groups": {
+    "ma": [
+      "ma",
+      "má",
+      "mả",
+      "mạ",
+      "mã",
+      "mà"
+    ],
+    "ba": [
+      "ba",
+      "bá",
+      "bả",
+      "bạ",
+      "bã",
+      "bà"
+    ],
+    "ca": [
+      "ca",
+      "cá",
+      "cả",
+      "cạ",
+      "cã",
+      "cà"
+    ],
+    "la": [
+      "la",
+      "lá",
+      "lả",
+      "lạ",
+      "lã",
+      "là"
+    ],
+    "da": [
+      "da",
+      "dá",
+      "dả",
+      "dạ",
+      "dã",
+      "dà"
+    ],
+    "ta": [
+      "ta",
+      "tá",
+      "tả",
+      "tạ",
+      "tã",
+      "tà"
+    ]
+  },
+  "carrier": "nói {syl}",
+  "schemes": [
+    {
+      "label": "uniform_1",
+      "weights": {
+        "A_tone": 1.0,
+        "B_mfcc": 1.0,
+        "C_delta": 1.0,
+        "D_f0": 1.0,
+        "E_energy": 1.0
+      },
+      "intra_tone_cos_mean": 0.8654,
+      "inter_syl_cos_mean": 0.845,
+      "protect_gap": -0.0204,
+      "protects_minimal_pairs": false
+    },
+    {
+      "label": "tone_boost_2",
+      "weights": {
+        "A_tone": 2.0,
+        "B_mfcc": 1.0,
+        "C_delta": 1.0,
+        "D_f0": 1.0,
+        "E_energy": 1.0
+      },
+      "intra_tone_cos_mean": 0.7674,
+      "inter_syl_cos_mean": 0.7427,
+      "protect_gap": -0.0247,
+      "protects_minimal_pairs": false
+    },
+    {
+      "label": "tone_boost_5",
+      "weights": {
+        "A_tone": 5.0,
+        "B_mfcc": 1.0,
+        "C_delta": 1.0,
+        "D_f0": 1.0,
+        "E_energy": 1.0
+      },
+      "intra_tone_cos_mean": 0.6491,
+      "inter_syl_cos_mean": 0.6192,
+      "protect_gap": -0.0299,
+      "protects_minimal_pairs": false
+    },
+    {
+      "label": "tone_boost_10",
+      "weights": {
+        "A_tone": 10.0,
+        "B_mfcc": 1.0,
+        "C_delta": 1.0,
+        "D_f0": 1.0,
+        "E_energy": 1.0
+      },
+      "intra_tone_cos_mean": 0.6166,
+      "inter_syl_cos_mean": 0.5853,
+      "protect_gap": -0.0313,
+      "protects_minimal_pairs": false
+    },
+    {
+      "label": "tone_boost_20",
+      "weights": {
+        "A_tone": 20.0,
+        "B_mfcc": 1.0,
+        "C_delta": 1.0,
+        "D_f0": 1.0,
+        "E_energy": 1.0
+      },
+      "intra_tone_cos_mean": 0.6073,
+      "inter_syl_cos_mean": 0.5756,
+      "protect_gap": -0.0317,
+      "protects_minimal_pairs": false
+    },
+    {
+      "label": "tone+f0_boost",
+      "weights": {
+        "A_tone": 5.0,
+        "B_mfcc": 1.0,
+        "C_delta": 1.0,
+        "D_f0": 3.0,
+        "E_energy": 1.0
+      },
+      "intra_tone_cos_mean": 0.7246,
+      "inter_syl_cos_mean": 0.7011,
+      "protect_gap": -0.0235,
+      "protects_minimal_pairs": false
+    },
+    {
+      "label": "tone_only_via_weight",
+      "weights": {
+        "A_tone": 100.0,
+        "B_mfcc": 0.0,
+        "C_delta": 0.0,
+        "D_f0": 0.0,
+        "E_energy": 0.0
+      },
+      "intra_tone_cos_mean": 0.6041,
+      "inter_syl_cos_mean": 0.5722,
+      "protect_gap": -0.0319,
+      "protects_minimal_pairs": false
+    },
+    {
+      "label": "mfcc_only_via_weight",
+      "weights": {
+        "A_tone": 0.0,
+        "B_mfcc": 1.0,
+        "C_delta": 1.0,
+        "D_f0": 0.0,
+        "E_energy": 0.0
+      },
+      "intra_tone_cos_mean": 0.863,
+      "inter_syl_cos_mean": 0.8284,
+      "protect_gap": -0.0346,
+      "protects_minimal_pairs": false
+    }
+  ]
+}

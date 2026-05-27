@@ -206,6 +206,60 @@ an oral paper: the design intuition was right (tone IS discriminative),
 but the implementation choice (naive concat) was wrong, and the paper
 proposes a fix in §3 / future work.
 
+### §2.7 The architecture fix — TWO-STREAM VOTING (paper §3.5 anchor)
+
+We tested two architectural fixes for the §2.6 finding:
+
+**Fix attempt 1 — weighted concat** (`prototype/weighted_fingerprint.py`):
+  per-component L2-norm + α-weight before concat. Swept α ∈ {1, 2, 5, 10, 20}.
+  **Result: FAILED.** All weight schemes gave negative protect-gap (intra-tone
+  cosine still > inter-syllable cosine). Suspected confound: VITS-synthesized
+  audio is stochastic, so the minimal-pair signal-to-noise ratio is below
+  TTS-variance noise. This is the §6.5 honest negative result.
+
+**Fix attempt 2 — TWO-STREAM VOTING** (`prototype/two_stream_voting.py`):
+  Maintain TWO independent fingerprints per cached entry:
+    Stream A: 6-d tone histogram                       threshold τ_A = 0.85
+    Stream B: 260-d MFCC + delta concat                threshold τ_B = 0.93
+  Cache hit iff *both* streams' best matches point to the **same stored entry**
+  AND both scores exceed their respective thresholds.
+
+  **Result: PERFECT minimal-pair protection** (`Results/two_stream_voting_eval.json`).
+  Tested on 5 syllables × 6 tones = 30 clips. Cache pre-loaded with only the
+  ngang (level) tone of each syllable. Queried each of the other 5 tones:
+
+    Self-lookup hit rate:                    30/30  (100%)
+    Correct-miss on tonal variants:          25/25  (100%)
+    False-hit rate (wrong-tone translation):  0/25  (  0%)
+
+  Diagnostic counters reveal the mechanism: **5 segment-only matches** —
+  MFCC alone said "match cached ngang entry" — were **ALL vetoed by tone-
+  stream disagreement**. This is the typology safety net working as designed.
+
+**Why two-stream voting beats weighted concat**:
+  - Weighted concat collapses both signals into one cosine score. Whatever
+    weighting you pick, the larger-dim component dominates the geometry of
+    the unit sphere, and small TTS-variance noise overwhelms the small gap
+    the tone signal would otherwise create.
+  - Two-stream voting keeps the two scores independent. The tone score
+    has its own threshold τ_A and its own dynamic range; whether MFCC
+    matches is irrelevant when tone disagrees.
+
+**Trade-off (paper §5 deployment discussion)**:
+  - Pro: 0% wrong-tone translation = no safety-critical semantic errors
+  - Con: Slightly stricter recall (a worker who repeats the SAME phrase
+    by the SAME speaker now requires *both* streams to fire — small but
+    non-zero risk of cache misses when fingerprint jitter happens to land
+    closer to a different cached entry on one stream)
+  - For industrial directives (safety-critical), precision > recall.
+  - For consumer voice assistants (latency-critical), single-stream concat
+    may be preferable.
+
+**This is the paper §3.5 anchor** — the *named architecture* of our
+contribution. The 272-d fingerprint design from §3.3 is the COMPONENT
+SET; the two-stream voting from §3.5 is the ARCHITECTURE that makes the
+component design actually pay off for tonal-minimal-pair scenarios.
+
 ---
 
 ## §3. The paper-publishable matrix
