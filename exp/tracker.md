@@ -11,6 +11,7 @@
 | Exp | Method | Model size | Tone-WER (TER) | WER | BLEU (Vi→En) | Latency p99 | Notes |
 |-----|--------|-----------:|---------------:|----:|-------------:|------------:|-------|
 | exp00 | TER metric impl + 5 synthetic checks | — | metric verified | metric verified | — | — | Self-test only; no model loaded (CPU disk-low). All 5 sanity cases passed: tone-only errors isolated correctly from base-segment errors. Local-walker loaders for VIVOS + FLEURS parquet ready. |
+| prototype | Cascade FP32 baseline, **all 3 target languages working** | ASR 967 MB + MT 2.4 GB + TTS ~140 MB | — | — | — | per-utterance ~25s (en) / ~41s (ko) / ~23s (zh, text-only) | Vi→{En, Zh, Ko} verified on VIVOSDEV01_R002. CPU fp32 single-pass. Korean TTS requires `unidecode` Hangul→Latin preprocessing. Mandarin TTS: MMS-TTS-cmn doesn't exist on HF — graceful fallback to silence + text-only. Web UI on :7860 (one-shot) + streaming variant :7861 (silero-VAD endpoint detection). |
 
 **Headline number we are chasing**: TER stays within +3pp of FP32 baseline while model size ↓ 60–70% and latency p99 < 1.5s end-to-end. **TER, not WER, is the primary metric** — see saturation pivot below.
 
@@ -105,6 +106,8 @@ Every experiment script MUST log to JSON in `Results/`:
 | Script | Goal | Status | Result link |
 |--------|------|--------|-------------|
 | `exp00_ter_metric.py` | Implement Tone-Error-Rate metric on VIVOS / FLEURS-vi | **metric verified** (5 synthetic cases pass; model eval pending Kaggle disk) | [Results/exp00_ter_metric.json](../Results/exp00_ter_metric.json) |
+| `exp04_whisper_tone_probe.py` | **GO/NO-GO gate**: linear probe per encoder layer (6-class tone) on PhoWhisper-small. Replicates de la Fuente & Jurafsky (Interspeech 2024) Mandarin result on a different architecture. Three exit gates: peak acc ≥ 0.367 (random+20pp), top-30% layers carry ≥50% of above-random mass, best-vs-worst gap ≥ 0.10. | **script ready** — runs locally CPU (~30 min) or Kaggle T4 (~3 min). Set `VOICEAI_MAX_UTTERANCES` env for fast smoke. | (pending) |
+| `prototype/bench.py` | Batch latency p50/p95/p99 + WER + TER on N VIVOS samples. Output JSON per stage. | **script ready** — `python prototype/bench.py --n 20 --target en` | [Results/bench_*.json](../Results/) |
 | (planned) `exp01_baseline_fp32.py` | Establish FP32 baseline: PhoWhisper-small + NLLB-distilled-600M; WER, TER, BLEU, COMET, latency, size | not started | — |
 | (planned) `exp02_uniform_int8.py` | Uniform INT8 PTQ (every layer) — compression reference | not started | — |
 | (planned) `exp03_uniform_int4.py` | Uniform INT4 PTQ — **must show ≥ +20% absolute tone-WER degradation** vs exp01 to justify the problem | not started | — |

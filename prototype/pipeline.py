@@ -67,13 +67,22 @@ NLLB_CODE = {
     "zh": "zho_Hans",
     "ko": "kor_Hang",
 }
-# Per-target MMS-TTS checkpoints.
+# Per-target MMS-TTS checkpoints. Note: `facebook/mms-tts-cmn` does NOT exist on
+# HuggingFace (the MMS project did not release a Mandarin TTS model). For Mandarin
+# we fall through to a text-only output — see synthesize() below. Replacement
+# candidates for later (any of these work): myshell-ai/MeloTTS-Chinese, microsoft/speecht5_tts.
 TTS_REPO = {
     "vi": "facebook/mms-tts-vie",
     "en": "facebook/mms-tts-eng",
-    "zh": "facebook/mms-tts-cmn",
+    "zh": None,                       # no MMS-TTS-cmn upstream; prototype emits silence
     "ko": "facebook/mms-tts-kor",
 }
+
+# MMS-TTS expects romanized Latin input for many non-Latin-script languages
+# (Korean, Chinese, Thai, etc.). We apply a light unidecode pass for Korean.
+# This is lossy compared to the official `uroman` tool but adequate for the
+# prototype skeleton — the quantization research is invariant to TTS quality.
+_ROMANIZE = {"ko"}
 
 
 @dataclass
@@ -161,10 +170,30 @@ class CascadeS2ST:
         return self._tts_cache[target]
 
     def synthesize(self, text: str, target: str) -> tuple[np.ndarray, int]:
+        # Mandarin has no MMS-TTS model. Emit 0.5 s of silence + warn — text is still
+        # available to the caller via the upstream translate() return.
+        if TTS_REPO[target] is None:
+            print(f"[warn] no MMS-TTS model for '{target}' yet — emitting silence (1s @ 16 kHz)")
+            return np.zeros(16000, dtype=np.float32), 16000
+
         tok, model = self._ensure_tts(target)
         if not text.strip():
             return np.zeros(0, dtype=np.float32), model.config.sampling_rate
-        inputs = tok(text, return_tensors="pt").to(self.cfg.device)
+
+        # Some MMS-TTS tokenizers (Korean) only know Latin characters — they silently
+        # drop non-Latin input and produce zero tokens, which crashes the VITS forward.
+        # Apply a light unidecode pass for those targets.
+        tts_text = text
+        if target in _ROMANIZE:
+            try:
+                from unidecode import unidecode
+                tts_text = unidecode(text).strip()
+            except ImportError:
+                pass
+        inputs = tok(tts_text, return_tensors="pt").to(self.cfg.device)
+        if inputs["input_ids"].shape[1] == 0:
+            print(f"[warn] TTS tokenizer produced 0 tokens for {target} input {text!r} → silence")
+            return np.zeros(16000, dtype=np.float32), getattr(model.config, "sampling_rate", 16000)
         with torch.inference_mode():
             wav = model(**inputs).waveform
         return wav.squeeze().cpu().numpy().astype(np.float32), model.config.sampling_rate
