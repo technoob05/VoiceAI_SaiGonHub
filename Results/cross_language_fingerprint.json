@@ -1,0 +1,109 @@
+{
+  "config": {
+    "n_per_lang_target": 30,
+    "n_aligned_actual": 30,
+    "languages": [
+      "vi_vn",
+      "cmn_hans_cn",
+      "ko_kr",
+      "en_us"
+    ],
+    "tonal_languages": [
+      "cmn_hans_cn",
+      "vi_vn"
+    ],
+    "fingerprint_dim": 272,
+    "sr_target": 16000,
+    "data_root": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\raw\\hf_cache\\hub\\datasets--google--fleurs\\snapshots\\70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+    "scope_caveat": "Generalization sanity check only. NOT proof that the fingerprint captures Mandarin tone correctly — that requires AISHELL-3 with per-syllable tone labels. FLEURS is sentence-level n-way parallel with different speakers per language."
+  },
+  "cosine_distributions": {
+    "intra_vi_self": {
+      "name": "intra-vi self-pair (sanity, expect 1.0)",
+      "n_pairs": 30,
+      "mean": 1.0000000596046448,
+      "std": 6.06236014027128e-08,
+      "min": 1.0,
+      "max": 1.0000001192092896
+    },
+    "inter_language_same_content": {
+      "name": "inter-language same-content (e.g. vi-001 vs zh-001)",
+      "n_pairs": 180,
+      "mean": 0.9295950882964664,
+      "std": 0.049891103506773844,
+      "min": 0.7501707077026367,
+      "max": 0.9916181564331055
+    },
+    "intra_language_diff_content": {
+      "name": "intra-language different-content (e.g. vi-001 vs vi-002)",
+      "n_pairs": 1740,
+      "mean": 0.9433925155593061,
+      "std": 0.04861545764461905,
+      "min": 0.6911600232124329,
+      "max": 0.9975830912590027
+    },
+    "inter_language_diff_content": {
+      "name": "inter-language different-content (e.g. vi-001 vs zh-002)",
+      "n_pairs": 5220,
+      "mean": 0.9280839273756034,
+      "std": 0.05096445930876138,
+      "min": 0.6035943031311035,
+      "max": 0.9944040179252625
+    }
+  },
+  "content_discrimination": {
+    "same_content_minus_diff_content_cross_lang": 0.0015111609208630084,
+    "intra_lang_diff_minus_inter_lang_diff": 0.015308588183702732,
+    "content_discriminative_across_languages": false,
+    "approximately_language_invariant": true
+  },
+  "tone_histogram_language_clustering": {
+    "lang_mean_tone_histograms": {
+      "vi_vn": [
+        0.6647770404815674,
+        0.05902900546789169,
+        0.052862416952848434,
+        0.027854321524500847,
+        0.1452368199825287,
+        0.050240229815244675
+      ],
+      "cmn_hans_cn": [
+        0.4503304064273834,
+        0.12170275300741196,
+        0.0931558832526207,
+        0.05304308235645294,
+        0.19421479105949402,
+        0.08755304664373398
+      ],
+      "ko_kr": [
+        0.579687237739563,
+        0.06623885035514832,
+        0.06060037389397621,
+        0.042104389518499374,
+        0.16666264832019806,
+        0.08470643311738968
+      ],
+      "en_us": [
+        0.5474106073379517,
+        0.0803741067647934,
+        0.04866131767630577,
+        0.049756985157728195,
+        0.20547515153884888,
+        0.06832189857959747
+      ]
+    },
+    "pairwise_cosine": {
+      "vi_vn__cmn_hans_cn": 0.9594396948814392,
+      "vi_vn__ko_kr": 0.9949877858161926,
+      "vi_vn__en_us": 0.9869697093963623,
+      "cmn_hans_cn__ko_kr": 0.9797856211662292,
+      "cmn_hans_cn__en_us": 0.9870767593383789,
+      "ko_kr__en_us": 0.9961258769035339
+    },
+    "vi_zh_tonal_pair": 0.9594396948814392,
+    "en_ko_nontonal_pair": 0.9961258769035339,
+    "mean_tonal_vs_nontonal": 0.9872049689292908,
+    "supports_vi_zh_cluster": false
+  },
+  "fingerprint_timing_ms_mean": 73.92
+}

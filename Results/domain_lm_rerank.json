@@ -26,38 +26,38 @@
     "lm_add_k": 0.05
   },
   "summary": {
-    "wer_greedy_beam1": 6.437810945273632,
-    "wer_beam5_top1": 4.5721393034825875,
+    "wer_greedy_beam1": 2.054726368159204,
+    "wer_beam5_top1": 0.6766169154228856,
     "wer_per_alpha": {
       "0.10": {
         "alpha": 0.1,
-        "wer": 4.0497512437810945,
-        "edits": 814,
+        "wer": 0.5771144278606966,
+        "edits": 116,
         "ref_tokens": 201
       },
       "0.30": {
         "alpha": 0.3,
-        "wer": 3.288557213930348,
-        "edits": 661,
+        "wer": 0.5323383084577115,
+        "edits": 107,
         "ref_tokens": 201
       },
       "0.50": {
         "alpha": 0.5,
-        "wer": 3.2139303482587063,
-        "edits": 646,
+        "wer": 0.5323383084577115,
+        "edits": 107,
         "ref_tokens": 201
       },
       "1.00": {
         "alpha": 1.0,
-        "wer": 3.1641791044776117,
-        "edits": 636,
+        "wer": 0.5323383084577115,
+        "edits": 107,
         "ref_tokens": 201
       }
     },
-    "best_alpha": 1.0,
-    "wer_best_rerank": 3.1641791044776117,
-    "delta_pp_vs_greedy": 327.363184079602,
-    "delta_pp_vs_beam_top1": 140.79601990049758
+    "best_alpha": 0.3,
+    "wer_best_rerank": 0.5323383084577115,
+    "delta_pp_vs_greedy": 152.23880597014926,
+    "delta_pp_vs_beam_top1": 14.427860696517413
   },
   "per_utt": [
     {
@@ -65,49 +65,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV10\\VIVOSDEV10_239.wav",
       "reference": "TÁM MƯƠI BỐN TÁM MƯƠI LĂM",
       "greedy": {
-        "text": "cám mươi bốn cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lắm ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim.",
-        "asr_avg_logprob": -0.13735026121139526
+        "text": "cám mươi bốn cam mưươi lăm cam mri lăm.",
+        "asr_avg_logprob": -0.4743453860282898
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "cám mươi bốn cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm.",
-          "asr_avg_logprob": -0.11635669320821762,
-          "lm_avg_log10prob": -2.6880487675714746,
-          "n_tokens": 36
+          "text": "cám mươi bốn cam mưươi lăm.",
+          "asr_avg_logprob": -0.3290351927280426,
+          "lm_avg_log10prob": -2.8184650160847355,
+          "n_tokens": 6
         },
         {
           "rank_asr": 1,
-          "text": "cám mươi bốn cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lăm cam mươi lắm ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim ttim.",
-          "asr_avg_logprob": -0.13828063011169434,
-          "lm_avg_log10prob": -3.036565664618605,
-          "n_tokens": 63
+          "text": "cám mươi bốn cam mưây lạm.",
+          "asr_avg_logprob": -0.3437228500843048,
+          "lm_avg_log10prob": -3.083247845580017,
+          "n_tokens": 6
         },
         {
           "rank_asr": 2,
-          "text": "cám mươi bốn cám mươi lăm.",
-          "asr_avg_logprob": -0.2020900696516037,
-          "lm_avg_log10prob": -2.338875401588352,
-          "n_tokens": 6
+          "text": "cám mươi bốn cam mưươi lăm cán mưi tám n.",
+          "asr_avg_logprob": -0.37692418694496155,
+          "lm_avg_log10prob": -3.2622022081422926,
+          "n_tokens": 10
         },
         {
           "rank_asr": 3,
-          "text": "cám mươi bốn cán mươi lăm cán mươi lăm.",
-          "asr_avg_logprob": -0.27220842242240906,
-          "lm_avg_log10prob": -2.4525625380769522,
-          "n_tokens": 9
+          "text": "cám mươi bốn cám mây làm.",
+          "asr_avg_logprob": -0.4057884216308594,
+          "lm_avg_log10prob": -2.8713452782901134,
+          "n_tokens": 6
         },
         {
           "rank_asr": 4,
-          "text": "cám mỹ bốn cám mỹ làm.",
-          "asr_avg_logprob": -0.3155424892902374,
-          "lm_avg_log10prob": -3.1697791473924366,
-          "n_tokens": 6
+          "text": "cám mươi bốn cam mưươi lăm cán mưi tám nguyện.",
+          "asr_avg_logprob": -0.43497177958488464,
+          "lm_avg_log10prob": -3.207037646239123,
+          "n_tokens": 10
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "cám mươi bốn cám mươi lăm."
+        "alpha": 0.3,
+        "text": "cám mươi bốn cam mưươi lăm."
       }
     },
     {
@@ -115,49 +115,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV11\\VIVOSDEV11_200.wav",
       "reference": "NĂM ĐẦU TIÊN",
       "greedy": {
-        "text": "năm đầu tiên năm đầu tiên.",
-        "asr_avg_logprob": -0.0058650970458984375
+        "text": "năm đầu tiên năm đầu tao.",
+        "asr_avg_logprob": -0.20984721183776855
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "năm đầu tiên năm đầu tiên.",
-          "asr_avg_logprob": -0.0058650970458984375,
-          "lm_avg_log10prob": -1.9881467537720265,
+          "text": "năm đầu tiên năm đầu tư.",
+          "asr_avg_logprob": -0.12951214611530304,
+          "lm_avg_log10prob": -2.0143682887559113,
           "n_tokens": 6
         },
         {
           "rank_asr": 1,
-          "text": "năm đầu tiên năm đầu tiên.",
-          "asr_avg_logprob": -0.3295474350452423,
-          "lm_avg_log10prob": -1.9881467537720265,
+          "text": "năm đầu tiên năm đầu ta.",
+          "asr_avg_logprob": -0.16446660459041595,
+          "lm_avg_log10prob": -2.2913209459633554,
           "n_tokens": 6
         },
         {
           "rank_asr": 2,
-          "text": "năm đầu tiên năm đầu đầu tiên.",
-          "asr_avg_logprob": -0.3353129029273987,
-          "lm_avg_log10prob": -2.1238776360631855,
-          "n_tokens": 7
-        },
-        {
-          "rank_asr": 3,
-          "text": "nắm đầu tiên năm đầu tiên.",
-          "asr_avg_logprob": -0.4666077196598053,
-          "lm_avg_log10prob": -2.2944588157854704,
+          "text": "năm đầu tiên năm đầu tao.",
+          "asr_avg_logprob": -0.20984725654125214,
+          "lm_avg_log10prob": -2.36046271193965,
           "n_tokens": 6
         },
         {
+          "rank_asr": 3,
+          "text": "năm đầu tiên năm đầu tao đầu trung.",
+          "asr_avg_logprob": -0.35503801703453064,
+          "lm_avg_log10prob": -2.6002423063708693,
+          "n_tokens": 8
+        },
+        {
           "rank_asr": 4,
-          "text": "năm đầu tiên năm đầu tiên đầu tiên.",
-          "asr_avg_logprob": -0.4784397780895233,
-          "lm_avg_log10prob": -2.023699863405439,
+          "text": "năm đầu tiên năm đầu ta đầu mẹ.",
+          "asr_avg_logprob": -0.43820852041244507,
+          "lm_avg_log10prob": -2.4337085313040583,
           "n_tokens": 8
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "năm đầu tiên năm đầu tiên."
+        "alpha": 0.3,
+        "text": "năm đầu tiên năm đầu tư."
       }
     },
     {
@@ -166,47 +166,47 @@
       "reference": "HÀ CŨNG CHẲNG NHỚ MÌNH CÓ NÓI HAY KHÔNG ĐỂ CÃI LẠI ÔNG ẤY",
       "greedy": {
         "text": "hà cũng chẳng nhớ mình có nói hay không để cạ lại ông ấy.",
-        "asr_avg_logprob": -0.05317458510398865
+        "asr_avg_logprob": -0.05220276862382889
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "hà cũng chẳng nhớ mình có nói hay không để cạ lại ông ấy hà cũng chẳng nhớ mình có nói hay không để cạ lại ông ấy.",
-          "asr_avg_logprob": -0.04835236817598343,
-          "lm_avg_log10prob": -2.602737870555912,
-          "n_tokens": 28
-        },
-        {
-          "rank_asr": 1,
           "text": "hà cũng chẳng nhớ mình có nói hay không để cạ lại ông ấy.",
-          "asr_avg_logprob": -0.05745619907975197,
+          "asr_avg_logprob": -0.05617062374949455,
           "lm_avg_log10prob": -2.538208834855607,
           "n_tokens": 14
         },
         {
-          "rank_asr": 2,
+          "rank_asr": 1,
           "text": "hà cũng chẳng nhớ mình có nói hay không để cãi lại ông ấy.",
-          "asr_avg_logprob": -0.06251489371061325,
+          "asr_avg_logprob": -0.05681252479553223,
           "lm_avg_log10prob": -2.55450295198418,
           "n_tokens": 14
         },
         {
-          "rank_asr": 3,
+          "rank_asr": 2,
           "text": "hà cũng chẳng nhớ mình có nói hay không để cãi lại ông ấy ông ấy.",
-          "asr_avg_logprob": -0.13549786806106567,
+          "asr_avg_logprob": -0.16825230419635773,
           "lm_avg_log10prob": -2.5545254992255213,
           "n_tokens": 16
         },
         {
+          "rank_asr": 3,
+          "text": "hà cũng chẳng nhớ mình có nói hay không để cạ lại ông ấy hà cũngchẩn nhớ minh có nói say không để kể lại ông đấy.",
+          "asr_avg_logprob": -0.17923180758953094,
+          "lm_avg_log10prob": -2.756385204550107,
+          "n_tokens": 27
+        },
+        {
           "rank_asr": 4,
-          "text": "hà cũng chẳng nhớ mình có nói hay không để cãi lại ông ấy ấy.",
-          "asr_avg_logprob": -0.17194610834121704,
-          "lm_avg_log10prob": -2.6041369578141866,
-          "n_tokens": 15
+          "text": "hà cũng chẳng nhớ mình có nói hay không để cạại lại ông ấy.",
+          "asr_avg_logprob": -0.18783965706825256,
+          "lm_avg_log10prob": -2.538208834855607,
+          "n_tokens": 14
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
+        "alpha": 0.3,
         "text": "hà cũng chẳng nhớ mình có nói hay không để cạ lại ông ấy."
       }
     },
@@ -215,49 +215,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV06\\VIVOSDEV06_285.wav",
       "reference": "CÔNG TY TRÁCH NHIỆM HỮU HẠN ĂN UỐNG",
       "greedy": {
-        "text": "công ty trách nhiệm hữu hạn ăn uống công ty trách nhiệm hữu hạn ăn uống.",
-        "asr_avg_logprob": -0.0005198849830776453
+        "text": "công ty trách nhiệm hữu hạn ăn uống công ty doanh thuấn công ti trích nghiệmh hữn hàng ăn uỗng vững công tin miễn hưởng hưởng ăn uổng.",
+        "asr_avg_logprob": -0.33809545636177063
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "công ty trách nhiệm hữu hạn ăn uống công ty trách nhiệm hữu hạn ăn uống.",
-          "asr_avg_logprob": -0.00047794976853765547,
-          "lm_avg_log10prob": -1.8075145373393942,
+          "text": "công ty trách nhiệm hữu hạn ăn uống công ty cách nhiệminh hữn hàng ăn uỗng.",
+          "asr_avg_logprob": -0.19402337074279785,
+          "lm_avg_log10prob": -2.44094398409106,
           "n_tokens": 16
         },
         {
           "rank_asr": 1,
-          "text": "công ty trách nhiệm hưởng hạng ăn uống công ty trách nhiệm hữu hạn ăn uống.",
-          "asr_avg_logprob": -0.18617111444473267,
-          "lm_avg_log10prob": -2.092070905378806,
+          "text": "công ty trách nhiệm hữu hạn ăn uống công ty doanh nghiệp hưởng hàng ăn uón.",
+          "asr_avg_logprob": -0.19665853679180145,
+          "lm_avg_log10prob": -2.254217233337638,
           "n_tokens": 16
         },
         {
           "rank_asr": 2,
-          "text": "công ty trách nhiệm hữu hàng ăn uống công ty trách nhiệm hữu hạn ăn uống.",
-          "asr_avg_logprob": -0.20927633345127106,
-          "lm_avg_log10prob": -1.923185428908962,
+          "text": "công ty trách nhiệm hữu hạn ăn uống công ty doanh nghiệp hưởng hàng ăn uỗng.",
+          "asr_avg_logprob": -0.2052050530910492,
+          "lm_avg_log10prob": -2.254217233337638,
           "n_tokens": 16
         },
         {
           "rank_asr": 3,
-          "text": "công ty trách nhiệm hữu hạn ăn uống.",
-          "asr_avg_logprob": -0.34695881605148315,
-          "lm_avg_log10prob": -1.754379893434483,
-          "n_tokens": 8
+          "text": "công ty trách nhiệm hữu hạn ăn uống công ty cách nhiệminh hữn hàng ăn uón.",
+          "asr_avg_logprob": -0.21002618968486786,
+          "lm_avg_log10prob": -2.44094398409106,
+          "n_tokens": 16
         },
         {
           "rank_asr": 4,
-          "text": "công ty trách nhiệm hữu hạn ăn ăn uống.",
-          "asr_avg_logprob": -0.5416966676712036,
-          "lm_avg_log10prob": -1.9083806636843357,
-          "n_tokens": 9
+          "text": "công ty trách nhiệm hữu hạn ăn uống.",
+          "asr_avg_logprob": -0.3477974832057953,
+          "lm_avg_log10prob": -1.754379893434483,
+          "n_tokens": 8
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "công ty trách nhiệm hữu hạn ăn uống công ty trách nhiệm hữu hạn ăn uống."
+        "alpha": 0.3,
+        "text": "công ty trách nhiệm hữu hạn ăn uống."
       }
     },
     {
@@ -266,47 +266,47 @@
       "reference": "KHI CÔ THỂ HIỆN KHÔNG MẤY THÀNH CÔNG Ở LỄ KHAI MẠC",
       "greedy": {
         "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc.",
-        "asr_avg_logprob": -0.0035041312221437693
+        "asr_avg_logprob": -0.0008045279537327588
       },
       "candidates": [
         {
           "rank_asr": 0,
           "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc.",
-          "asr_avg_logprob": -0.0045592267997562885,
+          "asr_avg_logprob": -0.001087188720703125,
           "lm_avg_log10prob": -2.457888026520515,
           "n_tokens": 12
         },
         {
           "rank_asr": 1,
-          "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc thể hiện không mấy thành công ở lễ khai mạc.",
-          "asr_avg_logprob": -0.10482627153396606,
-          "lm_avg_log10prob": -2.531641374047923,
-          "n_tokens": 22
+          "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc thì khi cô tha hiện không may thằng kong ở lệ khai màt.",
+          "asr_avg_logprob": -0.19533173739910126,
+          "lm_avg_log10prob": -2.910797752483258,
+          "n_tokens": 25
         },
         {
           "rank_asr": 2,
-          "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc thì không mấy thành công ở lễ khai mạc.",
-          "asr_avg_logprob": -0.12070386111736298,
-          "lm_avg_log10prob": -2.5476672496907167,
-          "n_tokens": 21
+          "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc thì khi cô tha hiện không mới thằng công ở quảng lệ khai màt.",
+          "asr_avg_logprob": -0.2138628363609314,
+          "lm_avg_log10prob": -2.873233437649071,
+          "n_tokens": 26
         },
         {
           "rank_asr": 3,
-          "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc mấy thành công.",
-          "asr_avg_logprob": -0.1770692765712738,
-          "lm_avg_log10prob": -2.5295822154360863,
-          "n_tokens": 15
+          "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc thì khi cô tha hiện không may thằng công ở quảng lệ khai màt.",
+          "asr_avg_logprob": -0.23043054342269897,
+          "lm_avg_log10prob": -2.8750910336811235,
+          "n_tokens": 26
         },
         {
           "rank_asr": 4,
-          "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc thì không mấy thành công đã ở lễ khai mạc.",
-          "asr_avg_logprob": -0.20081746578216553,
-          "lm_avg_log10prob": -2.5411895023208966,
-          "n_tokens": 22
+          "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc thì khi cô tha hiện không mới thằng công ở quận lễ khoai mạt.",
+          "asr_avg_logprob": -0.24459312856197357,
+          "lm_avg_log10prob": -2.9445629733179497,
+          "n_tokens": 26
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
+        "alpha": 0.3,
         "text": "khi cô thể hiện không mấy thành công ở lễ khai mạc."
       }
     },
@@ -315,49 +315,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV11\\VIVOSDEV11_129.wav",
       "reference": "ĐI BỘ LEO NÚI ĐẾN NHỪ CHÂN",
       "greedy": {
-        "text": "đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đi bộ leo núi đi bộ leo núi đi bộ leo núi đi bộ leo núi đi bộ leo núi đi bộ leo núi đi bộ leo núi đi bộ leo núi đi bộ leo núi đi bộ leo núi đến nhừ chân đi bộche nhừ chân đi bộche nhằn để bạn biết những th để mình xem và khi không nhận thế nào để làm nên làm nên khi nào nên làm nên làm",
-        "asr_avg_logprob": -0.2060951143503189
+        "text": "đi bộ leo núi đến nhừ chân đi bộ lao nối đến nhờ chân đu đi bọ leo nổi đến nhìn chân.",
+        "asr_avg_logprob": -0.20709632337093353
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "đi bộ lao núi đến nhừ chân đi bộ lao núi đến nhừ chân đi bộ lao núi đến nhừ chân.",
-          "asr_avg_logprob": -0.03839544206857681,
-          "lm_avg_log10prob": -3.1200003613362144,
-          "n_tokens": 21
+          "text": "đi bộ leo núi đến nhừ chân đi bộ lao nối đến nhờ chân.",
+          "asr_avg_logprob": -0.11048774421215057,
+          "lm_avg_log10prob": -3.047278320543812,
+          "n_tokens": 14
         },
         {
           "rank_asr": 1,
-          "text": "đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân.",
-          "asr_avg_logprob": -0.06748069822788239,
-          "lm_avg_log10prob": -3.1636544075588757,
+          "text": "đi bộ leo núi đến nhừ chân đi bộ lao nối đến nhờ trăng đi bọ leo nổi đến nhìn chân.",
+          "asr_avg_logprob": -0.15899327397346497,
+          "lm_avg_log10prob": -3.2264189295110897,
           "n_tokens": 21
         },
         {
           "rank_asr": 2,
-          "text": "đi bộ lao nối đến nhừ chân đi bộ lao nối đến nhừ chân đi bộ lao nối đến nhừ chân.",
-          "asr_avg_logprob": -0.073380246758461,
-          "lm_avg_log10prob": -3.1358177611521807,
+          "text": "đi bộ leo núi đến nhừ chân đi bộ lao nối đến nhờ trăng đi bọ leo nổi đến nhì chân.",
+          "asr_avg_logprob": -0.18015842139720917,
+          "lm_avg_log10prob": -3.2563421029816895,
           "n_tokens": 21
         },
         {
           "rank_asr": 3,
-          "text": "đi bộ lao núi đến nhừ chân đi bộ lao núi đến nhừ chân đi bộ lao núi đến nhừ chân đi bộ lao núi đến nhừ chân.",
-          "asr_avg_logprob": -0.09320816397666931,
-          "lm_avg_log10prob": -3.138676075650619,
-          "n_tokens": 28
+          "text": "đi bộ leo núi đến nhừ chân đi bộ lao nối đến nhờ trăng đi bọ leo nổi đến nhù chân.",
+          "asr_avg_logprob": -0.18052175641059875,
+          "lm_avg_log10prob": -3.2578602861880444,
+          "n_tokens": 21
         },
         {
           "rank_asr": 4,
-          "text": "đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân đi bộ leo núi đến nhừ chân.",
-          "asr_avg_logprob": -0.12572595477104187,
-          "lm_avg_log10prob": -3.1828318925195176,
-          "n_tokens": 28
+          "text": "đi bộ leo núi đến nhừ chân đi bộ lao núy đến nhờ chân đu đi bọ leo nối đến nhù chân.",
+          "asr_avg_logprob": -0.19755680859088898,
+          "lm_avg_log10prob": -3.277301448747903,
+          "n_tokens": 22
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "đi bộ lao núi đến nhừ chân đi bộ lao núi đến nhừ chân đi bộ lao núi đến nhừ chân."
+        "alpha": 0.3,
+        "text": "đi bộ leo núi đến nhừ chân đi bộ lao nối đến nhờ chân."
       }
     },
     {
@@ -365,49 +365,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV10\\VIVOSDEV10_294.wav",
       "reference": "EM SỢ CÓ MỘT NGÀY ANH GẶP NGƯỜI CON GÁI KHÁC TỐT HƠN EM RỒI ANH BỎ EM",
       "greedy": {
-        "text": "em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ� làm sợ có một ngày anh gặp người con gái khác có",
-        "asr_avg_logprob": -0.08443348854780197
+        "text": "em sợ có một ngày anh gặp người con gái khác cố phân em rồi anh bỏ em.",
+        "asr_avg_logprob": -0.07000156491994858
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em rồi anh bỏ emồi không em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em rồi anh",
-          "asr_avg_logprob": -0.042237136512994766,
-          "lm_avg_log10prob": -2.223088480155698,
-          "n_tokens": 168
+          "text": "em sợ có một ngày anh gặp người con gái khác cố phân em rồi anh bỏ em.",
+          "asr_avg_logprob": -0.08520133793354034,
+          "lm_avg_log10prob": -2.2154932664485996,
+          "n_tokens": 18
         },
         {
           "rank_asr": 1,
-          "text": "em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ emồi không em sợ có một ngày",
-          "asr_avg_logprob": -0.0526326484978199,
-          "lm_avg_log10prob": -2.2197413477004213,
-          "n_tokens": 169
+          "text": "em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em.",
+          "asr_avg_logprob": -0.09313133358955383,
+          "lm_avg_log10prob": -2.141739702735162,
+          "n_tokens": 18
         },
         {
           "rank_asr": 2,
-          "text": "em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em rồi anh bỏ emồi không em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ emồi không",
-          "asr_avg_logprob": -0.05786885693669319,
-          "lm_avg_log10prob": -2.2361932729744507,
-          "n_tokens": 167
+          "text": "em sợ có một ngày anh gặp người con gái khác tốt hơn em rồi anh bỏ em.",
+          "asr_avg_logprob": -0.10135768353939056,
+          "lm_avg_log10prob": -1.951013591930113,
+          "n_tokens": 18
         },
         {
           "rank_asr": 3,
-          "text": "em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em rồi anh bỏ emồi không em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em rồi người",
-          "asr_avg_logprob": -0.05877400189638138,
-          "lm_avg_log10prob": -2.2249464798439424,
-          "n_tokens": 168
+          "text": "em sợ có một ngày anh gặp người con gái khác cố phân em rồi anh bỏ em em sợ một ngày em rập người con cái khác cốt hơn em rồi an bó em emsợ có một ngày anh rập ngồi con gáy khác cõng hơn emròi anh bó êm.",
+          "asr_avg_logprob": -0.24354246258735657,
+          "lm_avg_log10prob": -2.7787742013993175,
+          "n_tokens": 51
         },
         {
           "rank_asr": 4,
-          "text": "em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em",
-          "asr_avg_logprob": -0.060221798717975616,
-          "lm_avg_log10prob": -2.205682074801553,
-          "n_tokens": 168
+          "text": "em sợ có một ngày anh gặp người con gái khác cố phân em rồi anh bỏ em em sợ một ngày em rập người con cái khác cốt hơn em rồi an bó em emsợ có một ngày anh rập ngồi con gáy khác cấu hưng em rồi oanh bỏ e.",
+          "asr_avg_logprob": -0.2525605261325836,
+          "lm_avg_log10prob": -2.773443167403093,
+          "n_tokens": 52
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em sợ có một ngày anh gặp người con gái khác có phân em rồi anh bỏ em rồi anh bỏ em rồi anh bỏ em"
+        "alpha": 0.3,
+        "text": "em sợ có một ngày anh gặp người con gái khác tốt hơn em rồi anh bỏ em."
       }
     },
     {
@@ -415,49 +415,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV16\\VIVOSDEV16_079.wav",
       "reference": "TẤT CẢ ĐỂ CHO NGƯỜI BỆNH VÀ THÂN NHÂN HÀI LÒNG KHI ĐẾN BỆNH VIỆN",
       "greedy": {
-        "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện.",
-        "asr_avg_logprob": -0.020252741873264313
+        "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệĩnh viện viện.",
+        "asr_avg_logprob": -0.09239473193883896
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện.",
-          "asr_avg_logprob": -0.01645675115287304,
-          "lm_avg_log10prob": -2.17279592861565,
-          "n_tokens": 30
+          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệĩnh viện viện.",
+          "asr_avg_logprob": -0.10558900982141495,
+          "lm_avg_log10prob": -2.4428625379431868,
+          "n_tokens": 16
         },
         {
           "rank_asr": 1,
-          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện và tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện.",
-          "asr_avg_logprob": -0.03929325193166733,
-          "lm_avg_log10prob": -2.1547563867763833,
-          "n_tokens": 31
-        },
-        {
-          "rank_asr": 2,
-          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện.",
-          "asr_avg_logprob": -0.06133699417114258,
-          "lm_avg_log10prob": -2.1081365145107975,
+          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệĩnh viện.",
+          "asr_avg_logprob": -0.12613080441951752,
+          "lm_avg_log10prob": -2.3647532343542146,
           "n_tokens": 15
         },
         {
+          "rank_asr": 2,
+          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệ giờ bệện viện.",
+          "asr_avg_logprob": -0.15542326867580414,
+          "lm_avg_log10prob": -2.5181487182410285,
+          "n_tokens": 17
+        },
+        {
           "rank_asr": 3,
-          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện viện tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện viện.",
-          "asr_avg_logprob": -0.07109711319208145,
-          "lm_avg_log10prob": -2.266872313302842,
-          "n_tokens": 32
+          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệĩnh viện viện tốc ca để cho ngươi bệ nh và thanh niên hàilòng khi đi đến b động viện.",
+          "asr_avg_logprob": -0.23817479610443115,
+          "lm_avg_log10prob": -2.808817940460692,
+          "n_tokens": 33
         },
         {
           "rank_asr": 4,
-          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện viện tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện.",
-          "asr_avg_logprob": -0.10641856491565704,
-          "lm_avg_log10prob": -2.220470598186862,
-          "n_tokens": 31
+          "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệĩnh viện viện tốc ca để cho ngươi bệ nh và thanh nhân hàn lồng khi đến viện vuyện.",
+          "asr_avg_logprob": -0.24604415893554688,
+          "lm_avg_log10prob": -2.940002555187838,
+          "n_tokens": 32
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệnh viện."
+        "alpha": 0.3,
+        "text": "tất cả để cho người bệnh và thân nhân hài lòng khi đến bệĩnh viện."
       }
     },
     {
@@ -465,48 +465,48 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV07\\VIVOSDEV07_151.wav",
       "reference": "RÔ BÓT THÔNG MINH",
       "greedy": {
-        "text": "robot thông minh rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc rốc r",
-        "asr_avg_logprob": -0.12752117216587067
+        "text": "robot thông minh rô bốt rô hốt thồng minh robot thỏng mênh rồ bốt trong manh rùa bốt không mình rồ nào rồ độc bò thôi thòng minh n rô này rồ n rồn bọt thốc minh não rồ không bọc bọ hot robot tự từ mình rô bo n rà rô robot ta là robot tóng minh tính mặt robot trai của mình rối bột thành biến đấu tình tường không làm được.",
+        "asr_avg_logprob": -0.8038970232009888
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "robot thông minh rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rồ bốt rồ bốt rồ bốt rồ bao thông minh rồ bao rồ bao rồ bao thông minh rồ baoao rồ bao thông minh rồ bao thông minh rồ bao thông minh rồ bao thông minh đi.",
-          "asr_avg_logprob": -0.17551271617412567,
-          "lm_avg_log10prob": -3.709994533493501,
-          "n_tokens": 72
+          "text": "robot thông minh rô bốt robot thồng minh robot thanh minh n rô bo thâm minh.",
+          "asr_avg_logprob": -0.3166901469230652,
+          "lm_avg_log10prob": -3.6540401649943584,
+          "n_tokens": 16
         },
         {
           "rank_asr": 1,
-          "text": "robot thông minh rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rồ bốt rồ bốt rồ bốt rồ bao thông minh rồ bao rồ bao rồ bao thông minh rồ bao bao thông minh rồ bao thông minh rồ bao bà rồ bà ra đi.",
-          "asr_avg_logprob": -0.17812371253967285,
-          "lm_avg_log10prob": -3.724995278263755,
-          "n_tokens": 69
+          "text": "robot thông minh rô bốt râu bốt robot thồng minh robot trong mình rô boi thôi.",
+          "asr_avg_logprob": -0.3644976317882538,
+          "lm_avg_log10prob": -3.524589400185964,
+          "n_tokens": 16
         },
         {
           "rank_asr": 2,
-          "text": "robot thông minh rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rồ bốt rồ bốt rồ bốt rồ bao thông minh rồ bao rồ bao rồ bao thông minh rồ baoao rồ bao thông minh rồ bao thông minh rồ bao thông minh rồ bao thông minh rồ bà.",
-          "asr_avg_logprob": -0.17902258038520813,
-          "lm_avg_log10prob": -3.722126754487262,
-          "n_tokens": 73
+          "text": "robot thông minh.",
+          "asr_avg_logprob": -0.366507351398468,
+          "lm_avg_log10prob": -2.7627073763146837,
+          "n_tokens": 3
         },
         {
           "rank_asr": 3,
-          "text": "robot thông minh rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rô bốt rồ bốt rồ bốt rồ bốt rồ bao thông minh rồ bao rồ bao rồ bao thông minh rồ bao bao thông minh rồ bao thông minh rồ bao thông minh rồ bao",
-          "asr_avg_logprob": -0.19294960796833038,
-          "lm_avg_log10prob": -3.7426320283885017,
-          "n_tokens": 68
+          "text": "robot thông minh rô bốt râu bốt robot thồng minh robot trong mình rô hoi bốt robert th công minh.",
+          "asr_avg_logprob": -0.38598668575286865,
+          "lm_avg_log10prob": -3.5487491774655617,
+          "n_tokens": 20
         },
         {
           "rank_asr": 4,
-          "text": "robot thông minh.",
-          "asr_avg_logprob": -0.3667899966239929,
-          "lm_avg_log10prob": -2.7627073763146837,
-          "n_tokens": 3
+          "text": "robot thông minh rô bốt râu bốt robot thồng minh robot trong mình rô hoi bốt thôi.",
+          "asr_avg_logprob": -0.3921055197715759,
+          "lm_avg_log10prob": -3.555232177256151,
+          "n_tokens": 17
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
+        "alpha": 0.3,
         "text": "robot thông minh."
       }
     },
@@ -515,48 +515,48 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV15\\VIVOSDEV15_255.wav",
       "reference": "CÔNG NHÂN ĐANG THI CÔNG HAI NHÁNH CẦU RẠCH CHIẾC ẢNH THUẬN THẮNG",
       "greedy": {
-        "text": "công nhân đang thi công hai nhánh cầu rạch trước ảnh thuận thắng.",
-        "asr_avg_logprob": -0.016139889135956764
+        "text": "công nhân đang thi công hai nhánh cầu rạch chiếc ảnh thuận thắng.",
+        "asr_avg_logprob": -0.005906359292566776
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "công nhân đang thi công hai nhánh cầu rạch trước ảnh thuận thắng.",
-          "asr_avg_logprob": -0.016870753839612007,
-          "lm_avg_log10prob": -2.9522852294931203,
+          "text": "công nhân đang thi công hai nhánh cầu rạch chiếc ảnh thuận thắng.",
+          "asr_avg_logprob": -0.005553595256060362,
+          "lm_avg_log10prob": -2.7976942819098753,
           "n_tokens": 13
         },
         {
           "rank_asr": 1,
-          "text": "công nhân đang thi công hai nhánh cầu rạch chiếc ảnh thuận thắng.",
-          "asr_avg_logprob": -0.03459065780043602,
-          "lm_avg_log10prob": -2.7976942819098753,
+          "text": "công nhân đang thi công hai nhánh cầu rạch trước ảnh thuận thắng.",
+          "asr_avg_logprob": -0.06726319342851639,
+          "lm_avg_log10prob": -2.9522852294931203,
           "n_tokens": 13
         },
         {
           "rank_asr": 2,
           "text": "công nhân đang thi công hai nhánh cầu rạch chiếc ảnh thuận thắng.",
-          "asr_avg_logprob": -0.1310446709394455,
+          "asr_avg_logprob": -0.1787007600069046,
           "lm_avg_log10prob": -2.7976942819098753,
           "n_tokens": 13
         },
         {
           "rank_asr": 3,
-          "text": "công nhân đang thi công hai nhánh cầu rạch triết ảnh thuận thắng.",
-          "asr_avg_logprob": -0.18102233111858368,
-          "lm_avg_log10prob": -3.0103609480682847,
+          "text": "công nhân đang thi công hai nhánh cầu rạch trước ánh thuận thắng.",
+          "asr_avg_logprob": -0.1886652559041977,
+          "lm_avg_log10prob": -2.905512834752069,
           "n_tokens": 13
         },
         {
           "rank_asr": 4,
-          "text": "công nhân đang thi công hai nhánh cầu rạch chiếc ảnh thuận thắng công nhân đang thi công hai nhánh cầu rạch chiếc ảnh thuận thắng.",
-          "asr_avg_logprob": -0.1910926103591919,
-          "lm_avg_log10prob": -2.8805340873747416,
-          "n_tokens": 26
+          "text": "công nhân đang thi công hai nhánh cầu rạch chiếu cảnh thuận thắng.",
+          "asr_avg_logprob": -0.2705068588256836,
+          "lm_avg_log10prob": -3.01014763701573,
+          "n_tokens": 13
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
+        "alpha": 0.3,
         "text": "công nhân đang thi công hai nhánh cầu rạch chiếc ảnh thuận thắng."
       }
     },
@@ -565,49 +565,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV08\\VIVOSDEV08_182.wav",
       "reference": "KẾT QUẢ CHỈ CÓ VỎN VẸN BA NGƯỜI CÒN BIẾT DỆT",
       "greedy": {
-        "text": "kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn",
-        "asr_avg_logprob": -0.021549174562096596
+        "text": "kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quản chỉ có vẫn vẹt ba người biết dệp kể kếtquả chỉ co vỏnh vẹo ba người hiểu biết dệt kết nguồn chất quả vẫn vọng vẻn ba mươi người còn biếc dẹph.",
+        "asr_avg_logprob": -0.3060351014137268
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp.",
-          "asr_avg_logprob": -0.04908926412463188,
-          "lm_avg_log10prob": -2.7567895399531417,
-          "n_tokens": 55
+          "text": "kết quả chỉ có vỏng vạng ba người còn biết dẹp kết quản chỉ có vẫn vẹn ba người biết dệp cột việt kếtquả chỉ coi võng vẹng ba mươi còn biết giẹp.",
+          "asr_avg_logprob": -0.21909406781196594,
+          "lm_avg_log10prob": -3.0101071489489617,
+          "n_tokens": 33
         },
         {
           "rank_asr": 1,
-          "text": "kết quả chỉ có vỏn vẹn ba người còn biết dẹp kết quả chỉ có vỏn vẹn ba người còn biết dẹp.kết quả chỉ có vỏn vẹn ba người còn biết dẹp.",
-          "asr_avg_logprob": -0.05277632176876068,
-          "lm_avg_log10prob": -2.40733916325919,
+          "text": "kết quả chỉ có vỏng vạng ba người còn biết dẹp kết quản chỉ có vẫn vẹn ba người biết dệp cột việt kếtquả chỉ coi võng vẹng ba mươi còn biết giẹt.",
+          "asr_avg_logprob": -0.22765854001045227,
+          "lm_avg_log10prob": -3.0101071489489617,
           "n_tokens": 33
         },
         {
           "rank_asr": 2,
-          "text": "kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp kết quả chỉ có vỏng vẹn ba người còn biết dẹp.",
-          "asr_avg_logprob": -0.05534492805600166,
-          "lm_avg_log10prob": -2.7453832884200495,
+          "text": "kết quả chỉ có vỏng vạng ba người còn biết dẹp kết quản chỉ có vẫn vẹn ba người biết dệp cột viết kếtquả chỉ co vỏnh vẹt ba người cần biết dệt kết cảm chỉ có mãn vẹân ba người không biết dè.",
+          "asr_avg_logprob": -0.2729162275791168,
+          "lm_avg_log10prob": -3.0425547990196997,
           "n_tokens": 44
         },
         {
           "rank_asr": 3,
-          "text": "kết quả chỉ có vỏn vẹn ba người còn biết dẹp kết quả chỉ có vỏn vẹn ba người còn biết dẹp kết quả chỉ có vỏn vẹn ba người còn biết dẹp.kết quả chỉ có vỏn vẹn ba người còn biết dẹp.",
-          "asr_avg_logprob": -0.06249907240271568,
-          "lm_avg_log10prob": -2.4237610611721676,
-          "n_tokens": 44
+          "text": "kết quả chỉ có vỏng vạng ba người còn biết dẹp kết quản chỉ có vẫn vẹn ba người biết dệp cột viết kếtquả chỉ co vỏnh vẹt ba người cần biết dệt kết cảm chỉ có vao vang ba người cobiết dẹt.",
+          "asr_avg_logprob": -0.27823665738105774,
+          "lm_avg_log10prob": -3.1235458127140023,
+          "n_tokens": 43
         },
         {
           "rank_asr": 4,
-          "text": "kết quả chỉ có vỏn vẹn ba người còn biết dẹp kết quả chỉ có vỏn vẹn ba người còn biết dẹp kết quả chỉ có vỏn vẹn ba người còn biết dẹp.",
-          "asr_avg_logprob": -0.0637081116437912,
-          "lm_avg_log10prob": -2.40733916325919,
-          "n_tokens": 33
+          "text": "kết quả chỉ có vỏng vạng ba người còn biết dẹp kết quản chỉ có vẫn vẹn ba người biết dệp cột viết kếtquả chỉ co vỏnh vẹt ba người cần biết dệt kết cảm chỉ có mãn vẹân ba người không biết dộp.",
+          "asr_avg_logprob": -0.2796401381492615,
+          "lm_avg_log10prob": -3.036177092492663,
+          "n_tokens": 44
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "kết quả chỉ có vỏn vẹn ba người còn biết dẹp kết quả chỉ có vỏn vẹn ba người còn biết dẹp.kết quả chỉ có vỏn vẹn ba người còn biết dẹp."
+        "alpha": 0.3,
+        "text": "kết quả chỉ có vỏng vạng ba người còn biết dẹp kết quản chỉ có vẫn vẹn ba người biết dệp cột việt kếtquả chỉ coi võng vẹng ba mươi còn biết giẹp."
       }
     },
     {
@@ -615,49 +615,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV09\\VIVOSDEV09_081.wav",
       "reference": "ĐƯỢC MỸ RÁO RIẾT TUNG RA",
       "greedy": {
-        "text": "được mỹ giáo quyết tumura được mỹ giáo quyết tumura.",
-        "asr_avg_logprob": -0.10313232243061066
+        "text": "được mỹ giáo quyết tumura được mỹ lá quyết umor a đưa mỹ ra quýt tokken i tukken eich utd được mĩ ra quyết.",
+        "asr_avg_logprob": -0.6346110701560974
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "được mỹ giáo quyết tumura được mỹ giáo quyết tumura.",
-          "asr_avg_logprob": -0.10313235968351364,
-          "lm_avg_log10prob": -3.2538201132949696,
-          "n_tokens": 10
+          "text": "được mỹ giáo quyết tumura được mỹ lá quốc tu mu ra.",
+          "asr_avg_logprob": -0.2252172976732254,
+          "lm_avg_log10prob": -3.2951552831022477,
+          "n_tokens": 12
         },
         {
           "rank_asr": 1,
-          "text": "được mỹ giáo quyết tumura được mỹ lá quyết tumura.",
-          "asr_avg_logprob": -0.11395768076181412,
-          "lm_avg_log10prob": -3.2708342529655194,
+          "text": "được mỹ giáo quyết tumura được mỹ lách với tumbura.",
+          "asr_avg_logprob": -0.2440379112958908,
+          "lm_avg_log10prob": -3.2387776653388074,
           "n_tokens": 10
         },
         {
           "rank_asr": 2,
-          "text": "được mỹ lá quyết tumura được mỹ lá quyết tumura.",
-          "asr_avg_logprob": -0.12139730900526047,
-          "lm_avg_log10prob": -3.2878483926360684,
-          "n_tokens": 10
+          "text": "được mỹ lá quyết tumura được mỹ rao khuyến tungura được đưa ra.",
+          "asr_avg_logprob": -0.2849467694759369,
+          "lm_avg_log10prob": -3.027269774024021,
+          "n_tokens": 13
         },
         {
           "rank_asr": 3,
-          "text": "được mỹ lá quyết tumura được mỹ lá quyết tumura.được mỹ lá quyết tumura.",
-          "asr_avg_logprob": -0.165457621216774,
-          "lm_avg_log10prob": -3.3453893367782603,
-          "n_tokens": 15
+          "text": "được mỹ giáo quyết tumura được mỹ lá quốc tu mu ra đưa mỹ rao khuếch tumbura ra.",
+          "asr_avg_logprob": -0.32516729831695557,
+          "lm_avg_log10prob": -3.416890697218297,
+          "n_tokens": 18
         },
         {
           "rank_asr": 4,
-          "text": "được mỹ giáo quyết tumura được mỹ giáo viên tumura.",
-          "asr_avg_logprob": -0.17270362377166748,
-          "lm_avg_log10prob": -3.042634129753963,
-          "n_tokens": 10
+          "text": "được mỹ lá quyết tumura được mỹ rao khuyến tungua ra được mĩ lao xuýt tumbura ra.",
+          "asr_avg_logprob": -0.339956670999527,
+          "lm_avg_log10prob": -3.3446333459310313,
+          "n_tokens": 17
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "được mỹ giáo quyết tumura được mỹ giáo viên tumura."
+        "alpha": 0.3,
+        "text": "được mỹ lá quyết tumura được mỹ rao khuyến tungura được đưa ra."
       }
     },
     {
@@ -665,49 +665,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV10\\VIVOSDEV10_140.wav",
       "reference": "CHÀNG TRAI LỒM CỒM BÒ DẬY MẶT MÀY XANH LÉT NHƯ TÀU LÁ CHUỐI",
       "greedy": {
-        "text": "chàng trai đờm còm bò dậy mạch mài xanh đét như càu lá chuối chàng trai đờm còm bò dậy mạch mài xanh đét như càu lá chuối chàng trai đờm còm bò dậy mạch mài xanh đét như càu lá chuối chàng trai đờm còm bò dậy mạch mài xanh đét như càu lá chuối chàng trai đờm còm bò dậy mạchênh đờm còm bò dậy mạch mài xanh đét như càu lá chuối chàng trai đờm còm bò dậy mạchênh đờm càn săn lét như càu lá chuối chàng trai đờm còm bò dậy mạch",
-        "asr_avg_logprob": -0.0924147516489029
+        "text": "chàng trai đờm còm bôi dậy mạch mài xanh đét như càu lá chuối chàng tài lợp cồn bồi dậy hoạch mày xanh nét như tàu rác chuối.",
+        "asr_avg_logprob": -0.1783735305070877
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như càu lá chuối chàng trai lởm còm bồi dậy mạch mài xanh đét như càu lá chuối chàng trai lởm còm bồi dậy mạch mài xanh đét như càu lá chuối.",
-          "asr_avg_logprob": -0.08030858635902405,
-          "lm_avg_log10prob": -3.451560610861113,
-          "n_tokens": 42
+          "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối chàng tranh làm cồm bôi dậy hoặc mày xanh loét như càu áo chuối.",
+          "asr_avg_logprob": -0.19192534685134888,
+          "lm_avg_log10prob": -3.51515000730013,
+          "n_tokens": 28
         },
         {
           "rank_asr": 1,
-          "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như cà lá chuối chàng trai lởm còm bồi dậy mạch mài xanh đét như cà lá chuối chàng trai lởm còm bồi dậy mạch mài xanh đét như cà lá chuối.",
-          "asr_avg_logprob": -0.08760955184698105,
-          "lm_avg_log10prob": -3.429576534220401,
+          "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối chàng tranh làm cồm bôi dậy hoặc mày xanh loét như cầu lá chuỗi chàng con đờm cồm bò vẫy mặt mày xan đét như cầu á chuối.",
+          "asr_avg_logprob": -0.20169439911842346,
+          "lm_avg_log10prob": -3.531918501734276,
           "n_tokens": 42
         },
         {
           "rank_asr": 2,
-          "text": "chàng trai đờm còm bò dạy mạch mài xanh đét như cào lá chuối chàng trai đờm còm bò dạy mạch mài xanh đét như cào lá chuối.",
-          "asr_avg_logprob": -0.0965515598654747,
-          "lm_avg_log10prob": -3.391269706006774,
-          "n_tokens": 28
+          "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối chàng tranh làm cồm bôi dậy hoặc mày xanh loét như cầu lá chuỗi chàng con đờm cồm bò vẫy mặt mày xan đét như cầu áo chuối.",
+          "asr_avg_logprob": -0.205216184258461,
+          "lm_avg_log10prob": -3.5253948715528294,
+          "n_tokens": 42
         },
         {
           "rank_asr": 3,
-          "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như càu lá chuối chàng trai lởm còm bồi dậy mạch mài xanh đét như càu lá chuối.",
-          "asr_avg_logprob": -0.10416276007890701,
-          "lm_avg_log10prob": -3.412799604102066,
-          "n_tokens": 28
+          "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối chàng tranh làm cồm bôi dậy hoặc mày xanh loét như cầu lá chuổi chàng con đờm cồm bò vẫy mặt mày xan đét như cầu áo chuối làng chai đồm cồn bò dãy mạp mày xăm đét chàng nát như cào áochuối làn chuối.",
+          "asr_avg_logprob": -0.2576201558113098,
+          "lm_avg_log10prob": -3.647222034600423,
+          "n_tokens": 59
         },
         {
           "rank_asr": 4,
-          "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối.",
-          "asr_avg_logprob": -0.11029689759016037,
-          "lm_avg_log10prob": -3.3851301341555753,
-          "n_tokens": 28
+          "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối chàng tranh làm cồm bôi dậy hoặc mày xanh loét như cầu lá chuổi chàng con đờm cồm bò vẫy mặt mày xan đét như cầu áo chuối làng chai đồm cồn bò dãy mạp mày xăm đét chàng nát như cào áochuý như càu áoluý như cao áo chúi làng chuối nào chàng chai độc cồng cọ điền chuỗi chuối.",
+          "asr_avg_logprob": -0.36484265327453613,
+          "lm_avg_log10prob": -3.6648039971359347,
+          "n_tokens": 75
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối."
+        "alpha": 0.3,
+        "text": "chàng trai lởm còm bồi dậy mạch mài xanh đét như tàu lá chuối chàng tranh làm cồm bôi dậy hoặc mày xanh loét như càu áo chuối."
       }
     },
     {
@@ -715,49 +715,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV01\\VIVOSDEV01_T030.wav",
       "reference": "XUÂN NÀY EM KHÔNG VỀ",
       "greedy": {
-        "text": "xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không vười người xuân này xuân này em không vườiàn người xuân khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi khi",
-        "asr_avg_logprob": -0.20755816996097565
+        "text": "xuân này em không về xuân này không về xuân nào em không vời xuân nào xuân là em không vậy xuân như em xuân vậy xuất này em sông về xuâm này em chinh rồi xuân nhà em không trở về xuất nào xuất nhầy em không vịnh xuân chủ này em xuất nhà không vợ xuân làm sao cho có ai là từ đối tiếp tới xuân hàng nghìn người khác chứ sao chẳng nhẽo không thực gì do tháng đến đúng giờ xuân phải làm sao chậu làm sao nhỏ nhẹo nhỏ nghĩa ta giỏi đến gì thì xuân sự khác nhắn thế của mình chụng sự khác đồng cảm� đồng thôiái của mình thơái nên xuý như ai ta� trước khi thức khác nhươá� trải đoái trong tr",
+        "asr_avg_logprob": -0.8702666163444519
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không vậy xuân không về xuân này em không về xuân này em không về xuân này em không vậy",
-          "asr_avg_logprob": -0.14076374471187592,
-          "lm_avg_log10prob": -2.3454497201437965,
-          "n_tokens": 185
+          "text": "xuân này em không về xuân này không về xuân nào em không vời xuân nào xuân là em không vậy xuân như em xuân vậy xuất này em sưn này em vẫn không về.",
+          "asr_avg_logprob": -0.3569023609161377,
+          "lm_avg_log10prob": -2.7460377148069446,
+          "n_tokens": 35
         },
         {
           "rank_asr": 1,
-          "text": "xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không vậy xuân không về xuân này em không về xuân này em không về xuân này em không về",
-          "asr_avg_logprob": -0.14605613052845,
-          "lm_avg_log10prob": -2.343509958683697,
-          "n_tokens": 185
+          "text": "xuân này em không về xuân này e không về xuân nàoi em không vời xuân làng em không quề xuân nàoy em không vậy xuân chủ này em chinh phần xuân mình không về.",
+          "asr_avg_logprob": -0.38054361939430237,
+          "lm_avg_log10prob": -2.9752199609249654,
+          "n_tokens": 35
         },
         {
           "rank_asr": 2,
-          "text": "xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không vậy xuân không về xuân này em không về xuân này em không về xuân này em không",
-          "asr_avg_logprob": -0.14663894474506378,
-          "lm_avg_log10prob": -2.3434308262805836,
-          "n_tokens": 184
+          "text": "xuân này em không về xuân này không về xuân nào em không vời xuân nào xuân là em không vậy xuân như em xuân vậy xuất này em sưn này em lại không về suân này sưnh này em còn không về.",
+          "asr_avg_logprob": -0.4100458025932312,
+          "lm_avg_log10prob": -2.769438702646059,
+          "n_tokens": 43
         },
         {
           "rank_asr": 3,
-          "text": "xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không vậy xuân không về xuân này em không về xuân này em không về xuân này em không v",
-          "asr_avg_logprob": -0.14713357388973236,
-          "lm_avg_log10prob": -2.3483431437360975,
-          "n_tokens": 185
+          "text": "xuân này em không về xuân này không về xuân nào em không vời xuân nào xuân là em không vậy xuân như em xuân vậy xuất này em sưn này em lại em không vào xuân mình xuân chủ nhà em không trở về xuất hiện xuân mà em chẳng về xuống nào xuất nhầy em không ngoại từ đó xuân khác với lúc bí quyền thái ý thế nào cũng.",
+          "asr_avg_logprob": -0.5531176924705505,
+          "lm_avg_log10prob": -2.828756848217361,
+          "n_tokens": 72
         },
         {
           "rank_asr": 4,
-          "text": "xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không vậy xuân không về xuân này em không về xuân này em không về xuân này em không phải",
-          "asr_avg_logprob": -0.14729976654052734,
-          "lm_avg_log10prob": -2.3409899114360924,
-          "n_tokens": 185
+          "text": "xuân này em không về xuân này không về xuân nào em không vời xuân nào xuân là em không vậy xuân như em xuân vậy xuất này em sưn này em lại em không vào xuân mình xuân chủ nhà em không trở về xuất hiện xuân mà em chẳng về xuống nào xuất nhầy em không ngoại từ đó xuân khác với lúc bí quyền thái ý thế nào cũng theo chiến đồn này xuân toàn càng tó thơ của mình và dù sao chúng đều có ai tiếng đồng thầm lẫn tới thi không ạy tao tình xuân sự khi thôi tuổi trước khi tự trong trường trình trẻ trượtừ tr trời trải dưỡng trk trùng tr",
+          "asr_avg_logprob": -0.6539021730422974,
+          "lm_avg_log10prob": -2.975471166106203,
+          "n_tokens": 120
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không về xuân này em không vậy xuân không về xuân này em không về xuân này em không về xuân này em không phải"
+        "alpha": 0.3,
+        "text": "xuân này em không về xuân này không về xuân nào em không vời xuân nào xuân là em không vậy xuân như em xuân vậy xuất này em sưn này em vẫn không về."
       }
     },
     {
@@ -765,49 +765,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV04\\VIVOSDEV04_T018.wav",
       "reference": "NHỮNG SAI LẦM KHI ĐI CHỌN KHÁCH SẠN",
       "greedy": {
-        "text": "những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn nh",
-        "asr_avg_logprob": -0.04979390650987625
+        "text": "những sai lầm khi đi chọn khách sạn những sai lậm khi chọn du khách nhằn khác xa lạng.",
+        "asr_avg_logprob": -0.29020240902900696
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "những sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn",
-          "asr_avg_logprob": -0.033210981637239456,
-          "lm_avg_log10prob": -2.2017346591615756,
-          "n_tokens": 128
+          "text": "những sai lầm khi đi chọn khách sạn những sai lậm khi chọn cách sẵn.",
+          "asr_avg_logprob": -0.19443321228027344,
+          "lm_avg_log10prob": -2.2963296845227377,
+          "n_tokens": 15
         },
         {
           "rank_asr": 1,
-          "text": "những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm khi đi chọn khách sạn những sai lầm nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn nhn",
-          "asr_avg_logprob": -0.0346677340567112,
-          "lm_avg_log10prob": -2.2269583439607006,
-          "n_tokens": 133
+          "text": "những sai lầm khi đi chọn khách sạn.",
+          "asr_avg_logprob": -0.19682727754116058,
+          "lm_avg_log10prob": -1.6938122460842209,
+          "n_tokens": 8
         },
         {
           "rank_asr": 2,
-          "text": "những sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi.",
-          "asr_avg_logprob": -0.03480331599712372,
-          "lm_avg_log10prob": -2.2126123026546773,
-          "n_tokens": 125
+          "text": "những sai lầm khi đi chọn khách sạn ngữ sai lậm khi chọn du khách hàng sau khi đi dọn khắp hết sản.",
+          "asr_avg_logprob": -0.300735205411911,
+          "lm_avg_log10prob": -2.50868556169639,
+          "n_tokens": 23
         },
         {
           "rank_asr": 3,
-          "text": "những sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sự l",
-          "asr_avg_logprob": -0.04861889407038689,
-          "lm_avg_log10prob": -2.234508200917197,
-          "n_tokens": 129
+          "text": "những sai lầm khi đi chọn khách sạn ngữ sai lậm khi chọn du khách hàng sau khi đi dọn khắp các chợ mua những sai lần khi đi nhận khách.",
+          "asr_avg_logprob": -0.3223233222961426,
+          "lm_avg_log10prob": -2.534764051967135,
+          "n_tokens": 31
         },
         {
           "rank_asr": 4,
-          "text": "những sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sự í",
-          "asr_avg_logprob": -0.048773281276226044,
-          "lm_avg_log10prob": -2.2369724592795937,
-          "n_tokens": 129
+          "text": "những sai lầm khi đi chọn khách sạn ngữ sai lậm khi chọn du khách hàng sau khi đi dọn khắp các chợ mua những sai lỏng khi chôn khách.",
+          "asr_avg_logprob": -0.33133530616760254,
+          "lm_avg_log10prob": -2.6207155295219633,
+          "n_tokens": 30
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "những sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn ngữ sai lầm khi đi chọn khách sạn"
+        "alpha": 0.3,
+        "text": "những sai lầm khi đi chọn khách sạn."
       }
     },
     {
@@ -815,48 +815,48 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV06\\VIVOSDEV06_098.wav",
       "reference": "CÁI VỊ CHÁT CHÁT VÀ ĐẮNG NGẮT CỦA CÀ PHÊ NGUYÊN CHẤT",
       "greedy": {
-        "text": "cái vị chắc chác và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phải nguyên chất cái vị chắc chắc chát và đắng ngắt của cà phê nguyên chất đang đắt những cái gì không đủng này được đặc biệt hút nào đặt nào đặt nào đặc hiệu nào đổi phi",
-        "asr_avg_logprob": -0.186758354306221
+        "text": "cái vị chắc chác và đắng ngắt của cà phê nguyên chất cái vị chác chác mà đắng ngoắt của cafe nguyễn chất.",
+        "asr_avg_logprob": -0.18924430012702942
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "cái vị chắc chắc và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chắc",
-          "asr_avg_logprob": -0.041974470019340515,
-          "lm_avg_log10prob": -2.8754472759472756,
-          "n_tokens": 100
+          "text": "cái vị chắc chác và đắng ngắt của cà phê nguyên chất.",
+          "asr_avg_logprob": -0.07017164677381516,
+          "lm_avg_log10prob": -2.734528861332338,
+          "n_tokens": 12
         },
         {
           "rank_asr": 1,
-          "text": "cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của càút nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát",
-          "asr_avg_logprob": -0.042755018919706345,
-          "lm_avg_log10prob": -2.956358859605759,
-          "n_tokens": 99
+          "text": "cái vị chắc chác và đắng ngắt của cà phê nguyên chất cái vị chác chác mà đắng ngoắt của cafe nguyễn chất.",
+          "asr_avg_logprob": -0.18573489785194397,
+          "lm_avg_log10prob": -3.108589208918169,
+          "n_tokens": 23
         },
         {
           "rank_asr": 2,
-          "text": "cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chắc chát và đắng ngắt của càút nguyên chất cái vị chắc chát và đắng ngắt của càút nguyên chất",
-          "asr_avg_logprob": -0.048595234751701355,
-          "lm_avg_log10prob": -2.914426221745633,
-          "n_tokens": 94
+          "text": "cái vị chắc chát và đắng ngắt của cà phê nguyên chất cái vị chác chác và đánh ngắt ở cà phi nguyện chất.",
+          "asr_avg_logprob": -0.19022686779499054,
+          "lm_avg_log10prob": -3.0914892421305247,
+          "n_tokens": 24
         },
         {
           "rank_asr": 3,
-          "text": "cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát chát và đắng ngắt của càút nguyên chất cái vị chát chát và đắng ngắt của cà phê nguyên chất cái vị chát",
-          "asr_avg_logprob": -0.05043348670005798,
-          "lm_avg_log10prob": -2.9443324898249794,
-          "n_tokens": 98
+          "text": "cái vị chát chác và đắng ngắt của cà phê nguyên chất cái vị chác chác mà đắng ngoắc của cac phê xin nguyện chất.",
+          "asr_avg_logprob": -0.20312340557575226,
+          "lm_avg_log10prob": -3.1821827847615833,
+          "n_tokens": 25
         },
         {
           "rank_asr": 4,
-          "text": "cái vị chắc chác và đắng ngắt của cà phê nguyên chất.",
-          "asr_avg_logprob": -0.07922498136758804,
-          "lm_avg_log10prob": -2.734528861332338,
-          "n_tokens": 12
+          "text": "cái vị chát chác và đắng ngắt của cà phê nguyên chất cái vị chác chác mà đắng ngoắc của cac phê xin nguyễn chất.",
+          "asr_avg_logprob": -0.2195117026567459,
+          "lm_avg_log10prob": -3.176530086169915,
+          "n_tokens": 25
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
+        "alpha": 0.3,
         "text": "cái vị chắc chác và đắng ngắt của cà phê nguyên chất."
       }
     },
@@ -865,48 +865,48 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV08\\VIVOSDEV08_077.wav",
       "reference": "BUỔI ĐẦU THẬT KHÓ KHĂN THEO ĐUỔI CHƯƠNG TRÌNH HỌC",
       "greedy": {
-        "text": "buổi đầu thật khó khăn theo đuổi chương trình học n bưởi đầu thật khó khăn theo đuổi chương trình học n bưởi đầu thật khó khăn theo đuổi chương trình học n bưởi đầu thật khó khăn theo đuổi chương trình học n.",
-        "asr_avg_logprob": -0.02250870130956173
+        "text": "buổi đầu thật khó khăn theo đuổi chương trình học n bưởi đầu theok kang theô đuối chương.",
+        "asr_avg_logprob": -0.2950664758682251
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "buổi đầu thật khó khăn theo đuổi chương trình học bưởi đầu thật khó khăn theo đuổi chương trình học.",
-          "asr_avg_logprob": -0.05323758348822594,
-          "lm_avg_log10prob": -2.424084747747748,
-          "n_tokens": 20
-        },
-        {
-          "rank_asr": 1,
-          "text": "buổi đầu thật khó khăn theo đuổi chương trình học buổi đầu thật khó khăn theo đuổi chương trình học.",
-          "asr_avg_logprob": -0.07274074852466583,
-          "lm_avg_log10prob": -2.4044299319966003,
-          "n_tokens": 20
-        },
-        {
-          "rank_asr": 2,
           "text": "buổi đầu thật khó khăn theo đuổi chương trình học.",
-          "asr_avg_logprob": -0.08309123665094376,
+          "asr_avg_logprob": -0.08272623270750046,
           "lm_avg_log10prob": -2.3382074465740263,
           "n_tokens": 10
         },
         {
+          "rank_asr": 1,
+          "text": "buổi đầu thật khó khăn theo đuổi chương trình học n bưởi đầu ta có khăn leo đổi chân trần học.",
+          "asr_avg_logprob": -0.17798979580402374,
+          "lm_avg_log10prob": -2.8909104005337887,
+          "n_tokens": 21
+        },
+        {
+          "rank_asr": 2,
+          "text": "buổi đầu thật khó khăn theo đuổi chương trình học n bưởi đầu ta có khăn leo đổi chơn trần học.",
+          "asr_avg_logprob": -0.1822567880153656,
+          "lm_avg_log10prob": -2.9116787010055587,
+          "n_tokens": 21
+        },
+        {
           "rank_asr": 3,
-          "text": "buổi đầu thật khó khăn theo đuổi chương trình học n bưởi đầu thật khó khăn theo đuổi chương trình học n.",
-          "asr_avg_logprob": -0.08436337858438492,
-          "lm_avg_log10prob": -2.58023099477275,
-          "n_tokens": 22
+          "text": "buổi đầu thật khó khăn theo đũa chương trình học.",
+          "asr_avg_logprob": -0.19310100376605988,
+          "lm_avg_log10prob": -2.4850219554841937,
+          "n_tokens": 10
         },
         {
           "rank_asr": 4,
-          "text": "buổi đầu thật khó khăn theo đũa chương trình học.",
-          "asr_avg_logprob": -0.19361667335033417,
-          "lm_avg_log10prob": -2.4850219554841937,
-          "n_tokens": 10
+          "text": "buổi đầu thật khó khăn theo đuổi chương trình học n bưởi đầu ta có khăn leo đổi chơn trinh học n.",
+          "asr_avg_logprob": -0.24322015047073364,
+          "lm_avg_log10prob": -2.9898564893332193,
+          "n_tokens": 22
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
+        "alpha": 0.3,
         "text": "buổi đầu thật khó khăn theo đuổi chương trình học."
       }
     },
@@ -915,48 +915,48 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV15\\VIVOSDEV15_109.wav",
       "reference": "CUỘC THI TỰ HÀO SỬ VIỆT ĐÃ HẾT GIAI ĐOẠN I",
       "greedy": {
-        "text": "cuộc thi tự hào sự việc đã hết giai đoạn cuộc thi tự hào sự việc đã hết giai đoạn.",
-        "asr_avg_logprob": -0.016020072624087334
+        "text": "cuộc thi tự hào sự việc đã hết giai đoạn cuộc thì từ hào xử việt đã hết hai đoan cuộc tri tức hào sử viật đã hết sai đoạt cuộc tiêu tượng hào số việt đang hết giay đoại.",
+        "asr_avg_logprob": -0.2936716675758362
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "cuộc thi tự hào sự việc đã hết giai đoạn cuộc thi tự hào sự việc đã hết giai đoạn.",
-          "asr_avg_logprob": -0.01968446560204029,
-          "lm_avg_log10prob": -2.3369159733692078,
-          "n_tokens": 20
-        },
-        {
-          "rank_asr": 1,
-          "text": "cuộc thi tự hào sự việc đã hết giai đoạn cuộc thi tự hào sự việc đã hết giai đoạn cuộc thi tự hào sự việc đã hết giai đoạn.",
-          "asr_avg_logprob": -0.051671724766492844,
-          "lm_avg_log10prob": -2.361353648319391,
-          "n_tokens": 30
-        },
-        {
-          "rank_asr": 2,
-          "text": "cuộc thi tự hào sự việc đã hết giai đoạn.cuộc thi tự hào sự việc đã hết giai đoạn.",
-          "asr_avg_logprob": -0.08362927287817001,
-          "lm_avg_log10prob": -2.3369159733692078,
-          "n_tokens": 20
-        },
-        {
-          "rank_asr": 3,
           "text": "cuộc thi tự hào sự việc đã hết giai đoạn.",
-          "asr_avg_logprob": -0.10634803771972656,
+          "asr_avg_logprob": -0.09603118896484375,
           "lm_avg_log10prob": -2.2680461621459647,
           "n_tokens": 10
         },
         {
+          "rank_asr": 1,
+          "text": "cuộc thi tự hào sự việc đã hết giai đoạn cuộc thì từ hào sử việt đã hết hai đoạt.",
+          "asr_avg_logprob": -0.14791028201580048,
+          "lm_avg_log10prob": -2.684369783906832,
+          "n_tokens": 20
+        },
+        {
+          "rank_asr": 2,
+          "text": "cuộc thi tự hào sự việc đã hết giai đoạn cuộc thì tức hào số việt đã hết hai đoản.",
+          "asr_avg_logprob": -0.15149222314357758,
+          "lm_avg_log10prob": -2.7539862089211753,
+          "n_tokens": 20
+        },
+        {
+          "rank_asr": 3,
+          "text": "cuộc thi tự hào sự việc đã hết giai đoạn cuộc thì tức hào số việt đã hết hai đoạt.",
+          "asr_avg_logprob": -0.15233227610588074,
+          "lm_avg_log10prob": -2.7658692330477446,
+          "n_tokens": 20
+        },
+        {
           "rank_asr": 4,
-          "text": "cuộc thi tự hào sự việc đã hết giai đoạn. cuộc thi tự hào sự việc đã hết giai đoạn.",
-          "asr_avg_logprob": -0.11341588944196701,
-          "lm_avg_log10prob": -2.3369159733692078,
+          "text": "cuộc thi tự hào sự việc đã hết giai đoạn cuộc thì từ hào xử việt đã hết hai đoan.",
+          "asr_avg_logprob": -0.1717444807291031,
+          "lm_avg_log10prob": -2.714976781361911,
           "n_tokens": 20
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
+        "alpha": 0.3,
         "text": "cuộc thi tự hào sự việc đã hết giai đoạn."
       }
     },
@@ -965,49 +965,49 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV14\\VIVOSDEV14_186.wav",
       "reference": "CÓ BẰNG THẠC SĨ NHỮNG NGÀNH TRÊN LÀ MỘT LỢI THẾ",
       "greedy": {
-        "text": "có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là",
-        "asr_avg_logprob": -0.009598596021533012
+        "text": "có bằng thạc sĩ như ngành trên là một lợi thế có bằng nhạc sự như ngày trinh là một gợi.",
+        "asr_avg_logprob": -0.20106802880764008
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là",
-          "asr_avg_logprob": -0.010695112869143486,
-          "lm_avg_log10prob": -2.305006572826024,
-          "n_tokens": 107
+          "text": "có bằng thạc sĩ nhưng ngành trên là một lợi thế.",
+          "asr_avg_logprob": -0.1163010373711586,
+          "lm_avg_log10prob": -2.1843457994981565,
+          "n_tokens": 11
         },
         {
           "rank_asr": 1,
-          "text": "có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là",
-          "asr_avg_logprob": -0.01162660587579012,
-          "lm_avg_log10prob": -2.2589211637202915,
-          "n_tokens": 107
+          "text": "có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng hiệp sỹ như ngành chênh là một loại thuế.",
+          "asr_avg_logprob": -0.12697023153305054,
+          "lm_avg_log10prob": -2.578424361066726,
+          "n_tokens": 22
         },
         {
           "rank_asr": 2,
-          "text": "có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngànhtrên là một",
-          "asr_avg_logprob": -0.016789784654974937,
-          "lm_avg_log10prob": -2.2533350425634926,
-          "n_tokens": 107
+          "text": "có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng hiệp sỹ như ngành chênh là một gợi.",
+          "asr_avg_logprob": -0.16479559242725372,
+          "lm_avg_log10prob": -2.572678813265505,
+          "n_tokens": 21
         },
         {
           "rank_asr": 3,
-          "text": "có bằng thạc sĩ nhưng ngành trên là một lỗi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một",
-          "asr_avg_logprob": -0.020726528018712997,
-          "lm_avg_log10prob": -2.312123359410933,
-          "n_tokens": 108
+          "text": "có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng hiệp sỹ như ngành chênh là một loại thuế có vằn thẹt sĩ như ngần trơn là một gợi.",
+          "asr_avg_logprob": -0.1974181979894638,
+          "lm_avg_log10prob": -2.7626670060521565,
+          "n_tokens": 32
         },
         {
           "rank_asr": 4,
-          "text": "có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng thạc sĩ nhưng ngành nhân chên",
-          "asr_avg_logprob": -0.02431543730199337,
-          "lm_avg_log10prob": -2.3233607226794866,
-          "n_tokens": 107
+          "text": "có bằng thạc sĩ nhưng ngành trên là một lợi thế có bằng hiệp sỹ như ngành chênh là một loại thuế có vằn thẹt sĩ như ngần trinh là một gợi.",
+          "asr_avg_logprob": -0.2024107724428177,
+          "lm_avg_log10prob": -2.761749054482431,
+          "n_tokens": 32
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
-        "text": "có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngành trên là một lợi thế có bằng thạc sĩ như ngànhtrên là một"
+        "alpha": 0.3,
+        "text": "có bằng thạc sĩ nhưng ngành trên là một lợi thế."
       }
     },
     {
@@ -1015,48 +1015,48 @@
       "wav": "d:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\processed\\vivos\\vivos\\test\\waves\\VIVOSDEV14\\VIVOSDEV14_227.wav",
       "reference": "ĐỐI XỬ VỚI BẠN NHƯ NGƯỜI YÊU CŨ CỦA BẠN ĐÃ TỪNG LÀM",
       "greedy": {
-        "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm đối xử với bạn như người yêu cũ của bạn đã từng làm.",
-        "asr_avg_logprob": -0.01856096088886261
+        "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm đối xủ với bạn nhiều người yêu cử của bạn để đã sừng làm.",
+        "asr_avg_logprob": -0.2049611210823059
       },
       "candidates": [
         {
           "rank_asr": 0,
-          "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm đối xử với bạn như người yêu cũ của bạn đã từng làm.",
-          "asr_avg_logprob": -0.02062360942363739,
-          "lm_avg_log10prob": -2.117919884275858,
-          "n_tokens": 26
-        },
-        {
-          "rank_asr": 1,
           "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm.",
-          "asr_avg_logprob": -0.0472806915640831,
+          "asr_avg_logprob": -0.046736620366573334,
           "lm_avg_log10prob": -2.075471061763193,
           "n_tokens": 13
         },
         {
+          "rank_asr": 1,
+          "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm đối xủ với bạn nhiều người yêu cử của bạn cũng đã sừng làm.",
+          "asr_avg_logprob": -0.18485526740550995,
+          "lm_avg_log10prob": -2.383936604428878,
+          "n_tokens": 27
+        },
+        {
           "rank_asr": 2,
-          "text": "đói xử với bạn như người yêu cũ của bạn đã từng làm đối xử với bạn như người yêu cũ của bạn đã từng làm.",
-          "asr_avg_logprob": -0.12363020330667496,
-          "lm_avg_log10prob": -2.247306277588534,
-          "n_tokens": 26
+          "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm đối xủ với bạn nhiều người yêu cử của bạn để đã thân làm.",
+          "asr_avg_logprob": -0.20099472999572754,
+          "lm_avg_log10prob": -2.414249616914415,
+          "n_tokens": 27
         },
         {
           "rank_asr": 3,
-          "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm làm đối xử với bạn như người yêu cũ của bạn đã từng làm.",
-          "asr_avg_logprob": -0.12913481891155243,
-          "lm_avg_log10prob": -2.1426316165125012,
-          "n_tokens": 27
+          "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm đối xữ với bạn nhiều người yêu cử của bạn để tương lai.",
+          "asr_avg_logprob": -0.20625315606594086,
+          "lm_avg_log10prob": -2.3200922991558333,
+          "n_tokens": 26
         },
         {
           "rank_asr": 4,
-          "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm đối xử với bạn như người yêu cũ của bạn đã từng làm la.",
-          "asr_avg_logprob": -0.1684224009513855,
-          "lm_avg_log10prob": -2.1823132611623834,
-          "n_tokens": 27
+          "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm đối xữ với bạn nhiều người yêu cử của bạn để tự làm.",
+          "asr_avg_logprob": -0.21230052411556244,
+          "lm_avg_log10prob": -2.3697127620468916,
+          "n_tokens": 26
         }
       ],
       "rerank_best": {
-        "alpha": 1.0,
+        "alpha": 0.3,
         "text": "đối xử với bạn như người yêu cũ của bạn đã từng làm."
       }
     }

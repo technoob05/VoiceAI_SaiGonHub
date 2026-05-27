@@ -67,14 +67,12 @@ class PQTwoStreamConfig:
     pq_n_codes:        int   = 256     # K — uint8 codes
     pq_train_iter:     int   = 15
     pq_train_seed:     int   = 0
-    # After training, the segment-stream threshold is auto-loosened by
+    # After training, the segment-stream threshold can be auto-loosened by
     #   k_sigma * std + mean   of holdout encoding error.
-    # Reason: asymmetric_cosine of a vector's encoding is < 1.0 by exactly
-    # the PQ approximation error. With under-trained codebooks (few train
-    # samples vs K=256 centroids per sub-quantizer) the gap is non-negligible.
-    # Set k_sigma=1.0 (conservative) — too loose hurts minimal-pair safety.
-    pq_threshold_relax_k_sigma: float = 1.0
-    pq_threshold_floor:         float = 0.88
+    # With the joint-product candidate selection (see lookup()) this is
+    # rarely needed — defaults are conservative (no relaxation by default).
+    pq_threshold_relax_k_sigma: float = 0.0
+    pq_threshold_floor:         float = 0.92
 
 
 class PQTwoStreamCache:
@@ -189,11 +187,14 @@ class PQTwoStreamCache:
         # Ensure PQ training happens if we have enough buffered, regardless of put pattern.
         self._maybe_train()
 
-        best_tone, best_tone_id = -1.0, None
-        best_seg,  best_seg_id  = -1.0, None
-
         q_tone = fp.tone.astype(np.float32)
         q_seg  = fp.segment.astype(np.float32)
+
+        # Score every candidate on BOTH streams in a single pass.
+        best_tone,  best_tone_id  = -1.0, None
+        best_seg,   best_seg_id   = -1.0, None
+        best_joint, best_joint_id = -1.0, None
+        best_joint_t, best_joint_s = -1.0, -1.0
 
         for k, e in self._store.items():
             if e.get("target_lang") != target_lang:
@@ -202,37 +203,49 @@ class PQTwoStreamCache:
             if e["seg_codes"] is not None and self._pq is not None:
                 s_score = float(self._pq.asymmetric_cosine(q_seg, e["seg_codes"]))
             else:
-                # pre-training fallback: raw vector still in buffer
                 s_score = float(np.dot(q_seg, e["seg_raw"]))
             if t_score > best_tone:
                 best_tone, best_tone_id = t_score, k
             if s_score > best_seg:
                 best_seg,  best_seg_id  = s_score, k
+            # Joint score = product (geometric mean of agreement). Tolerates
+            # small PQ noise on the segment stream: a true match's joint score
+            # stays highest even when its raw seg cosine is fractionally below
+            # a near-duplicate's PQ-noisy score, because tone disagreement
+            # on that near-duplicate kills the product.
+            joint = t_score * s_score
+            if joint > best_joint:
+                best_joint, best_joint_id = joint, k
+                best_joint_t, best_joint_s = t_score, s_score
 
-        if best_tone_id is None:
+        if best_joint_id is None:
             return None
 
-        tone_passes    = best_tone >= self.cfg.tone_threshold
-        segment_passes = best_seg  >= self._seg_threshold_effective
-        if tone_passes and not segment_passes:
+        tone_passes_independent    = best_tone >= self.cfg.tone_threshold
+        segment_passes_independent = best_seg  >= self._seg_threshold_effective
+        if tone_passes_independent and not segment_passes_independent:
             self.stats.tone_only_hits += 1
-        if segment_passes and not tone_passes:
+        if segment_passes_independent and not tone_passes_independent:
             self.stats.segment_only_hits += 1
 
-        if tone_passes and segment_passes and best_tone_id == best_seg_id:
+        # Accept iff the joint-best candidate clears BOTH thresholds.
+        # This is a strict-AND like the original (still requires both streams
+        # to vote), but the candidate selection is robust to PQ rank noise.
+        if (best_joint_t >= self.cfg.tone_threshold and
+            best_joint_s >= self._seg_threshold_effective):
             self.stats.both_hits += 1
             self.stats.hits += 1
-            entry = self._store.pop(best_tone_id)
-            self._store[best_tone_id] = entry
-            combined = 2 * best_tone * best_seg / max(best_tone + best_seg, 1e-9)
+            entry = self._store.pop(best_joint_id)
+            self._store[best_joint_id] = entry
+            combined = 2 * best_joint_t * best_joint_s / max(best_joint_t + best_joint_s, 1e-9)
             return {
                 "result":             entry["result"],
                 "target_lang":        entry["target_lang"],
                 "inserted":           entry["inserted"],
                 "cosine":             combined,
-                "tone_score":         best_tone,
-                "segment_score":      best_seg,
-                "both_streams_agree": True,
+                "tone_score":         best_joint_t,
+                "segment_score":      best_joint_s,
+                "both_streams_agree": (best_tone_id == best_seg_id),
             }
         return None
 
@@ -292,13 +305,15 @@ def _synth(text, tok, model):
     return wav.squeeze().cpu().numpy().astype(np.float32)
 
 
-def _round_trip_test(cache: PQTwoStreamCache, audios: list[np.ndarray], sr: int) -> dict:
+def _round_trip_test(cache: PQTwoStreamCache, audios: list[np.ndarray], sr: int,
+                     verbose: bool = False) -> dict:
     """Insert each audio with a unique label, then re-query — expect self-hit."""
     for i, a in enumerate(audios):
         fp = cache.fingerprint(a, sr)
         cache.put(fp, "en", {"id": i, "tgt": f"entry_{i}"})
 
     hits, cos_sum, n = 0, 0.0, 0
+    misses = []
     for i, a in enumerate(audios):
         fp = cache.fingerprint(a, sr)
         h = cache.lookup(fp, "en")
@@ -306,11 +321,31 @@ def _round_trip_test(cache: PQTwoStreamCache, audios: list[np.ndarray], sr: int)
         if h is not None and h["result"]["id"] == i:
             hits += 1
             cos_sum += h["cosine"]
+        else:
+            # diagnose
+            q_seg = fp.segment.astype(np.float32)
+            best_seg, best_id, own_seg = -1.0, None, None
+            for k, e in cache._store.items():
+                if e.get("target_lang") != "en":
+                    continue
+                s = float(cache._pq.asymmetric_cosine(q_seg, e["seg_codes"]))
+                if e["result"].get("id") == i:
+                    own_seg = s
+                if s > best_seg:
+                    best_seg, best_id = s, e["result"].get("id")
+            misses.append({"i": i, "own_seg": own_seg, "best_seg": best_seg, "best_id": best_id,
+                           "lookup_returned_none": h is None})
+    if verbose and misses:
+        print("  miss diagnostics:")
+        for m in misses:
+            print(f"    i={m['i']:2d}  own_seg={m['own_seg']:.3f}  best_seg={m['best_seg']:.3f} (id={m['best_id']})  "
+                  f"none={m['lookup_returned_none']}")
     return {
         "n":            n,
         "hits":         hits,
         "hit_rate":     hits / max(n, 1),
         "mean_cosine":  cos_sum / max(hits, 1),
+        "misses":       misses,
     }
 
 
@@ -436,7 +471,7 @@ def main() -> int:
     cache_rt._maybe_train()
     assert cache_rt._trained, f"PQ should be trained after {n_train} warmup entries"
     # Now insert the 20 real audios and query — PQ-encoded path.
-    rt = _round_trip_test(cache_rt, audios, sr)
+    rt = _round_trip_test(cache_rt, audios, sr, verbose=True)
     print(f"\n[round-trip] n={rt['n']}  hits={rt['hits']}  hit_rate={rt['hit_rate']*100:.1f}%  "
           f"mean_cos={rt['mean_cosine']:.4f}  (PQ-encoded path)")
 

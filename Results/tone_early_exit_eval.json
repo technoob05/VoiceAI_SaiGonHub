@@ -1,10 +1,12 @@
 {
   "config": {
     "model": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\raw\\models_ct2\\phowhisper-small-int8",
-    "n_utts": 3,
+    "n_utts": 10,
     "caps": [
       32,
-      128
+      64,
+      128,
+      256
     ],
     "note": "Simulation A is a post-hoc upper bound on tokens we could skip if a perfect oracle told us when the model is done. Simulation B (cap sweep) is the deployable ground truth."
   },
@@ -12,143 +14,576 @@
     {
       "utt_id": "VIVOSDEV01_R002",
       "ref_text_gt": "TIẾNG CỌC CẠCH KHỰNG LẠI CỦA NHỮNG KHỚP SẮT",
-      "ref_text_hyp": "tiến cọc gạch khựng lợi của những khớp sắt.  tôi muốn tôi đưa anh đi học để có thể làm tôi kỹ học.",
-      "wer_ref_vs_gt": 1.8888888888888888,
+      "ref_text_hyp": "tiến cọc gạch khựng lợi của những khớp sắt.  tập kỷ thiên a gov tra trước khi bất chấp nhận các đối tượng xây dựng và xử lý cáo đóng máy.",
+      "wer_ref_vs_gt": 2.7777777777777777,
       "audio_s": 4.0625,
       "full_decode": {
-        "elapsed_s": 38.191729899990605,
-        "n_tokens_decoded": 50,
-        "n_words": 23
+        "elapsed_s": 28.695028300004196,
+        "n_tokens_decoded": 73,
+        "n_words": 31
       },
       "posthoc_simulation_A": {
-        "equivalent_K_words": 23,
-        "tokens_in_first_K_words_approx": 50,
+        "equivalent_K_words": 31,
+        "tokens_in_first_K_words_approx": 73,
         "savings_pct_words": 0.0,
         "savings_pct_tokens_approx": 0.0,
-        "mean_logprob_first_K": -0.6170999640588548,
-        "mean_entropy_proxy_first_K": 0.6170999640588548,
-        "min_word_prob_first_K": 0.14406101405620575
+        "mean_logprob_first_K": -0.9730692795259342,
+        "mean_entropy_proxy_first_K": 0.9730692795259342,
+        "min_word_prob_first_K": 0.005790637340396643
       },
       "cap_sweep_B": [
         {
           "cap": 32,
-          "elapsed_s": 32.098064399993746,
+          "elapsed_s": 25.271592899996904,
           "n_tokens_decoded": 43,
-          "text": "tiến cọc gạch khựng lợi của unk những cốp sắt.  tháng hai năm đã lên tiếng cho thông",
-          "wer_vs_ref": 0.6956521739130435,
-          "wer_vs_gt": 1.4444444444444444
+          "text": "tiến cọc gạch khựng lợi của unk những cốp sắt.  tôi buồn mâu thuẫn lợi b",
+          "wer_vs_ref": 0.7741935483870968,
+          "wer_vs_gt": 1.2222222222222223
+        },
+        {
+          "cap": 64,
+          "elapsed_s": 23.370267599995714,
+          "n_tokens_decoded": 57,
+          "text": "tiến cọc gạch khựng lợi của những khớp sắt.  thành phố hồ chí minh cho biết nội dung kỷ lục ở các chợ hòa năm nay không",
+          "wer_vs_ref": 0.7096774193548387,
+          "wer_vs_gt": 2.3333333333333335
         },
         {
           "cap": 128,
-          "elapsed_s": 23.078948299997137,
-          "n_tokens_decoded": 50,
-          "text": "tiến cọc gạch khựng lợi của những khớp sắt.  tôi muốn tôi đưa anh đi học để có thể làm tôi kỹ học.",
+          "elapsed_s": 23.546435199998086,
+          "n_tokens_decoded": 76,
+          "text": "tiến cọc gạch khựng lợi của những khớp sắt.  tổng thống mỹ lân đất nước nam mới nói phóng vấn đề về vụ án ảnh quốc tế đã đẩy ông bác sĩ trước đó.",
+          "wer_vs_ref": 0.8064516129032258,
+          "wer_vs_gt": 3.111111111111111
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 28.695028300004196,
+          "n_tokens_decoded": 73,
+          "text": "tiến cọc gạch khựng lợi của những khớp sắt.  tập kỷ thiên a gov tra trước khi bất chấp nhận các đối tượng xây dựng và xử lý cáo đóng máy.",
           "wer_vs_ref": 0.0,
-          "wer_vs_gt": 1.8888888888888888
+          "wer_vs_gt": 2.7777777777777777
         }
       ]
     },
     {
       "utt_id": "VIVOSDEV02_R005",
       "ref_text_gt": "NẾU TƯỞNG TƯỢNG BẢY TÁM NĂM NỮA",
-      "ref_text_hyp": "nếu tưởng tượng bảy tám năm nữa.  ớ. ch. cả hai tên là tác động thành tốt cho tôi điện tử và tác động thành công tốt cho các tác động tác động khác.",
+      "ref_text_hyp": "nếu tưởng tượng bảy tám năm nữa.  quá.  thơ.  putin luôn yêu cầu đảng cộng sản đảng mới cho biết ông ấy không theo học viên công nghệ ở manila vô cùng quan trọng.",
       "wer_ref_vs_gt": 3.857142857142857,
       "audio_s": 2.625,
       "full_decode": {
-        "elapsed_s": 74.63374360000307,
-        "n_tokens_decoded": 76,
+        "elapsed_s": 27.60411469999235,
+        "n_tokens_decoded": 69,
         "n_words": 34
       },
       "posthoc_simulation_A": {
         "equivalent_K_words": 34,
-        "tokens_in_first_K_words_approx": 76,
+        "tokens_in_first_K_words_approx": 69,
         "savings_pct_words": 0.0,
         "savings_pct_tokens_approx": 0.0,
-        "mean_logprob_first_K": -0.6650200609970146,
-        "mean_entropy_proxy_first_K": 0.6650200609970146,
-        "min_word_prob_first_K": 0.01437491737306118
+        "mean_logprob_first_K": -1.2102842683488892,
+        "mean_entropy_proxy_first_K": 1.2102842683488892,
+        "min_word_prob_first_K": 0.00010617961379466578
       },
       "cap_sweep_B": [
         {
           "cap": 32,
-          "elapsed_s": 23.463744900000165,
-          "n_tokens_decoded": 34,
-          "text": "nếu tưởng tượng bảy tám năm nữa quá. of. of. a. a. a a a a a",
+          "elapsed_s": 22.613148800010094,
+          "n_tokens_decoded": 39,
+          "text": "nếu tưởng tượng bảy tám năm nữa  ơ quá. cả hai đều tham gia một căn phòng và một",
           "wer_vs_ref": 0.7941176470588235,
-          "wer_vs_gt": 1.4285714285714286
+          "wer_vs_gt": 1.7142857142857142
+        },
+        {
+          "cap": 64,
+          "elapsed_s": 26.062572800001362,
+          "n_tokens_decoded": 55,
+          "text": "nếu tưởng tượng bảy tám năm nữa.  ớ. đó. of. a. a phủ của mẹ là một con chim chú ý kiến từ ngay cả khi ngồi",
+          "wer_vs_ref": 0.7941176470588235,
+          "wer_vs_gt": 2.857142857142857
         },
         {
           "cap": 128,
-          "elapsed_s": 55.410920000009355,
-          "n_tokens_decoded": 44,
-          "text": "nếu tưởng tượng bảy tám năm nữa.  ơ quá ớ.  tớ thương tớ không thương tớ nữa.",
-          "wer_vs_ref": 0.7941176470588235,
+          "elapsed_s": 22.833994299988262,
+          "n_tokens_decoded": 42,
+          "text": "nếu tưởng tượng bảy tám năm nữa. quá. of. of a. of unk. a... a mở cửa.",
+          "wer_vs_ref": 0.7647058823529411,
           "wer_vs_gt": 1.4285714285714286
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 27.60411469999235,
+          "n_tokens_decoded": 69,
+          "text": "nếu tưởng tượng bảy tám năm nữa.  quá.  thơ.  putin luôn yêu cầu đảng cộng sản đảng mới cho biết ông ấy không theo học viên công nghệ ở manila vô cùng quan trọng.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 3.857142857142857
         }
       ]
     },
     {
       "utt_id": "VIVOSDEV03_R007",
       "ref_text_gt": "MỘT CHUYẾN DU LỊCH DÃ NGOẠI TẠI BÒ CẠP VÀNG",
-      "ref_text_hyp": "một chuyến du lịch dã ngoại tại bo cạp vàng.",
-      "wer_ref_vs_gt": 0.1,
+      "ref_text_hyp": "một chuyến du lịch dã ngoại tại bo cạp vàng. đi. a. a phủ có nguyên vẹn tội nghiệp quốc tế thứ ba của các nước ngoài.",
+      "wer_ref_vs_gt": 1.8,
       "audio_s": 3.125,
       "full_decode": {
-        "elapsed_s": 46.91493870000704,
-        "n_tokens_decoded": 22,
-        "n_words": 10
+        "elapsed_s": 15.793629300009343,
+        "n_tokens_decoded": 60,
+        "n_words": 27
       },
       "posthoc_simulation_A": {
-        "equivalent_K_words": 10,
-        "tokens_in_first_K_words_approx": 22,
+        "equivalent_K_words": 27,
+        "tokens_in_first_K_words_approx": 60,
         "savings_pct_words": 0.0,
         "savings_pct_tokens_approx": 0.0,
-        "mean_logprob_first_K": -0.06977925748527755,
-        "mean_entropy_proxy_first_K": 0.06977925748527755,
-        "min_word_prob_first_K": 0.4983806312084198
+        "mean_logprob_first_K": -1.006057627954929,
+        "mean_entropy_proxy_first_K": 1.006057627954929,
+        "min_word_prob_first_K": 0.0005593859241344035
       },
       "cap_sweep_B": [
         {
           "cap": 32,
-          "elapsed_s": 19.926372299989453,
+          "elapsed_s": 16.2874429999938,
           "n_tokens_decoded": 34,
           "text": "một chuyến du lịch dã ngoại tại bo c cao tay các bạn. ofc phải chú ý đẩ",
-          "wer_vs_ref": 1.0,
+          "wer_vs_ref": 0.7037037037037037,
           "wer_vs_gt": 1.1
         },
         {
+          "cap": 64,
+          "elapsed_s": 15.589061499995296,
+          "n_tokens_decoded": 55,
+          "text": "một chuyến du lịch dã ngoại tại bo cạp vàng. đi. a. a phủ có nguyên vẹn tội nghiệp quốc tế thứ ba của",
+          "wer_vs_ref": 0.1111111111111111,
+          "wer_vs_gt": 1.5
+        },
+        {
           "cap": 128,
-          "elapsed_s": 36.45829349999258,
-          "n_tokens_decoded": 82,
-          "text": "một chuyến du lịch dã ngoại tại bo cạp vàng. sản phẩm cà phê mật ong tím mạnh và màu đỏ đều có thể thưởng thức tác động thể thao đến mức tác động thể thao.",
-          "wer_vs_ref": 2.6,
-          "wer_vs_gt": 2.7
+          "elapsed_s": 14.90510109999741,
+          "n_tokens_decoded": 60,
+          "text": "một chuyến du lịch dã ngoại tại bo cạp vàng. đi. a. a phủ có nguyên vẹn tội nghiệp quốc tế thứ ba của các nước ngoài.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 1.8
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 15.793629300009343,
+          "n_tokens_decoded": 60,
+          "text": "một chuyến du lịch dã ngoại tại bo cạp vàng. đi. a. a phủ có nguyên vẹn tội nghiệp quốc tế thứ ba của các nước ngoài.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 1.8
+        }
+      ]
+    },
+    {
+      "utt_id": "VIVOSDEV04_R002",
+      "ref_text_gt": "ĐÓ CŨNG LÀ ĐỘNG LỰC THÚC ĐẨY TÔI",
+      "ref_text_hyp": "đó cũng là động lực thúc đẩy tôi.  new york is",
+      "wer_ref_vs_gt": 0.375,
+      "audio_s": 3.375,
+      "full_decode": {
+        "elapsed_s": 21.344093499996234,
+        "n_tokens_decoded": 25,
+        "n_words": 11
+      },
+      "posthoc_simulation_A": {
+        "equivalent_K_words": 11,
+        "tokens_in_first_K_words_approx": 25,
+        "savings_pct_words": 0.0,
+        "savings_pct_tokens_approx": 0.0,
+        "mean_logprob_first_K": -1.4114593262262365,
+        "mean_entropy_proxy_first_K": 1.4114593262262365,
+        "min_word_prob_first_K": 3.895668123732321e-05
+      },
+      "cap_sweep_B": [
+        {
+          "cap": 32,
+          "elapsed_s": 16.061169900000095,
+          "n_tokens_decoded": 34,
+          "text": "đó cũng là động lực thúc đẩy t thôi. ofc theo đuổi hợp lý",
+          "wer_vs_ref": 0.6363636363636364,
+          "wer_vs_gt": 0.875
+        },
+        {
+          "cap": 64,
+          "elapsed_s": 19.451763799996115,
+          "n_tokens_decoded": 45,
+          "text": "đó cũng là động lực thúc đẩy tôi. cảm ơn và hẹn gặp lại anh chị ở video tiếp theo.",
+          "wer_vs_ref": 1.0909090909090908,
+          "wer_vs_gt": 1.5
+        },
+        {
+          "cap": 128,
+          "elapsed_s": 16.704342599987285,
+          "n_tokens_decoded": 45,
+          "text": "đó cũng là động lực thúc đẩy tôi. cảm ơn và hẹn gặp lại anh chị ở video tiếp theo.",
+          "wer_vs_ref": 1.0909090909090908,
+          "wer_vs_gt": 1.5
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 21.344093499996234,
+          "n_tokens_decoded": 25,
+          "text": "đó cũng là động lực thúc đẩy tôi.  new york is",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 0.375
+        }
+      ]
+    },
+    {
+      "utt_id": "VIVOSDEV05_004",
+      "ref_text_gt": "HÃY TƯỞNG TƯỢNG RẰNG BẠN LÀ LÀ GIÁM ĐỐC DỰ ÁN TRONG MỘT CÔNG TY LỚN",
+      "ref_text_hyp": "hãy tưởng tượng rằng bạn là giám đốc dự án trong một công ty lớn.",
+      "wer_ref_vs_gt": 0.0625,
+      "audio_s": 4.0625,
+      "full_decode": {
+        "elapsed_s": 11.987043100001756,
+        "n_tokens_decoded": 31,
+        "n_words": 15
+      },
+      "posthoc_simulation_A": {
+        "equivalent_K_words": 15,
+        "tokens_in_first_K_words_approx": 31,
+        "savings_pct_words": 0.0,
+        "savings_pct_tokens_approx": 0.0,
+        "mean_logprob_first_K": -1.1309575307607261e-05,
+        "mean_entropy_proxy_first_K": 1.1309575307607261e-05,
+        "min_word_prob_first_K": 0.9998685320218405
+      },
+      "cap_sweep_B": [
+        {
+          "cap": 32,
+          "elapsed_s": 16.458857299992815,
+          "n_tokens_decoded": 34,
+          "text": "hãy tưởng tượng rằng bạn là giám đốc d dự án trong một công ty lớn. of.",
+          "wer_vs_ref": 0.13333333333333333,
+          "wer_vs_gt": 0.1875
+        },
+        {
+          "cap": 64,
+          "elapsed_s": 14.099778199990396,
+          "n_tokens_decoded": 31,
+          "text": "hãy tưởng tượng rằng bạn là giám đốc dự án trong một công ty lớn.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 0.0625
+        },
+        {
+          "cap": 128,
+          "elapsed_s": 13.099680900006206,
+          "n_tokens_decoded": 31,
+          "text": "hãy tưởng tượng rằng bạn là giám đốc dự án trong một công ty lớn.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 0.0625
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 11.987043100001756,
+          "n_tokens_decoded": 31,
+          "text": "hãy tưởng tượng rằng bạn là giám đốc dự án trong một công ty lớn.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 0.0625
+        }
+      ]
+    },
+    {
+      "utt_id": "VIVOSDEV06_001",
+      "ref_text_gt": "ĐƠN GIẢN LÀ TÁN GẪU VỚI NHAU",
+      "ref_text_hyp": "đơn giản là tán gẫu với nhau. phương. of trong. ofn. a phủ màu sắc xanh dưới cát băng thánh lạc hậu tây ban nha.",
+      "wer_ref_vs_gt": 2.5714285714285716,
+      "audio_s": 2.6875,
+      "full_decode": {
+        "elapsed_s": 22.1274024000013,
+        "n_tokens_decoded": 61,
+        "n_words": 25
+      },
+      "posthoc_simulation_A": {
+        "equivalent_K_words": 25,
+        "tokens_in_first_K_words_approx": 61,
+        "savings_pct_words": 0.0,
+        "savings_pct_tokens_approx": 0.0,
+        "mean_logprob_first_K": -1.586715827427952,
+        "mean_entropy_proxy_first_K": 1.586715827427952,
+        "min_word_prob_first_K": 1.4786903193453327e-05
+      },
+      "cap_sweep_B": [
+        {
+          "cap": 32,
+          "elapsed_s": 26.976666100003058,
+          "n_tokens_decoded": 34,
+          "text": "đơn giản là tán gẫu với nhau.  tôi mơ ước bảo vệ lãnh đạo",
+          "wer_vs_ref": 0.72,
+          "wer_vs_gt": 1.0
+        },
+        {
+          "cap": 64,
+          "elapsed_s": 24.180747199992766,
+          "n_tokens_decoded": 50,
+          "text": "đơn giản là tán gẫu với nhau. phương thuật. a phủ. a bà nguyễn văn hiểu không biết màoai từ khi còn",
+          "wer_vs_ref": 0.6,
+          "wer_vs_gt": 2.142857142857143
+        },
+        {
+          "cap": 128,
+          "elapsed_s": 21.22851709999668,
+          "n_tokens_decoded": 61,
+          "text": "đơn giản là tán gẫu với nhau. phương. of trong. ofn. a phủ màu sắc xanh dưới cát băng thánh lạc hậu tây ban nha.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 2.5714285714285716
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 22.1274024000013,
+          "n_tokens_decoded": 61,
+          "text": "đơn giản là tán gẫu với nhau. phương. of trong. ofn. a phủ màu sắc xanh dưới cát băng thánh lạc hậu tây ban nha.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 2.5714285714285716
+        }
+      ]
+    },
+    {
+      "utt_id": "VIVOSDEV07_002",
+      "ref_text_gt": "HẰNG NĂM CHÚNG TA THẢI RA HÀNG TỈ THIẾT BỊ ĐIỆN TỬ",
+      "ref_text_hyp": "hàng năm chúng ta thải ra hàng tỉ thiết bị điện tử.  ừ.  ĩn nhất của công ty giáo viên là các dạng đề thi đại học quốc gia đông nam.",
+      "wer_ref_vs_gt": 1.6666666666666667,
+      "audio_s": 3.46875,
+      "full_decode": {
+        "elapsed_s": 28.18982669999241,
+        "n_tokens_decoded": 63,
+        "n_words": 31
+      },
+      "posthoc_simulation_A": {
+        "equivalent_K_words": 31,
+        "tokens_in_first_K_words_approx": 63,
+        "savings_pct_words": 0.0,
+        "savings_pct_tokens_approx": 0.0,
+        "mean_logprob_first_K": -0.8358337514582699,
+        "mean_entropy_proxy_first_K": 0.8358337514582699,
+        "min_word_prob_first_K": 0.005464630667120218
+      },
+      "cap_sweep_B": [
+        {
+          "cap": 32,
+          "elapsed_s": 36.76742260000901,
+          "n_tokens_decoded": 50,
+          "text": "hàng năm chúng ta thải ra hàng tỉ th pổ biến bị điện tử.  ừ.  thủ tướng xuân văn đức đạt.",
+          "wer_vs_ref": 0.6774193548387096,
+          "wer_vs_gt": 0.9166666666666666
+        },
+        {
+          "cap": 64,
+          "elapsed_s": 26.207918000000063,
+          "n_tokens_decoded": 61,
+          "text": "hàng năm chúng ta thải ra hàng tỉ thiết bị điện tử.  ừ.  tổng đảng nói sẽ kết hôn mấy năm sau các vấn đề mới tiếp theo.",
+          "wer_vs_ref": 0.5483870967741935,
+          "wer_vs_gt": 1.4166666666666667
+        },
+        {
+          "cap": 128,
+          "elapsed_s": 22.45191909999994,
+          "n_tokens_decoded": 66,
+          "text": "hàng năm chúng ta thải ra hàng tỉ thiết bị điện tử.  ừ.  ĩn nhất của thị trường là phải sạch các bãi biển hoa và rộng đất có liên quan.",
+          "wer_vs_ref": 0.45161290322580644,
+          "wer_vs_gt": 1.6666666666666667
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 28.18982669999241,
+          "n_tokens_decoded": 63,
+          "text": "hàng năm chúng ta thải ra hàng tỉ thiết bị điện tử.  ừ.  ĩn nhất của công ty giáo viên là các dạng đề thi đại học quốc gia đông nam.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 1.6666666666666667
+        }
+      ]
+    },
+    {
+      "utt_id": "VIVOSDEV08_002",
+      "ref_text_gt": "ĐỪNG ĐỂ CON SÂU ĂN",
+      "ref_text_hyp": "đừng để con sâu ăn.  thiên.  trần tiến cáo đã viết nhìn của cơ quan chức năng đang xác định hay không vì đối với lãi suất do công ty mà phải viết thành công điện.",
+      "wer_ref_vs_gt": 6.2,
+      "audio_s": 2.375,
+      "full_decode": {
+        "elapsed_s": 29.203533500010963,
+        "n_tokens_decoded": 69,
+        "n_words": 36
+      },
+      "posthoc_simulation_A": {
+        "equivalent_K_words": 36,
+        "tokens_in_first_K_words_approx": 69,
+        "savings_pct_words": 0.0,
+        "savings_pct_tokens_approx": 0.0,
+        "mean_logprob_first_K": -1.0694021519231152,
+        "mean_entropy_proxy_first_K": 1.0694021519231152,
+        "min_word_prob_first_K": 0.0036943423117842635
+      },
+      "cap_sweep_B": [
+        {
+          "cap": 32,
+          "elapsed_s": 23.54439110000385,
+          "n_tokens_decoded": 31,
+          "text": "đừng để con sâu ăn.  unk.  tổng thống mỹ lý tiến pháp",
+          "wer_vs_ref": 0.8611111111111112,
+          "wer_vs_gt": 1.4
+        },
+        {
+          "cap": 64,
+          "elapsed_s": 23.526003799997852,
+          "n_tokens_decoded": 43,
+          "text": "đừng để con sâu ăn. hông. of. of a man united united quốc gia đà nẵng tham ô mô minh và phong tr",
+          "wer_vs_ref": 0.8611111111111112,
+          "wer_vs_gt": 3.6
+        },
+        {
+          "cap": 128,
+          "elapsed_s": 27.9110256999993,
+          "n_tokens_decoded": 50,
+          "text": "đừng để con sâu ăn.  thiên. n. and theo đuổi của cầu thủ nhà vẫn kéo dài một nghìn chín trăm tám.",
+          "wer_vs_ref": 0.8055555555555556,
+          "wer_vs_gt": 3.4
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 29.203533500010963,
+          "n_tokens_decoded": 69,
+          "text": "đừng để con sâu ăn.  thiên.  trần tiến cáo đã viết nhìn của cơ quan chức năng đang xác định hay không vì đối với lãi suất do công ty mà phải viết thành công điện.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 6.2
+        }
+      ]
+    },
+    {
+      "utt_id": "VIVOSDEV09_015",
+      "ref_text_gt": "LÀM RỜM RỢP BIỂN MÂY LAU LÁCH PHẤT PHƠ",
+      "ref_text_hyp": "làm ròm rọp biển mây lau lách vất vờ. a phủ trong một cửa hàng làng cháy hoàng kiều và quần áo vẫn còn rất dị ứng.",
+      "wer_ref_vs_gt": 2.4444444444444446,
+      "audio_s": 3.3125,
+      "full_decode": {
+        "elapsed_s": 14.619992899999488,
+        "n_tokens_decoded": 55,
+        "n_words": 27
+      },
+      "posthoc_simulation_A": {
+        "equivalent_K_words": 27,
+        "tokens_in_first_K_words_approx": 55,
+        "savings_pct_words": 0.0,
+        "savings_pct_tokens_approx": 0.0,
+        "mean_logprob_first_K": -0.7149507139730373,
+        "mean_entropy_proxy_first_K": 0.7149507139730373,
+        "min_word_prob_first_K": 0.02865288406610489
+      },
+      "cap_sweep_B": [
+        {
+          "cap": 32,
+          "elapsed_s": 19.14061769998807,
+          "n_tokens_decoded": 34,
+          "text": "làm ròm rọp biển mây lau lách phất phờ. of. of a man united man united thành",
+          "wer_vs_ref": 0.7407407407407407,
+          "wer_vs_gt": 1.2222222222222223
+        },
+        {
+          "cap": 64,
+          "elapsed_s": 19.188989399990533,
+          "n_tokens_decoded": 33,
+          "text": "làm ròm rọp biển mây lau lách vất vờ. a phủ trong một cửa hàng",
+          "wer_vs_ref": 0.4444444444444444,
+          "wer_vs_gt": 1.1111111111111112
+        },
+        {
+          "cap": 128,
+          "elapsed_s": 17.28594200000225,
+          "n_tokens_decoded": 55,
+          "text": "làm ròm rọp biển mây lau lách vất vờ. a phủ trong một cửa hàng làng cháy hoàng kiều và quần áo vẫn còn rất dị ứng.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 2.4444444444444446
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 14.619992899999488,
+          "n_tokens_decoded": 55,
+          "text": "làm ròm rọp biển mây lau lách vất vờ. a phủ trong một cửa hàng làng cháy hoàng kiều và quần áo vẫn còn rất dị ứng.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 2.4444444444444446
+        }
+      ]
+    },
+    {
+      "utt_id": "VIVOSDEV10_010",
+      "ref_text_gt": "KHI BỊ CÔNG AN THỘP CỔ KHẨN CẤP",
+      "ref_text_hyp": "khi bị công an hợp cổ khẩn cấp.",
+      "wer_ref_vs_gt": 0.125,
+      "audio_s": 2.8125,
+      "full_decode": {
+        "elapsed_s": 11.331751100005931,
+        "n_tokens_decoded": 17,
+        "n_words": 8
+      },
+      "posthoc_simulation_A": {
+        "equivalent_K_words": 8,
+        "tokens_in_first_K_words_approx": 17,
+        "savings_pct_words": 0.0,
+        "savings_pct_tokens_approx": 0.0,
+        "mean_logprob_first_K": -0.04351129190382917,
+        "mean_entropy_proxy_first_K": 0.04351129190382917,
+        "min_word_prob_first_K": 0.8128633896509806
+      },
+      "cap_sweep_B": [
+        {
+          "cap": 32,
+          "elapsed_s": 19.336938399996143,
+          "n_tokens_decoded": 34,
+          "text": "khi bị công an hợp cổ khẩn cấp.  theo ông putin một lần nữa vài chín tr",
+          "wer_vs_ref": 1.125,
+          "wer_vs_gt": 1.25
+        },
+        {
+          "cap": 64,
+          "elapsed_s": 19.30043800000567,
+          "n_tokens_decoded": 50,
+          "text": "khi bị công an hợp cổ khẩn cấp. điện thoại tôi có tiếp xúc với ông bố mẹ về nhà tui không rơi",
+          "wer_vs_ref": 1.875,
+          "wer_vs_gt": 2.0
+        },
+        {
+          "cap": 128,
+          "elapsed_s": 20.46096339999349,
+          "n_tokens_decoded": 54,
+          "text": "khi bị công an hợp cổ khẩn cấp. điện thoại tôi có tiếng nói chuyện với ông cháu về hiệu quả quan điểm đa số.",
+          "wer_vs_ref": 2.125,
+          "wer_vs_gt": 2.25
+        },
+        {
+          "cap": 256,
+          "elapsed_s": 11.331751100005931,
+          "n_tokens_decoded": 17,
+          "text": "khi bị công an hợp cổ khẩn cấp.",
+          "wer_vs_ref": 0.0,
+          "wer_vs_gt": 0.125
         }
       ]
     }
   ],
   "aggregate": {
-    "n_utts": 3,
+    "n_utts": 10,
     "full_decode_tokens": {
-      "mean": 49.333333333333336,
-      "median": 50,
-      "p95": 76,
-      "min": 22,
-      "max": 76
+      "mean": 52.3,
+      "median": 60.5,
+      "p95": 73,
+      "min": 17,
+      "max": 73
     },
     "full_decode_latency_s": {
-      "mean": 53.246804066666904,
-      "median": 46.91493870000704,
-      "p95": 74.63374360000307,
-      "min": 38.191729899990605,
-      "max": 74.63374360000307
+      "mean": 21.089641550001396,
+      "median": 21.735747949998768,
+      "p95": 29.203533500010963,
+      "min": 11.331751100005931,
+      "max": 29.203533500010963
     },
     "posthoc_equivalent_K": {
-      "mean": 22.333333333333332,
-      "median": 23,
-      "p95": 34,
-      "min": 10,
-      "max": 34
+      "mean": 24.5,
+      "median": 27.0,
+      "p95": 36,
+      "min": 8,
+      "max": 36
     },
     "posthoc_savings_pct_tokens_approx": {
       "mean": 0.0,
@@ -165,73 +600,135 @@
       "max": 0.0
     },
     "wer_full_vs_gt": {
-      "mean": 1.9486772486772488,
-      "median": 1.8888888888888888,
-      "p95": 3.857142857142857,
-      "min": 0.1,
-      "max": 3.857142857142857
+      "mean": 2.1879960317460316,
+      "median": 2.1222222222222222,
+      "p95": 6.2,
+      "min": 0.0625,
+      "max": 6.2
     },
     "cap_sweep_B": {
       "32": {
         "latency_s": {
-          "mean": 25.162727199994453,
-          "median": 23.463744900000165,
-          "p95": 32.098064399993746,
-          "min": 19.926372299989453,
-          "max": 32.098064399993746
+          "mean": 22.245824779999385,
+          "median": 20.97504360000312,
+          "p95": 36.76742260000901,
+          "min": 16.061169900000095,
+          "max": 36.76742260000901
         },
-        "latency_savings_pct_vs_256_mean": 52.74321597125375,
+        "latency_savings_pct_vs_256_mean": -5.482232721958769,
         "wer_vs_ref": {
-          "mean": 0.829923273657289,
-          "median": 0.7941176470588235,
-          "p95": 1.0,
-          "min": 0.6956521739130435,
-          "max": 1.0
+          "mean": 0.7165983075537156,
+          "median": 0.7303703703703703,
+          "p95": 1.125,
+          "min": 0.13333333333333333,
+          "max": 1.125
         },
         "wer_vs_gt": {
-          "mean": 1.3243386243386244,
-          "median": 1.4285714285714286,
-          "p95": 1.4444444444444444,
-          "min": 1.1,
-          "max": 1.4444444444444444
+          "mean": 1.0887896825396826,
+          "median": 1.1611111111111112,
+          "p95": 1.7142857142857142,
+          "min": 0.1875,
+          "max": 1.7142857142857142
         },
         "n_tokens_decoded": {
-          "mean": 37,
-          "median": 34,
-          "p95": 43,
-          "min": 34,
-          "max": 43
+          "mean": 36.7,
+          "median": 34.0,
+          "p95": 50,
+          "min": 31,
+          "max": 50
+        }
+      },
+      "64": {
+        "latency_s": {
+          "mean": 21.097754029996576,
+          "median": 21.411015699995914,
+          "p95": 26.207918000000063,
+          "min": 14.099778199990396,
+          "max": 26.207918000000063
+        },
+        "latency_savings_pct_vs_256_mean": -0.038466656609342086,
+        "wer_vs_ref": {
+          "mean": 0.7034757920763614,
+          "median": 0.6548387096774193,
+          "p95": 1.875,
+          "min": 0.0,
+          "max": 1.875
+        },
+        "wer_vs_gt": {
+          "mean": 1.8523611111111111,
+          "median": 1.75,
+          "p95": 3.6,
+          "min": 0.0625,
+          "max": 3.6
+        },
+        "n_tokens_decoded": {
+          "mean": 48,
+          "median": 50.0,
+          "p95": 61,
+          "min": 31,
+          "max": 61
         }
       },
       "128": {
         "latency_s": {
-          "mean": 38.31605393333302,
-          "median": 36.45829349999258,
-          "p95": 55.410920000009355,
-          "min": 23.078948299997137,
-          "max": 55.410920000009355
+          "mean": 20.04279213999689,
+          "median": 20.844740249995084,
+          "p95": 27.9110256999993,
+          "min": 13.099680900006206,
+          "max": 27.9110256999993
         },
-        "latency_savings_pct_vs_256_mean": 28.040650317040715,
+        "latency_savings_pct_vs_256_mean": 4.9638084531808255,
         "wer_vs_ref": {
-          "mean": 1.1313725490196078,
-          "median": 0.7941176470588235,
-          "p95": 2.6,
+          "mean": 0.604423504494662,
+          "median": 0.6081593927893738,
+          "p95": 2.125,
           "min": 0.0,
-          "max": 2.6
+          "max": 2.125
         },
         "wer_vs_gt": {
-          "mean": 2.005820105820106,
-          "median": 1.8888888888888888,
-          "p95": 2.7,
-          "min": 1.4285714285714286,
-          "max": 2.7
+          "mean": 2.0234722222222223,
+          "median": 2.025,
+          "p95": 3.4,
+          "min": 0.0625,
+          "max": 3.4
         },
         "n_tokens_decoded": {
-          "mean": 58.666666666666664,
-          "median": 50,
-          "p95": 82,
-          "min": 44,
-          "max": 82
+          "mean": 54,
+          "median": 54.5,
+          "p95": 76,
+          "min": 31,
+          "max": 76
+        }
+      },
+      "256": {
+        "latency_s": {
+          "mean": 21.089641550001396,
+          "median": 21.735747949998768,
+          "p95": 29.203533500010963,
+          "min": 11.331751100005931,
+          "max": 29.203533500010963
+        },
+        "latency_savings_pct_vs_256_mean": 0.0,
+        "wer_vs_ref": {
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "wer_vs_gt": {
+          "mean": 2.1879960317460316,
+          "median": 2.1222222222222222,
+          "p95": 6.2,
+          "min": 0.0625,
+          "max": 6.2
+        },
+        "n_tokens_decoded": {
+          "mean": 52.3,
+          "median": 60.5,
+          "p95": 73,
+          "min": 17,
+          "max": 73
         }
       }
     }

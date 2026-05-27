@@ -1,107 +1,262 @@
-%% references.bib — placeholder bibtex entries for IP&M MMLowRes submission.
-%% Full bibtex from official publisher records to be filled in before final compile.
+%% references.bib --- IP&M MMLowRes submission.
+%% Verified from arXiv abstract pages and publisher records (2026-05-27).
 %% Order: alphabetical by citation key.
 
 @inproceedings{conneau2022fleurs,
   author    = {Conneau, Alexis and Ma, Min and Khanuja, Simran and Zhang, Yu and Axelrod, Vera and Dalmia, Siddharth and Riesa, Jason and Rivera, Clara and Bapna, Ankur},
-  title     = {{FLEURS}: Few-shot Learning Evaluation of Universal Representations of Speech},
+  title     = {{FLEURS}: Few-Shot Learning Evaluation of Universal Representations of Speech},
   booktitle = {Proc.\ IEEE Spoken Language Technology Workshop (SLT)},
+  pages     = {798--805},
   year      = {2022},
-  note      = {placeholder --- verify bibtex from publisher}
-}
-
-@inproceedings{delafuente2024tone,
-  author    = {de la Fuente, Eugenio and Jurafsky, Daniel},
-  title     = {Where Does Tone Live in Self-Supervised Speech Models? A Layer-Wise Probing Study},
-  booktitle = {Proc.\ Interspeech},
-  year      = {2024},
-  note      = {placeholder --- verify}
-}
-
-@article{fade2026,
-  author  = {{Anonymous}},
-  title   = {{FADE}: Frequency-Aware Diagnostic Expansion for Mixed-Precision Speech Model Compression},
-  journal = {arXiv preprint arXiv:2601.02455},
-  year    = {2026},
-  note    = {placeholder --- closest architectural competitor for tone-aware allocation}
-}
-
-@misc{fasterwhisper,
-  author       = {Systran},
-  title        = {faster-whisper: Faster Whisper transcription with CTranslate2},
-  howpublished = {\url{https://github.com/SYSTRAN/faster-whisper}},
-  year         = {2023},
-  note         = {placeholder; engineering substrate}
+  doi       = {10.1109/SLT54892.2023.10023141},
+  url       = {https://arxiv.org/abs/2205.12446}
 }
 
 @misc{ctranslate2,
-  author       = {Klein, Guillaume and others},
-  title        = {{CTranslate2}: Fast inference engine for Transformer models},
+  author       = {Klein, Guillaume and Hernandez, Fran\c{c}ois and Nguyen, Vincent and Senellart, Jean},
+  title        = {The {OpenNMT} Neural Machine Translation Toolkit: 2020 Edition},
   howpublished = {\url{https://github.com/OpenNMT/CTranslate2}},
-  year         = {2019},
-  note         = {placeholder; engineering substrate}
+  year         = {2020},
+  note         = {CTranslate2 fast inference engine for Transformer models; cited as software substrate}
+}
+
+@inproceedings{delafuente2024tone,
+  author    = {de la Fuente, Ant\'on and Jurafsky, Dan},
+  title     = {A Layer-Wise Analysis of {M}andarin and {E}nglish Suprasegmentals in {SSL} Speech Models},
+  booktitle = {Proc.\ Interspeech},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2408.13678},
+  eprint    = {2408.13678},
+  archivePrefix = {arXiv}
+}
+
+@article{edgeasr2025,
+  author  = {Feng, Chen and Lin, Yicheng and Zhuo, Shaojie and Su, Chenzheng and Ramakrishnan, Ramchalam Kinattinkara and Yuan, Zhaocong and Zhang, Xiaopeng},
+  title   = {{Edge-ASR}: Towards Low-Bit Quantization of Automatic Speech Recognition Models},
+  journal = {arXiv preprint arXiv:2507.07877},
+  year    = {2025},
+  url     = {https://arxiv.org/abs/2507.07877},
+  eprint  = {2507.07877},
+  archivePrefix = {arXiv}
+}
+
+@article{fade2026,
+  author  = {Wang, Xinyu and Zhao, Ziyu and Luo, Yajie and Wu, Yihong and Ma, Liheng and Tian, Jingrui and Ding, Lei and Chang, Xiao-Wen and Lu, Peng},
+  title   = {Diagnostic-Driven Layer-Wise Compensation for Post-Training Quantization of Encoder-Decoder {ASR} Models},
+  journal = {arXiv preprint arXiv:2601.02455},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2601.02455},
+  eprint  = {2601.02455},
+  archivePrefix = {arXiv},
+  note    = {{FADE}; closest architectural competitor for tone-aware allocation}
+}
+
+@misc{fasterwhisper,
+  author       = {{SYSTRAN}},
+  title        = {faster-whisper: Faster {W}hisper transcription with {CT}ranslate2},
+  howpublished = {\url{https://github.com/SYSTRAN/faster-whisper}},
+  year         = {2023},
+  note         = {Software; engineering substrate for low-latency Whisper inference}
+}
+
+@inproceedings{frantar2023gptq,
+  author    = {Frantar, Elias and Ashkboos, Saleh and Hoefler, Torsten and Alistarh, Dan},
+  title     = {{GPTQ}: Accurate Post-Training Quantization for Generative Pre-trained Transformers},
+  booktitle = {Proc.\ International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  url       = {https://arxiv.org/abs/2210.17323},
+  eprint    = {2210.17323},
+  archivePrefix = {arXiv}
 }
 
 @inproceedings{le2024phowhisper,
   author    = {Le, Thanh-Thien and Nguyen, Linh The and Nguyen, Dat Quoc},
   title     = {{PhoWhisper}: Automatic Speech Recognition for {V}ietnamese},
-  booktitle = {Proc.\ ICLR Tiny Papers},
+  booktitle = {ICLR 2024 Tiny Papers Track},
   year      = {2024},
-  note      = {placeholder --- VinAI Vietnamese-optimized Whisper}
+  url       = {https://arxiv.org/abs/2406.02555},
+  eprint    = {2406.02555},
+  archivePrefix = {arXiv},
+  note      = {VinAI Vietnamese-optimized Whisper}
+}
+
+@article{le2025privacyios,
+  author  = {Le, Cong},
+  title   = {Privacy-Preserving Real-Time {V}ietnamese-{E}nglish Translation on {iOS} using Edge {AI}},
+  journal = {arXiv preprint arXiv:2505.07583},
+  year    = {2025},
+  url     = {https://arxiv.org/abs/2505.07583},
+  eprint  = {2505.07583},
+  archivePrefix = {arXiv},
+  note    = {Withdrawn by author 2025-08-22; cited for prior on-device Vi-En framing}
+}
+
+@inproceedings{lin2024awq,
+  author    = {Lin, Ji and Tang, Jiaming and Tang, Haotian and Yang, Shang and Chen, Wei-Ming and Wang, Wei-Chen and Xiao, Guangxuan and Dang, Xingyu and Gan, Chuang and Han, Song},
+  title     = {{AWQ}: Activation-Aware Weight Quantization for {LLM} Compression and Acceleration},
+  booktitle = {Proc.\ Machine Learning and Systems (MLSys)},
+  year      = {2024},
+  note      = {MLSys 2024 Best Paper Award},
+  url       = {https://arxiv.org/abs/2306.00978},
+  eprint    = {2306.00978},
+  archivePrefix = {arXiv}
 }
 
 @inproceedings{luong2016vivos,
   author    = {Luong, Hieu-Thi and Vu, Hai-Quan},
-  title     = {A non-expert {K}aldi recipe for {V}ietnamese Speech Recognition System},
-  booktitle = {Proc.\ International Workshop on Worldwide Language Service Infrastructure},
+  title     = {A Non-Expert {K}aldi Recipe for {V}ietnamese Speech Recognition System},
+  booktitle = {Proc.\ 3rd International Workshop on Worldwide Language Service Infrastructure and 2nd Workshop on Open Infrastructures and Analysis Frameworks for Human Language Technologies (WLSI/OIAF4HLT)},
+  pages     = {51--55},
   year      = {2016},
-  note      = {placeholder --- VIVOS corpus}
+  url       = {https://aclanthology.org/W16-5207/},
+  note      = {VIVOS corpus reference}
+}
+
+@article{nllb2022,
+  author  = {{NLLB Team} and Costa-juss\`a, Marta R. and Cross, James and {\c C}elebi, Onur and Elbayad, Maha and Heafield, Kenneth and Heffernan, Kevin and Kalbassi, Elahe and Lam, Janice and Licht, Daniel and Maillard, Jean and Sun, Anna and Wang, Skyler and Wenzek, Guillaume and Youngblood, Al and Akula, Bapi and Barrault, Loic and Gonzalez, Gabriel Mejia and Hansanti, Prangthip and Hoffman, John and Jarrett, Semarley and Sadagopan, Kaushik Ram and Rowe, Dirk and Spruit, Shannon and Tran, Chau and Andrews, Pierre and Ayan, Necip Fazil and Bhosale, Shruti and Edunov, Sergey and Fan, Angela and Gao, Cynthia and Goswami, Vedanuj and Guzm\'an, Francisco and Koehn, Philipp and Mourachko, Alexandre and Ropers, Christophe and Saleem, Safiyyah and Schwenk, Holger and Wang, Jeff},
+  title   = {No Language Left Behind: Scaling Human-Centered Machine Translation},
+  journal = {arXiv preprint arXiv:2207.04672},
+  year    = {2022},
+  url     = {https://arxiv.org/abs/2207.04672},
+  eprint  = {2207.04672},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{osakuade2026lexicaltone,
+  author    = {Osakuade, Opeyemi and King, Simon},
+  title     = {Lexical Tone is Hard to Quantize: Probing Discrete Speech Units in {M}andarin and {Y}or\`ub\'a},
+  booktitle = {Proc.\ Speech Prosody},
+  year      = {2026},
+  url       = {https://arxiv.org/abs/2604.07467},
+  eprint    = {2604.07467},
+  archivePrefix = {arXiv}
+}
+
+@article{ondevice_streaming_asr_2026,
+  author  = {Banfic, Nenad and Fan, David and Vaishnavi, Kunal and Kemp, Sam and Choi, Sunghoon and Ren, Rui and Shaw, Sayan and Tang, Meng},
+  title   = {Pushing the Limits of On-Device Streaming {ASR}: A Compact, High-Accuracy {E}nglish Model for Low-Latency Inference},
+  journal = {arXiv preprint arXiv:2604.14493},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2604.14493},
+  eprint  = {2604.14493},
+  archivePrefix = {arXiv}
+}
+
+@misc{qwen3asr2025,
+  author       = {{Qwen Team}},
+  title        = {{Qwen3-ASR}: Large-Scale Multilingual Speech Recognition},
+  howpublished = {Alibaba Cloud Technical Report; \url{https://qwen.ai/blog?id=qwen3-asr}},
+  year         = {2025},
+  note         = {Mandatory baseline per reading list}
 }
 
 @article{seallms_audio2025,
-  author  = {{Anonymous}},
-  title   = {{SeaLLMs-Audio}: A Southeast Asian Speech-Language Foundation Model},
+  author  = {Liu, Chaoqun and Aljunied, Mahani and Chen, Guizhen and Chan, Hou Pong and Xu, Weiwen and Rong, Yu and Zhang, Wenxuan},
+  title   = {{SeaLLMs-Audio}: Large Audio-Language Models for {S}outheast {A}sia},
   journal = {arXiv preprint arXiv:2511.01670},
   year    = {2025},
-  note    = {placeholder --- mandatory baseline per reading list}
+  url     = {https://arxiv.org/abs/2511.01670},
+  eprint  = {2511.01670},
+  archivePrefix = {arXiv},
+  note    = {Mandatory baseline per reading list}
+}
+
+@article{seamlessm4t2023,
+  author  = {{Seamless Communication} and Barrault, Lo\"ic and Chung, Yu-An and Meglioli, Mariano Cora and Dale, David and Dong, Ning and Duquenne, Paul-Ambroise and Elsahar, Hady and Gong, Hongyu and Heffernan, Kevin and Hoffman, John and Klaiber, Christopher and Li, Pengwei and Licht, Daniel and Maillard, Jean and Rakotoarison, Alice and Sadagopan, Kaushik Ram and Wenzek, Guillaume and Ye, Ethan and Akula, Bapi and Chen, Peng-Jen and El Hachem, Naji and Ellis, Brian and Gonzalez, Gabriel Mejia and Haaheim, Justin and Hansanti, Prangthip and Howes, Russ and Huang, Bernie and Hwang, Min-Jae and Inaguma, Hirofumi and Jain, Somya and Kalbassi, Elahe and Kallet, Amanda and Kulikov, Ilia and Lam, Janice and Li, Daniel and Ma, Xutai and Mavlyutov, Ruslan and Peloquin, Benjamin and Ramadan, Mohamed and Ramakrishnan, Abinesh and Sun, Anna and Tran, Kevin and Tran, Tuan and Tufanov, Igor and Vogeti, Vish and Wood, Carleigh and Yang, Yilin and Yu, Bokai and Andrews, Pierre and Balioglu, Can and Costa-juss\`a, Marta R. and Celebi, Onur and Elbayad, Maha and Gao, Cynthia and Guzm\'an, Francisco and Kao, Justine and Lee, Ann and Mourachko, Alexandre and Pino, Juan and Popuri, Sravya and Ropers, Christophe and Saleem, Safiyyah and Schwenk, Holger and Tomasello, Paden and Wang, Changhan and Wang, Jeff and Wang, Skyler},
+  title   = {{SeamlessM4T}: Massively Multilingual and Multimodal Machine Translation},
+  journal = {arXiv preprint arXiv:2308.11596},
+  year    = {2023},
+  url     = {https://arxiv.org/abs/2308.11596},
+  eprint  = {2308.11596},
+  archivePrefix = {arXiv}
 }
 
 @article{taq2025,
-  author  = {{Anonymous}},
-  title   = {{TAQ}: Tone-Aware Quantization for Mandarin Speech Models},
+  author  = {LeVi, Amit and Lapid, Raz and Himelstein, Rom and Baskin, Chaim and Shwartz Ziv, Ravid and Mendelson, Avi},
+  title   = {You Had One Job: Per-Task Quantization Using {LLM}s' Hidden Representations},
   journal = {arXiv preprint arXiv:2511.06516},
   year    = {2025},
-  note    = {placeholder --- dangerous neighbor per reading list}
+  url     = {https://arxiv.org/abs/2511.06516},
+  eprint  = {2511.06516},
+  archivePrefix = {arXiv},
+  note    = {{TAQ}; dangerous neighbor for activation-based salient allocation}
+}
+
+@inproceedings{tao2024toneunit,
+  author    = {Tao, Dehua and Tan, Daxin and Yeung, Yu Ting and Chen, Xiao and Lee, Tan},
+  title     = {{ToneUnit}: A Speech Discretization Approach for Tonal Language Speech Synthesis},
+  booktitle = {Proc.\ Interspeech},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2406.08989},
+  eprint    = {2406.08989},
+  archivePrefix = {arXiv}
 }
 
 @article{vietasr2025,
-  author  = {{Anonymous}},
-  title   = {{VietASR}: A High-Performance Vietnamese Speech Recognition System},
+  author  = {Zhuo, Jianheng and Yang, Yifan and Shao, Yiwen and Xu, Yong and Yu, Dong and Yu, Kai and Chen, Xie},
+  title   = {{VietASR}: Achieving Industry-level {V}ietnamese {ASR} with 50-hour Labeled Data and Large-Scale Speech Pretraining},
   journal = {arXiv preprint arXiv:2505.21527},
   year    = {2025},
-  note    = {placeholder --- mandatory baseline per reading list}
+  note    = {Accepted at Interspeech 2025; mandatory baseline per reading list},
+  url     = {https://arxiv.org/abs/2505.21527},
+  eprint  = {2505.21527},
+  archivePrefix = {arXiv}
 }
 
 @inproceedings{wang2003shazam,
-  author    = {Wang, Avery},
+  author    = {Wang, Avery Li-Chun},
   title     = {An Industrial-Strength Audio Search Algorithm},
-  booktitle = {Proc.\ ISMIR},
+  booktitle = {Proc.\ 4th International Conference on Music Information Retrieval (ISMIR)},
+  pages     = {7--13},
   year      = {2003},
-  note      = {placeholder --- Shazam-style audio fingerprinting}
+  url       = {https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf}
 }
 
-@article{xu2025mixedprecision,
-  author  = {Xu, {\em et al.}},
-  title   = {Mixed-Precision Quantization for Speech Models via Differentiable Bitwidth Search},
-  journal = {arXiv preprint arXiv:2501.03643},
-  year    = {2025},
-  note    = {placeholder --- closest competitor per lit\_scan\_v1}
+@inproceedings{xiao2023smoothquant,
+  author    = {Xiao, Guangxuan and Lin, Ji and Seznec, Mickael and Wu, Hao and Demouth, Julien and Han, Song},
+  title     = {{SmoothQuant}: Accurate and Efficient Post-Training Quantization for Large Language Models},
+  booktitle = {Proc.\ International Conference on Machine Learning (ICML)},
+  year      = {2023},
+  url       = {https://arxiv.org/abs/2211.10438},
+  eprint    = {2211.10438},
+  archivePrefix = {arXiv}
 }
 
-@article{qwen3asr2025,
-  author  = {{Qwen Team}},
-  title   = {{Qwen3-ASR}: Large-Scale Multilingual Speech Recognition},
-  journal = {arXiv preprint},
-  year    = {2025},
-  note    = {placeholder --- mandatory baseline per reading list}
+@inproceedings{xu2025mixedprecision,
+  author    = {Xu, Haoning and Li, Zhaoqing and Jin, Zengrui and Wang, Huimeng and Chen, Youjun and Li, Guinan and Geng, Mengzhe and Hu, Shujie and Deng, Jiajun and Liu, Xunying},
+  title     = {Effective and Efficient Mixed Precision Quantization of Speech Foundation Models},
+  booktitle = {Proc.\ IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/2501.03643},
+  eprint    = {2501.03643},
+  archivePrefix = {arXiv},
+  note      = {Closest competitor per lit\_scan\_v1}
+}
+
+@misc{ggml2023,
+  author       = {Gerganov, Georgi and {GGML contributors}},
+  title        = {{GGML}: Tensor Library for Machine Learning},
+  year         = {2023},
+  howpublished = {\url{https://github.com/ggerganov/ggml}},
+  note         = {Open-source quantized tensor runtime supporting 4-bit, 5-bit, and 8-bit packed layouts}
+}
+
+@inproceedings{bertinmahieux2011msd,
+  author    = {Bertin-Mahieux, Thierry and Ellis, Daniel P.~W. and Whitman, Brian and Lamere, Paul},
+  title     = {The Million Song Dataset},
+  booktitle = {Proc.\ International Society for Music Information Retrieval Conference (ISMIR)},
+  year      = {2011},
+  pages     = {591--596},
+  url       = {http://millionsongdataset.com/}
+}
+
+@article{kvcache2024,
+  author       = {Liu, Zirui and Yuan, Jiayi and Jin, Hongye and Zhong, Shaochen and Xu, Zhaozhuo and Braverman, Vladimir and Chen, Beidi and Hu, Xia},
+  title        = {{KIVI}: A Tuning-Free Asymmetric 2-bit Quantization for {KV} Cache},
+  journal      = {arXiv preprint arXiv:2402.02750},
+  year         = {2024},
+  url          = {https://arxiv.org/abs/2402.02750},
+  eprint       = {2402.02750},
+  archivePrefix = {arXiv},
+  note         = {Representative KV-cache compression work; cited as parallel literature}
 }

@@ -1,9 +1,9 @@
 {
   "round_trip": {
     "n_entries": 20,
-    "hits": 15,
-    "hit_rate": 0.75,
-    "mean_cosine": 0.9869
+    "hits": 20,
+    "hit_rate": 1.0,
+    "mean_cosine": 0.9849
   },
   "memory": {
     "n_entries": 200,
@@ -16,30 +16,30 @@
   },
   "minimal_pair_safety": {
     "total": 25,
-    "correct_misses": 22,
-    "false_hits": 3,
-    "correct_miss_rate": 0.88
+    "correct_misses": 17,
+    "false_hits": 8,
+    "correct_miss_rate": 0.68
   },
   "cache_summary": {
-    "n_entries": 41,
-    "tone_bytes": 492,
-    "segment_bytes": 533,
-    "total_bytes": 1025,
+    "n_entries": 87,
+    "tone_bytes": 1044,
+    "segment_bytes": 1131,
+    "total_bytes": 2175,
     "trained": true,
     "max_entries": 4096,
     "lookups": 25,
-    "hits": 3,
-    "both_hits": 3,
-    "tone_only_hits": 1,
-    "segment_only_hits": 11,
-    "hit_rate": 0.12,
+    "hits": 8,
+    "both_hits": 8,
+    "tone_only_hits": 0,
+    "segment_only_hits": 15,
+    "hit_rate": 0.32,
     "seg_threshold_cfg": 0.93,
-    "seg_threshold_effective": 0.8525,
+    "seg_threshold_effective": 0.88,
     "pq_self_error": {
-      "mean": 0.013741861650942155,
-      "std": 0.02126734338550785,
-      "max": 0.04057702186401002,
-      "n": 8
+      "mean": 0.06985972412764889,
+      "std": 0.061373233974886365,
+      "max": 0.22385409502021503,
+      "n": 17
     }
   }
 }
