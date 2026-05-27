@@ -1,0 +1,62 @@
+{
+  "demo": "federated TM snapshot merge (3 mock workers)",
+  "snapshot_paths": [
+    "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\_federated_mock\\worker_A_t2.json",
+    "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\_federated_mock\\worker_B_t2.json",
+    "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\_federated_mock\\worker_C_t2.json"
+  ],
+  "merge_stats": {
+    "n_snapshots": 3,
+    "per_snapshot": [
+      {
+        "path": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\_federated_mock\\worker_A_t2.json",
+        "n_entries": 7
+      },
+      {
+        "path": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\_federated_mock\\worker_B_t2.json",
+        "n_entries": 6
+      },
+      {
+        "path": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\_federated_mock\\worker_C_t2.json",
+        "n_entries": 6
+      }
+    ],
+    "sum_input_entries": 19,
+    "n_overlapping_keys": 4,
+    "n_merged_entries": 14,
+    "total_hits_preserved": 36,
+    "anonymized": true,
+    "cosine_hit": 0.8,
+    "max_entries": 1024
+  },
+  "merged_tm_summary": {
+    "n_entries": 14,
+    "max_entries": 1024,
+    "cosine_hit": 0.8,
+    "lookups": 0,
+    "hits": 0,
+    "misses": 0,
+    "hit_rate": 0.0,
+    "insertions": 14,
+    "evictions": 0,
+    "fp_ms_mean": 0.187
+  },
+  "cross_worker_benefit": {
+    "worker_A_t2": {
+      "queries": 7,
+      "cross_worker_hits": 3,
+      "cross_worker_rate": 0.4286
+    },
+    "worker_B_t2": {
+      "queries": 6,
+      "cross_worker_hits": 4,
+      "cross_worker_rate": 0.6667
+    },
+    "worker_C_t2": {
+      "queries": 6,
+      "cross_worker_hits": 2,
+      "cross_worker_rate": 0.3333
+    }
+  },
+  "honest_scope_note": "This utility performs set-union merging of JSON cache snapshots, not federated learning. No model parameters are exchanged. Cited as deployment infrastructure (§5), not a research mechanism."
+}

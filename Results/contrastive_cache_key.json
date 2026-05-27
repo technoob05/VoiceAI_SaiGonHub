@@ -1,0 +1,190 @@
+{
+  "vivos_data": {
+    "total_multi_speaker_prompts_available": 766,
+    "prompts_used": 400,
+    "utterances_used": 929,
+    "fp_dim": 272
+  },
+  "split": {
+    "train_prompts": 320,
+    "train_utts": 744,
+    "train_multi_utt_groups": 320,
+    "heldout_prompts": 80,
+    "heldout_utts": 185,
+    "heldout_multi_utt_groups": 80,
+    "split_by": "prompt_text (no prompt appears in both)"
+  },
+  "model": {
+    "arch": "MLP 272 -> 128 -> 64",
+    "hidden": 128,
+    "out_dim": 64,
+    "activation": "ReLU",
+    "output_norm": "L2",
+    "params": 43200
+  },
+  "training": {
+    "iters": 500,
+    "batch_size": 32,
+    "lr": 0.05,
+    "momentum": 0.9,
+    "margin": 0.3,
+    "optimizer": "SGD + momentum (pure NumPy)",
+    "elapsed_s": 3.06
+  },
+  "loss_curve": [
+    {
+      "iter": 0,
+      "loss": 0.2733,
+      "n_active": 32
+    },
+    {
+      "iter": 20,
+      "loss": 0.2183,
+      "n_active": 24
+    },
+    {
+      "iter": 40,
+      "loss": 0.1304,
+      "n_active": 20
+    },
+    {
+      "iter": 60,
+      "loss": 0.1529,
+      "n_active": 16
+    },
+    {
+      "iter": 80,
+      "loss": 0.1205,
+      "n_active": 19
+    },
+    {
+      "iter": 100,
+      "loss": 0.1108,
+      "n_active": 18
+    },
+    {
+      "iter": 120,
+      "loss": 0.1796,
+      "n_active": 24
+    },
+    {
+      "iter": 140,
+      "loss": 0.1276,
+      "n_active": 17
+    },
+    {
+      "iter": 160,
+      "loss": 0.124,
+      "n_active": 17
+    },
+    {
+      "iter": 180,
+      "loss": 0.1423,
+      "n_active": 13
+    },
+    {
+      "iter": 200,
+      "loss": 0.1063,
+      "n_active": 19
+    },
+    {
+      "iter": 220,
+      "loss": 0.0577,
+      "n_active": 12
+    },
+    {
+      "iter": 240,
+      "loss": 0.1017,
+      "n_active": 13
+    },
+    {
+      "iter": 260,
+      "loss": 0.152,
+      "n_active": 21
+    },
+    {
+      "iter": 280,
+      "loss": 0.046,
+      "n_active": 8
+    },
+    {
+      "iter": 300,
+      "loss": 0.1601,
+      "n_active": 19
+    },
+    {
+      "iter": 320,
+      "loss": 0.1598,
+      "n_active": 23
+    },
+    {
+      "iter": 340,
+      "loss": 0.0658,
+      "n_active": 8
+    },
+    {
+      "iter": 360,
+      "loss": 0.1053,
+      "n_active": 15
+    },
+    {
+      "iter": 380,
+      "loss": 0.1257,
+      "n_active": 20
+    },
+    {
+      "iter": 400,
+      "loss": 0.1214,
+      "n_active": 20
+    },
+    {
+      "iter": 420,
+      "loss": 0.0715,
+      "n_active": 12
+    },
+    {
+      "iter": 440,
+      "loss": 0.0815,
+      "n_active": 10
+    },
+    {
+      "iter": 460,
+      "loss": 0.1003,
+      "n_active": 11
+    },
+    {
+      "iter": 480,
+      "loss": 0.0617,
+      "n_active": 9
+    },
+    {
+      "iter": 499,
+      "loss": 0.1142,
+      "n_active": 19
+    }
+  ],
+  "heldout_eval": {
+    "pre_projection_raw_272d": {
+      "intra_cos_mean": 0.8167,
+      "intra_cos_std": 0.1068,
+      "inter_cos_mean": 0.7819,
+      "inter_cos_std": 0.1069,
+      "gap": 0.0349,
+      "n_pos": 2000,
+      "n_neg": 2000
+    },
+    "post_projection_64d": {
+      "intra_cos_mean": 0.6575,
+      "intra_cos_std": 0.2295,
+      "inter_cos_mean": 0.3613,
+      "inter_cos_std": 0.3285,
+      "gap": 0.2962,
+      "n_pos": 2000,
+      "n_neg": 2000
+    },
+    "gap_improvement": 0.2613,
+    "relative_gap_improvement_pct": 748.71
+  },
+  "weights_path": "data\\cache_snapshots\\contrastive_projection.npz",
+  "caveat": "VIVOS provides only ~766 prompts with >=2 speakers in train; the held-out split inherits ~150 multi-speaker prompts. This is sufficient to validate the learned-projection HYPOTHESIS but not to ship a production projection — recommended next step is to augment positives with noise/time-shift/SpecAugment of single utterances, which would yield ~10000+ positive pairs."
+}
