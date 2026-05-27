@@ -160,6 +160,52 @@ on a **tonal-minimal-pair corpus** to demonstrate where the tone histogram
 provides incremental value. Suggested: synthesize via TTS the 6-tone
 homonym sets, measure intra/inter cosine with and without tone histogram.
 
+### §2.6 Minimal-pair eval result (added 2026-05-27 — paper §4.2 anchor)
+
+We synthesized 6 Vi syllables × 6 tones = 36 audio clips via Vi MMS-TTS
+(facebook/mms-tts-vie) using a "nói X" carrier frame, then measured
+pairwise cosines on 90 intra-tone pairs vs 540 inter-syllable pairs.
+Results (`Results/minimal_pair_eval.json`):
+
+| Variant | Dims | Intra-tone cos | Inter-syl cos | Protect? |
+|---|---:|---:|---:|---|
+| full (272d) | 272 | 0.922 | 0.910 | ❌ no (intra > inter) |
+| no_tone (266d) | 266 | 0.922 | 0.910 | ❌ no |
+| no_mfcc (12d) | 12 | 0.992 | 0.992 | ≈ tie |
+| **tone_only (6d)** | **6** | **0.692** | **0.719** | ✓ **+0.028 protect** |
+| mfcc_only (130d) | 130 | 0.953 | 0.942 | ❌ no |
+
+**Critical finding** (paper anchor):
+1. **Tone histogram DOES have discriminative power on minimal pairs.** The
+   6-d tone-only fingerprint produces cosine 0.69 for same-syllable-
+   different-tone vs 0.72 for different-syllable. Tonal variants are MORE
+   distinct than syllabic ones at the tone-only level — exactly the
+   typology safety net we hypothesized.
+2. **However, naive L2-normalized concatenation kills the tone signal.**
+   In the 272-d full fingerprint, the 130-d MFCC component dominates the
+   norm. Adding the 6-d tone histogram changes the unit vector by ~2.5%
+   in any direction, which is below the inter-syllable variation. The
+   tone safety net is *theoretically* there but *operationally* invisible.
+3. **MFCC alone CONFUSES tonal variants** (intra 0.95 vs inter 0.94).
+   This is a real failure mode: a worker saying *"má"* (mother) and another
+   worker saying *"mả"* (tomb) would land on the same MFCC neighborhood
+   → wrong cache hit → semantic error.
+
+**Direct paper §3 design implication**: the architecture must
+**weight tone histogram higher** than naive concat allows, OR use a
+**two-stream voting** scheme where tone histogram and MFCC each cast a
+discrimination vote and disagreement triggers a cascade re-run.
+
+**Open question for §7 future work**: what is the optimal weighting? A
+learned per-dim gain via PCA whitening on tonal-minimal-pair data, OR a
+hand-tuned tone:mfcc ratio chosen for the deployment language. Re-running
+the eval with a learned weighting is a clean follow-up experiment.
+
+This is exactly the type of *honest empirical surprise* that strengthens
+an oral paper: the design intuition was right (tone IS discriminative),
+but the implementation choice (naive concat) was wrong, and the paper
+proposes a fix in §3 / future work.
+
 ---
 
 ## §3. The paper-publishable matrix

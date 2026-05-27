@@ -1,0 +1,104 @@
+{
+  "scenarios": [
+    {
+      "config": {
+        "n_workers": 1,
+        "n_phrases_per_worker": 2,
+        "n_repeats_per_phrase": 3,
+        "seed": 42,
+        "total_events": 6
+      },
+      "n_events": 6,
+      "t1_hit_count": 4,
+      "t1_hit_rate": 0.6667,
+      "tm_stats": {
+        "n_entries": 0,
+        "max_entries": 256,
+        "cosine_hit": 0.8,
+        "lookups": 0,
+        "hits": 0,
+        "misses": 0,
+        "hit_rate": 0.0,
+        "insertions": 0,
+        "evictions": 0,
+        "fp_ms_mean": 0.0
+      },
+      "latency_ms": {
+        "mean": 3411.0,
+        "p50": 35.4,
+        "p95": 13454.9,
+        "p99": 13454.9,
+        "max": 13454.9
+      },
+      "wall_clock_seconds": 20.5
+    },
+    {
+      "config": {
+        "n_workers": 3,
+        "n_phrases_per_worker": 2,
+        "n_repeats_per_phrase": 3,
+        "seed": 42,
+        "total_events": 18
+      },
+      "n_events": 18,
+      "t1_hit_count": 12,
+      "t1_hit_rate": 0.6667,
+      "tm_stats": {
+        "n_entries": 0,
+        "max_entries": 256,
+        "cosine_hit": 0.8,
+        "lookups": 0,
+        "hits": 0,
+        "misses": 0,
+        "hit_rate": 0.0,
+        "insertions": 0,
+        "evictions": 0,
+        "fp_ms_mean": 0.0
+      },
+      "latency_ms": {
+        "mean": 3456.1,
+        "p50": 77.8,
+        "p95": 17488.3,
+        "p99": 17488.3,
+        "max": 17488.3
+      },
+      "wall_clock_seconds": 62.4
+    },
+    {
+      "config": {
+        "n_workers": 5,
+        "n_phrases_per_worker": 2,
+        "n_repeats_per_phrase": 3,
+        "seed": 42,
+        "total_events": 30
+      },
+      "n_events": 30,
+      "t1_hit_count": 20,
+      "t1_hit_rate": 0.6667,
+      "tm_stats": {
+        "n_entries": 0,
+        "max_entries": 256,
+        "cosine_hit": 0.8,
+        "lookups": 0,
+        "hits": 0,
+        "misses": 0,
+        "hit_rate": 0.0,
+        "insertions": 0,
+        "evictions": 0,
+        "fp_ms_mean": 0.0
+      },
+      "latency_ms": {
+        "mean": 3103.2,
+        "p50": 33.5,
+        "p95": 11735.4,
+        "p99": 20016.9,
+        "max": 20016.9
+      },
+      "wall_clock_seconds": 93.3
+    }
+  ],
+  "global_config": {
+    "phrases_per_worker": 2,
+    "repeats": 3
+  }
+}

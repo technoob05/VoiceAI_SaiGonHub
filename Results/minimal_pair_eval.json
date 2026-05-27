@@ -1,0 +1,125 @@
+{
+  "n_syllables_synthed": 36,
+  "syllable_groups": {
+    "ma": [
+      "ma",
+      "má",
+      "mả",
+      "mạ",
+      "mã",
+      "mà"
+    ],
+    "ba": [
+      "ba",
+      "bá",
+      "bả",
+      "bạ",
+      "bã",
+      "bà"
+    ],
+    "ca": [
+      "ca",
+      "cá",
+      "cả",
+      "cạ",
+      "cã",
+      "cà"
+    ],
+    "la": [
+      "la",
+      "lá",
+      "lả",
+      "lạ",
+      "lã",
+      "là"
+    ],
+    "da": [
+      "da",
+      "dá",
+      "dả",
+      "dạ",
+      "dã",
+      "dà"
+    ],
+    "ta": [
+      "ta",
+      "tá",
+      "tả",
+      "tạ",
+      "tã",
+      "tà"
+    ]
+  },
+  "carrier_template": "nói {syl}",
+  "variants": [
+    {
+      "variant": "full",
+      "components": [
+        "A_tone",
+        "B_mfcc",
+        "C_delta",
+        "D_f0",
+        "E_energy"
+      ],
+      "dims": 272,
+      "intra_tone_cos_mean": 0.9217,
+      "intra_tone_cos_std": 0.0499,
+      "inter_syl_cos_mean": 0.9095,
+      "inter_syl_cos_std": 0.0534,
+      "protect_score": -0.0122
+    },
+    {
+      "variant": "no_tone",
+      "components": [
+        "B_mfcc",
+        "C_delta",
+        "D_f0",
+        "E_energy"
+      ],
+      "dims": 266,
+      "intra_tone_cos_mean": 0.9217,
+      "intra_tone_cos_std": 0.0499,
+      "inter_syl_cos_mean": 0.9095,
+      "inter_syl_cos_std": 0.0534,
+      "protect_score": -0.0122
+    },
+    {
+      "variant": "no_mfcc",
+      "components": [
+        "A_tone",
+        "D_f0",
+        "E_energy"
+      ],
+      "dims": 12,
+      "intra_tone_cos_mean": 0.9915,
+      "intra_tone_cos_std": 0.0064,
+      "inter_syl_cos_mean": 0.9919,
+      "inter_syl_cos_std": 0.0068,
+      "protect_score": 0.0004
+    },
+    {
+      "variant": "tone_only",
+      "components": [
+        "A_tone"
+      ],
+      "dims": 6,
+      "intra_tone_cos_mean": 0.6916,
+      "intra_tone_cos_std": 0.2456,
+      "inter_syl_cos_mean": 0.7194,
+      "inter_syl_cos_std": 0.237,
+      "protect_score": 0.0279
+    },
+    {
+      "variant": "mfcc_only",
+      "components": [
+        "B_mfcc"
+      ],
+      "dims": 130,
+      "intra_tone_cos_mean": 0.953,
+      "intra_tone_cos_std": 0.0304,
+      "inter_syl_cos_mean": 0.9423,
+      "inter_syl_cos_std": 0.0388,
+      "protect_score": -0.0107
+    }
+  ]
+}

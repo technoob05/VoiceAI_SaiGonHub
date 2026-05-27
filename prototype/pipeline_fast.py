@@ -156,6 +156,11 @@ class FastPipelineConfig:
     # Complementary to silero-VAD in faster-whisper (which fires inside the model).
     tone_vad_enabled: bool = bool(int(os.environ.get("VOICEAI_TONE_VAD", "1")))
 
+    # Spectral-subtraction noise filter — pre-ASR audio enhancement for industrial
+    # noise. Off by default since input is usually clean on demos; flip on for
+    # factory-floor deployment.
+    noise_filter_enabled: bool = bool(int(os.environ.get("VOICEAI_NOISE_FILTER", "0")))
+
 
 class FastCascadeS2ST:
     """Same surface area as CascadeS2ST but with INT8 backends + utterance cache."""
@@ -205,6 +210,17 @@ class FastCascadeS2ST:
             except ImportError as e:
                 print(f"[warn] tone_vad module not importable ({e}); VAD disabled")
                 self._tone_vad = None
+
+        # Pre-filter — spectral-subtraction noise enhancement (industrial WER win).
+        self._noise_filter = None
+        if self.cfg.noise_filter_enabled:
+            try:
+                from noise_filter import NoiseFilter
+                self._noise_filter = NoiseFilter()
+                print(f"[init] spectral-subtraction noise filter enabled")
+            except ImportError as e:
+                print(f"[warn] noise_filter module not importable ({e}); disabled")
+                self._noise_filter = None
 
     # ---------------- ASR (faster-whisper) ----------------
     def _ensure_asr(self) -> None:
@@ -378,6 +394,14 @@ class FastCascadeS2ST:
         import time as _t
 
         t0 = _t.perf_counter()
+
+        # ----- Pre-filter: spectral subtraction (industrial noise reduction) -----
+        nf_ms = 0.0
+        if self._noise_filter is not None:
+            tnf = _t.perf_counter()
+            nf_res = self._noise_filter(audio, sr)
+            audio, sr = nf_res.filtered_audio, nf_res.sr
+            nf_ms = (_t.perf_counter() - tnf) * 1000
 
         # ----- Pre-filter: tone-energy VAD (reject noise/silence/hum) -----
         if self._tone_vad is not None:
