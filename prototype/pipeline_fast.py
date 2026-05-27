@@ -152,6 +152,10 @@ class FastPipelineConfig:
     tm_max_entries: int   = int(os.environ.get("VOICEAI_TM_MAX", "256"))
     tm_cosine_hit:  float = float(os.environ.get("VOICEAI_TM_COSINE", "0.80"))
 
+    # Tone-energy VAD — pre-filter to skip cascade on noise / silence / hum.
+    # Complementary to silero-VAD in faster-whisper (which fires inside the model).
+    tone_vad_enabled: bool = bool(int(os.environ.get("VOICEAI_TONE_VAD", "1")))
+
 
 class FastCascadeS2ST:
     """Same surface area as CascadeS2ST but with INT8 backends + utterance cache."""
@@ -190,6 +194,17 @@ class FastCascadeS2ST:
             except ImportError as e:
                 print(f"[warn] translation_memory module not importable ({e}); T2 disabled")
                 self._tm = None
+
+        # Pre-filter — tonal-language VAD (rejects noise/silence/hum before cascade).
+        self._tone_vad = None
+        if self.cfg.tone_vad_enabled:
+            try:
+                from tone_vad import ToneVAD
+                self._tone_vad = ToneVAD()
+                print(f"[init] tone-energy VAD enabled")
+            except ImportError as e:
+                print(f"[warn] tone_vad module not importable ({e}); VAD disabled")
+                self._tone_vad = None
 
     # ---------------- ASR (faster-whisper) ----------------
     def _ensure_asr(self) -> None:
@@ -340,6 +355,15 @@ class FastCascadeS2ST:
             wav = model(**inputs).waveform
         return wav.squeeze().cpu().numpy().astype(np.float32), model.config.sampling_rate
 
+    # ---------------- Persistence helpers ----------------
+    def save_snapshot(self, name: str = "default") -> dict:
+        from persistent_cache import snapshot_pipeline
+        return snapshot_pipeline(self, name=name)
+
+    def load_snapshot(self, name: str = "default") -> dict:
+        from persistent_cache import restore_pipeline
+        return restore_pipeline(self, name=name)
+
     # ---------------- Streaming end-to-end ----------------
     def run_streaming(self, audio: np.ndarray, sr: int, target: str):
         """Generator that yields progressive results — perceived latency <1s
@@ -354,6 +378,28 @@ class FastCascadeS2ST:
         import time as _t
 
         t0 = _t.perf_counter()
+
+        # ----- Pre-filter: tone-energy VAD (reject noise/silence/hum) -----
+        if self._tone_vad is not None:
+            vad_result = self._tone_vad.is_likely_speech(audio, sr)
+            if not vad_result.is_speech:
+                yield {
+                    "stage": "vad_reject",
+                    "vi_text":  "(no speech detected)",
+                    "tgt_text": f"(rejected by tone-VAD: {vad_result.reason})",
+                    "tgt_audio": np.zeros(16000, dtype=np.float32),
+                    "sr":       16000,
+                    "latency":  {"vad_ms": round((_t.perf_counter() - t0) * 1000, 2),
+                                 "cache_ms": 0, "asr_ms": 0, "mt_ms": 0, "tts_ms": 0,
+                                 "total_ms": round((_t.perf_counter() - t0) * 1000, 2)},
+                    "cache":    {"hit": False, "cosine": None, "tm_hit": False,
+                                 "stats": self._utt_cache.summary() if self._utt_cache else None,
+                                 "tm_stats": self._tm.summary() if self._tm else None,
+                                 "vad_rejected": True,
+                                 "vad_confidence": round(vad_result.confidence, 3)},
+                }
+                return
+
         # ----- Cache pre-check (same as run()) -----
         cache_ms = 0.0
         fp = None

@@ -352,6 +352,32 @@ def reset_session():
             _stage_bars_html({}, 0.0, False), None, _history_md())
 
 
+def save_cache(quality: str):
+    pipe = _get_pipe(quality)
+    out = pipe.save_snapshot(name="default")
+    return ("", "", _status_html(
+        f"💾 saved cache to {out.get('snapshot_dir')} "
+        f"(T1={out.get('t1',{}).get('n_entries','?')}, T2={out.get('t2',{}).get('n_entries','?')})",
+        "hit"
+    ), _stage_bars_html({}, 0.0, False), None, _history_md())
+
+
+def load_cache(quality: str):
+    pipe = _get_pipe(quality)
+    out = pipe.load_snapshot(name="default")
+    t1_loaded = out.get("t1", {}).get("loaded", 0)
+    t2_loaded = out.get("t2", {}).get("loaded", 0)
+    if t1_loaded == 0 and t2_loaded == 0:
+        return ("", "", _status_html(
+            "📂 no snapshot found — pre-warm and save first",
+            "warn"
+        ), _stage_bars_html({}, 0.0, False), None, _history_md())
+    return ("", "", _status_html(
+        f"📂 loaded cache snapshot — T1 audio entries: {t1_loaded}, T2 text entries: {t2_loaded}",
+        "hit"
+    ), _stage_bars_html({}, 0.0, False), None, _history_md())
+
+
 def prewarm_cache(target: str, quality: str, progress=gr.Progress()):
     """Populate TranslationMemory with 42 curated industrial Vi phrases.
     After this, any judge speaking one of those phrases hits the cache on
@@ -443,13 +469,15 @@ def build_ui() -> gr.Blocks:
                     )
                 with gr.Row():
                     btn   = gr.Button("🚀 Translate", variant="primary", scale=4, size="lg")
-                    prewarm = gr.Button("🔥 Pre-warm cache", variant="secondary", scale=2, size="lg")
-                    reset = gr.Button("🔁 Reset", variant="secondary", scale=1, size="lg")
+                    prewarm = gr.Button("🔥 Pre-warm", variant="secondary", scale=2)
+                    reset = gr.Button("🔁 Reset", variant="secondary", scale=1)
+                with gr.Row():
+                    save_btn = gr.Button("💾 Save cache", variant="secondary", scale=1)
+                    load_btn = gr.Button("📂 Load cache", variant="secondary", scale=1)
                 gr.Markdown(
-                    "<sub>**🔥 Pre-warm**: loads 42 curated industrial Vi phrases into the "
-                    "translation memory. After warming, any of these will hit the cache on "
-                    "first try (instant translation), even if you've never spoken them before. "
-                    "Try: *an toàn lao động*, *dừng dây chuyền*, *khẩn cấp*, *đưa cờ-lê cho tôi*.</sub>"
+                    "<sub>**🔥 Pre-warm**: 42 industrial Vi phrases → translation memory.<br>"
+                    "**💾 Save / 📂 Load**: persist cache to disk between sessions (great for repeated demos).<br>"
+                    "**🛑 Tone-VAD**: rejects pure noise / silence / hum before running cascade.</sub>"
                 )
 
             # =================== OUTPUT ===================
@@ -484,6 +512,16 @@ def build_ui() -> gr.Blocks:
         prewarm.click(
             prewarm_cache,
             inputs=[target, quality],
+            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
+        )
+        save_btn.click(
+            save_cache,
+            inputs=[quality],
+            outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
+        )
+        load_btn.click(
+            load_cache,
+            inputs=[quality],
             outputs=[vi_box, tgt_box, status_html, bars_html, audio_out, history_md],
         )
         reset.click(
