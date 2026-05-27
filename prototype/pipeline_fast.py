@@ -82,6 +82,35 @@ TTS_REPO = {
 _ROMANIZE = {"ko"}
 
 
+# --- Sentence splitter used by streaming MT to dispatch sentences as they arrive ---
+import re as _re                                                  # noqa: E402
+
+_SENT_RE = _re.compile(r"(?<=[.!?…])\s+|(?<=[.!?…])$", flags=_re.UNICODE)
+
+
+def _split_sentences(text: str) -> list[str]:
+    """Naive sentence splitter that keeps trailing punctuation. Vietnamese commonly
+    omits final punctuation, so we also break on ", " when the chunk before is
+    > 8 chars (heuristic: avoids splitting "anh, hỏi" but allows "tôi đi học, sau đó về nhà")."""
+    if not text or not text.strip():
+        return []
+    parts = _SENT_RE.split(text.strip())
+    out: list[str] = []
+    for p in parts:
+        p = p.strip()
+        if not p:
+            continue
+        # secondary split on commas if chunk is long
+        if len(p) > 60 and "," in p:
+            for sub in p.split(","):
+                sub = sub.strip()
+                if sub:
+                    out.append(sub)
+        else:
+            out.append(p)
+    return out or [text.strip()]
+
+
 CT2_ROOT = PROJECT / "data" / "raw" / "models_ct2"
 
 
@@ -116,6 +145,13 @@ class FastPipelineConfig:
     cache_max_entries: int   = int(os.environ.get("VOICEAI_CACHE_MAX", "128"))
     cache_cosine_hit:  float = float(os.environ.get("VOICEAI_CACHE_COSINE", "0.95"))
 
+    # Translation memory — text-level fuzzy cache (see translation_memory.py). Hits
+    # when a *different* speaker says a similar Vi phrase. Reuses Vi+target text;
+    # only re-runs TTS (or even reuses TTS audio when text fingerprint cos == 1).
+    tm_enabled:     bool  = bool(int(os.environ.get("VOICEAI_TM", "1")))
+    tm_max_entries: int   = int(os.environ.get("VOICEAI_TM_MAX", "256"))
+    tm_cosine_hit:  float = float(os.environ.get("VOICEAI_TM_COSINE", "0.80"))
+
 
 class FastCascadeS2ST:
     """Same surface area as CascadeS2ST but with INT8 backends + utterance cache."""
@@ -127,7 +163,7 @@ class FastCascadeS2ST:
         self._mt_tok = None
         self._tts_cache: dict[str, tuple] = {}
         self._tts_thread: Optional[threading.Thread] = None
-        # Utterance-level perceptual cache (orthogonal to TTS model cache above).
+        # Tier 1 — Audio-level perceptual cache.
         self._utt_cache = None
         if self.cfg.cache_enabled:
             try:
@@ -136,10 +172,24 @@ class FastCascadeS2ST:
                     max_entries=self.cfg.cache_max_entries,
                     cosine_hit=self.cfg.cache_cosine_hit,
                 )
-                print(f"[init] utterance cache enabled  (cosine_hit={self.cfg.cache_cosine_hit}, max={self.cfg.cache_max_entries})")
+                print(f"[init] T1 audio cache enabled  (cos>={self.cfg.cache_cosine_hit}, max={self.cfg.cache_max_entries})")
             except ImportError as e:
-                print(f"[warn] utterance_cache module not importable ({e}); cache disabled")
+                print(f"[warn] utterance_cache module not importable ({e}); T1 disabled")
                 self._utt_cache = None
+
+        # Tier 2 — Text-level translation memory.
+        self._tm = None
+        if self.cfg.tm_enabled:
+            try:
+                from translation_memory import TranslationMemory
+                self._tm = TranslationMemory(
+                    max_entries=self.cfg.tm_max_entries,
+                    cosine_hit=self.cfg.tm_cosine_hit,
+                )
+                print(f"[init] T2 translation memory enabled  (cos>={self.cfg.tm_cosine_hit}, max={self.cfg.tm_max_entries})")
+            except ImportError as e:
+                print(f"[warn] translation_memory module not importable ({e}); T2 disabled")
+                self._tm = None
 
     # ---------------- ASR (faster-whisper) ----------------
     def _ensure_asr(self) -> None:
@@ -290,7 +340,210 @@ class FastCascadeS2ST:
             wav = model(**inputs).waveform
         return wav.squeeze().cpu().numpy().astype(np.float32), model.config.sampling_rate
 
-    # ---------------- End-to-end ----------------
+    # ---------------- Streaming end-to-end ----------------
+    def run_streaming(self, audio: np.ndarray, sr: int, target: str):
+        """Generator that yields progressive results — perceived latency <1s
+        because user sees Vi transcript appear word-by-word, then target text
+        appear sentence-by-sentence, then audio playback begin before
+        synthesis is fully done.
+
+        Yields dicts with keys: stage, vi_text, tgt_text, tgt_audio, latency.
+        Stages emitted in order: cache_check -> asr_partial* -> asr_done ->
+        mt_partial* -> mt_done -> tts_done -> done.
+        """
+        import time as _t
+
+        t0 = _t.perf_counter()
+        # ----- Cache pre-check (same as run()) -----
+        cache_ms = 0.0
+        fp = None
+        if self._utt_cache is not None:
+            tc0 = _t.perf_counter()
+            fp = self._utt_cache.fingerprint(audio, sr)
+            entry = self._utt_cache.lookup(fp, target)
+            cache_ms = (_t.perf_counter() - tc0) * 1000
+            if entry is not None:
+                res = entry["result"]
+                yield {
+                    "stage": "cache_hit",
+                    "vi_text": res["vi"],
+                    "tgt_text": res["tgt"],
+                    "tgt_audio": res["audio"][1],
+                    "sr": res["audio"][0],
+                    "latency": {"cache_ms": round(cache_ms, 2),
+                                "asr_ms": 0, "mt_ms": 0, "tts_ms": 0,
+                                "total_ms": round(cache_ms, 2)},
+                    "cache": {"hit": True, "cosine": round(entry["cosine"], 4),
+                              "stats": self._utt_cache.summary()},
+                }
+                return
+
+        # ----- ASR streaming (faster-whisper emits segments as it decodes) -----
+        self._ensure_asr()
+        if sr != 16000:
+            target_len = int(round(len(audio) * 16000 / sr))
+            audio = np.interp(np.linspace(0, len(audio), target_len, endpoint=False),
+                              np.arange(len(audio)), audio).astype(np.float32)
+        t_asr_start = _t.perf_counter()
+        segments_iter, _info = self._asr.transcribe(
+            audio.astype(np.float32),
+            language=self.cfg.asr_lang,
+            beam_size=self.cfg.asr_beam,
+            vad_filter=self.cfg.asr_vad_filter,
+            vad_parameters=dict(min_silence_duration_ms=self.cfg.asr_vad_min_silence_ms),
+            condition_on_previous_text=False,
+            without_timestamps=True,
+        )
+        vi_text_acc = ""
+        # As each segment finalizes, emit incremental Vi text
+        for seg in segments_iter:
+            vi_text_acc = (vi_text_acc + " " + seg.text).strip() if vi_text_acc else seg.text.strip()
+            asr_ms_so_far = (_t.perf_counter() - t_asr_start) * 1000
+            yield {
+                "stage": "asr_partial",
+                "vi_text": vi_text_acc,
+                "tgt_text": "",
+                "tgt_audio": None,
+                "sr": 16000,
+                "latency": {"cache_ms": round(cache_ms, 2),
+                            "asr_ms": round(asr_ms_so_far, 1),
+                            "mt_ms": 0, "tts_ms": 0,
+                            "total_ms": round((cache_ms + asr_ms_so_far), 1)},
+                "cache": {"hit": False, "cosine": None,
+                          "stats": self._utt_cache.summary() if self._utt_cache else None},
+            }
+        asr_ms = (_t.perf_counter() - t_asr_start) * 1000
+
+        # ----- Tier 2 cache check: text-level translation memory (post-ASR) -----
+        # Looks for previously seen Vi phrases (cos>=0.80). Hit -> reuse target text +
+        # audio if available; only re-run TTS when audio not cached.
+        if self._tm is not None:
+            tm_hit = self._tm.lookup(vi_text_acc, target)
+            if tm_hit is not None:
+                cached_audio = tm_hit.get("audio")
+                if cached_audio is not None:
+                    # Full hit: reuse target text + audio.
+                    yield {
+                        "stage": "tm_full_hit",
+                        "vi_text": vi_text_acc,
+                        "tgt_text": tm_hit["tgt_text"],
+                        "tgt_audio": cached_audio[1],
+                        "sr": cached_audio[0],
+                        "latency": {"cache_ms": round(cache_ms, 2),
+                                    "asr_ms": round(asr_ms, 1),
+                                    "mt_ms": 0, "tts_ms": 0,
+                                    "tm_cosine": round(tm_hit["cosine"], 4),
+                                    "total_ms": round((cache_ms + asr_ms), 1)},
+                        "cache": {"hit": False, "cosine": None, "tm_hit": True,
+                                  "tm_cosine": round(tm_hit["cosine"], 4),
+                                  "stats": self._utt_cache.summary() if self._utt_cache else None,
+                                  "tm_stats": self._tm.summary()},
+                    }
+                    return
+                # Partial hit: reuse target text, re-run TTS only.
+                yield {
+                    "stage": "mt_partial",
+                    "vi_text": vi_text_acc,
+                    "tgt_text": tm_hit["tgt_text"],
+                    "tgt_audio": None,
+                    "sr": 16000,
+                    "latency": {"cache_ms": round(cache_ms, 2),
+                                "asr_ms": round(asr_ms, 1),
+                                "mt_ms": 0, "tts_ms": 0,
+                                "tm_cosine": round(tm_hit["cosine"], 4),
+                                "total_ms": round((cache_ms + asr_ms), 1)},
+                    "cache": {"hit": False, "cosine": None, "tm_hit": True,
+                              "tm_cosine": round(tm_hit["cosine"], 4),
+                              "stats": self._utt_cache.summary() if self._utt_cache else None,
+                              "tm_stats": self._tm.summary()},
+                }
+                # Synthesize cached translation, then emit done.
+                t_tts_start = _t.perf_counter()
+                tgt_audio, out_sr = self.synthesize(tm_hit["tgt_text"], target)
+                tts_ms = (_t.perf_counter() - t_tts_start) * 1000
+                total_ms = (_t.perf_counter() - t0) * 1000
+                # Backfill audio into TM for future full hits.
+                self._tm.put(vi_text_acc, tm_hit["tgt_text"], target, audio=(out_sr, tgt_audio))
+                if self._utt_cache is not None and fp is not None:
+                    self._utt_cache.put(fp, target, {
+                        "vi": vi_text_acc, "tgt": tm_hit["tgt_text"], "audio": (out_sr, tgt_audio),
+                    })
+                yield {
+                    "stage": "done",
+                    "vi_text": vi_text_acc,
+                    "tgt_text": tm_hit["tgt_text"],
+                    "tgt_audio": tgt_audio,
+                    "sr": out_sr,
+                    "latency": {"cache_ms": round(cache_ms, 2),
+                                "asr_ms": round(asr_ms, 1),
+                                "mt_ms": 0, "tts_ms": round(tts_ms, 1),
+                                "tm_cosine": round(tm_hit["cosine"], 4),
+                                "total_ms": round(total_ms, 1)},
+                    "cache": {"hit": False, "cosine": None, "tm_hit": True,
+                              "tm_cosine": round(tm_hit["cosine"], 4),
+                              "stats": self._utt_cache.summary() if self._utt_cache else None,
+                              "tm_stats": self._tm.summary()},
+                }
+                return
+
+        # ----- MT sentence-by-sentence streaming -----
+        self._ensure_mt()
+        sentences = _split_sentences(vi_text_acc)
+        tgt_acc = ""
+        t_mt_start = _t.perf_counter()
+        for sent in sentences:
+            if not sent.strip():
+                continue
+            tr = self.translate(sent, target, source="vi")
+            tgt_acc = (tgt_acc + " " + tr).strip() if tgt_acc else tr
+            mt_ms_so_far = (_t.perf_counter() - t_mt_start) * 1000
+            yield {
+                "stage": "mt_partial",
+                "vi_text": vi_text_acc,
+                "tgt_text": tgt_acc,
+                "tgt_audio": None,
+                "sr": 16000,
+                "latency": {"cache_ms": round(cache_ms, 2),
+                            "asr_ms": round(asr_ms, 1),
+                            "mt_ms": round(mt_ms_so_far, 1),
+                            "tts_ms": 0,
+                            "total_ms": round((cache_ms + asr_ms + mt_ms_so_far), 1)},
+                "cache": {"hit": False, "cosine": None,
+                          "stats": self._utt_cache.summary() if self._utt_cache else None},
+            }
+        mt_ms = (_t.perf_counter() - t_mt_start) * 1000
+
+        # ----- TTS on the full target text (could be streamed too but VITS doesn't expose chunk API cheaply) -----
+        t_tts_start = _t.perf_counter()
+        tgt_audio, out_sr = self.synthesize(tgt_acc, target)
+        tts_ms = (_t.perf_counter() - t_tts_start) * 1000
+        total_ms = (_t.perf_counter() - t0) * 1000
+
+        # Populate both caches for future hits
+        if self._utt_cache is not None and fp is not None:
+            self._utt_cache.put(fp, target, {
+                "vi": vi_text_acc, "tgt": tgt_acc, "audio": (out_sr, tgt_audio),
+            })
+        if self._tm is not None:
+            self._tm.put(vi_text_acc, tgt_acc, target, audio=(out_sr, tgt_audio))
+
+        yield {
+            "stage": "done",
+            "vi_text": vi_text_acc,
+            "tgt_text": tgt_acc,
+            "tgt_audio": tgt_audio,
+            "sr": out_sr,
+            "latency": {"cache_ms": round(cache_ms, 2),
+                        "asr_ms": round(asr_ms, 1),
+                        "mt_ms": round(mt_ms, 1),
+                        "tts_ms": round(tts_ms, 1),
+                        "total_ms": round(total_ms, 1)},
+            "cache": {"hit": False, "cosine": None, "tm_hit": False,
+                      "stats": self._utt_cache.summary() if self._utt_cache else None,
+                      "tm_stats": self._tm.summary() if self._tm else None},
+        }
+
+    # ---------------- End-to-end (non-streaming) ----------------
     def run(self, audio: np.ndarray, sr: int, target: str) -> dict:
         # Cache check FIRST (before any model work)
         cache_hit = False
