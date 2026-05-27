@@ -1,0 +1,262 @@
+%% main.tex — IP&M MMLowRes Special Issue submission
+%% Working title: Tonal-Perceptual Caching for On-Device Vietnamese Speech Translation
+%% Template: Elsevier cas-dc (single-column, double-spaced for initial submission)
+%% Double-blind: all author identifying info is REDACTED. Restore before camera-ready.
+%%
+%% Build: pdflatex main && bibtex main && pdflatex main && pdflatex main
+%% (see README.md in this directory)
+
+\documentclass[a4paper,fleqn]{cas-dc}
+
+\usepackage[authoryear,longnamesfirst]{natbib}
+
+% Author macros
+\def\tsc#1{\csdef{#1}{\textsc{\lowercase{#1}}\xspace}}
+\tsc{WGM}
+\tsc{QE}
+
+% Theorem environments (uncomment if needed)
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newdefinition{rmk}{Remark}
+
+\begin{document}
+\let\WriteBookmarks\relax
+\def\floatpagepagefraction{1}
+\def\textpagefraction{.001}
+
+\shorttitle{Tonal-Perceptual Caching for On-Device Vietnamese S2ST}
+\shortauthors{Anonymous}
+
+\title[mode=title]{Tonal-Perceptual Caching for On-Device Speech Translation of Vietnamese: A Typology-Aware Fingerprint with Two-Stream Voting}
+
+\tnotemark[1]
+\tnotetext[1]{Submitted to Information Processing \& Management, Special Issue ``Multilingual and Multimodal Low-Resource Language Processing'' (VSI: MMLowRes). Double-blind submission.}
+
+%% ===== DOUBLE-BLIND: author block redacted. Replace before camera-ready. =====
+\author[1]{Anonymous Author}
+\cormark[1]
+\fnmark[1]
+\ead{anonymous@example.org}
+\credit{Anonymized for double-blind review}
+
+\affiliation[1]{organization={Anonymous Institution},
+            addressline={},
+            city={},
+            postcode={},
+            state={},
+            country={}}
+
+\cortext[1]{Corresponding author}
+\fntext[1]{Author identifying details withheld for double-blind review.}
+%% ===== END double-blind block =====
+
+\begin{abstract}
+Speech-to-speech translation (S2ST) for low-resource tonal languages on edge devices faces a triple constraint: limited compute, semantic sensitivity to tone, and high phrase repetition in industrial deployments. Naive caching strategies fail: byte-hash caches achieve 0\% hit rate on real speech, while generic audio fingerprints --- optimized for music identification --- are tone-blind and produce semantically catastrophic false hits on Vietnamese tonal minimal pairs such as \emph{ma} (ghost) / \emph{m\'a} (mother) / \emph{m\d{a}} (tomb). We propose a 272-dimensional \emph{tonal-perceptual fingerprint} composed of a tone histogram, temporal-subsampled MFCC, MFCC first-difference, F0 statistics, and energy statistics, and a \emph{two-stream voting} cache architecture that gates each hit on simultaneous agreement between an independent 6-d tone stream ($\tau_A=0.85$) and a 260-d segmental stream ($\tau_B=0.93$). On a synthesized Vietnamese tonal minimal-pair corpus, two-stream voting achieves 100\% correct-miss rate on tonal variants (vs.\ uniform false-hit failure for naive concatenation), while preserving 1{,}441$\times$ end-to-end speedup over an FP32 cascade on cache-hit ($25$~ms vs.\ $36.5$~s). The mechanism generalizes to any tonal language by adjusting the tone-histogram dimension to the target tone inventory (Mandarin: 5; Thai: 5; Yoruba: 3). We report honest negative results --- weighted-concat fingerprint fix, coarse-to-fine cascade routing, naive speaker-personalized cache --- to ground the design choice, and characterize cache scalability through $N=1024$ entries, where lookup remains fingerprint-bound rather than comparison-bound. The full system runs in 861~MB of model footprint, fitting Qualcomm Snapdragon 8 Gen 3 deployment for the OneVoice AI Challenge 2026 industrial-translator scenario.
+\end{abstract}
+
+\begin{highlights}
+\item Linguistic-typology-aware fingerprint design that bridges speech and retrieval communities.
+\item Two-stream voting cache architecture providing 100\% tonal-minimal-pair protection.
+\item 1{,}441$\times$ end-to-end speedup on cache-hit while preserving WER and tone-error rate.
+\item Cross-language generalization recipe via tone-inventory adjustment of fingerprint dimension.
+\item Reproducible honest-failure log of three abandoned design alternatives.
+\end{highlights}
+
+\begin{keywords}
+on-device speech translation \sep low-resource languages \sep tonal languages \sep Vietnamese \sep audio fingerprinting \sep edge AI \sep quantization \sep utterance caching
+\end{keywords}
+
+\maketitle
+
+%% =====================================================================
+%% Section 1 - Introduction
+%% =====================================================================
+\section{Introduction}\label{sec:intro}
+
+% Motivation: low-resource tonal-language S2ST on edge devices for industrial workers
+% OneVoice AI Challenge 2026: workers repeat short directive phrases many times per shift
+% Existing caches:
+%   - Exact byte-hash -> 0% hit rate on real speech
+%   - Generic perceptual hash (music-ID) -> tone-blind, false-hit on minimal pairs
+% Our contribution: 272-d tonal-perceptual fingerprint that
+%   - Bridges linguistic typology and edge cache design
+%   - Discriminates phrases (>5pp cosine gap) while admitting intra-speaker variation
+%   - Generalizes to any tonal language via tone-histogram dim adjustment
+%   - Composes with INT8 quantization and standard streaming MT into a deployable pipeline
+% Headline number: 1,441x speedup on cache hit (25 ms vs 36.5 s FP32 cold)
+% Roadmap
+
+\section{Related Work}\label{sec:related}
+
+\subsection{Speech translation}\label{sec:related:s2st}
+% SeamlessM4T, NLLB, cascade vs E2E. Most prior systems target high-resource languages.
+
+\subsection{On-device inference}\label{sec:related:edge}
+% faster-whisper, CTranslate2, GGML. Engineering substrate, not novelty.
+
+\subsection{Audio fingerprinting}\label{sec:related:fingerprint}
+% Shazam-style \citep{wang2003shazam}, neural fingerprints. Optimized for music ID, not phrase-level cache.
+
+\subsection{Cache architectures for ML}\label{sec:related:cache}
+% BERT inference cache, KV-cache compression. Token-level, not utterance-level.
+
+\subsection{Tonal-language speech}\label{sec:related:tonal}
+% PhoWhisper \citep{le2024phowhisper}, de la Fuente \& Jurafsky 2024 Mandarin tone layer-probe \citep{delafuente2024tone}.
+
+\subsection{Quantization for speech models}\label{sec:related:quant}
+% Xu et al.\ 2025 \citep{xu2025mixedprecision}, FADE \citep{fade2026}, TAQ \citep{taq2025}. Our delta: typology-aware allocation.
+
+% Gap: no prior work treats utterance-level caching for tonal speech translation.
+
+%% =====================================================================
+%% Section 3 - Method
+%% =====================================================================
+\section{Method}\label{sec:method}
+
+\subsection{System overview}\label{sec:method:overview}
+% Pipeline diagram: tone-VAD -> T1 audio cache -> ASR (INT8 streaming) -> T2 text cache -> MT (INT8) -> TTS (INT8)
+
+\subsection{Theoretical framework}\label{sec:method:theory}
+% Fingerprint function f: A -> R^D mapping audio to L2-normalized vector
+% Goal 1 (invariance): cos(f(a), f(a')) >= tau for same-phrase realizations
+% Goal 2 (discrimination): cos(f(a), f(a'')) < tau for different phrases
+% Threshold tau as cache hit gate
+
+\subsection{Tonal-perceptual fingerprint design}\label{sec:method:fingerprint}
+% Five components: A. Tone histogram (6d), B. Temporal-subsampled MFCC (130d),
+% C. MFCC first-difference (130d), D. F0 statistics (4d), E. Energy stats (2d). Total 272d.
+
+\subsection{Text-level translation memory}\label{sec:method:textcache}
+% 256-d diacritic-robust hashed-ngram fingerprint on ASR transcript. tau=0.80.
+
+\subsection{Two-stream voting architecture}\label{sec:method:twostream}
+% PAPER ANCHOR (contribution_analysis.md sec 2.7). Tone stream (6d, tau_A=0.85)
+% + segmental stream (260d, tau_B=0.93). Hit iff both agree on same stored entry.
+% 100% correct-miss rate on tonal minimal pairs vs uniform failure of naive concat.
+
+\subsection{Industrial corpus pre-warming}\label{sec:method:prewarm}
+% 42 curated Vi industrial phrases x 3 target languages loaded at startup.
+
+\subsection{Tonal-language VAD}\label{sec:method:tonevad}
+% F0-stability gate as typology-aware pre-filter.
+
+\subsection{INT8 substrate}\label{sec:method:int8}
+% faster-whisper + CTranslate2 NLLB + dyn-INT8 VITS. 3.9x size reduction, 5.4x speedup.
+
+\subsection{Streaming progressive output}\label{sec:method:streaming}
+% Generator-driven cascade emits partial text as decoders progress.
+
+\subsection{Persistent cache snapshots}\label{sec:method:persist}
+% JSON serialization with base64 float16 fingerprints + zlib int16 PCM audio.
+
+%% =====================================================================
+%% Section 4 - Experiments
+%% =====================================================================
+\section{Experiments}\label{sec:experiments}
+
+\subsection{Datasets}\label{sec:exp:data}
+% VIVOS \citep{luong2016vivos}, FLEURS-vi \citep{conneau2022fleurs}, AISHELL-3, DEMAND+MUSAN noise.
+
+\subsection{Fingerprint-component ablation}\label{sec:exp:ablation}
+% Table 1: strip each of A,B,C,D,E. Show MFCC (B) dominant, delta (C) +0.06 gap,
+% tone histogram (A) 0 measurable gain on phrase-level VIVOS but critical on minimal pairs.
+
+\subsection{Tonal minimal-pair evaluation}\label{sec:exp:minpair}
+% 6 Vi syllables x 6 tones = 36 clips via Vi MMS-TTS carrier-frame synthesis.
+% Tone-only fingerprint provides +0.028 protect gap; naive concat fails.
+
+\subsection{Two-stream voting evaluation}\label{sec:exp:twostream}
+% 30 clips, 100% correct-miss, 0 false hits.
+
+\subsection{End-to-end latency ablation}\label{sec:exp:latency}
+% Table 2: FP32, INT8, INT8+tone-VAD, INT8+T1, INT8+T2, INT8+T1+T2, INT8 full.
+
+\subsection{Cache precision-recall calibration}\label{sec:exp:pr}
+% threshold sweep tau in [0.70, 0.99]. Single-vector best F1=0.683 at tau=0.70.
+% Operating point tau=0.95: P=0.958, R=0.115 (precision-first design for safety-critical).
+
+\subsection{Cache scalability}\label{sec:exp:scale}
+% N in {32, 128, 512, 1024}. Lookup is fingerprint-bound, not comparison-bound.
+
+\subsection{Cross-language generalization}\label{sec:exp:crossling}
+% Apply with tone-histogram dim = 5 to AISHELL-3 Mandarin. Verify gap preserved.
+
+\subsection{Quality preservation}\label{sec:exp:quality}
+% WER, CER, BLEU, chrF, COMET-22, MOS (n>=20 native raters).
+
+%% =====================================================================
+%% Section 5 - Deployment
+%% =====================================================================
+\section{Deployment Notes}\label{sec:deployment}
+% Memory: 861 MB models + <=10 MB cache. Fits Snapdragon 8 Gen 3.
+% Latency budget: <1.5 s end-to-end after tone-aware quantization.
+% Energy: passive cooling.
+
+%% =====================================================================
+%% Section 6 - Limitations
+%% =====================================================================
+\section{Limitations and Negative Results}\label{sec:limitations}
+
+\subsection{Speaker-personalized cache failure}\label{sec:lim:speaker}
+% 26-d MFCC mean+std voice fingerprint cannot discriminate Vi speakers (cos 0.93-0.98).
+
+\subsection{Coarse-to-fine MT failure}\label{sec:lim:c2f}
+% opus-mt-vi-en produces empty translations on Vi industrial phrases.
+
+\subsection{Initial global-MFCC fingerprint failure}\label{sec:lim:globalmfcc}
+% Inter-phrase cos 0.99. Justifies temporal-subsampling design choice.
+
+\subsection{Tone-VAD F0 range mis-calibration}\label{sec:lim:tonevad}
+% 1.8 oct cap rejected real Vi speech (2.7 oct natural range). Re-tuned to 4.0 oct.
+
+\subsection{Weighted-concat fingerprint fix failure}\label{sec:lim:weighted}
+% All alpha weights gave negative protect-gap. Motivates two-stream voting.
+
+%% =====================================================================
+%% Section 7 - Conclusion
+%% =====================================================================
+\section{Conclusion}\label{sec:conclusion}
+
+\clearpage
+
+%% Placeholder figure
+\begin{figure}
+  \centering
+  %\includegraphics{../figures/pipeline.pdf}
+  \caption{System pipeline: tone-VAD $\rightarrow$ T1 audio cache $\rightarrow$ ASR (INT8 streaming) $\rightarrow$ T2 text cache $\rightarrow$ MT (INT8) $\rightarrow$ TTS (INT8). Two-stream voting gates T1 hits on simultaneous tone-stream and segmental-stream agreement.}\label{fig:pipeline}
+\end{figure}
+
+%% Placeholder table
+\begin{table}
+\caption{Fingerprint-component ablation on VIVOS (50 intra-phrase + 50 inter-phrase pairs). Higher gap is better.}\label{tab:fp_ablation}
+\begin{tabular*}{\tblwidth}{@{}LLLLL@{}}
+\toprule
+Variant & Dims & Intra cos & Inter cos & Gap \\
+\midrule
+full (proposed) & 272 & 0.904 & 0.757 & 0.148 \\
+no\_tone & 266 & 0.904 & 0.757 & 0.148 \\
+no\_mfcc & 12 & 0.994 & 0.996 & -0.002 \\
+no\_delta & 142 & 0.952 & 0.860 & 0.092 \\
+mfcc\_only & 130 & 0.952 & 0.860 & 0.092 \\
+tone\_only & 6 & 0.875 & 0.903 & -0.027 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+%% Appendix
+\appendix
+\section{Pipeline and cache architecture diagram}\label{app:pipeline}
+\section{Fingerprint component pseudocode}\label{app:pseudocode}
+\section{Industrial phrase corpus}\label{app:phrases}
+\section{Reproducibility checklist}\label{app:repro}
+
+\printcredits
+
+%% Loading bibliography style file
+\bibliographystyle{cas-model2-names}
+
+%% Loading bibliography database (placeholder entries in references.bib)
+\bibliography{references}
+
+\end{document}

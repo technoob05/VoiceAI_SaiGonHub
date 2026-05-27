@@ -26,6 +26,7 @@ from __future__ import annotations
 import io
 import json
 import math
+import os
 import random
 import sys
 import unicodedata
@@ -53,9 +54,9 @@ ASR_CT2_DIR = ROOT / "data/raw/models_ct2/phowhisper-small-int8"
 LM_OUT = ROOT / "data/cache_snapshots/domain_lm_3gram.json"
 REPORT_OUT = ROOT / "Results/domain_lm_rerank.json"
 
-NUM_EVAL = 20
-BEAM_K = 5
-ALPHAS = [0.1, 0.3, 0.5, 1.0]
+NUM_EVAL = int(os.environ.get("VOICEAI_LM_NUM_EVAL", "20"))
+BEAM_K   = int(os.environ.get("VOICEAI_LM_BEAM_K",   "5"))
+ALPHAS   = [0.1, 0.3, 0.5, 1.0]
 RNG_SEED = 1337
 
 BOS = "<s>"
