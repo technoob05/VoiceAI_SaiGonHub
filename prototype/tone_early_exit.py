@@ -180,6 +180,10 @@ def _transcribe_full(model, audio: np.ndarray, max_new_tokens: int | None):
         without_timestamps=False,            # need timestamps so .words populates
         word_timestamps=True,
         max_new_tokens=max_new_tokens,
+        # Anti-hallucination on PhoWhisper-small INT8
+        no_repeat_ngram_size=3,
+        repetition_penalty=1.2,
+        compression_ratio_threshold=1.8,
     )
     segments = list(seg_gen)
     elapsed = time.perf_counter() - t0

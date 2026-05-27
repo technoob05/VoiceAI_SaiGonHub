@@ -277,6 +277,12 @@ class FastCascadeS2ST:
             vad_parameters=dict(min_silence_duration_ms=self.cfg.asr_vad_min_silence_ms),
             condition_on_previous_text=False,
             without_timestamps=True,
+            # Anti-hallucination: PhoWhisper-small INT8 occasionally loops
+            # ("đối xử với bạn... đối xử với bạn..."). The ngram + penalty
+            # + tighter compression-ratio threshold collectively suppress this.
+            no_repeat_ngram_size=3,
+            repetition_penalty=1.2,
+            compression_ratio_threshold=1.8,
         )
         return " ".join(s.text for s in segments).strip()
 
@@ -484,6 +490,9 @@ class FastCascadeS2ST:
             vad_parameters=dict(min_silence_duration_ms=self.cfg.asr_vad_min_silence_ms),
             condition_on_previous_text=False,
             without_timestamps=True,
+            no_repeat_ngram_size=3,
+            repetition_penalty=1.2,
+            compression_ratio_threshold=1.8,
         )
         vi_text_acc = ""
         # As each segment finalizes, emit incremental Vi text

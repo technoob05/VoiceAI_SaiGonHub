@@ -349,6 +349,9 @@ class TopKASR:
             suppress_blank=True,
             length_penalty=1.0,
             max_length=self.model.max_length,
+            # Anti-hallucination on PhoWhisper-small INT8
+            no_repeat_ngram_size=3,
+            repetition_penalty=1.2,
         )[0]
 
         # result.sequences_ids: List[List[int]] of length beam_k (best first)
@@ -379,6 +382,8 @@ class TopKASR:
             return_scores=True,
             suppress_blank=True,
             max_length=self.model.max_length,
+            no_repeat_ngram_size=3,
+            repetition_penalty=1.2,
         )[0]
         tokens = result.sequences_ids[0]
         clean = [t for t in tokens if t < self.tokenizer.eot]
