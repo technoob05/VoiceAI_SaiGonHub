@@ -1,0 +1,535 @@
+{
+  "status": "ok",
+  "round": 26,
+  "experiment": "Learned 32-d tone embedding (triplet, hard negatives) replaces 6-d heuristic tone stream",
+  "training_corpus": {
+    "n_syllables": 30,
+    "n_tones": 6,
+    "n_reps_per_cell": 6,
+    "n_clips_total": 1080,
+    "snr_choices_db": [
+      null,
+      20.0,
+      15.0,
+      10.0,
+      5.0
+    ],
+    "carrier": "noi {syl}"
+  },
+  "feature": {
+    "in_dim": 64,
+    "components": [
+      "32-d resampled log-F0 contour (mean-subtracted)",
+      "16-d log-F0 statistics (mean, std, range, slope, mid-dip, creak, 10 percentiles)",
+      "16-d band energies (5 bands x log + delta + ratios, zero-padded to 16)"
+    ]
+  },
+  "model": {
+    "arch": "MLP 64 -> 64 -> 32 (ReLU, L2-norm output)",
+    "loss": "triplet (margin=0.3, hard-negative=same-syllable-different-tone)",
+    "optimizer": "SGD + momentum (pure NumPy)",
+    "n_iters": 1000,
+    "lr": 0.01,
+    "momentum": 0.9,
+    "batch_size": 32,
+    "params": 6302,
+    "weights_path": "data\\cache_snapshots\\learned_tone_stream.npz",
+    "size_kb": 26.05,
+    "footprint_passes_30kb": true
+  },
+  "loss_curve": [
+    {
+      "iter": 0,
+      "loss": 0.2529,
+      "n_active": 26
+    },
+    {
+      "iter": 50,
+      "loss": 0.29,
+      "n_active": 30
+    },
+    {
+      "iter": 100,
+      "loss": 0.2556,
+      "n_active": 30
+    },
+    {
+      "iter": 150,
+      "loss": 0.2975,
+      "n_active": 31
+    },
+    {
+      "iter": 200,
+      "loss": 0.2151,
+      "n_active": 26
+    },
+    {
+      "iter": 250,
+      "loss": 0.2781,
+      "n_active": 29
+    },
+    {
+      "iter": 300,
+      "loss": 0.2577,
+      "n_active": 27
+    },
+    {
+      "iter": 350,
+      "loss": 0.2387,
+      "n_active": 27
+    },
+    {
+      "iter": 400,
+      "loss": 0.2214,
+      "n_active": 26
+    },
+    {
+      "iter": 450,
+      "loss": 0.1991,
+      "n_active": 25
+    },
+    {
+      "iter": 500,
+      "loss": 0.3024,
+      "n_active": 29
+    },
+    {
+      "iter": 550,
+      "loss": 0.2219,
+      "n_active": 23
+    },
+    {
+      "iter": 600,
+      "loss": 0.2208,
+      "n_active": 24
+    },
+    {
+      "iter": 650,
+      "loss": 0.2013,
+      "n_active": 20
+    },
+    {
+      "iter": 700,
+      "loss": 0.2098,
+      "n_active": 25
+    },
+    {
+      "iter": 750,
+      "loss": 0.1321,
+      "n_active": 18
+    },
+    {
+      "iter": 800,
+      "loss": 0.1948,
+      "n_active": 22
+    },
+    {
+      "iter": 850,
+      "loss": 0.2282,
+      "n_active": 24
+    },
+    {
+      "iter": 900,
+      "loss": 0.1608,
+      "n_active": 21
+    },
+    {
+      "iter": 950,
+      "loss": 0.2396,
+      "n_active": 23
+    },
+    {
+      "iter": 999,
+      "loss": 0.1738,
+      "n_active": 21
+    }
+  ],
+  "eval": {
+    "clean": {
+      "snr_db": null,
+      "by_operating_point": {
+        "tau_A=0.6_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.6,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 34,
+            "correct_miss_rate": 0.34,
+            "false_hits": 66,
+            "false_hit_rate": 0.66
+          }
+        },
+        "tau_A=0.65_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.65,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 53,
+            "correct_miss_rate": 0.53,
+            "false_hits": 47,
+            "false_hit_rate": 0.47
+          }
+        },
+        "tau_A=0.7_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.7,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 67,
+            "correct_miss_rate": 0.67,
+            "false_hits": 33,
+            "false_hit_rate": 0.33
+          }
+        },
+        "tau_A=0.75_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.75,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 76,
+            "correct_miss_rate": 0.76,
+            "false_hits": 24,
+            "false_hit_rate": 0.24
+          }
+        },
+        "tau_A=0.8_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.8,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 83,
+            "correct_miss_rate": 0.83,
+            "false_hits": 17,
+            "false_hit_rate": 0.17
+          }
+        },
+        "tau_A=0.85_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.85,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 92,
+            "correct_miss_rate": 0.92,
+            "false_hits": 8,
+            "false_hit_rate": 0.08
+          },
+          "heuristic": {
+            "tau_A": 0.85,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 23,
+            "correct_miss_rate": 0.23,
+            "false_hits": 77,
+            "false_hit_rate": 0.77
+          }
+        },
+        "tau_A=0.9_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.9,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 95,
+            "correct_miss_rate": 0.95,
+            "false_hits": 5,
+            "false_hit_rate": 0.05
+          }
+        }
+      }
+    },
+    "snr_10dB": {
+      "snr_db": 10.0,
+      "by_operating_point": {
+        "tau_A=0.6_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.6,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 74,
+            "correct_miss_rate": 0.74,
+            "false_hits": 26,
+            "false_hit_rate": 0.26
+          }
+        },
+        "tau_A=0.65_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.65,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 78,
+            "correct_miss_rate": 0.78,
+            "false_hits": 22,
+            "false_hit_rate": 0.22
+          }
+        },
+        "tau_A=0.7_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.7,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 82,
+            "correct_miss_rate": 0.82,
+            "false_hits": 18,
+            "false_hit_rate": 0.18
+          }
+        },
+        "tau_A=0.75_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.75,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 91,
+            "correct_miss_rate": 0.91,
+            "false_hits": 9,
+            "false_hit_rate": 0.09
+          }
+        },
+        "tau_A=0.8_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.8,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 94,
+            "correct_miss_rate": 0.94,
+            "false_hits": 6,
+            "false_hit_rate": 0.06
+          }
+        },
+        "tau_A=0.85_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.85,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 97,
+            "correct_miss_rate": 0.97,
+            "false_hits": 3,
+            "false_hit_rate": 0.03
+          },
+          "heuristic": {
+            "tau_A": 0.85,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 59,
+            "correct_miss_rate": 0.59,
+            "false_hits": 41,
+            "false_hit_rate": 0.41
+          }
+        },
+        "tau_A=0.9_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.9,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 100,
+            "correct_miss_rate": 1.0,
+            "false_hits": 0,
+            "false_hit_rate": 0.0
+          }
+        }
+      }
+    },
+    "snr_5dB": {
+      "snr_db": 5.0,
+      "by_operating_point": {
+        "tau_A=0.6_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.6,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 74,
+            "correct_miss_rate": 0.74,
+            "false_hits": 26,
+            "false_hit_rate": 0.26
+          }
+        },
+        "tau_A=0.65_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.65,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 78,
+            "correct_miss_rate": 0.78,
+            "false_hits": 22,
+            "false_hit_rate": 0.22
+          }
+        },
+        "tau_A=0.7_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.7,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 82,
+            "correct_miss_rate": 0.82,
+            "false_hits": 18,
+            "false_hit_rate": 0.18
+          }
+        },
+        "tau_A=0.75_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.75,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 91,
+            "correct_miss_rate": 0.91,
+            "false_hits": 9,
+            "false_hit_rate": 0.09
+          }
+        },
+        "tau_A=0.8_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.8,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 97,
+            "correct_miss_rate": 0.97,
+            "false_hits": 3,
+            "false_hit_rate": 0.03
+          }
+        },
+        "tau_A=0.85_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.85,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 99,
+            "correct_miss_rate": 0.99,
+            "false_hits": 1,
+            "false_hit_rate": 0.01
+          },
+          "heuristic": {
+            "tau_A": 0.85,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 51,
+            "correct_miss_rate": 0.51,
+            "false_hits": 49,
+            "false_hit_rate": 0.49
+          }
+        },
+        "tau_A=0.9_tau_B=0.93": {
+          "learned": {
+            "tau_A": 0.9,
+            "tau_B": 0.93,
+            "n_clips_total": 120,
+            "self_hits": 120,
+            "self_recall": 1.0,
+            "n_tonal_probes": 100,
+            "correct_misses": 100,
+            "correct_miss_rate": 1.0,
+            "false_hits": 0,
+            "false_hit_rate": 0.0
+          }
+        }
+      }
+    }
+  },
+  "best_operating_point_on_clean": "tau_A=0.9_tau_B=0.93",
+  "baselines_pinned": {
+    "heuristic_clean_tau_A_0.85": {
+      "self_hits": 120,
+      "self_recall": 1.0,
+      "n_tonal_probes": 100,
+      "correct_misses": 36,
+      "correct_miss_rate": 0.36,
+      "false_hits": 64,
+      "false_hit_rate": 0.64
+    },
+    "heuristic_clean_tau_A_0.90": {
+      "self_hits": 120,
+      "self_recall": 1.0,
+      "n_tonal_probes": 100,
+      "correct_misses": 57,
+      "correct_miss_rate": 0.57,
+      "false_hits": 43,
+      "false_hit_rate": 0.43
+    },
+    "heuristic_snr10dB_tau_A_0.85": {
+      "correct_misses": 56,
+      "correct_miss_rate": 0.56,
+      "false_hits": 44,
+      "false_hit_rate": 0.44
+    },
+    "heuristic_snr5dB_tau_A_0.85": {
+      "correct_misses": 53,
+      "correct_miss_rate": 0.53,
+      "false_hits": 47,
+      "false_hit_rate": 0.47
+    },
+    "source": "Results/minimal_pair_eval_large.json (Round 25, N=120)"
+  },
+  "headline": {
+    "heuristic_clean_correct_miss": 36,
+    "learned_clean_correct_miss": 95,
+    "delta": 59,
+    "best_tau_A": "tau_A=0.9_tau_B=0.93",
+    "footprint_kb": 26.05
+  }
+}
