@@ -1,0 +1,306 @@
+\begin{thebibliography}{26}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Inproceedings
+\bibitem[{Bertin-Mahieux et~al.(2011)Bertin-Mahieux, Ellis, Whitman and
+  Lamere}]{bertinmahieux2011msd}
+\bibinfo{author}{Bertin-Mahieux, T.}, \bibinfo{author}{Ellis, D.P.W.},
+  \bibinfo{author}{Whitman, B.}, \bibinfo{author}{Lamere, P.},
+  \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{The million song dataset}, in:
+  \bibinfo{booktitle}{Proc.\ International Society for Music Information
+  Retrieval Conference (ISMIR)}, pp. \bibinfo{pages}{591--596}.
+\newblock \URLprefix \url{http://millionsongdataset.com/}.
+%Type = Inproceedings
+\bibitem[{Conneau et~al.(2022)Conneau, Ma, Khanuja, Zhang, Axelrod, Dalmia,
+  Riesa, Rivera and Bapna}]{conneau2022fleurs}
+\bibinfo{author}{Conneau, A.}, \bibinfo{author}{Ma, M.},
+  \bibinfo{author}{Khanuja, S.}, \bibinfo{author}{Zhang, Y.},
+  \bibinfo{author}{Axelrod, V.}, \bibinfo{author}{Dalmia, S.},
+  \bibinfo{author}{Riesa, J.}, \bibinfo{author}{Rivera, C.},
+  \bibinfo{author}{Bapna, A.}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{{FLEURS}: Few-shot learning evaluation of universal
+  representations of speech}, in: \bibinfo{booktitle}{Proc.\ IEEE Spoken
+  Language Technology Workshop (SLT)}, pp. \bibinfo{pages}{798--805}.
+\newblock \URLprefix \url{https://arxiv.org/abs/2205.12446},
+  \DOIprefix\doi{10.1109/SLT54892.2023.10023141}.
+%Type = Inproceedings
+\bibitem[{Frantar et~al.(2023)Frantar, Ashkboos, Hoefler and
+  Alistarh}]{frantar2023gptq}
+\bibinfo{author}{Frantar, E.}, \bibinfo{author}{Ashkboos, S.},
+  \bibinfo{author}{Hoefler, T.}, \bibinfo{author}{Alistarh, D.},
+  \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{{GPTQ}: Accurate post-training quantization for
+  generative pre-trained transformers}, in: \bibinfo{booktitle}{Proc.\
+  International Conference on Learning Representations (ICLR)}.
+\newblock \URLprefix \url{https://arxiv.org/abs/2210.17323},
+  \href{http://arxiv.org/abs/2210.17323}{\tt arXiv:2210.17323}.
+%Type = Inproceedings
+\bibitem[{de~la Fuente and Jurafsky(2024)}]{delafuente2024tone}
+\bibinfo{author}{de~la Fuente, A.}, \bibinfo{author}{Jurafsky, D.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{A layer-wise analysis of {M}andarin and {E}nglish
+  suprasegmentals in {SSL} speech models}, in: \bibinfo{booktitle}{Proc.\
+  Interspeech}.
+\newblock \URLprefix \url{https://arxiv.org/abs/2408.13678},
+  \href{http://arxiv.org/abs/2408.13678}{\tt arXiv:2408.13678}.
+%Type = Misc
+\bibitem[{Gerganov and {GGML contributors}(2023)}]{ggml2023}
+\bibinfo{author}{Gerganov, G.}, \bibinfo{author}{{GGML contributors}},
+  \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{{GGML}: Tensor library for machine learning}.
+\newblock \bibinfo{howpublished}{\url{https://github.com/ggerganov/ggml}}.
+\newblock \bibinfo{note}{Open-source quantized tensor runtime supporting 4-bit,
+  5-bit, and 8-bit packed layouts}.
+%Type = Misc
+\bibitem[{Klein et~al.(2020)Klein, Hernandez, Nguyen and
+  Senellart}]{ctranslate2}
+\bibinfo{author}{Klein, G.}, \bibinfo{author}{Hernandez, F.},
+  \bibinfo{author}{Nguyen, V.}, \bibinfo{author}{Senellart, J.},
+  \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{The {OpenNMT} neural machine translation toolkit:
+  2020 edition}.
+\newblock \bibinfo{howpublished}{\url{https://github.com/OpenNMT/CTranslate2}}.
+\newblock \bibinfo{note}{CTranslate2 fast inference engine for Transformer
+  models; cited as software substrate}.
+%Type = Article
+\bibitem[{Le(2025)}]{le2025privacyios}
+\bibinfo{author}{Le, C.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Privacy-preserving real-time {V}ietnamese-{E}nglish
+  translation on {iOS} using edge {AI}}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2505.07583} \URLprefix
+  \url{https://arxiv.org/abs/2505.07583},
+  \href{http://arxiv.org/abs/2505.07583}{\tt arXiv:2505.07583}.
+  \bibinfo{note}{withdrawn by author 2025-08-22; cited for prior on-device
+  Vi-En framing}.
+%Type = Inproceedings
+\bibitem[{Le et~al.(2024)Le, Nguyen and Nguyen}]{le2024phowhisper}
+\bibinfo{author}{Le, T.T.}, \bibinfo{author}{Nguyen, L.T.},
+  \bibinfo{author}{Nguyen, D.Q.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{{PhoWhisper}: Automatic speech recognition for
+  {V}ietnamese}, in: \bibinfo{booktitle}{ICLR 2024 Tiny Papers Track}.
+\newblock \URLprefix \url{https://arxiv.org/abs/2406.02555},
+  \href{http://arxiv.org/abs/2406.02555}{\tt arXiv:2406.02555}.
+  \bibinfo{note}{vinAI Vietnamese-optimized Whisper}.
+%Type = Article
+\bibitem[{LeVi et~al.(2025)LeVi, Lapid, Himelstein, Baskin, Shwartz~Ziv and
+  Mendelson}]{taq2025}
+\bibinfo{author}{LeVi, A.}, \bibinfo{author}{Lapid, R.},
+  \bibinfo{author}{Himelstein, R.}, \bibinfo{author}{Baskin, C.},
+  \bibinfo{author}{Shwartz~Ziv, R.}, \bibinfo{author}{Mendelson, A.},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{You had one job: Per-task quantization using {LLM}s'
+  hidden representations}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2511.06516} \URLprefix
+  \url{https://arxiv.org/abs/2511.06516},
+  \href{http://arxiv.org/abs/2511.06516}{\tt arXiv:2511.06516}.
+  \bibinfo{note}{{TAQ}; dangerous neighbor for activation-based salient
+  allocation}.
+%Type = Inproceedings
+\bibitem[{Lin et~al.(2024)Lin, Tang, Tang, Yang, Chen, Wang, Xiao, Dang, Gan
+  and Han}]{lin2024awq}
+\bibinfo{author}{Lin, J.}, \bibinfo{author}{Tang, J.}, \bibinfo{author}{Tang,
+  H.}, \bibinfo{author}{Yang, S.}, \bibinfo{author}{Chen, W.M.},
+  \bibinfo{author}{Wang, W.C.}, \bibinfo{author}{Xiao, G.},
+  \bibinfo{author}{Dang, X.}, \bibinfo{author}{Gan, C.}, \bibinfo{author}{Han,
+  S.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{{AWQ}: Activation-aware weight quantization for {LLM}
+  compression and acceleration}, in: \bibinfo{booktitle}{Proc.\ Machine
+  Learning and Systems (MLSys)}.
+\newblock \URLprefix \url{https://arxiv.org/abs/2306.00978},
+  \href{http://arxiv.org/abs/2306.00978}{\tt arXiv:2306.00978}.
+  \bibinfo{note}{mLSys 2024 Best Paper Award}.
+%Type = Article
+\bibitem[{Liu et~al.(2025)Liu, Aljunied, Chen, Chan, Xu, Rong and
+  Zhang}]{seallms_audio2025}
+\bibinfo{author}{Liu, C.}, \bibinfo{author}{Aljunied, M.},
+  \bibinfo{author}{Chen, G.}, \bibinfo{author}{Chan, H.P.},
+  \bibinfo{author}{Xu, W.}, \bibinfo{author}{Rong, Y.}, \bibinfo{author}{Zhang,
+  W.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{{SeaLLMs-Audio}: Large audio-language models for
+  {S}outheast {A}sia}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2511.01670} \URLprefix
+  \url{https://arxiv.org/abs/2511.01670},
+  \href{http://arxiv.org/abs/2511.01670}{\tt arXiv:2511.01670}.
+  \bibinfo{note}{mandatory baseline per reading list}.
+%Type = Article
+\bibitem[{Liu et~al.(2024)Liu, Yuan, Jin, Zhong, Xu, Braverman, Chen and
+  Hu}]{kvcache2024}
+\bibinfo{author}{Liu, Z.}, \bibinfo{author}{Yuan, J.}, \bibinfo{author}{Jin,
+  H.}, \bibinfo{author}{Zhong, S.}, \bibinfo{author}{Xu, Z.},
+  \bibinfo{author}{Braverman, V.}, \bibinfo{author}{Chen, B.},
+  \bibinfo{author}{Hu, X.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{{KIVI}: A tuning-free asymmetric 2-bit quantization
+  for {KV} cache}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2402.02750} \URLprefix
+  \url{https://arxiv.org/abs/2402.02750},
+  \href{http://arxiv.org/abs/2402.02750}{\tt arXiv:2402.02750}.
+  \bibinfo{note}{representative KV-cache compression work; cited as parallel
+  literature}.
+%Type = Inproceedings
+\bibitem[{Luong and Vu(2016)}]{luong2016vivos}
+\bibinfo{author}{Luong, H.T.}, \bibinfo{author}{Vu, H.Q.},
+  \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{A non-expert {K}aldi recipe for {V}ietnamese speech
+  recognition system}, in: \bibinfo{booktitle}{Proc.\ 3rd International
+  Workshop on Worldwide Language Service Infrastructure and 2nd Workshop on
+  Open Infrastructures and Analysis Frameworks for Human Language Technologies
+  (WLSI/OIAF4HLT)}, pp. \bibinfo{pages}{51--55}.
+\newblock \URLprefix \url{https://aclanthology.org/W16-5207/}.
+  \bibinfo{note}{vIVOS corpus reference}.
+%Type = Article
+\bibitem[{{NLLB Team} et~al.(2022){NLLB Team}, Costa-juss\`a et~al.}]{nllb2022}
+\bibinfo{author}{{NLLB Team}}, \bibinfo{author}{Costa-juss\`a, M.R.}, et~al.,
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{No language left behind: Scaling human-centered
+  machine translation}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2207.04672} \URLprefix
+  \url{https://arxiv.org/abs/2207.04672},
+  \href{http://arxiv.org/abs/2207.04672}{\tt arXiv:2207.04672}.
+%Type = Inproceedings
+\bibitem[{Post(2018)}]{post2018call}
+\bibinfo{author}{Post, M.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{A call for clarity in reporting {BLEU} scores}, in:
+  \bibinfo{booktitle}{Proc.\ Third Conference on Machine Translation: Research
+  Papers (WMT)}, pp. \bibinfo{pages}{186--191}.
+\newblock \URLprefix \url{https://aclanthology.org/W18-6319/},
+  \DOIprefix\doi{10.18653/v1/W18-6319}. \bibinfo{note}{sacreBLEU reference
+  implementation}.
+%Type = Article
+\bibitem[{Pratap et~al.(2024)Pratap, Tjandra, Shi, Tomasello, Babu, Kundu,
+  Elkahky, Ni, Vyas, Fazel-Zarandi, Baevski, Adi, Zhang, Hsu, Conneau and
+  Auli}]{pratap2024mms}
+\bibinfo{author}{Pratap, V.}, \bibinfo{author}{Tjandra, A.},
+  \bibinfo{author}{Shi, B.}, \bibinfo{author}{Tomasello, P.},
+  \bibinfo{author}{Babu, A.}, \bibinfo{author}{Kundu, S.},
+  \bibinfo{author}{Elkahky, A.}, \bibinfo{author}{Ni, Z.},
+  \bibinfo{author}{Vyas, A.}, \bibinfo{author}{Fazel-Zarandi, M.},
+  \bibinfo{author}{Baevski, A.}, \bibinfo{author}{Adi, Y.},
+  \bibinfo{author}{Zhang, X.}, \bibinfo{author}{Hsu, W.N.},
+  \bibinfo{author}{Conneau, A.}, \bibinfo{author}{Auli, M.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Scaling speech technology to 1,000+ languages}.
+\newblock \bibinfo{journal}{Journal of Machine Learning Research}
+  \bibinfo{volume}{25}, \bibinfo{pages}{1--52}.
+\newblock \URLprefix \url{https://arxiv.org/abs/2305.13516},
+  \href{http://arxiv.org/abs/2305.13516}{\tt arXiv:2305.13516}.
+  \bibinfo{note}{{MMS}; multilingual TTS used for Vietnamese minimal-pair
+  synthesis}.
+%Type = Article
+\bibitem[{{Seamless Communication} et~al.(2023){Seamless Communication},
+  Barrault et~al.}]{seamlessm4t2023}
+\bibinfo{author}{{Seamless Communication}}, \bibinfo{author}{Barrault, L.},
+  et~al., \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{{SeamlessM4T}: Massively multilingual and multimodal
+  machine translation}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2308.11596} \URLprefix
+  \url{https://arxiv.org/abs/2308.11596},
+  \href{http://arxiv.org/abs/2308.11596}{\tt arXiv:2308.11596}.
+%Type = Article
+\bibitem[{Snyder et~al.(2015)Snyder, Chen and Povey}]{snyder2015musan}
+\bibinfo{author}{Snyder, D.}, \bibinfo{author}{Chen, G.},
+  \bibinfo{author}{Povey, D.}, \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{{MUSAN}: A music, speech, and noise corpus}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:1510.08484} \URLprefix
+  \url{https://arxiv.org/abs/1510.08484},
+  \href{http://arxiv.org/abs/1510.08484}{\tt arXiv:1510.08484}.
+%Type = Misc
+\bibitem[{{SYSTRAN}(2023)}]{fasterwhisper}
+\bibinfo{author}{{SYSTRAN}}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{faster-whisper: Faster {W}hisper transcription with
+  {CT}ranslate2}.
+\newblock
+  \bibinfo{howpublished}{\url{https://github.com/SYSTRAN/faster-whisper}}.
+\newblock \bibinfo{note}{Software; engineering substrate for low-latency
+  Whisper inference}.
+%Type = Inproceedings
+\bibitem[{Thiemann et~al.(2013)Thiemann, Ito and Vincent}]{thiemann2013demand}
+\bibinfo{author}{Thiemann, J.}, \bibinfo{author}{Ito, N.},
+  \bibinfo{author}{Vincent, E.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{The diverse environments multi-channel acoustic noise
+  database ({DEMAND}): A database of multichannel environmental noise
+  recordings}, in: \bibinfo{booktitle}{Proc.\ 21st International Congress on
+  Acoustics (ICA)}.
+\newblock \DOIprefix\doi{10.1121/1.4799597}.
+%Type = Inproceedings
+\bibitem[{Tiedemann(2020)}]{tiedemann2020tatoeba}
+\bibinfo{author}{Tiedemann, J.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{The tatoeba translation challenge -- realistic data
+  sets for low resource and multilingual {MT}}, in: \bibinfo{booktitle}{Proc.\
+  Fifth Conference on Machine Translation (WMT)}, pp.
+  \bibinfo{pages}{1174--1182}.
+\newblock \URLprefix \url{https://aclanthology.org/2020.wmt-1.139/},
+  \DOIprefix\doi{10.18653/v1/2020.wmt-1.139}. \bibinfo{note}{helsinki-NLP
+  OPUS-MT model family}.
+%Type = Inproceedings
+\bibitem[{Wang(2003)}]{wang2003shazam}
+\bibinfo{author}{Wang, A.L.C.}, \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{An industrial-strength audio search algorithm}, in:
+  \bibinfo{booktitle}{Proc.\ 4th International Conference on Music Information
+  Retrieval (ISMIR)}, pp. \bibinfo{pages}{7--13}.
+\newblock \URLprefix
+  \url{https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf}.
+%Type = Article
+\bibitem[{Wang et~al.(2026)Wang, Zhao, Luo, Wu, Ma, Tian, Ding, Chang and
+  Lu}]{fade2026}
+\bibinfo{author}{Wang, X.}, \bibinfo{author}{Zhao, Z.}, \bibinfo{author}{Luo,
+  Y.}, \bibinfo{author}{Wu, Y.}, \bibinfo{author}{Ma, L.},
+  \bibinfo{author}{Tian, J.}, \bibinfo{author}{Ding, L.},
+  \bibinfo{author}{Chang, X.W.}, \bibinfo{author}{Lu, P.},
+  \bibinfo{year}{2026}.
+\newblock \bibinfo{title}{Diagnostic-driven layer-wise compensation for
+  post-training quantization of encoder-decoder {ASR} models}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2601.02455} \URLprefix
+  \url{https://arxiv.org/abs/2601.02455},
+  \href{http://arxiv.org/abs/2601.02455}{\tt arXiv:2601.02455}.
+  \bibinfo{note}{{FADE}; closest architectural competitor for tone-aware
+  allocation}.
+%Type = Inproceedings
+\bibitem[{Xiao et~al.(2023)Xiao, Lin, Seznec, Wu, Demouth and
+  Han}]{xiao2023smoothquant}
+\bibinfo{author}{Xiao, G.}, \bibinfo{author}{Lin, J.}, \bibinfo{author}{Seznec,
+  M.}, \bibinfo{author}{Wu, H.}, \bibinfo{author}{Demouth, J.},
+  \bibinfo{author}{Han, S.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{{SmoothQuant}: Accurate and efficient post-training
+  quantization for large language models}, in: \bibinfo{booktitle}{Proc.\
+  International Conference on Machine Learning (ICML)}.
+\newblock \URLprefix \url{https://arxiv.org/abs/2211.10438},
+  \href{http://arxiv.org/abs/2211.10438}{\tt arXiv:2211.10438}.
+%Type = Inproceedings
+\bibitem[{Xu et~al.(2025)Xu, Li, Jin, Wang, Chen, Li, Geng, Hu, Deng and
+  Liu}]{xu2025mixedprecision}
+\bibinfo{author}{Xu, H.}, \bibinfo{author}{Li, Z.}, \bibinfo{author}{Jin, Z.},
+  \bibinfo{author}{Wang, H.}, \bibinfo{author}{Chen, Y.}, \bibinfo{author}{Li,
+  G.}, \bibinfo{author}{Geng, M.}, \bibinfo{author}{Hu, S.},
+  \bibinfo{author}{Deng, J.}, \bibinfo{author}{Liu, X.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Effective and efficient mixed precision quantization
+  of speech foundation models}, in: \bibinfo{booktitle}{Proc.\ IEEE
+  International Conference on Acoustics, Speech and Signal Processing
+  (ICASSP)}.
+\newblock \URLprefix \url{https://arxiv.org/abs/2501.03643},
+  \href{http://arxiv.org/abs/2501.03643}{\tt arXiv:2501.03643}.
+  \bibinfo{note}{closest competitor per lit\_scan\_v1}.
+%Type = Article
+\bibitem[{Zhuo et~al.(2025)Zhuo, Yang, Shao, Xu, Yu, Yu and Chen}]{vietasr2025}
+\bibinfo{author}{Zhuo, J.}, \bibinfo{author}{Yang, Y.}, \bibinfo{author}{Shao,
+  Y.}, \bibinfo{author}{Xu, Y.}, \bibinfo{author}{Yu, D.}, \bibinfo{author}{Yu,
+  K.}, \bibinfo{author}{Chen, X.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{{VietASR}: Achieving industry-level {V}ietnamese
+  {ASR} with 50-hour labeled data and large-scale speech pretraining}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2505.21527} \URLprefix
+  \url{https://arxiv.org/abs/2505.21527},
+  \href{http://arxiv.org/abs/2505.21527}{\tt arXiv:2505.21527}.
+  \bibinfo{note}{accepted at Interspeech 2025; mandatory baseline per reading
+  list}.
+
+\end{thebibliography}

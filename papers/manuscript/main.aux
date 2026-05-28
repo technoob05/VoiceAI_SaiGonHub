@@ -1,0 +1,213 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\csgdef{mark@title}{1}
+\csgdef{mark@corau1}{1}
+\csgdef{mark@fnau1}{1}
+\emailauthor{anonymous@example.org}{Anonymous Author}
+\creditauthor{Anonymized for double-blind review}{Anonymous Author}
+\citation{wang2003shazam}
+\citation{wang2003shazam}
+\citation{le2024phowhisper}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\citation{nllb2022}
+\citation{seamlessm4t2023}
+\citation{ctranslate2}
+\citation{fasterwhisper}
+\citation{ggml2023}
+\citation{frantar2023gptq}
+\citation{xiao2023smoothquant}
+\citation{lin2024awq}
+\citation{xu2025mixedprecision}
+\citation{fade2026}
+\citation{taq2025}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{2}{Related Work}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}On-device speech translation}{2}{subsection.2.1}\protected@file@percent }
+\newlabel{sec:related:s2st}{{2.1}{2}{On-device speech translation}{subsection.2.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Mixed-precision quantization for speech models}{2}{subsection.2.2}\protected@file@percent }
+\newlabel{sec:related:quant}{{2.2}{2}{Mixed-precision quantization for speech models}{subsection.2.2}{}}
+\citation{wang2003shazam}
+\citation{bertinmahieux2011msd}
+\citation{kvcache2024}
+\citation{le2024phowhisper}
+\citation{vietasr2025}
+\citation{seallms_audio2025}
+\citation{delafuente2024tone}
+\citation{le2025privacyios}
+\citation{taq2025}
+\citation{lin2024awq}
+\citation{frantar2023gptq}
+\citation{xiao2023smoothquant}
+\citation{fade2026}
+\citation{taq2025}
+\citation{xu2025mixedprecision}
+\citation{le2024phowhisper}
+\citation{le2025privacyios}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Audio fingerprinting and perceptual caches}{3}{subsection.2.3}\protected@file@percent }
+\newlabel{sec:related:fingerprint}{{2.3}{3}{Audio fingerprinting and perceptual caches}{subsection.2.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Tonal-language speech processing}{3}{subsection.2.4}\protected@file@percent }
+\newlabel{sec:related:tonal}{{2.4}{3}{Tonal-language speech processing}{subsection.2.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Industrial speech systems and deployment}{3}{subsection.2.5}\protected@file@percent }
+\newlabel{sec:related:deployment}{{2.5}{3}{Industrial speech systems and deployment}{subsection.2.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Head-to-head positioning}{3}{subsection.2.6}\protected@file@percent }
+\newlabel{sec:related:positioning}{{2.6}{3}{Head-to-head positioning}{subsection.2.6}{}}
+\citation{nllb2022}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Positioning of the present contribution against the closest prior systems. Existing quantization work optimizes per-layer precision without exploiting linguistic structure of the target language; the present work is orthogonal, adding a typology-aware cache layer that can be composed with any of these compression backbones. $\checkmark  $ = explicit support, $\times $ = no support, \emph  {implicit} = present but not analyzed. ``---'' marks headline numbers that the cited paper's abstract or public table does not state in a verbatim form; the qualitative column entry stands in those cases.}}{4}{table.1}\protected@file@percent }
+\newlabel{tab:positioning}{{1}{4}{Positioning of the present contribution against the closest prior systems. Existing quantization work optimizes per-layer precision without exploiting linguistic structure of the target language; the present work is orthogonal, adding a typology-aware cache layer that can be composed with any of these compression backbones. $\checkmark $ = explicit support, $\times $ = no support, \emph {implicit} = present but not analyzed. ``---'' marks headline numbers that the cited paper's abstract or public table does not state in a verbatim form; the qualitative column entry stands in those cases}{table.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Method}{4}{section.3}\protected@file@percent }
+\newlabel{sec:method}{{3}{4}{Method}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}System overview}{4}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:method:overview}{{3.1}{4}{System overview}{subsection.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Theoretical framework}{4}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:method:theory}{{3.2}{4}{Theoretical framework}{subsection.3.2}{}}
+\newlabel{eq:fingerprint}{{1}{4}{Theoretical framework}{equation.1}{}}
+\citation{delafuente2024tone}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces System pipeline. Tone-VAD filters non-speech; the audio cache (T1, two-stream voting) short-circuits the full cascade on hit; the text cache (T2) short-circuits MT on hit. Green = hit path; orange = miss path. Two-stream voting gates T1 hits on simultaneous tone-stream and segmental-stream agreement (T1 hit: $1{,}441\times $ over FP32 cold cascade; T2 hit: $\sim 3$--$12\times $ depending on stages skipped). Models in INT8 throughout.}}{5}{figure.1}\protected@file@percent }
+\newlabel{fig:pipeline}{{1}{5}{System pipeline. Tone-VAD filters non-speech; the audio cache (T1, two-stream voting) short-circuits the full cascade on hit; the text cache (T2) short-circuits MT on hit. Green = hit path; orange = miss path. Two-stream voting gates T1 hits on simultaneous tone-stream and segmental-stream agreement (T1 hit: $1{,}441\times $ over FP32 cold cascade; T2 hit: $\sim 3$--$12\times $ depending on stages skipped). Models in INT8 throughout}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Tonal-perceptual fingerprint design}{5}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:method:fingerprint}{{3.3}{5}{Tonal-perceptual fingerprint design}{subsection.3.3}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Tonal-perceptual fingerprint $f(a)$}}{5}{algorithm.1}\protected@file@percent }
+\newlabel{alg:fingerprint}{{1}{5}{Tonal-perceptual fingerprint design}{algorithm.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Composition of the 272-d tonal-perceptual fingerprint: tone histogram (6) $+$ temporal-subsampled MFCC ($130$) $+$ MFCC first-difference ($130$) $+$ F0 statistics (4) $+$ energy statistics (2). Segment widths are proportional to dimension count. The 6-d tone histogram is Vietnamese-orthography-tuned; the segmental components (MFCC + $\Delta $ + F0 + energy) carry phrase-level identity. The two-stream voting architecture (\S  \ref {sec:method:twostream}) treats component A as an independent 6-d tone stream $f_A$ and components B+C+D+E as a 260-d segmental stream $f_B$ rather than a single concatenated vector.}}{6}{figure.2}\protected@file@percent }
+\newlabel{fig:fp_composition}{{2}{6}{Composition of the 272-d tonal-perceptual fingerprint: tone histogram (6) $+$ temporal-subsampled MFCC ($130$) $+$ MFCC first-difference ($130$) $+$ F0 statistics (4) $+$ energy statistics (2). Segment widths are proportional to dimension count. The 6-d tone histogram is Vietnamese-orthography-tuned; the segmental components (MFCC + $\Delta $ + F0 + energy) carry phrase-level identity. The two-stream voting architecture (\S \ref {sec:method:twostream}) treats component A as an independent 6-d tone stream $f_A$ and components B+C+D+E as a 260-d segmental stream $f_B$ rather than a single concatenated vector}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Text-level translation memory}{6}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:method:textcache}{{3.4}{6}{Text-level translation memory}{subsection.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Two-stream voting architecture}{6}{subsection.3.5}\protected@file@percent }
+\newlabel{sec:method:twostream}{{3.5}{6}{Two-stream voting architecture}{subsection.3.5}{}}
+\newlabel{eq:twostream}{{2}{6}{Two-stream voting architecture}{equation.2}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Two-stream voting cache lookup}}{6}{algorithm.2}\protected@file@percent }
+\newlabel{alg:voting}{{2}{6}{Two-stream voting architecture}{algorithm.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Industrial corpus pre-warming}{6}{subsection.3.6}\protected@file@percent }
+\newlabel{sec:method:prewarm}{{3.6}{6}{Industrial corpus pre-warming}{subsection.3.6}{}}
+\citation{luong2016vivos}
+\citation{le2024phowhisper}
+\citation{ctranslate2}
+\citation{fasterwhisper}
+\citation{nllb2022}
+\citation{luong2016vivos}
+\citation{conneau2022fleurs}
+\citation{thiemann2013demand}
+\citation{snyder2015musan}
+\citation{pratap2024mms}
+\citation{post2018call}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Two-stream voting cache. Independent tone stream ($f_A$, 6-d, $\tau _A=0.85$) and segmental stream ($f_B$, 260-d, $\tau _B=0.93$) each nominate the nearest stored entry. A hit fires only when both streams nominate the \emph  {same} entry above their respective thresholds. On the tonal minimal pair \emph  {ma}/\emph  {m\'a}, stream B may report high similarity yet stream A vetoes the match because the tone contours disagree.}}{7}{figure.3}\protected@file@percent }
+\newlabel{fig:two_stream_arch}{{3}{7}{Two-stream voting cache. Independent tone stream ($f_A$, 6-d, $\tau _A=0.85$) and segmental stream ($f_B$, 260-d, $\tau _B=0.93$) each nominate the nearest stored entry. A hit fires only when both streams nominate the \emph {same} entry above their respective thresholds. On the tonal minimal pair \emph {ma}/\emph {m\'a}, stream B may report high similarity yet stream A vetoes the match because the tone contours disagree}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Tonal-language VAD}{7}{subsection.3.7}\protected@file@percent }
+\newlabel{sec:method:tonevad}{{3.7}{7}{Tonal-language VAD}{subsection.3.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.8}INT8 substrate}{7}{subsection.3.8}\protected@file@percent }
+\newlabel{sec:method:int8}{{3.8}{7}{INT8 substrate}{subsection.3.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.9}Domain language-model rerank}{7}{subsection.3.9}\protected@file@percent }
+\newlabel{sec:method:lmrerank}{{3.9}{7}{Domain language-model rerank}{subsection.3.9}{}}
+\newlabel{eq:lmrerank}{{3}{7}{Domain language-model rerank}{equation.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experiments}{7}{section.4}\protected@file@percent }
+\newlabel{sec:experiments}{{4}{7}{Experiments}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Datasets and protocol}{7}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:exp:data}{{4.1}{7}{Datasets and protocol}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Fingerprint-component ablation}{8}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:exp:ablation}{{4.2}{8}{Fingerprint-component ablation}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Tonal minimal-pair evaluation}{8}{subsection.4.3}\protected@file@percent }
+\newlabel{sec:exp:minpair}{{4.3}{8}{Tonal minimal-pair evaluation}{subsection.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Two-stream voting evaluation}{8}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:exp:twostream}{{4.4}{8}{Two-stream voting evaluation}{subsection.4.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces End-to-end CPU latency speedup of the INT8 cascade over an FP32 baseline on $n=10$ paired VIVOS utterances. Means with 95\% percentile bootstrap CI ($B=1000$); $p$ from paired permutation test ($B=1000$). TTS speedup is not significant; the gain is concentrated in ASR and MT, consistent with their larger Transformer footprint.}}{9}{table.2}\protected@file@percent }
+\newlabel{tab:latency}{{2}{9}{End-to-end CPU latency speedup of the INT8 cascade over an FP32 baseline on $n=10$ paired VIVOS utterances. Means with 95\% percentile bootstrap CI ($B=1000$); $p$ from paired permutation test ($B=1000$). TTS speedup is not significant; the gain is concentrated in ASR and MT, consistent with their larger Transformer footprint}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}End-to-end latency ablation}{9}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:exp:latency}{{4.5}{9}{End-to-end latency ablation}{subsection.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Cache precision-recall calibration}{9}{subsection.4.6}\protected@file@percent }
+\newlabel{sec:exp:pr}{{4.6}{9}{Cache precision-recall calibration}{subsection.4.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Cache scalability}{9}{subsection.4.7}\protected@file@percent }
+\newlabel{sec:exp:scale}{{4.7}{9}{Cache scalability}{subsection.4.7}{}}
+\citation{le2024phowhisper}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Cross-language generalization and worker-scale simulation}{10}{subsection.4.8}\protected@file@percent }
+\newlabel{sec:exp:crossling}{{4.8}{10}{Cross-language generalization and worker-scale simulation}{subsection.4.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Cross-language acoustic sanity (FLEURS).}{10}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Fleet-scale Poisson+Zipf simulator.}{10}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Domain LM rerank}{10}{subsection.4.9}\protected@file@percent }
+\newlabel{sec:exp:lmrerank}{{4.9}{10}{Domain LM rerank}{subsection.4.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Fingerprint-component ablation on the VIVOS phrase-level pool ($n_{\textrm  {intra}}=n_{\textrm  {inter}}=50$). Bars show the discrimination gap (intra cos $-$ inter cos) for each ablation variant; the full 272-d fingerprint reaches gap $=0.148$. Removing the MFCC trajectory collapses the gap to nearly zero; removing the tone histogram leaves the phrase-level gap unchanged because the cosine is saturated by the 260-d segmental signal, motivating the two-stream voting of \S  \ref {sec:method:twostream}.}}{11}{figure.4}\protected@file@percent }
+\newlabel{fig:fingerprint_ablation}{{4}{11}{Fingerprint-component ablation on the VIVOS phrase-level pool ($n_{\textrm {intra}}=n_{\textrm {inter}}=50$). Bars show the discrimination gap (intra cos $-$ inter cos) for each ablation variant; the full 272-d fingerprint reaches gap $=0.148$. Removing the MFCC trajectory collapses the gap to nearly zero; removing the tone histogram leaves the phrase-level gap unchanged because the cosine is saturated by the 260-d segmental signal, motivating the two-stream voting of \S \ref {sec:method:twostream}}{figure.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Tonal minimal-pair protection (intra-tone cos $-$ inter-syllable cos) across fingerprint variants on the 25 synthesized Vietnamese minimal pairs. The 6-d tone-only fingerprint is the only variant with positive protect score ($+0.028$); the full 272-d concatenation and the MFCC-only variant both fail in the wrong direction.}}{11}{figure.5}\protected@file@percent }
+\newlabel{fig:minimal_pair_ablation}{{5}{11}{Tonal minimal-pair protection (intra-tone cos $-$ inter-syllable cos) across fingerprint variants on the 25 synthesized Vietnamese minimal pairs. The 6-d tone-only fingerprint is the only variant with positive protect score ($+0.028$); the full 272-d concatenation and the MFCC-only variant both fail in the wrong direction}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Two-stream voting evaluation on $5\times 6 = 30$ synthesized minimal-pair clips. With $(\tau _A,\tau _B)=(0.85,0.93)$ both streams agree on $30/30$ self-lookups and $0/25$ tonal variants. The diagnostic counter exposes the vetoes: 5 segment-only hits and 3 tone-only hits, all neutralized by the AND-gate.}}{11}{figure.6}\protected@file@percent }
+\newlabel{fig:twostream_voting}{{6}{11}{Two-stream voting evaluation on $5\times 6 = 30$ synthesized minimal-pair clips. With $(\tau _A,\tau _B)=(0.85,0.93)$ both streams agree on $30/30$ self-lookups and $0/25$ tonal variants. The diagnostic counter exposes the vetoes: 5 segment-only hits and 3 tone-only hits, all neutralized by the AND-gate}{figure.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Per-stage latency stack on the $n=10$ paired VIVOS bench. FP32 cascade vs.\ INT8 cascade. MT receives the largest INT8 speedup ($6.23\times $, $p=0.002$), ASR receives $2.00\times $ ($p=0.002$), TTS is not significant ($1.26\times $, $p=0.181$).}}{11}{figure.7}\protected@file@percent }
+\newlabel{fig:latency_stack}{{7}{11}{Per-stage latency stack on the $n=10$ paired VIVOS bench. FP32 cascade vs.\ INT8 cascade. MT receives the largest INT8 speedup ($6.23\times $, $p=0.002$), ASR receives $2.00\times $ ($p=0.002$), TTS is not significant ($1.26\times $, $p=0.181$)}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Cumulative speedup from each augmentation over the INT8 cascade ($n=3$ paired). Tone-VAD $1.20\times $, T1 alone $1.37\times $, T2 alone $1.34\times $, T1+T2 jointly $1.80\times $. Bound $p_{\min }\approx 0.25$ reflects the $2^{3}=8$ permutation ceiling at $n=3$.}}{11}{figure.8}\protected@file@percent }
+\newlabel{fig:ablation_speedup}{{8}{11}{Cumulative speedup from each augmentation over the INT8 cascade ($n=3$ paired). Tone-VAD $1.20\times $, T1 alone $1.37\times $, T2 alone $1.34\times $, T1+T2 jointly $1.80\times $. Bound $p_{\min }\approx 0.25$ reflects the $2^{3}=8$ permutation ceiling at $n=3$}{figure.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Cooperation between the spectral-subtraction filter and the cache. At SNR $\leq 10$~dB the filter raises mean cosine similarity by $+0.248$ to $+0.712$ ($p<0.001$), lifting cache hit rate at $\tau =0.95$ from $0/10$ to $5/10$ at $10$~dB and from $3/10$ to $9/10$ at $15$~dB.}}{11}{figure.9}\protected@file@percent }
+\newlabel{fig:noise_robustness}{{9}{11}{Cooperation between the spectral-subtraction filter and the cache. At SNR $\leq 10$~dB the filter raises mean cosine similarity by $+0.248$ to $+0.712$ ($p<0.001$), lifting cache hit rate at $\tau =0.95$ from $0/10$ to $5/10$ at $10$~dB and from $3/10$ to $9/10$ at $15$~dB}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Fleet-scale Poisson+Zipf simulator. Mean latency reduction vs.\ cascade-only baseline at $N\in \{10,50,200\}$ workers stays in the $78$--$94\%$ band. T1 (per-worker) saturates earliest; load progressively shifts to the shared T2 cache, producing graceful degradation rather than catastrophic miss collapse.}}{12}{figure.10}\protected@file@percent }
+\newlabel{fig:worker_scale}{{10}{12}{Fleet-scale Poisson+Zipf simulator. Mean latency reduction vs.\ cascade-only baseline at $N\in \{10,50,200\}$ workers stays in the $78$--$94\%$ band. T1 (per-worker) saturates earliest; load progressively shifts to the shared T2 cache, producing graceful degradation rather than catastrophic miss collapse}{figure.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Deployment Notes}{13}{section.5}\protected@file@percent }
+\newlabel{sec:deployment}{{5}{13}{Deployment Notes}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Hardware and memory budget}{13}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:dep:hw}{{5.1}{13}{Hardware and memory budget}{subsection.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Fleet-scale operation}{13}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:dep:fleet}{{5.2}{13}{Fleet-scale operation}{subsection.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Federated snapshot pooling}{13}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:dep:fed}{{5.3}{13}{Federated snapshot pooling}{subsection.5.3}{}}
+\citation{tiedemann2020tatoeba}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Fleet-scale Poisson+Zipf simulation. As $N$ grows, the per-worker T1 cache saturates and load shifts to the shared T2 vocabulary cache, producing graceful degradation rather than catastrophic miss collapse. Mean latency reduction stays in the 78--94\% band.}}{14}{table.3}\protected@file@percent }
+\newlabel{tab:fleet}{{3}{14}{Fleet-scale Poisson+Zipf simulation. As $N$ grows, the per-worker T1 cache saturates and load shifts to the shared T2 vocabulary cache, producing graceful degradation rather than catastrophic miss collapse. Mean latency reduction stays in the 78--94\% band}{table.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Five negative results documented to ground each architectural decision. Four are abandoned alternatives; one (\S  \ref {sec:lim:earlyexit}) is a measured behaviour we initially mis-read as a positive speedup before discovering it was repetition-loop suppression.}}{14}{table.4}\protected@file@percent }
+\newlabel{tab:negatives}{{4}{14}{Five negative results documented to ground each architectural decision. Four are abandoned alternatives; one (\S \ref {sec:lim:earlyexit}) is a measured behaviour we initially mis-read as a positive speedup before discovering it was repetition-loop suppression}{table.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Limitations and Negative Results}{14}{section.6}\protected@file@percent }
+\newlabel{sec:limitations}{{6}{14}{Limitations and Negative Results}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Speaker-personalized cache failure}{14}{subsection.6.1}\protected@file@percent }
+\newlabel{sec:lim:speaker}{{6.1}{14}{Speaker-personalized cache failure}{subsection.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Coarse-to-fine MT failure}{14}{subsection.6.2}\protected@file@percent }
+\newlabel{sec:lim:c2f}{{6.2}{14}{Coarse-to-fine MT failure}{subsection.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Initial 32-d global-MFCC fingerprint failure}{14}{subsection.6.3}\protected@file@percent }
+\newlabel{sec:lim:globalmfcc}{{6.3}{14}{Initial 32-d global-MFCC fingerprint failure}{subsection.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Weighted-concat and PCA-whitened fingerprint variants}{15}{subsection.6.4}\protected@file@percent }
+\newlabel{sec:lim:weighted}{{6.4}{15}{Weighted-concat and PCA-whitened fingerprint variants}{subsection.6.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Tone-conditioned ASR early-exit illusion}{15}{subsection.6.5}\protected@file@percent }
+\newlabel{sec:lim:earlyexit}{{6.5}{15}{Tone-conditioned ASR early-exit illusion}{subsection.6.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{15}{section.7}\protected@file@percent }
+\newlabel{sec:conclusion}{{7}{15}{Conclusion}{section.7}{}}
+\bibstyle{cas-model2-names}
+\bibdata{references}
+\bibcite{bertinmahieux2011msd}{{1}{2011}{{Bertin-Mahieux et~al.}}{{Bertin-Mahieux, Ellis, Whitman and Lamere}}}
+\bibcite{conneau2022fleurs}{{2}{2022}{{Conneau et~al.}}{{Conneau, Ma, Khanuja, Zhang, Axelrod, Dalmia, Riesa, Rivera and Bapna}}}
+\bibcite{frantar2023gptq}{{3}{2023}{{Frantar et~al.}}{{Frantar, Ashkboos, Hoefler and Alistarh}}}
+\bibcite{delafuente2024tone}{{4}{2024}{{de~la Fuente and Jurafsky}}{{}}}
+\bibcite{ggml2023}{{5}{2023}{{Gerganov and {GGML contributors}}}{{}}}
+\bibcite{ctranslate2}{{6}{2020}{{Klein et~al.}}{{Klein, Hernandez, Nguyen and Senellart}}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Fingerprint-component ablation on VIVOS (50 intra-phrase + 50 inter-phrase pairs). Higher gap is better.}}{16}{table.5}\protected@file@percent }
+\newlabel{tab:fp_ablation}{{5}{16}{Fingerprint-component ablation on VIVOS (50 intra-phrase + 50 inter-phrase pairs). Higher gap is better}{table.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Pipeline and cache architecture diagram}{16}{appendix.A}\protected@file@percent }
+\newlabel{app:pipeline}{{A}{16}{Pipeline and cache architecture diagram}{appendix.A}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Fingerprint component pseudocode}{16}{appendix.B}\protected@file@percent }
+\newlabel{app:pseudocode}{{B}{16}{Fingerprint component pseudocode}{appendix.B}{}}
+\@writefile{toc}{\contentsline {paragraph}{F0 autocorrelation core.}{16}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Tone-bin soft-assignment.}{16}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Numerical constants (reference implementation).}{16}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C}Industrial phrase corpus}{16}{appendix.C}\protected@file@percent }
+\newlabel{app:phrases}{{C}{16}{Industrial phrase corpus}{appendix.C}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Reproducibility checklist}{16}{appendix.D}\protected@file@percent }
+\newlabel{app:repro}{{D}{16}{Reproducibility checklist}{appendix.D}{}}
+\bibcite{le2025privacyios}{{7}{2025}{{Le}}{{}}}
+\bibcite{le2024phowhisper}{{8}{2024}{{Le et~al.}}{{Le, Nguyen and Nguyen}}}
+\bibcite{taq2025}{{9}{2025}{{LeVi et~al.}}{{LeVi, Lapid, Himelstein, Baskin, Shwartz~Ziv and Mendelson}}}
+\bibcite{lin2024awq}{{10}{2024}{{Lin et~al.}}{{Lin, Tang, Tang, Yang, Chen, Wang, Xiao, Dang, Gan and Han}}}
+\bibcite{seallms_audio2025}{{11}{2025}{{Liu et~al.}}{{Liu, Aljunied, Chen, Chan, Xu, Rong and Zhang}}}
+\bibcite{kvcache2024}{{12}{2024}{{Liu et~al.}}{{Liu, Yuan, Jin, Zhong, Xu, Braverman, Chen and Hu}}}
+\bibcite{luong2016vivos}{{13}{2016}{{Luong and Vu}}{{}}}
+\bibcite{nllb2022}{{14}{2022}{{{NLLB Team} et~al.}}{{{NLLB Team}, Costa-juss\`a et~al.}}}
+\bibcite{post2018call}{{15}{2018}{{Post}}{{}}}
+\bibcite{pratap2024mms}{{16}{2024}{{Pratap et~al.}}{{Pratap, Tjandra, Shi, Tomasello, Babu, Kundu, Elkahky, Ni, Vyas, Fazel-Zarandi, Baevski, Adi, Zhang, Hsu, Conneau and Auli}}}
+\bibcite{seamlessm4t2023}{{17}{2023}{{{Seamless Communication} et~al.}}{{{Seamless Communication}, Barrault et~al.}}}
+\bibcite{snyder2015musan}{{18}{2015}{{Snyder et~al.}}{{Snyder, Chen and Povey}}}
+\bibcite{fasterwhisper}{{19}{2023}{{SYSTRAN}}{{}}}
+\bibcite{thiemann2013demand}{{20}{2013}{{Thiemann et~al.}}{{Thiemann, Ito and Vincent}}}
+\bibcite{tiedemann2020tatoeba}{{21}{2020}{{Tiedemann}}{{}}}
+\bibcite{wang2003shazam}{{22}{2003}{{Wang}}{{}}}
+\bibcite{fade2026}{{23}{2026}{{Wang et~al.}}{{Wang, Zhao, Luo, Wu, Ma, Tian, Ding, Chang and Lu}}}
+\bibcite{xiao2023smoothquant}{{24}{2023}{{Xiao et~al.}}{{Xiao, Lin, Seznec, Wu, Demouth and Han}}}
+\bibcite{xu2025mixedprecision}{{25}{2025}{{Xu et~al.}}{{Xu, Li, Jin, Wang, Chen, Li, Geng, Hu, Deng and Liu}}}
+\bibcite{vietasr2025}{{26}{2025}{{Zhuo et~al.}}{{Zhuo, Yang, Shao, Xu, Yu, Yu and Chen}}}
+\csxdef{lastpage}{17}
+\gdef \@abspage@last{18}
