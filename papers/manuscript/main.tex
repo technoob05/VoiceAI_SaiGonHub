@@ -439,17 +439,11 @@ All experiments target Vietnamese read and conversational speech with three comp
 \subsection{Fingerprint-component ablation}\label{sec:exp:ablation}
 \textbf{Headline.} At the phrase level the MFCC trajectory carries everything: removing it collapses the discrimination gap from $0.148$ to $-0.002$. The tone histogram appears invisible at this level, a red herring resolved in \S\ref{sec:exp:minpair}.
 
-The fingerprint has five blocks; which ones actually do work? We answer by removing each block in turn and watching the discrimination gap (intra-phrase cosine $-$ inter-phrase cosine) on the VIVOS phrase-level pool ($n_{\textrm{intra}} = n_{\textrm{inter}} = 50$); see Figure~\ref{fig:fingerprint_ablation} and Table~\ref{tab:fp_ablation}. The full $272$-d fingerprint reaches a gap of \textbf{$0.148$} [CI95 $0.112$--$0.183$]. Removing the MFCC trajectory collapses the gap to $-0.002$ [CI95 $-0.004$ to $-0.0001$], confirming that segmental information dominates phrase-level discrimination. Removing the delta component reduces the gap to $0.092$ [CI95 $0.069$--$0.113$], the only other component whose removal is measurably harmful. Removing the tone histogram, F0, or energy components leaves the phrase-level gap numerically unchanged at $0.148$.
+The fingerprint has five blocks; which ones actually do work? We answer by removing each block in turn and watching the discrimination gap (intra-phrase cosine $-$ inter-phrase cosine) on the VIVOS phrase-level pool ($n_{\textrm{intra}} = n_{\textrm{inter}} = 50$); see Table~\ref{tab:fp_ablation}. The full $272$-d fingerprint reaches a gap of \textbf{$0.148$} [CI95 $0.112$--$0.183$]. Removing the MFCC trajectory collapses the gap to $-0.002$ [CI95 $-0.004$ to $-0.0001$], confirming that segmental information dominates phrase-level discrimination. Removing the delta component reduces the gap to $0.092$ [CI95 $0.069$--$0.113$], the only other component whose removal is measurably harmful. Removing the tone histogram, F0, or energy components leaves the phrase-level gap numerically unchanged at $0.148$.
 
 This is the result that drives the two-stream design: on \emph{phrase-level} VIVOS pairs the tone bins are invisible because the cosine is saturated by the $260$-d segmental signal, yet the same bins carry the load on tonal-minimal-pair separation in \S\ref{sec:exp:minpair}. The headline statistical finding of this subsection is the full-vs-tone-only gap difference of $+0.175$ (parametric Gaussian bootstrap, $z = 5.07$, \textit{p} $< 0.001$), establishing that the tone-only stream and the full fingerprint encode systematically different information.
 
 \noindent\textit{Takeaway.} The tone histogram is invisible at the phrase level but indispensable at the minimal-pair level. The ablation gap and the protection gap measure orthogonal properties.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig3_fingerprint_ablation.png}
-  \caption{Fingerprint-component ablation on the VIVOS phrase-level pool ($n_{\textrm{intra}}=n_{\textrm{inter}}=50$). Bars show the discrimination gap (intra cos $-$ inter cos) for each ablation variant; the full 272-d fingerprint reaches gap $=0.148$. Removing the MFCC trajectory collapses the gap to nearly zero; removing the tone histogram leaves the phrase-level gap unchanged because the cosine is saturated by the 260-d segmental signal, motivating the two-stream voting of \S\ref{sec:method:twostream}.}\label{fig:fingerprint_ablation}
-\end{figure}
 
 \subsection{Tonal minimal-pair evaluation}\label{sec:exp:minpair}
 \textbf{Headline.} On tonal minimal pairs the ranking inverts. Only the 6-d tone-only stream produces a \textbf{positive protect-score $+0.028$}; the full 272-d concatenation goes to $-0.012$.
@@ -460,31 +454,25 @@ We interpret this as follows: the tone information is genuinely present in the $
 
 \noindent\textit{Takeaway.} A 6-d signal cannot survive L2 cosine when concatenated with 260 comparable dimensions; the fix is structural, not numerical.
 
-\begin{figure}[H]
+\begin{figure*}[!tb]
   \centering
   \includegraphics[width=0.95\linewidth]{../figures/fig4_minimal_pair_ablation.png}
   \caption{Tonal minimal-pair protection (intra-tone cos $-$ inter-syllable cos) across fingerprint variants on the 25 synthesized Vietnamese minimal pairs. The 6-d tone-only fingerprint is the only variant with positive protect score ($+0.028$); the full 272-d concatenation and the MFCC-only variant both fail in the wrong direction.}\label{fig:minimal_pair_ablation}
-\end{figure}
+\end{figure*}
 
 \subsection{Two-stream voting evaluation}\label{sec:exp:twostream}
 \textbf{Headline.} Two-stream voting at $(\tau_A,\tau_B)=(0.85, 0.93)$ delivers \textbf{$30/30$ self-lookups and $25/25$ correct misses} on tonal variants where naive concatenation produced uniform false hits.
 
-The minimal-pair test ruled out every single-vector fingerprint. Does the two-witness voting rule recover what concatenation lost? We test it on the controlled subset of $5$ syllables $\times$ $6$ tones $=$ $30$ minimal-pair clips, with $5$ entries inserted into the cache and $25$ tonal variants probed against them (Figure~\ref{fig:twostream_voting}). With $(\tau_{A}, \tau_{B}) = (0.85, 0.93)$, self-lookup recovers $30/30$ entries (\textbf{$100\%$ correct-hit rate}) and tonal-variant lookup yields $25/25$ correct misses ($100\%$ correct-miss rate, $0\%$ false-hit rate). This is the same protocol on which naive single-vector concatenation degenerates to uniform false hits in \S\ref{sec:exp:minpair}.
+The minimal-pair test ruled out every single-vector fingerprint. Does the two-witness voting rule recover what concatenation lost? We test it on the controlled subset of $5$ syllables $\times$ $6$ tones $=$ $30$ minimal-pair clips, with $5$ entries inserted into the cache and $25$ tonal variants probed against them. With $(\tau_{A}, \tau_{B}) = (0.85, 0.93)$, self-lookup recovers $30/30$ entries (\textbf{$100\%$ correct-hit rate}) and tonal-variant lookup yields $25/25$ correct misses ($100\%$ correct-miss rate, $0\%$ false-hit rate). This is the same protocol on which naive single-vector concatenation degenerates to uniform false hits in \S\ref{sec:exp:minpair}.
 
 The diagnostic counter exposes the mechanism directly: of the $25$ tonal-variant probes, the segmental stream alone would have fired on $5$ (\texttt{segment\_only\_hits} $= 5$), but every one of those $5$ was vetoed by tone-stream disagreement on the same stored entry. The tone stream alone independently fired on $3$ (\texttt{tone\_only\_hits} $= 3$), and these were vetoed in turn by segmental disagreement. No probe achieved \texttt{both\_hits} on a tonal mismatch. This is the architectural fix that finally activates the tone signal that the phrase-level ablation in \S\ref{sec:exp:ablation} buried.
 
 \noindent\textit{Takeaway.} The architectural fix is voting, not reweighting; any single-vector concatenation of the same components fails the same probe.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig6_two_stream_voting.png}
-  \caption{Two-stream voting evaluation on $5\times 6 = 30$ synthesized minimal-pair clips. With $(\tau_A,\tau_B)=(0.85,0.93)$ both streams agree on $30/30$ self-lookups and $0/25$ tonal variants. The diagnostic counter exposes the vetoes: 5 segment-only hits and 3 tone-only hits, all neutralized by the AND-gate.}\label{fig:twostream_voting}
-\end{figure}
-
 \subsection{End-to-end latency ablation}\label{sec:exp:latency}
 \textbf{Headline.} INT8 cuts the FP32 cascade from $28.4$~s to $12.7$~s (\textbf{$2.25\times$}, paired-permutation $p=0.001$); a cache hit collapses it to $25$~ms (\textbf{$1{,}441\times$}).
 
-INT8 is where the speed comes from. The cache is where the time disappears. We measure both, on the same fixed seed-$42$ sample of $n = 10$ VIVOS utterances (Figures~\ref{fig:latency_stack} and~\ref{fig:ablation_speedup}; full per-stage means and intervals in Table~\ref{tab:latency}).
+INT8 is where the speed comes from. The cache is where the time disappears. We measure both on the same fixed seed-$42$ sample of $n = 10$ VIVOS utterances; full per-stage means and intervals are reported in Table~\ref{tab:latency}, and a supplementary speedup-augmentation chart is included in Appendix~\ref{app:supplementary_figures} (Figure~\ref{fig:ablation_speedup}).
 
 INT8 first. The FP32 cascade (PhoWhisper-small + NLLB-200-distilled-600M + Vi MMS-TTS) takes $28.4$~s mean; the INT8 cascade takes $12.7$~s. The headline total speedup is \textbf{$2.25\times$} [CI95 $1.84$--$2.76$, paired permutation $p = 0.001$]. The win is asymmetric across stages: MT collapses by $6.23\times$ and ASR by $2.00\times$ (both $p = 0.002$), while TTS does not move significantly ($1.26\times$, $p = 0.181$). The pattern is the expected one: the bigger the Transformer, the more INT8 weight packing helps, and TTS already runs a small vocoder. Quality stays where it should: WER rises by only $+2.6$ percentage points (FP32 $10.83\%$ $\rightarrow$ INT8 $13.43\%$) and the tone-error rate does not move at all.
 
@@ -509,23 +497,11 @@ Total & 28{,}432 [24{,}753--32{,}160] & 12{,}653 [10{,}474--15{,}189] & 2.25 [1.
 \end{tabular*}
 \end{table*}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig1_latency_stack.png}
-  \caption{Per-stage latency stack on the $n=10$ paired VIVOS bench. FP32 cascade vs.\ INT8 cascade. MT receives the largest INT8 speedup ($6.23\times$, $p=0.002$), ASR receives $2.00\times$ ($p=0.002$), TTS is not significant ($1.26\times$, $p=0.181$).}\label{fig:latency_stack}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig2_ablation_speedup.png}
-  \caption{Cumulative speedup from each augmentation over the INT8 cascade ($n=3$ paired). Tone-VAD $1.20\times$, T1 alone $1.37\times$, T2 alone $1.34\times$, T1+T2 jointly $1.80\times$. Bound $p_{\min}\approx 0.25$ reflects the $2^{3}=8$ permutation ceiling at $n=3$.}\label{fig:ablation_speedup}
-\end{figure}
-
-\begin{figure}[H]
+\begin{figure*}[!tb]
   \centering
   \includegraphics[width=0.95\linewidth]{../figures/fig5_noise_robustness.png}
   \caption{Cooperation between the spectral-subtraction filter and the cache. At SNR $\leq 10$~dB the filter raises mean cosine similarity by $+0.248$ to $+0.712$ ($p<0.001$), lifting cache hit rate at $\tau=0.95$ from $0/10$ to $5/10$ at $10$~dB and from $3/10$ to $9/10$ at $15$~dB.}\label{fig:noise_robustness}
-\end{figure}
+\end{figure*}
 
 \subsection{Cache precision-recall calibration}\label{sec:exp:pr}
 
@@ -546,11 +522,11 @@ We claimed the tone histogram is Vietnamese-specific. Does it transfer? And, sep
 
 \noindent\textit{Takeaway.} Tone-histogram language transfer is not free, but speaker-to-fleet load redistribution \emph{is}. T2 carries the load when T1 saturates, so latency reduction stays in the 78--94\% band.
 
-\begin{figure}[H]
+\begin{figure*}[!tb]
   \centering
   \includegraphics[width=0.95\linewidth]{../figures/fig7_worker_scale.png}
   \caption{Fleet-scale Poisson+Zipf simulator. Mean latency reduction vs.\ cascade-only baseline at $N\in\{10,50,200\}$ workers stays in the $78$--$94\%$ band. T1 (per-worker) saturates earliest; load progressively shifts to the shared T2 cache, producing graceful degradation rather than catastrophic miss collapse.}\label{fig:worker_scale}
-\end{figure}
+\end{figure*}
 
 \subsection{Domain LM rerank}\label{sec:exp:lmrerank}
 \textbf{Headline.} A $3$-gram Vietnamese LM cuts ASR WER by \textbf{$-14.43$~pp absolute} (beam-top-1 $67.66\%$ $\rightarrow$ rescored $53.23\%$) at mixing weight $\alpha=0.30$.
@@ -726,6 +702,14 @@ def assign_tone_bin(run_log_f0, run_len):
 \end{verbatim}}
 
 \paragraph{Numerical constants (reference implementation).} F0 search range $[50, 450]$~Hz; band-pass extension $\times 0.7$/$\times 1.3$; F0 frame $= 40$~ms, hop $= 20$~ms; autocorr voiced-peak threshold $0.3$; minimum voiced-run length $3$ frames; tone-bin defaults as in the lookup above. MFCC core: \texttt{n\_fft} $= 400$ (25~ms at 16~kHz), \texttt{hop} $= 160$ (10~ms), \texttt{n\_mels} $= 80$, $13$ cepstral coefficients via DCT-II truncation; the $13 \times T$ matrix is mean-pooled to $13 \times 10$ then flattened time-major to 130-d. Delta: \texttt{np.diff} along the time axis with edge prepending. F0 statistics use $\log F_0 + 10^{-6}$. Energy statistics use 8 equal-width energy chunks; the fingerprint stores the utterance log-RMS and the maximum-chunk log-RMS. The final 272-d vector is L2-normalized.
+
+\section{Supplementary figures}\label{app:supplementary_figures}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\linewidth]{../figures/fig2_ablation_speedup.png}
+  \caption{Cumulative speedup from each augmentation over the INT8 cascade ($n=3$ paired). Tone-VAD $1.20\times$, T1 alone $1.37\times$, T2 alone $1.34\times$, T1+T2 jointly $1.80\times$. Bound $p_{\min}\approx 0.25$ reflects the $2^{3}=8$ permutation ceiling at $n=3$. Detailed numbers are reported in Table~\ref{tab:latency}.}\label{fig:ablation_speedup}
+\end{figure}
 
 \section{Industrial phrase corpus}\label{app:phrases}
 \section{Reproducibility checklist}\label{app:repro}
