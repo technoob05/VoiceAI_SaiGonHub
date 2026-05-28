@@ -472,7 +472,7 @@ The diagnostic counter exposes the mechanism directly: of the $25$ tonal-variant
 \subsection{End-to-end latency ablation}\label{sec:exp:latency}
 \textbf{Headline.} INT8 cuts the FP32 cascade from $28.4$~s to $12.7$~s (\textbf{$2.25\times$}, paired-permutation $p=0.001$); a cache hit collapses it to $25$~ms (\textbf{$1{,}441\times$}).
 
-INT8 is where the speed comes from. The cache is where the time disappears. We measure both on the same fixed seed-$42$ sample of $n = 10$ VIVOS utterances; full per-stage means and intervals are reported in Table~\ref{tab:latency}, and a supplementary speedup-augmentation chart is included in Appendix~\ref{app:supplementary_figures} (Figure~\ref{fig:ablation_speedup}).
+INT8 is where the speed comes from. The cache is where the time disappears. We measure both on the same fixed seed-$42$ sample of $n = 10$ VIVOS utterances; full per-stage means and intervals are reported in Table~\ref{tab:latency}.
 
 INT8 first. The FP32 cascade (PhoWhisper-small + NLLB-200-distilled-600M + Vi MMS-TTS) takes $28.4$~s mean; the INT8 cascade takes $12.7$~s. The headline total speedup is \textbf{$2.25\times$} [CI95 $1.84$--$2.76$, paired permutation $p = 0.001$]. The win is asymmetric across stages: MT collapses by $6.23\times$ and ASR by $2.00\times$ (both $p = 0.002$), while TTS does not move significantly ($1.26\times$, $p = 0.181$). The pattern is the expected one: the bigger the Transformer, the more INT8 weight packing helps, and TTS already runs a small vocoder. Quality stays where it should: WER rises by only $+2.6$ percentage points (FP32 $10.83\%$ $\rightarrow$ INT8 $13.43\%$) and the tone-error rate does not move at all.
 
@@ -702,14 +702,6 @@ def assign_tone_bin(run_log_f0, run_len):
 \end{verbatim}}
 
 \paragraph{Numerical constants (reference implementation).} F0 search range $[50, 450]$~Hz; band-pass extension $\times 0.7$/$\times 1.3$; F0 frame $= 40$~ms, hop $= 20$~ms; autocorr voiced-peak threshold $0.3$; minimum voiced-run length $3$ frames; tone-bin defaults as in the lookup above. MFCC core: \texttt{n\_fft} $= 400$ (25~ms at 16~kHz), \texttt{hop} $= 160$ (10~ms), \texttt{n\_mels} $= 80$, $13$ cepstral coefficients via DCT-II truncation; the $13 \times T$ matrix is mean-pooled to $13 \times 10$ then flattened time-major to 130-d. Delta: \texttt{np.diff} along the time axis with edge prepending. F0 statistics use $\log F_0 + 10^{-6}$. Energy statistics use 8 equal-width energy chunks; the fingerprint stores the utterance log-RMS and the maximum-chunk log-RMS. The final 272-d vector is L2-normalized.
-
-\section{Supplementary figures}\label{app:supplementary_figures}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig2_ablation_speedup.png}
-  \caption{Cumulative speedup from each augmentation over the INT8 cascade ($n=3$ paired). Tone-VAD $1.20\times$, T1 alone $1.37\times$, T2 alone $1.34\times$, T1+T2 jointly $1.80\times$. Bound $p_{\min}\approx 0.25$ reflects the $2^{3}=8$ permutation ceiling at $n=3$. Detailed numbers are reported in Table~\ref{tab:latency}.}\label{fig:ablation_speedup}
-\end{figure}
 
 \section{Industrial phrase corpus}\label{app:phrases}
 \section{Reproducibility checklist}\label{app:repro}
