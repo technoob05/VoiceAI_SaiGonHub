@@ -497,11 +497,11 @@ Total & 28{,}432 [24{,}753--32{,}160] & 12{,}653 [10{,}474--15{,}189] & 2.25 [1.
 \end{tabular*}
 \end{table*}
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
   \centering
-  \includegraphics[width=0.70\linewidth]{../figures/fig5_noise_robustness.png}
+  \includegraphics[width=\linewidth]{../figures/fig5_noise_robustness.png}
   \caption{Cooperation between the spectral-subtraction filter and the cache. At SNR $\leq 10$~dB the filter raises mean cosine similarity by $+0.248$ to $+0.712$ ($p<0.001$), lifting cache hit rate at $\tau=0.95$ from $0/10$ to $5/10$ at $10$~dB and from $3/10$ to $9/10$ at $15$~dB.}\label{fig:noise_robustness}
-\end{figure*}
+\end{figure}
 
 \subsection{Cache precision-recall calibration}\label{sec:exp:pr}
 
@@ -522,11 +522,11 @@ We claimed the tone histogram is Vietnamese-specific. Does it transfer? And, sep
 
 \noindent\textit{Takeaway.} Tone-histogram language transfer is not free, but speaker-to-fleet load redistribution \emph{is}. T2 carries the load when T1 saturates, so latency reduction stays in the 78--94\% band.
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
   \centering
-  \includegraphics[width=0.70\linewidth]{../figures/fig7_worker_scale.png}
+  \includegraphics[width=\linewidth]{../figures/fig7_worker_scale.png}
   \caption{Fleet-scale Poisson+Zipf simulator. Mean latency reduction vs.\ cascade-only baseline at $N\in\{10,50,200\}$ workers stays in the $78$--$94\%$ band. T1 (per-worker) saturates earliest; load progressively shifts to the shared T2 cache, producing graceful degradation rather than catastrophic miss collapse.}\label{fig:worker_scale}
-\end{figure*}
+\end{figure}
 
 \subsection{Domain LM rerank}\label{sec:exp:lmrerank}
 \textbf{Headline.} A $3$-gram Vietnamese LM cuts ASR WER by \textbf{$-14.43$~pp absolute} (beam-top-1 $67.66\%$ $\rightarrow$ rescored $53.23\%$) at mixing weight $\alpha=0.30$.
