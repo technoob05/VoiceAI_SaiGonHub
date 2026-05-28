@@ -183,47 +183,69 @@ def fig4_minimal_pair_ablation():
     inter_syl = [r["inter_syl_cos_mean"] for r in rows]
     protect = [r["protect_score"] for r in rows]
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11.0, 4.4),
-                                    gridspec_kw={"width_ratios": [1.4, 1.0]})
+    # Pretty-print labels (underscore -> hyphen, replace 'mfcc' casing)
+    label_map = {
+        "full": "full",
+        "no_tone": "no tone",
+        "no_mfcc": "no MFCC",
+        "tone_only": "tone only",
+        "mfcc_only": "MFCC only",
+    }
+    pretty = [label_map.get(n, n.replace("_", " ")) for n in names]
+
+    fig, (ax1, ax2) = plt.subplots(
+        1, 2, figsize=(10.0, 4.0),
+        gridspec_kw={"width_ratios": [1.15, 1.0]},
+    )
     x = list(range(len(names)))
     width = 0.38
+
+    # Subplot 1: paired bars intra vs inter
     ax1.bar([xi - width/2 for xi in x], intra_tone, width,
-            label="intra-tone (same syl/diff tone)", color=PALETTE["neutral"])
+            label="intra-tone (same syllable, different tone)",
+            color="#4c72b0", edgecolor="white", linewidth=0.6)
     ax1.bar([xi + width/2 for xi in x], inter_syl, width,
-            label="inter-syl (diff syl/same tone)", color=PALETTE["alt"])
+            label="inter-syllable (different syllable, same tone)",
+            color="#dd8452", edgecolor="white", linewidth=0.6)
     ax1.set_xticks(x)
-    ax1.set_xticklabels(names, rotation=20, ha="right")
-    ax1.set_ylabel("Cosine similarity")
-    ax1.set_title("Tonal-minimal-pair protection by fingerprint variant")
-    ax1.legend(loc="lower right", frameon=False)
-    ax1.set_ylim(0, 1.05)
+    ax1.set_xticklabels(pretty, rotation=0)
+    ax1.set_ylabel("Mean cosine similarity")
+    ax1.set_title("Cosine similarity: same-syllable vs.\\ different-syllable",
+                  pad=8)
+    ax1.set_ylim(0, 1.0)
+    ax1.legend(loc="lower right", frameon=False, fontsize=9)
     _ygrid(ax1)
 
+    # Subplot 2: protection gap (inter - intra), positive = good
     colors = []
     for n, p in zip(names, protect):
         if n == "tone_only":
-            colors.append(PALETTE["highlight"])
+            colors.append("#2ca02c")  # green = the winner
         elif p > 0:
-            colors.append(PALETTE["filtered"])
+            colors.append("#9ec5e8")  # pale blue = borderline positive
         else:
-            colors.append(PALETTE["fp32"])
-    ax2.bar(x, protect, color=colors, width=0.6)
-    ax2.axhline(0, color="#333333", linewidth=0.6)
+            colors.append("#bbbbbb")  # gray = fails
+    ax2.bar(x, protect, color=colors, width=0.55,
+            edgecolor="white", linewidth=0.6)
+    ax2.axhline(0, color="#333333", linewidth=0.7)
+    # Annotate ONLY the bar that matters (tone_only). Keep others uncluttered.
     for xi, p, n in zip(x, protect, names):
-        ax2.text(xi, p + (0.002 if p >= 0 else -0.004),
-                 f"{p:+.4f}", ha="center",
-                 va="bottom" if p >= 0 else "top", fontsize=9,
-                 fontweight="bold" if n == "tone_only" else "normal")
+        if n == "tone_only":
+            ax2.text(xi, p + 0.002, f"+{p:.3f}", ha="center", va="bottom",
+                     fontsize=10, fontweight="bold", color="#1f6b1f")
     ax2.set_xticks(x)
-    ax2.set_xticklabels(names, rotation=20, ha="right")
-    ax2.set_ylabel("Protect score (inter_syl − intra_tone)")
-    ax2.set_title("Protection gap (positive = tone-protective)")
+    ax2.set_xticklabels(pretty, rotation=0)
+    ax2.set_ylabel("Protect gap   (inter $-$ intra)")
+    ax2.set_title("Protection gap (positive = tone protective)", pad=8)
+    # Tighten y-range so the green bar reads as a clear winner
+    pmin = min(protect) - 0.005
+    pmax = max(protect) + 0.012
+    ax2.set_ylim(pmin, pmax)
     _ygrid(ax2)
 
-    _footnote(fig, "Source: Results/minimal_pair_eval.json — 6 syllable groups × 6 tones; only tone_only achieves positive protect_score.")
-    fig.tight_layout(rect=(0, 0.04, 1, 1))
+    fig.tight_layout()
     out = OUT / "fig4_minimal_pair_ablation.png"
-    fig.savefig(out)
+    fig.savefig(out, bbox_inches="tight")
     plt.close(fig)
     return out
 

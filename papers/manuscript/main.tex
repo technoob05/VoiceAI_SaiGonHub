@@ -373,34 +373,47 @@ This rule survives tonal-minimal-pair stress where naive single-vector designs f
 
 \begin{figure*}[!htbp]
   \centering
-  \begin{tikzpicture}[font=\small, node distance=6mm and 9mm]
-    % Query node (left, vertically centered)
-    \node[io] (q) {Query audio $q$};
-    % Stream A (top branch)
-    \node[box, fill=yellow!15, draw=yellow!50!black, right=18mm of q, yshift=10mm]
-      (sa) {Stream A: tone\\$f_A \in \mathbb{R}^{6}$\\$\arg\max_e \cos(f_A(q), f_A(e))$};
-    % Stream B (bottom branch)
-    \node[box, fill=teal!15, draw=teal!50!black, right=18mm of q, yshift=-10mm]
-      (sb) {Stream B: segmental\\$f_B \in \mathbb{R}^{260}$\\$\arg\max_e \cos(f_B(q), f_B(e))$};
+  \begin{tikzpicture}[
+    font=\small,
+    node distance=8mm and 14mm,
+    stream/.style={draw, rounded corners=2pt, minimum height=14mm, minimum width=42mm, align=center, font=\small},
+    thresh/.style={draw, rounded corners=2pt, minimum height=8mm, minimum width=14mm, align=center, font=\small},
+    qbox/.style={draw, rounded corners=2pt, minimum height=10mm, minimum width=24mm, align=center, font=\small, fill=gray!12},
+    gate/.style={draw, rounded corners=2pt, minimum height=10mm, minimum width=14mm, align=center, font=\bfseries, fill=red!15, draw=red!60!black},
+    hitb/.style={draw, rounded corners=2pt, minimum height=10mm, minimum width=14mm, align=center, font=\bfseries, fill=green!18, draw=green!55!black},
+    flow/.style={-{Latex[length=2.2mm]}, semithick},
+  ]
+    % Query node on left
+    \node[qbox] (q) {Query audio\\$q$};
+
+    % Stream A (top)
+    \node[stream, fill=yellow!15, draw=yellow!55!black, above right=4mm and 14mm of q]
+      (sa) {Stream A (tone)\\$f_A\!\in\!\mathbb{R}^{6}$};
+    % Stream B (bottom)
+    \node[stream, fill=teal!12, draw=teal!55!black, below right=4mm and 14mm of q]
+      (sb) {Stream B (segmental)\\$f_B\!\in\!\mathbb{R}^{260}$};
+
     % Thresholds
-    \node[box, fill=yellow!8, draw=yellow!50!black, right=10mm of sa] (ta) {$\tau_A=0.85$};
-    \node[box, fill=teal!8, draw=teal!50!black, right=10mm of sb] (tb) {$\tau_B=0.93$};
-    % AND gate
-    \node[gate, right=14mm of q, xshift=58mm] (and) {AND};
-    % HIT
-    \node[hit, right=10mm of and] (hit) {HIT};
-    % arrows
-    \draw[arrow] (q.east) -- (sa.west);
-    \draw[arrow] (q.east) -- (sb.west);
-    \draw[arrow] (sa) -- (ta);
-    \draw[arrow] (sb) -- (tb);
-    \draw[arrow] (ta.east) -- (and.north west);
-    \draw[arrow] (tb.east) -- (and.south west);
-    \draw[arrow] (and) -- (hit) node[midway, above, font=\scriptsize] {both agree};
-    % "same entry" note
-    \node[font=\scriptsize\itshape, below=0.5mm of and] {same $e$};
+    \node[thresh, fill=yellow!8, draw=yellow!55!black, right=of sa] (ta) {$\tau_A\!=\!0.85$};
+    \node[thresh, fill=teal!8, draw=teal!55!black, right=of sb] (tb) {$\tau_B\!=\!0.93$};
+
+    % AND gate vertically centered between the two threshold boxes
+    \node[gate, right=14mm of q, anchor=west] at ($(ta)!0.5!(tb) + (24mm,0)$) (and) {AND};
+    \node[hitb, right=of and] (hit) {HIT};
+
+    % Arrows
+    \draw[flow] (q.east) |- (sa.west);
+    \draw[flow] (q.east) |- (sb.west);
+    \draw[flow] (sa) -- (ta);
+    \draw[flow] (sb) -- (tb);
+    \draw[flow] (ta.east) -- (and.north west);
+    \draw[flow] (tb.east) -- (and.south west);
+    \draw[flow] (and) -- (hit);
+
+    % Annotation under the AND gate
+    \node[font=\scriptsize\itshape, below=2mm of and] {both pick the same entry $e$};
   \end{tikzpicture}
-  \caption{Two-stream voting cache. Independent tone stream ($f_A$, 6-d, $\tau_A=0.85$) and segmental stream ($f_B$, 260-d, $\tau_B=0.93$) each nominate the nearest stored entry. A hit fires only when both streams nominate the \emph{same} entry above their respective thresholds. On the tonal minimal pair \emph{ma}/\emph{m\'a}, stream B may report high similarity yet stream A vetoes the match because the tone contours disagree.}\label{fig:two_stream_arch}
+  \caption{Two-stream voting cache. Independent tone stream ($f_A$, 6-d, $\tau_A=0.85$) and segmental stream ($f_B$, 260-d, $\tau_B=0.93$) each nominate their nearest stored entry. A hit fires only when both streams nominate the \emph{same} entry above their respective thresholds. On the tonal minimal pair \emph{ma}/\emph{m\'a}, stream B may report high similarity yet stream A vetoes the match because the tone contours disagree.}\label{fig:two_stream_arch}
 \end{figure*}
 
 \subsection{Industrial corpus pre-warming}\label{sec:method:prewarm}
