@@ -13,6 +13,7 @@
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{rotating}
 \urlstyle{tt}
 \def\UrlBreaks{\do\_\do\-\do\.\do\/}
 
@@ -150,14 +151,11 @@ The literature thus leaves two gaps unaddressed: no existing audio fingerprint i
 
 Table~\ref{tab:positioning} positions the present work against the closest published systems along five reviewer-relevant axes. The comparison is qualitative on the four left axes (approach family, Vietnamese support, tone awareness, on-device target) and quantitative where the original papers report a load-bearing headline number. The key reading is that the present contribution does not compete with any single row of the table; it composes with them. Quantization methods optimize the cost of every uncached utterance; the present cache layer optimizes the cost of every repeated utterance. Neither subsumes the other, but until now nothing in the literature delivered the tonal-language cache primitive that on-device industrial speech translation actually requires.
 
-\begin{table*}[!htbp]
+\begin{table*}[cols=6,pos=t]
 \caption{Positioning of the present contribution against the closest prior systems. Existing quantization work optimizes per-layer precision without exploiting linguistic structure of the target language; the present work is orthogonal --- it adds a typology-aware cache layer that can be composed with any of these compression backbones. $\checkmark$ = explicit support, $\times$ = no support, \emph{implicit} = present but not analyzed. ``---'' marks headline numbers that the cited paper's abstract or public table does not state in a verbatim form; the qualitative column entry stands in those cases.}\label{tab:positioning}
-\centering
 \footnotesize
-\setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.2}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.14\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth} c c >{\raggedright\arraybackslash}p{0.13\textwidth} >{\raggedright\arraybackslash}p{0.27\textwidth}@{}}
+\begin{tabular*}{\tblwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}p{2.9cm} c c >{\raggedright\arraybackslash}p{1.9cm} >{\raggedright\arraybackslash}p{4.5cm}@{}}
 \toprule
 System & Approach & \makecell{Vi\\support} & \makecell{Tone-\\aware} & \makecell{On-device\\target} & Reported headline \\
 \midrule
@@ -172,7 +170,7 @@ Vi-iOS~\citep{le2025privacyios}       & CoreML conversion + GGUF LLM            
 \midrule
 \textbf{This work} & Tonal-perceptual cache + INT8 cascade & $\checkmark$ & \textbf{explicit} & $\checkmark$ (Snapdragon NPU) & $1{,}441\times$ cache-hit speedup, 100\% tonal-minimal-pair safety \\
 \bottomrule
-\end{tabular}}
+\end{tabular*}
 \end{table*}
 
 %% =====================================================================
@@ -184,6 +182,42 @@ Vi-iOS~\citep{le2025privacyios}       & CoreML conversion + GGUF LLM            
 \textbf{Headline.} Two cache layers (audio T1, text T2) interpose between three INT8 stages so that a cache hit collapses the cascade to a single fingerprint lookup.
 
 The pipeline is a fully on-device cascade with two cache layers interposed between three INT8 model stages. An incoming microphone buffer first passes through a tonal-language voice activity detector (Section~\ref{sec:method:tonevad}), which rejects silence, hum, and stationary machinery noise before any model executes. The accepted audio is then queried against the tonal-perceptual audio cache (T1, Section~\ref{sec:method:fingerprint}); on a T1 hit the cached translated target audio is returned directly, short-circuiting ASR, MT, and TTS in a single fingerprint lookup. On a T1 miss the audio is transcribed by an INT8 Vietnamese ASR (Section~\ref{sec:method:int8}). The resulting Vietnamese transcript is queried against the text-level translation memory (T2, Section~\ref{sec:method:textcache}); on a T2 hit the cached target-language text is returned and only the TTS stage runs. On a T2 miss the transcript is translated by an INT8 NLLB-200 model~\citep{nllb2022} and then synthesized by an INT8 VITS vocoder. Both caches are populated on every miss so subsequent occurrences accumulate hits. Figure~\ref{fig:pipeline} diagrams the data flow; Table~\ref{tab:fp_ablation} reports the component-level evidence that justifies each fingerprint dimension.
+
+\begin{figure*}[!htbp]
+  \centering
+  \begin{tikzpicture}[font=\small, node distance=4mm and 5mm]
+    % Top row: Mic -> VAD -> T1 cache
+    \node[io] (mic) {Mic};
+    \node[io, right=of mic] (vad) {Tone-VAD};
+    \node[cache, right=of vad] (t1) {T1 audio\\cache};
+    % Middle row: ASR -> LM rerank -> T2 cache -> MT
+    \node[box, below=10mm of vad] (asr) {INT8 ASR};
+    \node[box, right=of asr] (lm) {LM rerank};
+    \node[cache, right=of lm] (t2) {T2 text\\cache};
+    \node[box, right=of t2] (mt) {INT8\\NLLB-200};
+    % TTS and Speaker on the right
+    \node[box, above=10mm of mt] (tts) {INT8 TTS};
+    \node[io, right=of tts] (spk) {Speaker};
+    % Miss arrows (orange, going down then across)
+    \draw[arrow, orange!80!black] (mic) -- (vad);
+    \draw[arrow, orange!80!black] (vad) -- (t1);
+    \draw[arrow, orange!80!black] (t1.south) -- node[right, font=\scriptsize] {miss} (asr.north);
+    \draw[arrow, orange!80!black] (asr) -- (lm);
+    \draw[arrow, orange!80!black] (lm) -- (t2);
+    \draw[arrow, orange!80!black] (t2.south) -- ++(0,-4mm) -| node[pos=0.25, below, font=\scriptsize] {miss} (mt.south);
+    \draw[arrow, orange!80!black] (mt) -- (tts);
+    \draw[arrow, green!55!black, thick] (tts) -- (spk);
+    % T1 hit fast path (green, big arc to Speaker)
+    \draw[arrow, green!55!black, thick]
+      (t1.north) -- ++(0,5mm) -|
+      node[pos=0.25, above, font=\small] {\textcolor{green!55!black}{hit $1{,}441\times$}}
+      (spk.north);
+    % T2 hit fast path (green, to TTS)
+    \draw[arrow, green!55!black, thick]
+      (t2.north) -- node[right, font=\small] {\textcolor{green!55!black}{hit $\sim 12\times$}} (tts.south);
+  \end{tikzpicture}
+  \caption{System pipeline. Tone-VAD filters non-speech; the audio cache (T1, two-stream voting) short-circuits the full cascade on hit; the text cache (T2) short-circuits MT on hit. Green = hit path; orange = miss path. Two-stream voting gates T1 hits on simultaneous tone-stream and segmental-stream agreement (T1 hit: $1{,}441\times$ over FP32 cold cascade; T2 hit: $\sim 3$--$12\times$ depending on stages skipped). Models in INT8 throughout.}\label{fig:pipeline}
+\end{figure*}
 
 \subsection{Theoretical framework}\label{sec:method:theory}
 
@@ -399,6 +433,12 @@ This is the result that drives the two-stream design: on \emph{phrase-level} VIV
 
 \noindent\textit{Takeaway.} The tone histogram is invisible at the phrase level but indispensable at the minimal-pair level --- the ablation gap and the protection gap measure orthogonal properties.
 
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.95\linewidth]{../figures/fig3_fingerprint_ablation.png}
+  \caption{Fingerprint-component ablation on the VIVOS phrase-level pool ($n_{\textrm{intra}}=n_{\textrm{inter}}=50$). Bars show the discrimination gap (intra cos $-$ inter cos) for each ablation variant; the full 272-d fingerprint reaches gap $=0.148$. Removing the MFCC trajectory collapses the gap to nearly zero; removing the tone histogram leaves the phrase-level gap unchanged because the cosine is saturated by the 260-d segmental signal, motivating the two-stream voting of \S\ref{sec:method:twostream}.}\label{fig:fingerprint_ablation}
+\end{figure}
+
 \subsection{Tonal minimal-pair evaluation}\label{sec:exp:minpair}
 \textbf{Headline.} On tonal minimal pairs the ranking inverts --- only the 6-d tone-only stream produces a \textbf{positive protect-score $+0.028$}; the full 272-d concatenation goes to $-0.012$.
 
@@ -408,6 +448,12 @@ We interpret this as follows: the tone information is genuinely present in the $
 
 \noindent\textit{Takeaway.} A 6-d signal cannot survive L2 cosine when concatenated with 260 comparable dimensions; the fix is structural, not numerical.
 
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.95\linewidth]{../figures/fig4_minimal_pair_ablation.png}
+  \caption{Tonal minimal-pair protection (intra-tone cos $-$ inter-syllable cos) across fingerprint variants on the 25 synthesized Vietnamese minimal pairs. The 6-d tone-only fingerprint is the only variant with positive protect score ($+0.028$); the full 272-d concatenation and the MFCC-only variant both fail in the wrong direction.}\label{fig:minimal_pair_ablation}
+\end{figure}
+
 \subsection{Two-stream voting evaluation}\label{sec:exp:twostream}
 \textbf{Headline.} Two-stream voting at $(\tau_A,\tau_B)=(0.85, 0.93)$ delivers \textbf{$30/30$ self-lookups and $25/25$ correct misses} on tonal variants where naive concatenation produced uniform false hits.
 
@@ -416,6 +462,12 @@ We evaluate two-stream voting on the controlled subset of $5$ syllables $\times$
 The diagnostic counter exposes the mechanism directly: of the $25$ tonal-variant probes, the segmental stream alone would have fired on $5$ (\texttt{segment\_only\_hits} $= 5$), but every one of those $5$ was vetoed by tone-stream disagreement on the same stored entry. The tone stream alone independently fired on $3$ (\texttt{tone\_only\_hits} $= 3$), and these were vetoed in turn by segmental disagreement. No probe achieved \texttt{both\_hits} on a tonal mismatch. This is the architectural fix that finally activates the tone signal that the phrase-level ablation in \S\ref{sec:exp:ablation} buried.
 
 \noindent\textit{Takeaway.} The architectural fix is voting, not reweighting; any single-vector concatenation of the same components fails the same probe.
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.95\linewidth]{../figures/fig6_two_stream_voting.png}
+  \caption{Two-stream voting evaluation on $5\times 6 = 30$ synthesized minimal-pair clips. With $(\tau_A,\tau_B)=(0.85,0.93)$ both streams agree on $30/30$ self-lookups and $0/25$ tonal variants. The diagnostic counter exposes the vetoes: 5 segment-only hits and 3 tone-only hits, all neutralized by the AND-gate.}\label{fig:twostream_voting}
+\end{figure}
 
 \subsection{End-to-end latency ablation}\label{sec:exp:latency}
 \textbf{Headline.} INT8 cuts the FP32 cascade from $28.4$~s to $12.7$~s (\textbf{$2.25\times$}, paired-permutation $p=0.001$); a cache hit collapses it to $25$~ms (\textbf{$1{,}441\times$}).
@@ -430,22 +482,38 @@ Noise robustness and cache cooperate non-trivially: under DEMAND+MUSAN mixing at
 
 \noindent\textit{Takeaway.} INT8 buys a one-time $2.25\times$, the cache buys three orders of magnitude more on every hit, and noise-filtering is what makes hits achievable in industrial SNR.
 
-\begin{table*}[!htbp]
+\begin{table*}[cols=5,pos=t]
 \caption{End-to-end CPU latency speedup of the INT8 cascade over an FP32 baseline on $n=10$ paired VIVOS utterances. Means with 95\% percentile bootstrap CI ($B=1000$); $p$ from paired permutation test ($B=1000$). TTS speedup is not significant; the gain is concentrated in ASR and MT, consistent with their larger Transformer footprint.}\label{tab:latency}
-\centering
-\setlength{\tabcolsep}{4pt}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}l l l l l@{}}
+\footnotesize
+\begin{tabular*}{\tblwidth}{@{}LLLLL@{}}
 \toprule
-Stage & \makecell[l]{FP32 mean (ms)\\\relax[CI95]} & \makecell[l]{INT8 mean (ms)\\\relax[CI95]} & \makecell[l]{Speedup ($\times$)\\\relax[CI95]} & \makecell[l]{$p$ (paired\\perm)} \\
+Stage & FP32 mean (ms) [CI95] & INT8 mean (ms) [CI95] & Speedup ($\times$) [CI95] & $p$ (paired perm) \\
 \midrule
 ASR   & 14{,}737 [13{,}070--16{,}665] & 7{,}383 [6{,}132--8{,}660]    & 2.00 [1.61--2.51] & 0.002 \\
 MT    & 8{,}837 [7{,}019--10{,}965]   & 1{,}418 [956--2{,}013]        & 6.23 [4.78--8.58] & 0.002 \\
 TTS   & 4{,}858 [3{,}902--5{,}780]    & 3{,}852 [2{,}925--4{,}940]    & 1.26 [0.94--1.70] & 0.181 (n.s.) \\
 Total & 28{,}432 [24{,}753--32{,}160] & 12{,}653 [10{,}474--15{,}189] & 2.25 [1.84--2.76] & 0.001 \\
 \bottomrule
-\end{tabular}}
+\end{tabular*}
 \end{table*}
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.95\linewidth]{../figures/fig1_latency_stack.png}
+  \caption{Per-stage latency stack on the $n=10$ paired VIVOS bench. FP32 cascade vs.\ INT8 cascade. MT receives the largest INT8 speedup ($6.23\times$, $p=0.002$), ASR receives $2.00\times$ ($p=0.002$), TTS is not significant ($1.26\times$, $p=0.181$).}\label{fig:latency_stack}
+\end{figure}
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.95\linewidth]{../figures/fig2_ablation_speedup.png}
+  \caption{Cumulative speedup from each augmentation over the INT8 cascade ($n=3$ paired). Tone-VAD $1.20\times$, T1 alone $1.37\times$, T2 alone $1.34\times$, T1+T2 jointly $1.80\times$. Bound $p_{\min}\approx 0.25$ reflects the $2^{3}=8$ permutation ceiling at $n=3$.}\label{fig:ablation_speedup}
+\end{figure}
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.95\linewidth]{../figures/fig5_noise_robustness.png}
+  \caption{Cooperation between the spectral-subtraction filter and the cache. At SNR $\leq 10$~dB the filter raises mean cosine similarity by $+0.248$ to $+0.712$ ($p<0.001$), lifting cache hit rate at $\tau=0.95$ from $0/10$ to $5/10$ at $10$~dB and from $3/10$ to $9/10$ at $15$~dB.}\label{fig:noise_robustness}
+\end{figure}
 
 \subsection{Cache precision-recall calibration}\label{sec:exp:pr}
 
@@ -465,6 +533,12 @@ We probe two complementary scales --- per-language acoustic behaviour and fleet-
 \paragraph{Fleet-scale Poisson+Zipf simulator.} We project deployment behaviour by simulating $10$, $50$, and $200$ workers over $8$-hour shifts, with utterance arrivals modelled as Poisson processes at $\lambda = 2$ per minute and phrase identity drawn from a Zipf-$1$ distribution over a $50$-phrase canonical vocabulary (Figure~\ref{fig:worker_scale}). Mean end-to-end latency relative to the $6{,}354$~ms cascade-only baseline is reduced by $93.9\%$ at $10$ workers, $83.7\%$ at $50$ workers, and $78.4\%$ at $200$ workers ($p_{50} \approx 25.5$~ms on cache hits across all scales). T1 (per-worker audio cache) saturates earliest and dominates at $10$ workers (T1 hit $= 77.6\%$, T2 hit $= 21.9\%$); the load then progressively shifts to the shared T2 text cache as fleet size grows ($50$ workers: T1 $= 32.4\%$, T2 $= 67.5\%$; $200$ workers: T1 $= 9.7\%$, T2 $= 90.3\%$). Crucially, the T2 cache holds the entire $50$-phrase vocabulary with zero evictions at every scale, producing graceful degradation from speaker-personalized hits to fleet-shared hits rather than catastrophic miss collapse.
 
 \noindent\textit{Takeaway.} Tone-histogram language transfer is not free, but speaker-to-fleet load redistribution \emph{is} --- T2 carries the load when T1 saturates, so latency reduction stays in the 78--94\% band.
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.95\linewidth]{../figures/fig7_worker_scale.png}
+  \caption{Fleet-scale Poisson+Zipf simulator. Mean latency reduction vs.\ cascade-only baseline at $N\in\{10,50,200\}$ workers stays in the $78$--$94\%$ band. T1 (per-worker) saturates earliest; load progressively shifts to the shared T2 cache --- graceful degradation rather than catastrophic miss collapse.}\label{fig:worker_scale}
+\end{figure}
 
 \subsection{Domain LM rerank}\label{sec:exp:lmrerank}
 \textbf{Headline.} A $3$-gram Vietnamese LM cuts ASR WER by \textbf{$-14.43$~pp absolute} (beam-top-1 $67.66\%$ $\rightarrow$ rescored $53.23\%$) at mixing weight $\alpha=0.30$.
@@ -486,21 +560,18 @@ The target deployment surface is a recent industrial on-device translation chall
 
 Discrete-event simulation (reproducibility artefact \url{realistic_cache_simulator.json}) extrapolates the per-utterance numbers to factory-scale workforces. Each worker is modelled as a Poisson source with arrival rate $\lambda = 2$ utterances per minute over an 8-hour shift, drawing phrases from a 50-phrase Zipf-1 industrial vocabulary; cascade-miss latency is a lognormal $(\mu = 8.61, \sigma = 0.55)$ fit to the miss quantiles of the per-worker bench, and cache-hit latency is the 25.5~ms constant of Section~\ref{sec:experiments}. At $N = 10$ workers (9{,}736 events), T1 absorbs 77.6\% and T2 absorbs 21.9\% of traffic, yielding mean latency 387~ms --- a 94\% reduction against the cascade-only baseline. At $N = 50$ (48{,}255 events), T1 collapses to 32.4\% as LRU evicts the Zipf tail, but T2 absorbs the displaced traffic at 67.5\% and mean latency settles at 1{,}044~ms (84\% reduction). At $N = 200$ (191{,}425 events), T1 hits 9.7\% and T2 hits 90.2\% for a mean latency of 1{,}380~ms (78\% reduction). The pattern is an architectural property rather than tuning: as the fleet grows the system degrades \emph{gracefully} from speaker-personalized T1 toward fleet-shared T2, and end-to-end latency reduction never drops below 78\% within the simulated range (Table~\ref{tab:fleet}).
 
-\begin{table*}[!htbp]
+\begin{table*}[cols=7,pos=t]
 \caption{Fleet-scale Poisson+Zipf simulation. As $N$ grows, the per-worker T1 cache saturates and load shifts to the shared T2 vocabulary cache --- graceful degradation rather than catastrophic miss collapse. Mean latency reduction stays in the 78--94\% band.}\label{tab:fleet}
-\centering
 \footnotesize
-\setlength{\tabcolsep}{4pt}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}r r r r r r r@{}}
+\begin{tabular*}{\tblwidth}{@{}RRRRRRR@{}}
 \toprule
-\makecell[r]{Workers\\$N$} & Events & \makecell[r]{T1 hit\\(\%)} & \makecell[r]{T2 hit\\(\%)} & \makecell[r]{Miss\\(\%)} & \makecell[r]{Mean latency\\(ms)} & \makecell[r]{Reduction\\(\%)} \\
+Workers $N$ & Events & T1 hit (\%) & T2 hit (\%) & Miss (\%) & Mean latency (ms) & Reduction (\%) \\
 \midrule
 10  & 9{,}736   & 77.6 & 21.9 & 0.5 & 387   & 93.9 \\
 50  & 48{,}255  & 32.4 & 67.5 & 0.1 & 1{,}044 & 83.7 \\
 200 & 191{,}425 & 9.7  & 90.2 & 0.1 & 1{,}380 & 78.4 \\
 \bottomrule
-\end{tabular}}
+\end{tabular*}
 \end{table*}
 
 \subsection{Federated snapshot pooling}\label{sec:dep:fed}
@@ -514,13 +585,11 @@ We report one piece of deployment infrastructure for completeness and explicitly
 
 We report five negative results in the spirit of design-truth disclosure. Each motivates a specific architectural choice in Section~\ref{sec:method} or sets the scope of the present contribution. Four are abandoned alternatives that did not work; the fifth is a measured behaviour whose initial reading as a positive speedup we have since corrected. Table~\ref{tab:negatives} summarizes the five entries, their headline failure modes, and the architectural consequence each forces.
 
-\begin{table*}[!htbp]
+\begin{table*}[cols=5,pos=t]
 \caption{Five negative results documented to ground each architectural decision. Four are abandoned alternatives; one (\S\ref{sec:lim:earlyexit}) is a measured behaviour we initially mis-read as a positive speedup before discovering it was repetition-loop suppression.}\label{tab:negatives}
-\centering
 \footnotesize
-\setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.05\textwidth} >{\raggedright\arraybackslash}p{0.16\textwidth} >{\raggedright\arraybackslash}p{0.21\textwidth} >{\raggedright\arraybackslash}p{0.25\textwidth} >{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\begin{tabular*}{\tblwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.9cm} >{\raggedright\arraybackslash}p{2.7cm} >{\raggedright\arraybackslash}p{3.5cm} >{\raggedright\arraybackslash}p{4.0cm} >{\raggedright\arraybackslash}p{4.2cm}@{}}
 \toprule
 \S & Alternative & Headline failure & Diagnosis & Architectural consequence \\
 \midrule
@@ -530,7 +599,7 @@ We report five negative results in the spirit of design-truth disclosure. Each m
 \S\ref{sec:lim:weighted}   & Weighted-concat + PCA-whitened single-vector & All 8 weight schemes + PCA give gap $-0.02$ to $-0.07$                 & 6-d tone signal is drowned by 260-d segmental on unit sphere              & Two-stream voting (\S\ref{sec:method:twostream}) instead \\
 \S\ref{sec:lim:earlyexit}  & Tone-conditioned ASR early-exit (cap$=32$)   & ``52.7\% savings'' disappear after anti-halluc patches                 & Cap was interrupting repetition loops, not early-exiting                  & Drop early-exit, adopt repetition-penalty flags \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table*}
 
 \subsection{Speaker-personalized cache failure}\label{sec:lim:speaker}
@@ -575,94 +644,12 @@ The scope is narrow by design. The tone-histogram component is instantiated agai
 
 Three immediate extensions follow. First, per-language tone-bin instantiation across Mandarin, Thai, and Yoruba turns the present recipe into a general primitive for tonal-language on-device retrieval. Second, integrating the cache with tone-aware mixed-precision quantization compounds compression: hits skip the cascade and misses execute on a smaller backbone, multiplicative rather than additive. Third, the hand-crafted 272-d fingerprint can be replaced with a learned 64-d projection trained by triplet contrastive loss; a preliminary measurement (Appendix~\ref{app:repro}) reports an 8.5$\times$ widening of the intra-versus-inter-phrase cosine gap on a held-out VIVOS partition, suggesting the linguistic typology used here defines a privileged loss-function geometry rather than a hard architectural ceiling.
 
-\clearpage
-
-\begin{figure*}[!htbp]
-  \centering
-  \begin{tikzpicture}[font=\small, node distance=4mm and 5mm]
-    % Top row: Mic -> VAD -> T1 cache
-    \node[io] (mic) {Mic};
-    \node[io, right=of mic] (vad) {Tone-VAD};
-    \node[cache, right=of vad] (t1) {T1 audio\\cache};
-    % Middle row: ASR -> LM rerank -> T2 cache -> MT
-    \node[box, below=10mm of vad] (asr) {INT8 ASR};
-    \node[box, right=of asr] (lm) {LM rerank};
-    \node[cache, right=of lm] (t2) {T2 text\\cache};
-    \node[box, right=of t2] (mt) {INT8\\NLLB-200};
-    % TTS and Speaker on the right
-    \node[box, above=10mm of mt] (tts) {INT8 TTS};
-    \node[io, right=of tts] (spk) {Speaker};
-    % Miss arrows (orange, going down then across)
-    \draw[arrow, orange!80!black] (mic) -- (vad);
-    \draw[arrow, orange!80!black] (vad) -- (t1);
-    \draw[arrow, orange!80!black] (t1.south) -- node[right, font=\scriptsize] {miss} (asr.north);
-    \draw[arrow, orange!80!black] (asr) -- (lm);
-    \draw[arrow, orange!80!black] (lm) -- (t2);
-    \draw[arrow, orange!80!black] (t2.south) -- ++(0,-4mm) -| node[pos=0.25, below, font=\scriptsize] {miss} (mt.south);
-    \draw[arrow, orange!80!black] (mt) -- (tts);
-    \draw[arrow, green!55!black, thick] (tts) -- (spk);
-    % T1 hit fast path (green, big arc to Speaker)
-    \draw[arrow, green!55!black, thick]
-      (t1.north) -- ++(0,5mm) -|
-      node[pos=0.25, above, font=\small] {\textcolor{green!55!black}{hit $1{,}441\times$}}
-      (spk.north);
-    % T2 hit fast path (green, to TTS)
-    \draw[arrow, green!55!black, thick]
-      (t2.north) -- node[right, font=\small] {\textcolor{green!55!black}{hit $\sim 12\times$}} (tts.south);
-  \end{tikzpicture}
-  \caption{System pipeline. Tone-VAD filters non-speech; the audio cache (T1, two-stream voting) short-circuits the full cascade on hit; the text cache (T2) short-circuits MT on hit. Green = hit path; orange = miss path. Two-stream voting gates T1 hits on simultaneous tone-stream and segmental-stream agreement (T1 hit: $1{,}441\times$ over FP32 cold cascade; T2 hit: $\sim 3$--$12\times$ depending on stages skipped). Models in INT8 throughout.}\label{fig:pipeline}
-\end{figure*}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig3_fingerprint_ablation.png}
-  \caption{Fingerprint-component ablation on the VIVOS phrase-level pool ($n_{\textrm{intra}}=n_{\textrm{inter}}=50$). Bars show the discrimination gap (intra cos $-$ inter cos) for each ablation variant; the full 272-d fingerprint reaches gap $=0.148$. Removing the MFCC trajectory collapses the gap to nearly zero; removing the tone histogram leaves the phrase-level gap unchanged because the cosine is saturated by the 260-d segmental signal, motivating the two-stream voting of \S\ref{sec:method:twostream}.}\label{fig:fingerprint_ablation}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig4_minimal_pair_ablation.png}
-  \caption{Tonal minimal-pair protection (intra-tone cos $-$ inter-syllable cos) across fingerprint variants on the 25 synthesized Vietnamese minimal pairs. The 6-d tone-only fingerprint is the only variant with positive protect score ($+0.028$); the full 272-d concatenation and the MFCC-only variant both fail in the wrong direction.}\label{fig:minimal_pair_ablation}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig6_two_stream_voting.png}
-  \caption{Two-stream voting evaluation on $5\times 6 = 30$ synthesized minimal-pair clips. With $(\tau_A,\tau_B)=(0.85,0.93)$ both streams agree on $30/30$ self-lookups and $0/25$ tonal variants. The diagnostic counter exposes the vetoes: 5 segment-only hits and 3 tone-only hits, all neutralized by the AND-gate.}\label{fig:twostream_voting}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig1_latency_stack.png}
-  \caption{Per-stage latency stack on the $n=10$ paired VIVOS bench. FP32 cascade vs.\ INT8 cascade. MT receives the largest INT8 speedup ($6.23\times$, $p=0.002$), ASR receives $2.00\times$ ($p=0.002$), TTS is not significant ($1.26\times$, $p=0.181$).}\label{fig:latency_stack}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig2_ablation_speedup.png}
-  \caption{Cumulative speedup from each augmentation over the INT8 cascade ($n=3$ paired). Tone-VAD $1.20\times$, T1 alone $1.37\times$, T2 alone $1.34\times$, T1+T2 jointly $1.80\times$. Bound $p_{\min}\approx 0.25$ reflects the $2^{3}=8$ permutation ceiling at $n=3$.}\label{fig:ablation_speedup}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig5_noise_robustness.png}
-  \caption{Cooperation between the spectral-subtraction filter and the cache. At SNR $\leq 10$~dB the filter raises mean cosine similarity by $+0.248$ to $+0.712$ ($p<0.001$), lifting cache hit rate at $\tau=0.95$ from $0/10$ to $5/10$ at $10$~dB and from $3/10$ to $9/10$ at $15$~dB.}\label{fig:noise_robustness}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.95\linewidth]{../figures/fig7_worker_scale.png}
-  \caption{Fleet-scale Poisson+Zipf simulator. Mean latency reduction vs.\ cascade-only baseline at $N\in\{10,50,200\}$ workers stays in the $78$--$94\%$ band. T1 (per-worker) saturates earliest; load progressively shifts to the shared T2 cache --- graceful degradation rather than catastrophic miss collapse.}\label{fig:worker_scale}
-\end{figure}
 
 %% Placeholder table
-\begin{table*}[!htbp]
+\begin{table*}[cols=5,pos=t]
 \caption{Fingerprint-component ablation on VIVOS (50 intra-phrase + 50 inter-phrase pairs). Higher gap is better.}\label{tab:fp_ablation}
-\centering
 \footnotesize
-\setlength{\tabcolsep}{6pt}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}l r r r r@{}}
+\begin{tabular*}{\tblwidth}{@{}LRRRR@{}}
 \toprule
 Variant & Dims & Intra cos & Inter cos & Gap \\
 \midrule
@@ -673,7 +660,7 @@ no\_delta       & 142 & 0.952 & 0.860 & 0.092 \\
 mfcc\_only      & 130 & 0.952 & 0.860 & 0.092 \\
 tone\_only      &   6 & 0.875 & 0.903 & $-0.027$ \\
 \bottomrule
-\end{tabular}}
+\end{tabular*}
 \end{table*}
 
 %% Appendix
