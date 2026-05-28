@@ -4,109 +4,109 @@
     "passed": 26,
     "failed": 0,
     "skipped": 1,
-    "elapsed_s": 1.33
+    "elapsed_s": 2.5
   },
   "tests": [
     {
       "name": "utterance_cache_fingerprint_shape_norm",
       "status": "PASS",
-      "elapsed_ms": 32.4,
+      "elapsed_ms": 52.8,
       "error": null
     },
     {
       "name": "utterance_cache_put_self_hit",
       "status": "PASS",
-      "elapsed_ms": 10.5,
+      "elapsed_ms": 7.5,
       "error": null
     },
     {
       "name": "utterance_cache_miss_random",
       "status": "PASS",
-      "elapsed_ms": 35.4,
+      "elapsed_ms": 46.0,
       "error": null
     },
     {
       "name": "two_stream_shapes",
       "status": "PASS",
-      "elapsed_ms": 19.0,
+      "elapsed_ms": 20.5,
       "error": null
     },
     {
       "name": "two_stream_existence_self_hit",
       "status": "PASS",
-      "elapsed_ms": 10.1,
+      "elapsed_ms": 9.7,
       "error": null
     },
     {
       "name": "two_stream_minimal_pair_miss",
       "status": "PASS",
-      "elapsed_ms": 16.3,
+      "elapsed_ms": 14.8,
       "error": null
     },
     {
       "name": "tm_v1_paraphrastic_hit",
       "status": "PASS",
-      "elapsed_ms": 12.3,
+      "elapsed_ms": 21.9,
       "error": null
     },
     {
       "name": "tm_v2_paraphrase_hit",
       "status": "PASS",
-      "elapsed_ms": 3.3,
+      "elapsed_ms": 4.0,
       "error": null
     },
     {
       "name": "tm_v2_diacritic_distinct_no_collision",
       "status": "PASS",
-      "elapsed_ms": 0.3,
+      "elapsed_ms": 0.2,
       "error": null
     },
     {
       "name": "tone_vad_rejects_silence",
       "status": "PASS",
-      "elapsed_ms": 3.7,
+      "elapsed_ms": 4.4,
       "error": null
     },
     {
       "name": "tone_vad_rejects_flat_hum",
       "status": "PASS",
-      "elapsed_ms": 3.2,
+      "elapsed_ms": 2.9,
       "error": null
     },
     {
       "name": "noise_filter_shape_preserved",
       "status": "PASS",
-      "elapsed_ms": 11.6,
+      "elapsed_ms": 12.4,
       "error": null
     },
     {
       "name": "noise_filter_reduces_noise_floor",
       "status": "PASS",
-      "elapsed_ms": 9.9,
+      "elapsed_ms": 15.4,
       "error": null
     },
     {
       "name": "bootstrap_ci_brackets_true_mean",
       "status": "PASS",
-      "elapsed_ms": 146.9,
+      "elapsed_ms": 119.4,
       "error": null
     },
     {
       "name": "persistent_cache_t2_roundtrip",
       "status": "PASS",
-      "elapsed_ms": 59.8,
+      "elapsed_ms": 209.1,
       "error": null
     },
     {
       "name": "learned_tone_embedding_forward",
       "status": "PASS",
-      "elapsed_ms": 807.7,
+      "elapsed_ms": 1735.6,
       "error": null
     },
     {
       "name": "tts_audio_cache_lru_eviction",
       "status": "PASS",
-      "elapsed_ms": 0.1,
+      "elapsed_ms": 0.2,
       "error": null
     },
     {
@@ -118,55 +118,55 @@
     {
       "name": "syllable_local_aggregation_strategies",
       "status": "PASS",
-      "elapsed_ms": 7.8,
+      "elapsed_ms": 29.1,
       "error": null
     },
     {
       "name": "syllable_local_max_equals_mean_K1",
       "status": "PASS",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 1.1,
       "error": null
     },
     {
       "name": "adaptive_threshold_clean_band",
       "status": "PASS",
-      "elapsed_ms": 3.5,
+      "elapsed_ms": 10.8,
       "error": null
     },
     {
       "name": "adaptive_threshold_10db_band",
       "status": "PASS",
-      "elapsed_ms": 0.0,
+      "elapsed_ms": 0.1,
       "error": null
     },
     {
       "name": "adaptive_threshold_snr_estimator",
       "status": "PASS",
-      "elapsed_ms": 2.6,
+      "elapsed_ms": 9.1,
       "error": null
     },
     {
       "name": "streaming_consecutive_confirmation",
       "status": "PASS",
-      "elapsed_ms": 89.9,
+      "elapsed_ms": 93.7,
       "error": null
     },
     {
       "name": "hnsw_recall_at_1",
       "status": "PASS",
-      "elapsed_ms": 32.2,
+      "elapsed_ms": 58.1,
       "error": null
     },
     {
       "name": "dtw_self_distance_zero",
       "status": "PASS",
-      "elapsed_ms": 5.3,
+      "elapsed_ms": 16.9,
       "error": null
     },
     {
       "name": "dtw_symmetric",
       "status": "PASS",
-      "elapsed_ms": 2.3,
+      "elapsed_ms": 7.2,
       "error": null
     }
   ]

@@ -1,0 +1,214 @@
+{
+  "summary": {
+    "total": 11,
+    "passed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "elapsed_s": 258.28,
+    "cold_init_ms": 82861.3306999905,
+    "cache_hit_speedup_x": 108.1
+  },
+  "tests": [
+    {
+      "name": "01_cold_init",
+      "status": "PASS",
+      "elapsed_ms": 82877.9,
+      "detail": {
+        "cold_init_ms": 82861.3,
+        "under_60s_target": false
+      },
+      "error": null
+    },
+    {
+      "name": "02_single_cold_pass",
+      "status": "PASS",
+      "elapsed_ms": 19616.0,
+      "detail": {
+        "vi": "tiếng cọc gạch khựng lạ của những khớp sắt.",
+        "tgt": "The strange crackling of the iron joints.",
+        "latency": {
+          "asr_ms": 9436.082600004738,
+          "mt_ms": 2481.1851999838836,
+          "tts_ms": 7564.744600007543,
+          "cache_ms": 116.79,
+          "total_ms": 19598.79849999561
+        },
+        "cache_hit": false
+      },
+      "error": null
+    },
+    {
+      "name": "03_cache_hit_replay",
+      "status": "PASS",
+      "elapsed_ms": 181.5,
+      "detail": {
+        "cold_total_ms": 19598.8,
+        "warm_total_ms": 181.2,
+        "speedup_x": 108.1,
+        "warm_text_matches_cold": true,
+        "cache_hit": true,
+        "cache_cosine": 1.0
+      },
+      "error": null
+    },
+    {
+      "name": "05_industrial_prewarming",
+      "status": "PASS",
+      "elapsed_ms": 22576.2,
+      "detail": {
+        "n_phrases_inserted": 42,
+        "asr_recognized_vi": "anh còn lao động.",
+        "target_en": "I'm still working.",
+        "tm_summary": {
+          "n_entries": 42,
+          "max_entries": 256,
+          "cosine_hit": 0.8,
+          "lookups": 0,
+          "hits": 0,
+          "misses": 0,
+          "hit_rate": 0.0,
+          "insertions": 42,
+          "evictions": 0,
+          "fp_ms_mean": 0.404
+        }
+      },
+      "error": null
+    },
+    {
+      "name": "06_persistence_roundtrip",
+      "status": "PASS",
+      "elapsed_ms": 288.3,
+      "detail": {
+        "snapshot_saved": {
+          "snapshot_dir": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\integration_test",
+          "saved_at": 1779971990.590009,
+          "t1": {
+            "path": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\integration_test\\t1_audio.json",
+            "n_entries": 2,
+            "size_bytes": 146133
+          },
+          "t2": {
+            "path": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\integration_test\\t2_text.json",
+            "n_entries": 42,
+            "size_bytes": 38952
+          }
+        },
+        "snapshot_loaded": {
+          "snapshot_dir": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\integration_test",
+          "t1": {
+            "loaded": 2,
+            "skipped": 0,
+            "path": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\integration_test\\t1_audio.json",
+            "size_bytes": 146133
+          },
+          "t2": {
+            "loaded": 42,
+            "skipped": 0,
+            "path": "D:\\PhD_LetGoo\\EACL\\VoiceAI_SaiGonHub\\data\\cache_snapshots\\integration_test\\t2_text.json",
+            "size_bytes": 38952
+          }
+        },
+        "t1_loaded": 2,
+        "t2_loaded": 42,
+        "industrial_phrase_rehit_after_reload": true
+      },
+      "error": null
+    },
+    {
+      "name": "07_tts_audio_cache_hit",
+      "status": "PASS",
+      "elapsed_ms": 2723.8,
+      "detail": {
+        "cold_ms": 2690.13,
+        "warm_ms": 0.08,
+        "identical": true,
+        "warm_under_10ms": true
+      },
+      "error": null
+    },
+    {
+      "name": "08_vad_silence_rejection",
+      "status": "PASS",
+      "elapsed_ms": 33.3,
+      "detail": {
+        "stages_observed": [
+          "vad_reject"
+        ],
+        "vad_rejected": true
+      },
+      "error": null
+    },
+    {
+      "name": "09_streaming_generator",
+      "status": "PASS",
+      "elapsed_ms": 34485.5,
+      "detail": {
+        "stages": [
+          "asr_partial",
+          "mt_partial",
+          "done"
+        ],
+        "final_stage": "done",
+        "full_path_observed": true,
+        "vi_text": "những cơn gió mạnh và mưa đóng băng gây trơn trợt.",
+        "tgt_text": "The winds and the freezing rain caused the flooding."
+      },
+      "error": null
+    },
+    {
+      "name": "10_long_utterance",
+      "status": "PASS",
+      "elapsed_ms": 28161.3,
+      "detail": {
+        "duration_s": 14.0,
+        "vi_text": "tiếng cọc cạch khựng lợi của những khớp sắt di tích có bảy phỗng ông và hai phỗnh bà được làm bằng gỗ mít ngọn lửa bạo động ở trung đông và phá vỡ loại trình hòa bình.",
+        "tgt_text": "The seven-man and two-man arches of the iron joints are made of wood, and they ignite the violent flames of the Middle East and break the peace process.",
+        "latency_ms": 28090.9,
+        "repeated_4gram": false,
+        "offending_ngram": null
+      },
+      "error": null
+    },
+    {
+      "name": "11_noisy_miss_then_hit",
+      "status": "PASS",
+      "elapsed_ms": 15254.1,
+      "detail": {
+        "first_cache_hit": false,
+        "first_total_ms": 15067.8,
+        "second_cache_hit": true,
+        "second_total_ms": 33.0,
+        "second_cosine": 1.0,
+        "vi_text": "các chú cũng thoải mái phóng uế giữa chốn đông người mà không sợ.",
+        "tgt_text": "You're comfortable getting dirty in a crowded place without fear."
+      },
+      "error": null
+    },
+    {
+      "name": "04_three_language_sanity",
+      "status": "PASS",
+      "elapsed_ms": 52013.7,
+      "detail": {
+        "per_language": {
+          "en": {
+            "text": "And I'm also speaking out for these proposals.",
+            "nonempty": true,
+            "latency_ms": 10795.6
+          },
+          "zh": {
+            "text": "支持这些建议.",
+            "nonempty": true,
+            "latency_ms": 11152.4
+          },
+          "ko": {
+            "text": "그리고 이 제안에 찬성하는 목소리도 있습니다.",
+            "nonempty": true,
+            "latency_ms": 29331.1
+          }
+        },
+        "failures": []
+      },
+      "error": null
+    }
+  ]
+}
