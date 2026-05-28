@@ -79,175 +79,192 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Two-stream voting architecture}{6}{subsection.3.5}\protected@file@percent }
 \newlabel{sec:method:twostream}{{3.5}{6}{Two-stream voting architecture}{subsection.3.5}{}}
 \newlabel{eq:twostream}{{3}{6}{Two-stream voting architecture}{equation.3}{}}
-\citation{luong2016vivos}
-\citation{le2024phowhisper}
-\citation{ctranslate2}
-\citation{fasterwhisper}
-\citation{nllb2022}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Two-stream voting cache (existence rule). Independent tone stream ($f_A$, 6-d, $\tau _A=0.85$) and segmental stream ($f_B$, 260-d, $\tau _B=0.93$) are evaluated against every stored entry. A hit fires when at least one entry simultaneously satisfies both stream-specific thresholds; ties are broken by maximum cosine sum. On the tonal minimal pair \emph  {ma}/\emph  {m\'a}, stream B may report high similarity yet stream A vetoes the match whenever the tone-stream cosine on the variant falls below $\tau _A$.}}{7}{figure.3}\protected@file@percent }
 \newlabel{fig:two_stream_arch}{{3}{7}{Two-stream voting cache (existence rule). Independent tone stream ($f_A$, 6-d, $\tau _A=0.85$) and segmental stream ($f_B$, 260-d, $\tau _B=0.93$) are evaluated against every stored entry. A hit fires when at least one entry simultaneously satisfies both stream-specific thresholds; ties are broken by maximum cosine sum. On the tonal minimal pair \emph {ma}/\emph {m\'a}, stream B may report high similarity yet stream A vetoes the match whenever the tone-stream cosine on the variant falls below $\tau _A$}{figure.3}{}}
 \@writefile{toc}{\contentsline {paragraph}{Storage stretch.}{7}{section*.1}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Two-stream voting cache lookup (existence rule)}}{7}{algorithm.2}\protected@file@percent }
 \newlabel{alg:voting}{{2}{7}{Storage stretch}{algorithm.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Industrial corpus pre-warming}{7}{subsection.3.6}\protected@file@percent }
-\newlabel{sec:method:prewarm}{{3.6}{7}{Industrial corpus pre-warming}{subsection.3.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Tonal-language VAD}{7}{subsection.3.7}\protected@file@percent }
-\newlabel{sec:method:tonevad}{{3.7}{7}{Tonal-language VAD}{subsection.3.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.8}INT8 substrate}{7}{subsection.3.8}\protected@file@percent }
-\newlabel{sec:method:int8}{{3.8}{7}{INT8 substrate}{subsection.3.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Streaming progressive cache lookup}{7}{subsection.3.6}\protected@file@percent }
+\newlabel{sec:method:streaming}{{3.6}{7}{Streaming progressive cache lookup}{subsection.3.6}{}}
+\citation{luong2016vivos}
+\citation{le2024phowhisper}
+\citation{ctranslate2}
+\citation{fasterwhisper}
+\citation{nllb2022}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Streaming progressive two-stream cache lookup}}{8}{algorithm.3}\protected@file@percent }
+\newlabel{alg:streaming}{{3}{8}{Streaming progressive cache lookup}{algorithm.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Industrial corpus pre-warming}{8}{subsection.3.7}\protected@file@percent }
+\newlabel{sec:method:prewarm}{{3.7}{8}{Industrial corpus pre-warming}{subsection.3.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.8}Tonal-language VAD}{8}{subsection.3.8}\protected@file@percent }
+\newlabel{sec:method:tonevad}{{3.8}{8}{Tonal-language VAD}{subsection.3.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.9}INT8 substrate}{8}{subsection.3.9}\protected@file@percent }
+\newlabel{sec:method:int8}{{3.9}{8}{INT8 substrate}{subsection.3.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.10}Domain language-model rerank}{8}{subsection.3.10}\protected@file@percent }
+\newlabel{sec:method:lmrerank}{{3.10}{8}{Domain language-model rerank}{subsection.3.10}{}}
 \citation{luong2016vivos}
 \citation{conneau2022fleurs}
 \citation{thiemann2013demand}
 \citation{snyder2015musan}
 \citation{pratap2024mms}
 \citation{post2018call}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.9}Domain language-model rerank}{8}{subsection.3.9}\protected@file@percent }
-\newlabel{sec:method:lmrerank}{{3.9}{8}{Domain language-model rerank}{subsection.3.9}{}}
-\newlabel{eq:lmrerank}{{4}{8}{Domain language-model rerank}{equation.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Experiments}{8}{section.4}\protected@file@percent }
-\newlabel{sec:experiments}{{4}{8}{Experiments}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Datasets and protocol}{8}{subsection.4.1}\protected@file@percent }
-\newlabel{sec:exp:data}{{4.1}{8}{Datasets and protocol}{subsection.4.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Tone-error rate (TER).}{8}{section*.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Fingerprint-component ablation}{8}{subsection.4.2}\protected@file@percent }
-\newlabel{sec:exp:ablation}{{4.2}{8}{Fingerprint-component ablation}{subsection.4.2}{}}
-\citation{pratap2024mms}
+\newlabel{eq:lmrerank}{{4}{9}{Domain language-model rerank}{equation.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experiments}{9}{section.4}\protected@file@percent }
+\newlabel{sec:experiments}{{4}{9}{Experiments}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Datasets and protocol}{9}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:exp:data}{{4.1}{9}{Datasets and protocol}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Tone-error rate (TER).}{9}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Fingerprint-component ablation}{9}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:exp:ablation}{{4.2}{9}{Fingerprint-component ablation}{subsection.4.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Tonal minimal-pair evaluation}{9}{subsection.4.3}\protected@file@percent }
 \newlabel{sec:exp:minpair}{{4.3}{9}{Tonal minimal-pair evaluation}{subsection.4.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Two-stream voting evaluation}{9}{subsection.4.4}\protected@file@percent }
-\newlabel{sec:exp:twostream}{{4.4}{9}{Two-stream voting evaluation}{subsection.4.4}{}}
-\@writefile{toc}{\contentsline {paragraph}{Expanded $120$-clip corpus.}{9}{section*.3}\protected@file@percent }
+\citation{pratap2024mms}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Tonal minimal-pair protection (intra-tone cos $-$ inter-syllable cos) across fingerprint variants on the original $36$ synthesized Vietnamese minimal-pair clips ($6$ carrier syllables $\times $ $6$ tones, $25$ same-syllable tonal pairs after alignment). The 6-d tone-only fingerprint is the only variant with positive protect score ($+0.028$); the full 272-d concatenation and the MFCC-only variant both fail in the wrong direction. The same qualitative ranking is preserved on the expanded $20$-syllable $\times $ $6$-tone $=120$-clip corpus reported in \S  \ref {sec:exp:twostream} and Figure~\ref {fig:minimal_pair_noisy}.}}{10}{figure.4}\protected@file@percent }
 \newlabel{fig:minimal_pair_ablation}{{4}{10}{Tonal minimal-pair protection (intra-tone cos $-$ inter-syllable cos) across fingerprint variants on the original $36$ synthesized Vietnamese minimal-pair clips ($6$ carrier syllables $\times $ $6$ tones, $25$ same-syllable tonal pairs after alignment). The 6-d tone-only fingerprint is the only variant with positive protect score ($+0.028$); the full 272-d concatenation and the MFCC-only variant both fail in the wrong direction. The same qualitative ranking is preserved on the expanded $20$-syllable $\times $ $6$-tone $=120$-clip corpus reported in \S \ref {sec:exp:twostream} and Figure~\ref {fig:minimal_pair_noisy}}{figure.4}{}}
-\@writefile{toc}{\contentsline {paragraph}{Noise-augmented evaluation.}{10}{section*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Comparison to argmax-equality rule.}{10}{section*.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Tightening $\tau _{A}$ does not recover the lost safety.}{10}{section*.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Existence-rule two-stream voting on the expanded $20$-syllable $\times $ $6$-tone $=120$-clip minimal-pair corpus under clean and four additive-noise conditions ($\mathrm  {SNR}\in \{20,15,10,5\}$~dB; synthetic DEMAND-like broadband background, RMS-scaled per clip). Bars show self-lookup recall, correct-miss rate on tonal variants, and false-hit rate at $\tau _A=0.85$, $\tau _B=0.93$. Self-lookup remains at $120/120$ across all conditions; tonal correct-miss varies in $29$--$56\%$, the $36\%$ clean figure exposing that the original $30$-clip subset over-estimated tonal protection.}}{11}{figure.5}\protected@file@percent }
-\newlabel{fig:minimal_pair_noisy}{{5}{11}{Existence-rule two-stream voting on the expanded $20$-syllable $\times $ $6$-tone $=120$-clip minimal-pair corpus under clean and four additive-noise conditions ($\mathrm {SNR}\in \{20,15,10,5\}$~dB; synthetic DEMAND-like broadband background, RMS-scaled per clip). Bars show self-lookup recall, correct-miss rate on tonal variants, and false-hit rate at $\tau _A=0.85$, $\tau _B=0.93$. Self-lookup remains at $120/120$ across all conditions; tonal correct-miss varies in $29$--$56\%$, the $36\%$ clean figure exposing that the original $30$-clip subset over-estimated tonal protection}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Two-stream voting evaluation}{10}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:exp:twostream}{{4.4}{10}{Two-stream voting evaluation}{subsection.4.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Expanded $120$-clip corpus.}{10}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Noise-augmented evaluation.}{11}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Comparison to argmax-equality rule.}{11}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Tightening $\tau _{A}$ does not recover the lost safety.}{11}{section*.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Cross-speaker generalization of the existence-rule operating point.}{11}{section*.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Adversarial Vietnamese sentence-level minimal pairs.}{11}{section*.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Existence-rule two-stream voting on the expanded $20$-syllable $\times $ $6$-tone $=120$-clip minimal-pair corpus under clean and four additive-noise conditions ($\mathrm  {SNR}\in \{20,15,10,5\}$~dB; synthetic DEMAND-like broadband background, RMS-scaled per clip). Bars show self-lookup recall, correct-miss rate on tonal variants, and false-hit rate at $\tau _A=0.85$, $\tau _B=0.93$. Self-lookup remains at $120/120$ across all conditions; tonal correct-miss varies in $29$--$56\%$, the $36\%$ clean figure exposing that the original $30$-clip subset over-estimated tonal protection.}}{12}{figure.5}\protected@file@percent }
+\newlabel{fig:minimal_pair_noisy}{{5}{12}{Existence-rule two-stream voting on the expanded $20$-syllable $\times $ $6$-tone $=120$-clip minimal-pair corpus under clean and four additive-noise conditions ($\mathrm {SNR}\in \{20,15,10,5\}$~dB; synthetic DEMAND-like broadband background, RMS-scaled per clip). Bars show self-lookup recall, correct-miss rate on tonal variants, and false-hit rate at $\tau _A=0.85$, $\tau _B=0.93$. Self-lookup remains at $120/120$ across all conditions; tonal correct-miss varies in $29$--$56\%$, the $36\%$ clean figure exposing that the original $30$-clip subset over-estimated tonal protection}{figure.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Adversarial Vietnamese sentence-level minimal pairs.}{12}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Syllable-local tone pooling resolves the sentence-level gap.}{13}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Learned 32-d tone embedding closes the gap.}{13}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}SNR-adaptive thresholding}{13}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:exp:adaptive}{{4.5}{13}{SNR-adaptive thresholding}{subsection.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Streaming progressive cache lookup}{14}{subsection.4.6}\protected@file@percent }
+\newlabel{sec:exp:streaming}{{4.6}{14}{Streaming progressive cache lookup}{subsection.4.6}{}}
 \citation{sakoe1978dtw}
-\@writefile{toc}{\contentsline {paragraph}{Learned 32-d tone embedding closes the gap.}{12}{section*.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Classical-baseline comparison: dynamic time warping}{12}{subsection.4.5}\protected@file@percent }
-\newlabel{sec:exp:dtw}{{4.5}{12}{Classical-baseline comparison: dynamic time warping}{subsection.4.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}End-to-end latency ablation}{13}{subsection.4.6}\protected@file@percent }
-\newlabel{sec:exp:latency}{{4.6}{13}{End-to-end latency ablation}{subsection.4.6}{}}
-\@writefile{toc}{\contentsline {paragraph}{Latency vs.\ utterance length.}{13}{section*.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Cache precision-recall calibration}{13}{subsection.4.7}\protected@file@percent }
-\newlabel{sec:exp:pr}{{4.7}{13}{Cache precision-recall calibration}{subsection.4.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Streaming progressive cache sweep on $30$ held-out VIVOS canonical phrases and $30$ disjoint miss queries, with consecutive-confirmation guard $C=2$ and $25$~dB additive-noise hit queries. Every cell of the $3\times 3$ tightened-threshold grid keeps false-commit at $0/30$; recall trades smoothly with TTFH and fraction-of-audio. The chosen deployment cell $(0.92, 0.95)$ maximizes recall at the strict-safety constraint.}}{15}{table.2}\protected@file@percent }
+\newlabel{tab:streaming_sweep}{{2}{15}{Streaming progressive cache sweep on $30$ held-out VIVOS canonical phrases and $30$ disjoint miss queries, with consecutive-confirmation guard $C=2$ and $25$~dB additive-noise hit queries. Every cell of the $3\times 3$ tightened-threshold grid keeps false-commit at $0/30$; recall trades smoothly with TTFH and fraction-of-audio. The chosen deployment cell $(0.92, 0.95)$ maximizes recall at the strict-safety constraint}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Classical-baseline comparison: dynamic time warping}{15}{subsection.4.7}\protected@file@percent }
+\newlabel{sec:exp:dtw}{{4.7}{15}{Classical-baseline comparison: dynamic time warping}{subsection.4.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}End-to-end latency ablation}{15}{subsection.4.8}\protected@file@percent }
+\newlabel{sec:exp:latency}{{4.8}{15}{End-to-end latency ablation}{subsection.4.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces End-to-end CPU latency speedup of the INT8 cascade over an FP32 baseline on $n=10$ paired VIVOS utterances. Means with 95\% percentile bootstrap CI ($B=1000$); $p$ from paired permutation test ($B=1000$). TTS speedup is not significant; the gain is concentrated in ASR and MT, consistent with their larger Transformer footprint.}}{16}{table.3}\protected@file@percent }
+\newlabel{tab:latency}{{3}{16}{End-to-end CPU latency speedup of the INT8 cascade over an FP32 baseline on $n=10$ paired VIVOS utterances. Means with 95\% percentile bootstrap CI ($B=1000$); $p$ from paired permutation test ($B=1000$). TTS speedup is not significant; the gain is concentrated in ASR and MT, consistent with their larger Transformer footprint}{table.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Latency vs.\ utterance length.}{16}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Cache precision-recall calibration}{16}{subsection.4.9}\protected@file@percent }
+\newlabel{sec:exp:pr}{{4.9}{16}{Cache precision-recall calibration}{subsection.4.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{2-D threshold-sensitivity grid and auto-calibration.}{16}{section*.12}\protected@file@percent }
 \citation{malkov2018hnsw}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces End-to-end CPU latency speedup of the INT8 cascade over an FP32 baseline on $n=10$ paired VIVOS utterances. Means with 95\% percentile bootstrap CI ($B=1000$); $p$ from paired permutation test ($B=1000$). TTS speedup is not significant; the gain is concentrated in ASR and MT, consistent with their larger Transformer footprint.}}{14}{table.2}\protected@file@percent }
-\newlabel{tab:latency}{{2}{14}{End-to-end CPU latency speedup of the INT8 cascade over an FP32 baseline on $n=10$ paired VIVOS utterances. Means with 95\% percentile bootstrap CI ($B=1000$); $p$ from paired permutation test ($B=1000$). TTS speedup is not significant; the gain is concentrated in ASR and MT, consistent with their larger Transformer footprint}{table.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{2-D threshold-sensitivity grid and auto-calibration.}{14}{section*.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Cache scalability}{14}{subsection.4.8}\protected@file@percent }
-\newlabel{sec:exp:scale}{{4.8}{14}{Cache scalability}{subsection.4.8}{}}
-\@writefile{toc}{\contentsline {paragraph}{Approximate nearest-neighbor indexing.}{14}{section*.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Cross-language generalization and worker-scale simulation}{14}{subsection.4.9}\protected@file@percent }
-\newlabel{sec:exp:crossling}{{4.9}{14}{Cross-language generalization and worker-scale simulation}{subsection.4.9}{}}
-\@writefile{toc}{\contentsline {paragraph}{Cross-language acoustic sanity (FLEURS).}{14}{section*.13}\protected@file@percent }
 \citation{le2024phowhisper}
-\@writefile{toc}{\contentsline {paragraph}{Fleet-scale Poisson+Zipf simulator.}{15}{section*.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Domain LM rerank}{15}{subsection.4.10}\protected@file@percent }
-\newlabel{sec:exp:lmrerank}{{4.10}{15}{Domain LM rerank}{subsection.4.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.11}End-to-end translation quality}{15}{subsection.4.11}\protected@file@percent }
-\newlabel{sec:exp:e2equality}{{4.11}{15}{End-to-end translation quality}{subsection.4.11}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.12}T2 two-stream collision validation}{15}{subsection.4.12}\protected@file@percent }
-\newlabel{sec:exp:t2v2}{{4.12}{15}{T2 two-stream collision validation}{subsection.4.12}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces T2 collision audit, single-stream (v1) versus two-stream AND-gated (v2) on the same $3{,}000$ VIVOS-train transcripts. Collision = cosine clears threshold(s) and Levenshtein-normalized distance $> 0.30$.}}{16}{table.3}\protected@file@percent }
-\newlabel{tab:t2_v2_audit}{{3}{16}{T2 collision audit, single-stream (v1) versus two-stream AND-gated (v2) on the same $3{,}000$ VIVOS-train transcripts. Collision = cosine clears threshold(s) and Levenshtein-normalized distance $> 0.30$}{table.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces $\tau _{A}$-tightening sweep under the existence rule with $\tau _{B}$ fixed at $0.93$. Left axis: tonal-variant correct-miss rate ($25$ minimal pairs). Right axis: VIVOS positive-pair recall ($200$ pairs, same-text different-speaker). Correct-miss rises by at most $+4$~pp across the entire sweep, while VIVOS recall monotonically degrades from $11\%$ to $8\%$. No grid point clears the pre-registered $\geq 24/25$ safety acceptance criterion; the dashed horizontal line marks the criterion. The sweep recommends \emph  {retaining} $\tau _{A}=0.85$ and treats tonal-precision recovery as a representation-side problem (\S  \ref {sec:limitations}) rather than a threshold-calibration problem.}}{17}{figure.6}\protected@file@percent }
-\newlabel{fig:tau_a_tightening}{{6}{17}{$\tau _{A}$-tightening sweep under the existence rule with $\tau _{B}$ fixed at $0.93$. Left axis: tonal-variant correct-miss rate ($25$ minimal pairs). Right axis: VIVOS positive-pair recall ($200$ pairs, same-text different-speaker). Correct-miss rises by at most $+4$~pp across the entire sweep, while VIVOS recall monotonically degrades from $11\%$ to $8\%$. No grid point clears the pre-registered $\geq 24/25$ safety acceptance criterion; the dashed horizontal line marks the criterion. The sweep recommends \emph {retaining} $\tau _{A}=0.85$ and treats tonal-precision recovery as a representation-side problem (\S \ref {sec:limitations}) rather than a threshold-calibration problem}{figure.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Correct-miss count (out of $100$ tonal-variant probes) for the heuristic 6-d tone histogram (red) vs.\ the learned $32$-d tone embedding (blue) across clean and two industrial-noise conditions, both gated by the same two-stream existence rule with $\tau _B=0.93$. The heuristic is at its calibrated default $\tau _A=0.85$; the learned operating point is the highest correct-miss at full $120/120$ self-lookup recall on clean. The $+56$~pp clean-condition lift and the noise-robustness improvement are the load-bearing measurements behind the headline of \S  \ref {sec:exp:twostream}.}}{17}{figure.7}\protected@file@percent }
-\newlabel{fig:learned_tone_vs_heuristic}{{7}{17}{Correct-miss count (out of $100$ tonal-variant probes) for the heuristic 6-d tone histogram (red) vs.\ the learned $32$-d tone embedding (blue) across clean and two industrial-noise conditions, both gated by the same two-stream existence rule with $\tau _B=0.93$. The heuristic is at its calibrated default $\tau _A=0.85$; the learned operating point is the highest correct-miss at full $120/120$ self-lookup recall on clean. The $+56$~pp clean-condition lift and the noise-robustness improvement are the load-bearing measurements behind the headline of \S \ref {sec:exp:twostream}}{figure.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Two-stream cache $F_1$ over the $\tau _A \times \tau _B$ grid on $200$ positive and $200$ negative VIVOS pairs. The central rectangle $\tau _A \in [0.80, 0.90] \times \tau _B \in [0.90, 0.93]$ keeps $F_1$ within $[0.156, 0.345]$ across $9$ cells, indicating robust calibration. Red circle marks the deployment default $(0.85, 0.93)$.}}{17}{figure.8}\protected@file@percent }
-\newlabel{fig:threshold_heatmap}{{8}{17}{Two-stream cache $F_1$ over the $\tau _A \times \tau _B$ grid on $200$ positive and $200$ negative VIVOS pairs. The central rectangle $\tau _A \in [0.80, 0.90] \times \tau _B \in [0.90, 0.93]$ keeps $F_1$ within $[0.156, 0.345]$ across $9$ cells, indicating robust calibration. Red circle marks the deployment default $(0.85, 0.93)$}{figure.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Deployment Notes}{18}{section.5}\protected@file@percent }
-\newlabel{sec:deployment}{{5}{18}{Deployment Notes}{section.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Hardware and memory budget}{18}{subsection.5.1}\protected@file@percent }
-\newlabel{sec:dep:hw}{{5.1}{18}{Hardware and memory budget}{subsection.5.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Fleet-scale operation}{18}{subsection.5.2}\protected@file@percent }
-\newlabel{sec:dep:fleet}{{5.2}{18}{Fleet-scale operation}{subsection.5.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Federated snapshot pooling}{18}{subsection.5.3}\protected@file@percent }
-\newlabel{sec:dep:fed}{{5.3}{18}{Federated snapshot pooling}{subsection.5.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Privacy and retention}{18}{subsection.5.4}\protected@file@percent }
-\newlabel{sec:dep:privacy}{{5.4}{18}{Privacy and retention}{subsection.5.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Fleet-scale Poisson+Zipf simulation. As $N$ grows, the per-worker T1 cache saturates and load shifts to the shared T2 vocabulary cache, producing graceful degradation rather than catastrophic miss collapse. Mean latency reduction stays in the 78--94\% band.}}{19}{table.4}\protected@file@percent }
-\newlabel{tab:fleet}{{4}{19}{Fleet-scale Poisson+Zipf simulation. As $N$ grows, the per-worker T1 cache saturates and load shifts to the shared T2 vocabulary cache, producing graceful degradation rather than catastrophic miss collapse. Mean latency reduction stays in the 78--94\% band}{table.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Limitations and Negative Results}{19}{section.6}\protected@file@percent }
-\newlabel{sec:limitations}{{6}{19}{Limitations and Negative Results}{section.6}{}}
-\@writefile{toc}{\contentsline {paragraph}{Open empirical gaps.}{19}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Existence-rule vs argmax-equality trade-off.}{19}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Cache scalability}{17}{subsection.4.10}\protected@file@percent }
+\newlabel{sec:exp:scale}{{4.10}{17}{Cache scalability}{subsection.4.10}{}}
+\@writefile{toc}{\contentsline {paragraph}{Approximate nearest-neighbor indexing.}{17}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.11}Cross-language generalization and worker-scale simulation}{17}{subsection.4.11}\protected@file@percent }
+\newlabel{sec:exp:crossling}{{4.11}{17}{Cross-language generalization and worker-scale simulation}{subsection.4.11}{}}
+\@writefile{toc}{\contentsline {paragraph}{Cross-language acoustic sanity (FLEURS).}{17}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Fleet-scale Poisson+Zipf simulator.}{17}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12}Domain LM rerank}{17}{subsection.4.12}\protected@file@percent }
+\newlabel{sec:exp:lmrerank}{{4.12}{17}{Domain LM rerank}{subsection.4.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.13}End-to-end translation quality}{18}{subsection.4.13}\protected@file@percent }
+\newlabel{sec:exp:e2equality}{{4.13}{18}{End-to-end translation quality}{subsection.4.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces T2 collision audit, single-stream (v1) versus two-stream AND-gated (v2) on the same $3{,}000$ VIVOS-train transcripts. Collision = cosine clears threshold(s) and Levenshtein-normalized distance $> 0.30$.}}{18}{table.4}\protected@file@percent }
+\newlabel{tab:t2_v2_audit}{{4}{18}{T2 collision audit, single-stream (v1) versus two-stream AND-gated (v2) on the same $3{,}000$ VIVOS-train transcripts. Collision = cosine clears threshold(s) and Levenshtein-normalized distance $> 0.30$}{table.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.14}T2 two-stream collision validation}{18}{subsection.4.14}\protected@file@percent }
+\newlabel{sec:exp:t2v2}{{4.14}{18}{T2 two-stream collision validation}{subsection.4.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces $\tau _{A}$-tightening sweep under the existence rule with $\tau _{B}$ fixed at $0.93$. Left axis: tonal-variant correct-miss rate ($25$ minimal pairs). Right axis: VIVOS positive-pair recall ($200$ pairs, same-text different-speaker). Correct-miss rises by at most $+4$~pp across the entire sweep, while VIVOS recall monotonically degrades from $11\%$ to $8\%$. No grid point clears the pre-registered $\geq 24/25$ safety acceptance criterion; the dashed horizontal line marks the criterion. The sweep recommends \emph  {retaining} $\tau _{A}=0.85$ and treats tonal-precision recovery as a representation-side problem (\S  \ref {sec:limitations}) rather than a threshold-calibration problem.}}{20}{figure.6}\protected@file@percent }
+\newlabel{fig:tau_a_tightening}{{6}{20}{$\tau _{A}$-tightening sweep under the existence rule with $\tau _{B}$ fixed at $0.93$. Left axis: tonal-variant correct-miss rate ($25$ minimal pairs). Right axis: VIVOS positive-pair recall ($200$ pairs, same-text different-speaker). Correct-miss rises by at most $+4$~pp across the entire sweep, while VIVOS recall monotonically degrades from $11\%$ to $8\%$. No grid point clears the pre-registered $\geq 24/25$ safety acceptance criterion; the dashed horizontal line marks the criterion. The sweep recommends \emph {retaining} $\tau _{A}=0.85$ and treats tonal-precision recovery as a representation-side problem (\S \ref {sec:limitations}) rather than a threshold-calibration problem}{figure.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces False-hit rate (\%) at $(\tau _A, \tau _B) = (0.85, 0.93)$ for the four syllable-local tone-pooling strategies on the $30$-pair adversarial sentence-level corpus (red) and the $120$-clip syllable-level corpus (blue, $100$ tonal probes). Dotted line marks the $46.7\%$ utterance-level baseline of \S  \ref {sec:exp:twostream} (Round 26). Training-free max-pool cuts adversarial false-hit to $16.7\%$ at no parameter cost; the trained concat-projector reaches $3.3\%$ (in-distribution upper envelope). The syllable-level corpus is no-harm to slightly improved across all four strategies, confirming the fix is purely additive over utterance-level pooling.}}{20}{figure.7}\protected@file@percent }
+\newlabel{fig:syllable_local_pooling}{{7}{20}{False-hit rate (\%) at $(\tau _A, \tau _B) = (0.85, 0.93)$ for the four syllable-local tone-pooling strategies on the $30$-pair adversarial sentence-level corpus (red) and the $120$-clip syllable-level corpus (blue, $100$ tonal probes). Dotted line marks the $46.7\%$ utterance-level baseline of \S \ref {sec:exp:twostream} (Round 26). Training-free max-pool cuts adversarial false-hit to $16.7\%$ at no parameter cost; the trained concat-projector reaches $3.3\%$ (in-distribution upper envelope). The syllable-level corpus is no-harm to slightly improved across all four strategies, confirming the fix is purely additive over utterance-level pooling}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Correct-miss count (out of $100$ tonal-variant probes) for the heuristic 6-d tone histogram (red) vs.\ the learned $32$-d tone embedding (blue) across clean and two industrial-noise conditions, both gated by the same two-stream existence rule with $\tau _B=0.93$. The heuristic is at its calibrated default $\tau _A=0.85$; the learned operating point is the highest correct-miss at full $120/120$ self-lookup recall on clean. The $+56$~pp clean-condition lift and the noise-robustness improvement are the load-bearing measurements behind the headline of \S  \ref {sec:exp:twostream}.}}{20}{figure.8}\protected@file@percent }
+\newlabel{fig:learned_tone_vs_heuristic}{{8}{20}{Correct-miss count (out of $100$ tonal-variant probes) for the heuristic 6-d tone histogram (red) vs.\ the learned $32$-d tone embedding (blue) across clean and two industrial-noise conditions, both gated by the same two-stream existence rule with $\tau _B=0.93$. The heuristic is at its calibrated default $\tau _A=0.85$; the learned operating point is the highest correct-miss at full $120/120$ self-lookup recall on clean. The $+56$~pp clean-condition lift and the noise-robustness improvement are the load-bearing measurements behind the headline of \S \ref {sec:exp:twostream}}{figure.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces SNR-adaptive thresholding vs the fixed $(0.85, 0.93)$ baseline on the $120$-clip Vietnamese tonal minimal-pair corpus under clean and four additive-noise conditions. Left: tonal-variant false-hit rate (lower is better); the adaptive scheme matches the baseline at clean and $\geq 15$~dB and cuts false-hits by $32$~pp at $10$~dB and $33$~pp at $5$~dB. Right: $120/120$ self-lookup recall is preserved in every condition.}}{20}{figure.9}\protected@file@percent }
+\newlabel{fig:adaptive_threshold}{{9}{20}{SNR-adaptive thresholding vs the fixed $(0.85, 0.93)$ baseline on the $120$-clip Vietnamese tonal minimal-pair corpus under clean and four additive-noise conditions. Left: tonal-variant false-hit rate (lower is better); the adaptive scheme matches the baseline at clean and $\geq 15$~dB and cuts false-hits by $32$~pp at $10$~dB and $33$~pp at $5$~dB. Right: $120/120$ self-lookup recall is preserved in every condition}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces CDF of time-to-first-hit (TTFH) for the streaming progressive cache (green, $\tau ^{\mathrm  {part}}_A=0.92$, $\tau ^{\mathrm  {part}}_B=0.95$) versus the batch baseline (orange) on the $13$ committed cache hits of \S  \ref {sec:exp:streaming}. Streaming TTFH is uniformly to the left of batch on the log axis. \texttt  {Results/streaming\_cache\_lookup.json}.}}{20}{figure.10}\protected@file@percent }
+\newlabel{fig:streaming_ttfh}{{10}{20}{CDF of time-to-first-hit (TTFH) for the streaming progressive cache (green, $\tau ^{\mathrm {part}}_A=0.92$, $\tau ^{\mathrm {part}}_B=0.95$) versus the batch baseline (orange) on the $13$ committed cache hits of \S \ref {sec:exp:streaming}. Streaming TTFH is uniformly to the left of batch on the log axis. \texttt {Results/streaming\_cache\_lookup.json}}{figure.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Two-stream cache $F_1$ over the $\tau _A \times \tau _B$ grid on $200$ positive and $200$ negative VIVOS pairs. The central rectangle $\tau _A \in [0.80, 0.90] \times \tau _B \in [0.90, 0.93]$ keeps $F_1$ within $[0.156, 0.345]$ across $9$ cells, indicating robust calibration. Red circle marks the deployment default $(0.85, 0.93)$.}}{21}{figure.11}\protected@file@percent }
+\newlabel{fig:threshold_heatmap}{{11}{21}{Two-stream cache $F_1$ over the $\tau _A \times \tau _B$ grid on $200$ positive and $200$ negative VIVOS pairs. The central rectangle $\tau _A \in [0.80, 0.90] \times \tau _B \in [0.90, 0.93]$ keeps $F_1$ within $[0.156, 0.345]$ across $9$ cells, indicating robust calibration. Red circle marks the deployment default $(0.85, 0.93)$}{figure.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Deployment Notes}{22}{section.5}\protected@file@percent }
+\newlabel{sec:deployment}{{5}{22}{Deployment Notes}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Hardware and memory budget}{22}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:dep:hw}{{5.1}{22}{Hardware and memory budget}{subsection.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Fleet-scale operation}{22}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:dep:fleet}{{5.2}{22}{Fleet-scale operation}{subsection.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Federated snapshot pooling}{22}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:dep:fed}{{5.3}{22}{Federated snapshot pooling}{subsection.5.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Privacy and retention}{22}{subsection.5.4}\protected@file@percent }
+\newlabel{sec:dep:privacy}{{5.4}{22}{Privacy and retention}{subsection.5.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Fleet-scale Poisson+Zipf simulation. As $N$ grows, the per-worker T1 cache saturates and load shifts to the shared T2 vocabulary cache, producing graceful degradation rather than catastrophic miss collapse. Mean latency reduction stays in the 78--94\% band.}}{23}{table.5}\protected@file@percent }
+\newlabel{tab:fleet}{{5}{23}{Fleet-scale Poisson+Zipf simulation. As $N$ grows, the per-worker T1 cache saturates and load shifts to the shared T2 vocabulary cache, producing graceful degradation rather than catastrophic miss collapse. Mean latency reduction stays in the 78--94\% band}{table.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Limitations and Negative Results}{23}{section.6}\protected@file@percent }
+\newlabel{sec:limitations}{{6}{23}{Limitations and Negative Results}{section.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Open empirical gaps.}{23}{section*.16}\protected@file@percent }
 \citation{tiedemann2020tatoeba}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Six negative results documented to ground each architectural decision. Four are abandoned alternatives; one (\S  \ref {sec:lim:earlyexit}) is a measured behaviour we initially mis-read as a positive speedup before discovering it was repetition-loop suppression; one (\S  \ref {sec:lim:t2collide}) was a diacritic-stripping collision failure mode that we have since resolved with the two-stream AND-gated T2 design (\S  \ref {sec:method:textcache}, \S  \ref {sec:exp:t2v2}).}}{20}{table.5}\protected@file@percent }
-\newlabel{tab:negatives}{{5}{20}{Six negative results documented to ground each architectural decision. Four are abandoned alternatives; one (\S \ref {sec:lim:earlyexit}) is a measured behaviour we initially mis-read as a positive speedup before discovering it was repetition-loop suppression; one (\S \ref {sec:lim:t2collide}) was a diacritic-stripping collision failure mode that we have since resolved with the two-stream AND-gated T2 design (\S \ref {sec:method:textcache}, \S \ref {sec:exp:t2v2})}{table.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Speaker-personalized cache failure}{20}{subsection.6.1}\protected@file@percent }
-\newlabel{sec:lim:speaker}{{6.1}{20}{Speaker-personalized cache failure}{subsection.6.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Coarse-to-fine MT failure}{20}{subsection.6.2}\protected@file@percent }
-\newlabel{sec:lim:c2f}{{6.2}{20}{Coarse-to-fine MT failure}{subsection.6.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Initial 32-d global-MFCC fingerprint failure}{21}{subsection.6.3}\protected@file@percent }
-\newlabel{sec:lim:globalmfcc}{{6.3}{21}{Initial 32-d global-MFCC fingerprint failure}{subsection.6.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Weighted-concat and PCA-whitened fingerprint variants}{21}{subsection.6.4}\protected@file@percent }
-\newlabel{sec:lim:weighted}{{6.4}{21}{Weighted-concat and PCA-whitened fingerprint variants}{subsection.6.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}T2 hashed-$n$-gram residual collision rate (was: diacritic-stripped failure mode)}{21}{subsection.6.5}\protected@file@percent }
-\newlabel{sec:lim:t2collide}{{6.5}{21}{T2 hashed-$n$-gram residual collision rate (was: diacritic-stripped failure mode)}{subsection.6.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Tone-conditioned ASR early-exit illusion}{22}{subsection.6.6}\protected@file@percent }
-\newlabel{sec:lim:earlyexit}{{6.6}{22}{Tone-conditioned ASR early-exit illusion}{subsection.6.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{22}{section.7}\protected@file@percent }
-\newlabel{sec:conclusion}{{7}{22}{Conclusion}{section.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Fingerprint-component ablation on VIVOS (50 intra-phrase + 50 inter-phrase pairs). Higher gap is better.}}{23}{table.6}\protected@file@percent }
-\newlabel{tab:fp_ablation}{{6}{23}{Fingerprint-component ablation on VIVOS (50 intra-phrase + 50 inter-phrase pairs). Higher gap is better}{table.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Pipeline and cache architecture diagram}{23}{appendix.A}\protected@file@percent }
-\newlabel{app:pipeline}{{A}{23}{Pipeline and cache architecture diagram}{appendix.A}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Fingerprint component pseudocode}{23}{appendix.B}\protected@file@percent }
-\newlabel{app:pseudocode}{{B}{23}{Fingerprint component pseudocode}{appendix.B}{}}
-\@writefile{toc}{\contentsline {paragraph}{F0 autocorrelation core.}{23}{section*.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Tone-bin soft-assignment.}{23}{section*.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Numerical constants (reference implementation).}{23}{section*.19}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {C}Learned tone-stream embedding}{23}{appendix.C}\protected@file@percent }
-\newlabel{app:learnedtone}{{C}{23}{Learned tone-stream embedding}{appendix.C}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Stage 2 (deployed): contrastively learned 32-d tone embedding}{23}{subsection.C.1}\protected@file@percent }
-\newlabel{app:learnedtone:stage2}{{C.1}{23}{Stage 2 (deployed): contrastively learned 32-d tone embedding}{subsection.C.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Training data.}{23}{section*.20}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Feature input.}{23}{section*.21}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Architecture.}{23}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Existence-rule vs argmax-equality trade-off.}{24}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Speaker-personalized cache failure}{24}{subsection.6.1}\protected@file@percent }
+\newlabel{sec:lim:speaker}{{6.1}{24}{Speaker-personalized cache failure}{subsection.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Coarse-to-fine MT failure}{24}{subsection.6.2}\protected@file@percent }
+\newlabel{sec:lim:c2f}{{6.2}{24}{Coarse-to-fine MT failure}{subsection.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Initial 32-d global-MFCC fingerprint failure}{24}{subsection.6.3}\protected@file@percent }
+\newlabel{sec:lim:globalmfcc}{{6.3}{24}{Initial 32-d global-MFCC fingerprint failure}{subsection.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Weighted-concat and PCA-whitened fingerprint variants}{24}{subsection.6.4}\protected@file@percent }
+\newlabel{sec:lim:weighted}{{6.4}{24}{Weighted-concat and PCA-whitened fingerprint variants}{subsection.6.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Six negative results documented to ground each architectural decision. Four are abandoned alternatives; one (\S  \ref {sec:lim:earlyexit}) is a measured behaviour we initially mis-read as a positive speedup before discovering it was repetition-loop suppression; one (\S  \ref {sec:lim:t2collide}) was a diacritic-stripping collision failure mode that we have since resolved with the two-stream AND-gated T2 design (\S  \ref {sec:method:textcache}, \S  \ref {sec:exp:t2v2}).}}{25}{table.6}\protected@file@percent }
+\newlabel{tab:negatives}{{6}{25}{Six negative results documented to ground each architectural decision. Four are abandoned alternatives; one (\S \ref {sec:lim:earlyexit}) is a measured behaviour we initially mis-read as a positive speedup before discovering it was repetition-loop suppression; one (\S \ref {sec:lim:t2collide}) was a diacritic-stripping collision failure mode that we have since resolved with the two-stream AND-gated T2 design (\S \ref {sec:method:textcache}, \S \ref {sec:exp:t2v2})}{table.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}T2 hashed-$n$-gram residual collision rate (was: diacritic-stripped failure mode)}{25}{subsection.6.5}\protected@file@percent }
+\newlabel{sec:lim:t2collide}{{6.5}{25}{T2 hashed-$n$-gram residual collision rate (was: diacritic-stripped failure mode)}{subsection.6.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Tone-conditioned ASR early-exit illusion}{26}{subsection.6.6}\protected@file@percent }
+\newlabel{sec:lim:earlyexit}{{6.6}{26}{Tone-conditioned ASR early-exit illusion}{subsection.6.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{26}{section.7}\protected@file@percent }
+\newlabel{sec:conclusion}{{7}{26}{Conclusion}{section.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Fingerprint-component ablation on VIVOS (50 intra-phrase + 50 inter-phrase pairs). Higher gap is better.}}{27}{table.7}\protected@file@percent }
+\newlabel{tab:fp_ablation}{{7}{27}{Fingerprint-component ablation on VIVOS (50 intra-phrase + 50 inter-phrase pairs). Higher gap is better}{table.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Pipeline and cache architecture diagram}{27}{appendix.A}\protected@file@percent }
+\newlabel{app:pipeline}{{A}{27}{Pipeline and cache architecture diagram}{appendix.A}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Fingerprint component pseudocode}{27}{appendix.B}\protected@file@percent }
+\newlabel{app:pseudocode}{{B}{27}{Fingerprint component pseudocode}{appendix.B}{}}
+\@writefile{toc}{\contentsline {paragraph}{F0 autocorrelation core.}{27}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Tone-bin soft-assignment.}{27}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Numerical constants (reference implementation).}{27}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C}Learned tone-stream embedding}{27}{appendix.C}\protected@file@percent }
+\newlabel{app:learnedtone}{{C}{27}{Learned tone-stream embedding}{appendix.C}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Stage 2 (deployed): contrastively learned 32-d tone embedding}{27}{subsection.C.1}\protected@file@percent }
+\newlabel{app:learnedtone:stage2}{{C.1}{27}{Stage 2 (deployed): contrastively learned 32-d tone embedding}{subsection.C.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Training data.}{27}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Feature input.}{27}{section*.22}\protected@file@percent }
 \citation{delafuente2024tone}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Learned $32$-d tone embedding vs.\ heuristic 6-d histogram on the $120$-clip Vietnamese minimal-pair corpus under two-stream existence-rule voting with $\tau _B = 0.93$. Correct-miss is out of $100$ tonal-variant probes against $20$ cached \emph  {ngang} entries; self-recall is over all $120$ clips. Higher correct-miss is more protective.}}{24}{table.7}\protected@file@percent }
-\newlabel{tab:learned_tone_stream}{{7}{24}{Learned $32$-d tone embedding vs.\ heuristic 6-d histogram on the $120$-clip Vietnamese minimal-pair corpus under two-stream existence-rule voting with $\tau _B = 0.93$. Correct-miss is out of $100$ tonal-variant probes against $20$ cached \emph {ngang} entries; self-recall is over all $120$ clips. Higher correct-miss is more protective}{table.7}{}}
-\@writefile{toc}{\contentsline {paragraph}{Footprint.}{24}{section*.23}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Minimal-pair evaluation.}{24}{section*.24}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}Stage 1 (historical): 6-way learned softmax classifier}{24}{subsection.C.2}\protected@file@percent }
-\newlabel{app:learnedtone:stage1}{{C.2}{24}{Stage 1 (historical): 6-way learned softmax classifier}{subsection.C.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{Training data.}{24}{section*.25}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Architecture.}{24}{section*.26}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Learned vs.\ heuristic tone-bin histograms on the synthesized $180$-clip Vietnamese minimal-pair pool. Protect-score is inter-syllable minus intra-tone cosine (higher is more protective). Footprint is on-disk size of the classifier weights (heuristic baseline is a literal lookup of $\approx 0.5$~KB).}}{24}{table.8}\protected@file@percent }
-\newlabel{tab:learned_tone}{{8}{24}{Learned vs.\ heuristic tone-bin histograms on the synthesized $180$-clip Vietnamese minimal-pair pool. Protect-score is inter-syllable minus intra-tone cosine (higher is more protective). Footprint is on-disk size of the classifier weights (heuristic baseline is a literal lookup of $\approx 0.5$~KB)}{table.8}{}}
-\@writefile{toc}{\contentsline {paragraph}{Held-out tone classification.}{24}{section*.27}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Minimal-pair protection.}{24}{section*.28}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Latency vs.\ utterance length (Q7 companion figure).}{24}{section*.29}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces End-to-end latency vs.\ source utterance duration on five VIVOS clips (CPU INT8). Cache-hit p50 grows linearly with source duration at $13.2$~ms/s ($R^{2}=0.79$); p95 grows at $31.6$~ms/s. Cache-miss totals are dominated by stage-level variance and show no clear duration trend at $n=5$. Annotations: cache-hit values in ms, cache-miss values in seconds. \texttt  {Results/latency\_vs\_length.json}.}}{25}{figure.9}\protected@file@percent }
-\newlabel{fig:latency_vs_length}{{9}{25}{End-to-end latency vs.\ source utterance duration on five VIVOS clips (CPU INT8). Cache-hit p50 grows linearly with source duration at $13.2$~ms/s ($R^{2}=0.79$); p95 grows at $31.6$~ms/s. Cache-miss totals are dominated by stage-level variance and show no clear duration trend at $n=5$. Annotations: cache-hit values in ms, cache-miss values in seconds. \texttt {Results/latency\_vs\_length.json}}{figure.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Learned $32$-d tone embedding vs.\ heuristic 6-d histogram on the $120$-clip Vietnamese minimal-pair corpus under two-stream existence-rule voting with $\tau _B = 0.93$. Correct-miss is out of $100$ tonal-variant probes against $20$ cached \emph  {ngang} entries; self-recall is over all $120$ clips. Higher correct-miss is more protective.}}{28}{table.8}\protected@file@percent }
+\newlabel{tab:learned_tone_stream}{{8}{28}{Learned $32$-d tone embedding vs.\ heuristic 6-d histogram on the $120$-clip Vietnamese minimal-pair corpus under two-stream existence-rule voting with $\tau _B = 0.93$. Correct-miss is out of $100$ tonal-variant probes against $20$ cached \emph {ngang} entries; self-recall is over all $120$ clips. Higher correct-miss is more protective}{table.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Architecture.}{28}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Footprint.}{28}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Minimal-pair evaluation.}{28}{section*.25}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Learned vs.\ heuristic tone-bin histograms on the synthesized $180$-clip Vietnamese minimal-pair pool. Protect-score is inter-syllable minus intra-tone cosine (higher is more protective). Footprint is on-disk size of the classifier weights (heuristic baseline is a literal lookup of $\approx 0.5$~KB).}}{28}{table.9}\protected@file@percent }
+\newlabel{tab:learned_tone}{{9}{28}{Learned vs.\ heuristic tone-bin histograms on the synthesized $180$-clip Vietnamese minimal-pair pool. Protect-score is inter-syllable minus intra-tone cosine (higher is more protective). Footprint is on-disk size of the classifier weights (heuristic baseline is a literal lookup of $\approx 0.5$~KB)}{table.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}Stage 1 (historical): 6-way learned softmax classifier}{28}{subsection.C.2}\protected@file@percent }
+\newlabel{app:learnedtone:stage1}{{C.2}{28}{Stage 1 (historical): 6-way learned softmax classifier}{subsection.C.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Training data.}{28}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Architecture.}{28}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Held-out tone classification.}{28}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Minimal-pair protection.}{28}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Latency vs.\ utterance length (Q7 companion figure).}{28}{section*.30}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces End-to-end latency vs.\ source utterance duration on five VIVOS clips (CPU INT8). Cache-hit p50 grows linearly with source duration at $13.2$~ms/s ($R^{2}=0.79$); p95 grows at $31.6$~ms/s. Cache-miss totals are dominated by stage-level variance and show no clear duration trend at $n=5$. Annotations: cache-hit values in ms, cache-miss values in seconds. \texttt  {Results/latency\_vs\_length.json}.}}{30}{figure.12}\protected@file@percent }
+\newlabel{fig:latency_vs_length}{{12}{30}{End-to-end latency vs.\ source utterance duration on five VIVOS clips (CPU INT8). Cache-hit p50 grows linearly with source duration at $13.2$~ms/s ($R^{2}=0.79$); p95 grows at $31.6$~ms/s. Cache-miss totals are dominated by stage-level variance and show no clear duration trend at $n=5$. Annotations: cache-hit values in ms, cache-miss values in seconds. \texttt {Results/latency\_vs\_length.json}}{figure.12}{}}
 \citation{boytsov2013nmslib}
 \citation{malkov2018hnsw}
 \citation{sakoe1978dtw}
 \citation{sakoe1978dtw}
 \citation{malkov2018hnsw}
 \citation{boytsov2013nmslib}
-\@writefile{toc}{\contentsline {section}{\numberline {D}Auxiliary baselines: DTW and HNSW}{26}{appendix.D}\protected@file@percent }
-\newlabel{app:auxiliary}{{D}{26}{Auxiliary baselines: DTW and HNSW}{appendix.D}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {D.1}Dynamic time warping (DTW) over MFCC}{26}{subsection.D.1}\protected@file@percent }
-\newlabel{app:aux:dtw}{{D.1}{26}{Dynamic time warping (DTW) over MFCC}{subsection.D.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Setup.}{26}{section*.30}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Results.}{26}{section*.31}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Discussion.}{26}{section*.32}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {D.2}HNSW approximate nearest-neighbor indexing}{26}{subsection.D.2}\protected@file@percent }
-\newlabel{app:aux:hnsw}{{D.2}{26}{HNSW approximate nearest-neighbor indexing}{subsection.D.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{Setup.}{26}{section*.33}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Auxiliary baselines and the two-stream voting cache on the shared eval pools. DTW is the classical phrase-retrieval baseline of \citet  {sakoe1978dtw}; the two single-vector and two-stream rows are reproduced from \S  \ref {sec:exp:pr} and \S  \ref {sec:exp:twostream}. The minimal-pair column is correct-miss rate on $25$ tonal-variant probes against $5$ cached \emph  {ngang}-tone entries; higher is better (the cache refuses to translate the wrong tone). The VIVOS column is best-$F_1$ on $200/200$ same-text-different-speaker/different-text pairs.}}{26}{table.9}\protected@file@percent }
-\newlabel{tab:auxbaselines}{{9}{26}{Auxiliary baselines and the two-stream voting cache on the shared eval pools. DTW is the classical phrase-retrieval baseline of \citet {sakoe1978dtw}; the two single-vector and two-stream rows are reproduced from \S \ref {sec:exp:pr} and \S \ref {sec:exp:twostream}. The minimal-pair column is correct-miss rate on $25$ tonal-variant probes against $5$ cached \emph {ngang}-tone entries; higher is better (the cache refuses to translate the wrong tone). The VIVOS column is best-$F_1$ on $200/200$ same-text-different-speaker/different-text pairs}{table.9}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces HNSW vs.\ exact linear-scan on the $272$-d tonal-perceptual fingerprint as a function of cache size $N$, on $200$ VIVOS-test query fingerprints after $5$ warm-up queries. Recall@1 is against the exact linear-scan top-1 over L2-normed cosine similarity. Index footprint includes stored vectors. NMSLIB-HNSW with $M=16$, $\mathrm  {efConstruction}=200$, $\mathrm  {efSearch}=64$.}}{26}{table.10}\protected@file@percent }
-\newlabel{tab:hnsw_scaling}{{10}{26}{HNSW vs.\ exact linear-scan on the $272$-d tonal-perceptual fingerprint as a function of cache size $N$, on $200$ VIVOS-test query fingerprints after $5$ warm-up queries. Recall@1 is against the exact linear-scan top-1 over L2-normed cosine similarity. Index footprint includes stored vectors. NMSLIB-HNSW with $M=16$, $\mathrm {efConstruction}=200$, $\mathrm {efSearch}=64$}{table.10}{}}
-\@writefile{toc}{\contentsline {paragraph}{Results.}{26}{section*.34}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Discussion.}{26}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {D}Auxiliary baselines: DTW and HNSW}{31}{appendix.D}\protected@file@percent }
+\newlabel{app:auxiliary}{{D}{31}{Auxiliary baselines: DTW and HNSW}{appendix.D}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.1}Dynamic time warping (DTW) over MFCC}{31}{subsection.D.1}\protected@file@percent }
+\newlabel{app:aux:dtw}{{D.1}{31}{Dynamic time warping (DTW) over MFCC}{subsection.D.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Setup.}{31}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Results.}{31}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Discussion.}{31}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.2}HNSW approximate nearest-neighbor indexing}{31}{subsection.D.2}\protected@file@percent }
+\newlabel{app:aux:hnsw}{{D.2}{31}{HNSW approximate nearest-neighbor indexing}{subsection.D.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Setup.}{31}{section*.34}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Auxiliary baselines and the two-stream voting cache on the shared eval pools. DTW is the classical phrase-retrieval baseline of \citet  {sakoe1978dtw}; the two single-vector and two-stream rows are reproduced from \S  \ref {sec:exp:pr} and \S  \ref {sec:exp:twostream}. The minimal-pair column is correct-miss rate on $25$ tonal-variant probes against $5$ cached \emph  {ngang}-tone entries; higher is better (the cache refuses to translate the wrong tone). The VIVOS column is best-$F_1$ on $200/200$ same-text-different-speaker/different-text pairs.}}{31}{table.10}\protected@file@percent }
+\newlabel{tab:auxbaselines}{{10}{31}{Auxiliary baselines and the two-stream voting cache on the shared eval pools. DTW is the classical phrase-retrieval baseline of \citet {sakoe1978dtw}; the two single-vector and two-stream rows are reproduced from \S \ref {sec:exp:pr} and \S \ref {sec:exp:twostream}. The minimal-pair column is correct-miss rate on $25$ tonal-variant probes against $5$ cached \emph {ngang}-tone entries; higher is better (the cache refuses to translate the wrong tone). The VIVOS column is best-$F_1$ on $200/200$ same-text-different-speaker/different-text pairs}{table.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces HNSW vs.\ exact linear-scan on the $272$-d tonal-perceptual fingerprint as a function of cache size $N$, on $200$ VIVOS-test query fingerprints after $5$ warm-up queries. Recall@1 is against the exact linear-scan top-1 over L2-normed cosine similarity. Index footprint includes stored vectors. NMSLIB-HNSW with $M=16$, $\mathrm  {efConstruction}=200$, $\mathrm  {efSearch}=64$.}}{31}{table.11}\protected@file@percent }
+\newlabel{tab:hnsw_scaling}{{11}{31}{HNSW vs.\ exact linear-scan on the $272$-d tonal-perceptual fingerprint as a function of cache size $N$, on $200$ VIVOS-test query fingerprints after $5$ warm-up queries. Recall@1 is against the exact linear-scan top-1 over L2-normed cosine similarity. Index footprint includes stored vectors. NMSLIB-HNSW with $M=16$, $\mathrm {efConstruction}=200$, $\mathrm {efSearch}=64$}{table.11}{}}
+\@writefile{toc}{\contentsline {paragraph}{Results.}{31}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Discussion.}{31}{section*.36}\protected@file@percent }
 \citation{le2024phowhisper}
 \citation{delafuente2024tone}
 \bibstyle{cas-model2-names}
@@ -263,17 +280,17 @@
 \bibcite{le2024phowhisper}{{9}{2024}{{Le et~al.}}{{Le, Nguyen and Nguyen}}}
 \bibcite{taq2025}{{10}{2025}{{LeVi et~al.}}{{LeVi, Lapid, Himelstein, Baskin, Shwartz~Ziv and Mendelson}}}
 \bibcite{lin2024awq}{{11}{2024}{{Lin et~al.}}{{Lin, Tang, Tang, Yang, Chen, Wang, Xiao, Dang, Gan and Han}}}
-\@writefile{toc}{\contentsline {section}{\numberline {E}PhoWhisper tone-layer probe}{27}{appendix.E}\protected@file@percent }
-\newlabel{app:phowhisper_probe}{{E}{27}{PhoWhisper tone-layer probe}{appendix.E}{}}
-\@writefile{toc}{\contentsline {paragraph}{Method.}{27}{section*.36}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Result.}{27}{section*.37}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Discussion.}{27}{section*.38}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces PhoWhisper-small per-layer tone classification accuracy (n=72 test clips, random baseline $16.67\%$).}}{27}{table.11}\protected@file@percent }
-\newlabel{tab:phowhisper_layers}{{11}{27}{PhoWhisper-small per-layer tone classification accuracy (n=72 test clips, random baseline $16.67\%$)}{table.11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {F}Industrial phrase corpus}{27}{appendix.F}\protected@file@percent }
-\newlabel{app:phrases}{{F}{27}{Industrial phrase corpus}{appendix.F}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {G}Reproducibility checklist}{27}{appendix.G}\protected@file@percent }
-\newlabel{app:repro}{{G}{27}{Reproducibility checklist}{appendix.G}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {E}PhoWhisper tone-layer probe}{32}{appendix.E}\protected@file@percent }
+\newlabel{app:phowhisper_probe}{{E}{32}{PhoWhisper tone-layer probe}{appendix.E}{}}
+\@writefile{toc}{\contentsline {paragraph}{Method.}{32}{section*.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Result.}{32}{section*.38}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Discussion.}{32}{section*.39}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces PhoWhisper-small per-layer tone classification accuracy (n=72 test clips, random baseline $16.67\%$).}}{32}{table.12}\protected@file@percent }
+\newlabel{tab:phowhisper_layers}{{12}{32}{PhoWhisper-small per-layer tone classification accuracy (n=72 test clips, random baseline $16.67\%$)}{table.12}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {F}Industrial phrase corpus}{32}{appendix.F}\protected@file@percent }
+\newlabel{app:phrases}{{F}{32}{Industrial phrase corpus}{appendix.F}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {G}Reproducibility checklist}{32}{appendix.G}\protected@file@percent }
+\newlabel{app:repro}{{G}{32}{Reproducibility checklist}{appendix.G}{}}
 \bibcite{seallms_audio2025}{{12}{2025}{{Liu et~al.}}{{Liu, Aljunied, Chen, Chan, Xu, Rong and Zhang}}}
 \bibcite{kvcache2024}{{13}{2024}{{Liu et~al.}}{{Liu, Yuan, Jin, Zhong, Xu, Braverman, Chen and Hu}}}
 \bibcite{luong2016vivos}{{14}{2016}{{Luong and Vu}}{{}}}
@@ -292,5 +309,5 @@
 \bibcite{xiao2023smoothquant}{{27}{2023}{{Xiao et~al.}}{{Xiao, Lin, Seznec, Wu, Demouth and Han}}}
 \bibcite{xu2025mixedprecision}{{28}{2025}{{Xu et~al.}}{{Xu, Li, Jin, Wang, Chen, Li, Geng, Hu, Deng and Liu}}}
 \bibcite{vietasr2025}{{29}{2025}{{Zhuo et~al.}}{{Zhuo, Yang, Shao, Xu, Yu, Yu and Chen}}}
-\csxdef{lastpage}{28}
-\gdef \@abspage@last{29}
+\csxdef{lastpage}{33}
+\gdef \@abspage@last{34}
