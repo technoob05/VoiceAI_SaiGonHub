@@ -160,10 +160,10 @@ Table~\ref{tab:positioning} positions the present work against the closest publi
 
 \begin{table}[cols=4,pos=t]
 \caption{Positioning of the present contribution against the closest prior systems. $\checkmark$ = explicit, $\times$ = no, \emph{impl.} = implicit. ``---'' = no headline number stated by the cited paper.}\label{tab:positioning}
-\scriptsize
+\footnotesize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular*}{\tblwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{1.5cm} c c >{\raggedright\arraybackslash}p{4.0cm}@{}}
+\begin{tabular*}{\tblwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{2.3cm} c c >{\raggedright\arraybackslash}p{3.1cm}@{}}
 \toprule
 System & \makecell{Vi} & \makecell{Tone} & Reported headline \\
 \midrule
@@ -375,22 +375,22 @@ This rule survives tonal-minimal-pair stress where naive single-vector designs f
   \centering
   \begin{tikzpicture}[
     font=\small,
-    node distance=8mm and 14mm,
-    stream/.style={draw, rounded corners=2pt, minimum height=14mm, minimum width=42mm, align=center, font=\small},
-    thresh/.style={draw, rounded corners=2pt, minimum height=8mm, minimum width=14mm, align=center, font=\small},
-    qbox/.style={draw, rounded corners=2pt, minimum height=10mm, minimum width=24mm, align=center, font=\small, fill=gray!12},
-    gate/.style={draw, rounded corners=2pt, minimum height=10mm, minimum width=14mm, align=center, font=\bfseries, fill=red!15, draw=red!60!black},
-    hitb/.style={draw, rounded corners=2pt, minimum height=10mm, minimum width=14mm, align=center, font=\bfseries, fill=green!18, draw=green!55!black},
+    node distance=6mm and 10mm,
+    stream/.style={draw, rounded corners=2pt, minimum height=12mm, minimum width=34mm, align=center, font=\small},
+    thresh/.style={draw, rounded corners=2pt, minimum height=8mm, minimum width=12mm, align=center, font=\small},
+    qbox/.style={draw, rounded corners=2pt, minimum height=10mm, minimum width=20mm, align=center, font=\small, fill=gray!12},
+    gate/.style={draw, rounded corners=2pt, minimum height=10mm, minimum width=12mm, align=center, font=\bfseries, fill=red!15, draw=red!60!black},
+    hitb/.style={draw, rounded corners=2pt, minimum height=10mm, minimum width=12mm, align=center, font=\bfseries, fill=green!18, draw=green!55!black},
     flow/.style={-{Latex[length=2.2mm]}, semithick},
   ]
     % Query node on left
     \node[qbox] (q) {Query audio\\$q$};
 
     % Stream A (top)
-    \node[stream, fill=yellow!15, draw=yellow!55!black, above right=4mm and 14mm of q]
+    \node[stream, fill=yellow!15, draw=yellow!55!black, above right=3mm and 10mm of q]
       (sa) {Stream A (tone)\\$f_A\!\in\!\mathbb{R}^{6}$};
     % Stream B (bottom)
-    \node[stream, fill=teal!12, draw=teal!55!black, below right=4mm and 14mm of q]
+    \node[stream, fill=teal!12, draw=teal!55!black, below right=3mm and 10mm of q]
       (sb) {Stream B (segmental)\\$f_B\!\in\!\mathbb{R}^{260}$};
 
     % Thresholds
@@ -398,7 +398,7 @@ This rule survives tonal-minimal-pair stress where naive single-vector designs f
     \node[thresh, fill=teal!8, draw=teal!55!black, right=of sb] (tb) {$\tau_B\!=\!0.93$};
 
     % AND gate vertically centered between the two threshold boxes
-    \node[gate, right=14mm of q, anchor=west] at ($(ta)!0.5!(tb) + (24mm,0)$) (and) {AND};
+    \node[gate] at ($(ta)!0.5!(tb) + (18mm,0)$) (and) {AND};
     \node[hitb, right=of and] (hit) {HIT};
 
     % Arrows
