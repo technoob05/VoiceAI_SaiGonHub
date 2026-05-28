@@ -13,45 +13,45 @@ Warning--empty pages in lin2024awq
 Warning--empty pages in thiemann2013demand
 Warning--empty pages in xiao2023smoothquant
 Warning--empty pages in xu2025mixedprecision
-You've used 26 entries,
+You've used 29 entries,
             2990 wiz_defined-function locations,
-            916 strings with 13903 characters,
-and the built_in function-call counts, 20313 in all, are:
-= -- 1559
-> -- 1060
-< -- 14
-+ -- 420
-- -- 378
-* -- 2398
-:= -- 2981
-add.period$ -- 82
-call.type$ -- 26
-change.case$ -- 267
-chr.to.int$ -- 26
-cite$ -- 33
-duplicate$ -- 1446
-empty$ -- 1245
-format.name$ -- 452
-if$ -- 3760
+            937 strings with 14681 characters,
+and the built_in function-call counts, 22154 in all, are:
+= -- 1715
+> -- 1114
+< -- 17
++ -- 441
+- -- 396
+* -- 2598
+:= -- 3241
+add.period$ -- 94
+call.type$ -- 29
+change.case$ -- 290
+chr.to.int$ -- 29
+cite$ -- 36
+duplicate$ -- 1590
+empty$ -- 1380
+format.name$ -- 485
+if$ -- 4103
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 290
-newline$ -- 149
-num.names$ -- 104
-pop$ -- 486
+missing$ -- 316
+newline$ -- 167
+num.names$ -- 116
+pop$ -- 531
 preamble$ -- 1
-purify$ -- 228
+purify$ -- 246
 quote$ -- 0
-skip$ -- 483
+skip$ -- 523
 stack$ -- 0
-substring$ -- 529
-swap$ -- 1128
+substring$ -- 610
+swap$ -- 1230
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 234
+type$ -- 261
 warning$ -- 7
-while$ -- 98
+while$ -- 111
 width$ -- 0
-write$ -- 421
+write$ -- 469
 (There were 7 warnings)

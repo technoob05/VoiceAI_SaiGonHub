@@ -1,4 +1,4 @@
-\begin{thebibliography}{26}
+\begin{thebibliography}{29}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -21,6 +21,15 @@
   \bibinfo{booktitle}{Proc.\ International Society for Music Information
   Retrieval Conference (ISMIR)}, pp. \bibinfo{pages}{591--596}.
 \newblock \URLprefix \url{http://millionsongdataset.com/}.
+%Type = Misc
+\bibitem[{Boytsov and Naidan(2013)}]{boytsov2013nmslib}
+\bibinfo{author}{Boytsov, L.}, \bibinfo{author}{Naidan, B.},
+  \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{{NMSLIB}: a similarity search library and a toolkit
+  for evaluation of {k-NN} methods for generic spaces}.
+\newblock \bibinfo{howpublished}{\url{https://github.com/nmslib/nmslib}}.
+\newblock \bibinfo{note}{Software library; HNSW implementation used in
+  Appendix~\ref{app:auxiliary}}.
 %Type = Inproceedings
 \bibitem[{Conneau et~al.(2022)Conneau, Ma, Khanuja, Zhang, Axelrod, Dalmia,
   Riesa, Rivera and Bapna}]{conneau2022fleurs}
@@ -159,6 +168,16 @@
 \newblock \URLprefix \url{https://aclanthology.org/W16-5207/}.
   \bibinfo{note}{vIVOS corpus reference}.
 %Type = Article
+\bibitem[{Malkov and Yashunin(2020)}]{malkov2018hnsw}
+\bibinfo{author}{Malkov, Y.A.}, \bibinfo{author}{Yashunin, D.A.},
+  \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Efficient and robust approximate nearest neighbor
+  search using hierarchical navigable small world graphs}.
+\newblock \bibinfo{journal}{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence} \bibinfo{volume}{42}, \bibinfo{pages}{824--836}.
+\newblock \DOIprefix\doi{10.1109/TPAMI.2018.2889473}. \bibinfo{note}{originally
+  arXiv:1603.09320 (2016/2018)}.
+%Type = Article
 \bibitem[{{NLLB Team} et~al.(2022){NLLB Team}, Costa-juss\`a et~al.}]{nllb2022}
 \bibinfo{author}{{NLLB Team}}, \bibinfo{author}{Costa-juss\`a, M.R.}, et~al.,
   \bibinfo{year}{2022}.
@@ -196,6 +215,14 @@
   \href{http://arxiv.org/abs/2305.13516}{\tt arXiv:2305.13516}.
   \bibinfo{note}{{MMS}; multilingual TTS used for Vietnamese minimal-pair
   synthesis}.
+%Type = Article
+\bibitem[{Sakoe and Chiba(1978)}]{sakoe1978dtw}
+\bibinfo{author}{Sakoe, H.}, \bibinfo{author}{Chiba, S.}, \bibinfo{year}{1978}.
+\newblock \bibinfo{title}{Dynamic programming algorithm optimization for spoken
+  word recognition}.
+\newblock \bibinfo{journal}{IEEE Transactions on Acoustics, Speech, and Signal
+  Processing} \bibinfo{volume}{26}, \bibinfo{pages}{43--49}.
+\newblock \DOIprefix\doi{10.1109/TASSP.1978.1163055}.
 %Type = Article
 \bibitem[{{Seamless Communication} et~al.(2023){Seamless Communication},
   Barrault et~al.}]{seamlessm4t2023}
