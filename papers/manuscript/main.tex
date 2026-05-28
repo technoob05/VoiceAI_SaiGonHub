@@ -497,10 +497,16 @@ Total & 28{,}432 [24{,}753--32{,}160] & 12{,}653 [10{,}474--15{,}189] & 2.25 [1.
 \end{tabular*}
 \end{table*}
 
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{../figures/fig5_noise_robustness.png}
+  \includegraphics[width=0.95\linewidth]{../figures/fig5_noise_robustness.png}
   \caption{Cooperation between the spectral-subtraction filter and the cache. At SNR $\leq 10$~dB the filter raises mean cosine similarity by $+0.248$ to $+0.712$ ($p<0.001$), lifting cache hit rate at $\tau=0.95$ from $0/10$ to $5/10$ at $10$~dB and from $3/10$ to $9/10$ at $15$~dB.}\label{fig:noise_robustness}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\linewidth]{../figures/fig7_worker_scale.png}
+  \caption{Fleet-scale Poisson+Zipf simulator. Mean latency reduction vs.\ cascade-only baseline at $N\in\{10,50,200\}$ workers stays in the $78$--$94\%$ band. T1 (per-worker) saturates earliest; load progressively shifts to the shared T2 cache, producing graceful degradation rather than catastrophic miss collapse.}\label{fig:worker_scale}
 \end{figure}
 
 \subsection{Cache precision-recall calibration}\label{sec:exp:pr}
@@ -521,12 +527,6 @@ We claimed the tone histogram is Vietnamese-specific. Does it transfer? And, sep
 \paragraph{Fleet-scale Poisson+Zipf simulator.} We project deployment behaviour by simulating $10$, $50$, and $200$ workers over $8$-hour shifts, with utterance arrivals modelled as Poisson processes at $\lambda = 2$ per minute and phrase identity drawn from a Zipf-$1$ distribution over a $50$-phrase canonical vocabulary (Figure~\ref{fig:worker_scale}). Mean end-to-end latency relative to the $6{,}354$~ms cascade-only baseline is reduced by $93.9\%$ at $10$ workers, $83.7\%$ at $50$ workers, and $78.4\%$ at $200$ workers ($p_{50} \approx 25.5$~ms on cache hits across all scales). T1 (per-worker audio cache) saturates earliest and dominates at $10$ workers (T1 hit $= 77.6\%$, T2 hit $= 21.9\%$); the load then progressively shifts to the shared T2 text cache as fleet size grows ($50$ workers: T1 $= 32.4\%$, T2 $= 67.5\%$; $200$ workers: T1 $= 9.7\%$, T2 $= 90.3\%$). Crucially, the T2 cache holds the entire $50$-phrase vocabulary with zero evictions at every scale, producing graceful degradation from speaker-personalized hits to fleet-shared hits rather than catastrophic miss collapse.
 
 \noindent\textit{Takeaway.} Tone-histogram language transfer is not free, but speaker-to-fleet load redistribution \emph{is}. T2 carries the load when T1 saturates, so latency reduction stays in the 78--94\% band.
-
-\begin{figure}[!t]
-  \centering
-  \includegraphics[width=\linewidth]{../figures/fig7_worker_scale.png}
-  \caption{Fleet-scale Poisson+Zipf simulator. Mean latency reduction vs.\ cascade-only baseline at $N\in\{10,50,200\}$ workers stays in the $78$--$94\%$ band. T1 (per-worker) saturates earliest; load progressively shifts to the shared T2 cache, producing graceful degradation rather than catastrophic miss collapse.}\label{fig:worker_scale}
-\end{figure}
 
 \subsection{Domain LM rerank}\label{sec:exp:lmrerank}
 \textbf{Headline.} A $3$-gram Vietnamese LM cuts ASR WER by \textbf{$-14.43$~pp absolute} (beam-top-1 $67.66\%$ $\rightarrow$ rescored $53.23\%$) at mixing weight $\alpha=0.30$.
