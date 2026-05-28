@@ -1,0 +1,224 @@
+{
+  "seed": 42,
+  "n_pairs": 30,
+  "source": "data/adversarial_minimal_pairs_vi.json (author-curated)",
+  "tts_model": "facebook/mms-tts-vie",
+  "tts_sr": 16000,
+  "operating_points": [
+    {
+      "name": "deployment_default",
+      "tau_A": 0.85,
+      "tau_B": 0.93
+    },
+    {
+      "name": "auto_calibrated",
+      "tau_A": 0.7,
+      "tau_B": 0.92
+    }
+  ],
+  "results": {
+    "deployment_default": {
+      "tau_A": 0.85,
+      "tau_B": 0.93,
+      "n_pairs": 30,
+      "false_hits": 14,
+      "false_hit_rate": 0.4667
+    },
+    "auto_calibrated": {
+      "tau_A": 0.7,
+      "tau_B": 0.92,
+      "n_pairs": 30,
+      "false_hits": 24,
+      "false_hit_rate": 0.8
+    }
+  },
+  "per_pair_default": [
+    {
+      "idx": 0,
+      "tone_cos": 0.8006,
+      "segment_cos": 0.9653,
+      "false_hit": false
+    },
+    {
+      "idx": 1,
+      "tone_cos": 0.5222,
+      "segment_cos": 0.9607,
+      "false_hit": false
+    },
+    {
+      "idx": 2,
+      "tone_cos": 0.8367,
+      "segment_cos": 0.937,
+      "false_hit": false
+    },
+    {
+      "idx": 3,
+      "tone_cos": 0.5883,
+      "segment_cos": 0.9742,
+      "false_hit": false
+    },
+    {
+      "idx": 4,
+      "tone_cos": 1.0,
+      "segment_cos": 0.9666,
+      "false_hit": true
+    },
+    {
+      "idx": 5,
+      "tone_cos": 0.9204,
+      "segment_cos": 0.9608,
+      "false_hit": true
+    },
+    {
+      "idx": 6,
+      "tone_cos": 0.8944,
+      "segment_cos": 0.9553,
+      "false_hit": true
+    },
+    {
+      "idx": 7,
+      "tone_cos": 0.5963,
+      "segment_cos": 0.8686,
+      "false_hit": false
+    },
+    {
+      "idx": 8,
+      "tone_cos": 0.4558,
+      "segment_cos": 0.9571,
+      "false_hit": false
+    },
+    {
+      "idx": 9,
+      "tone_cos": 0.8333,
+      "segment_cos": 0.9947,
+      "false_hit": false
+    },
+    {
+      "idx": 10,
+      "tone_cos": 0.887,
+      "segment_cos": 0.978,
+      "false_hit": true
+    },
+    {
+      "idx": 11,
+      "tone_cos": 0.7454,
+      "segment_cos": 0.9292,
+      "false_hit": false
+    },
+    {
+      "idx": 12,
+      "tone_cos": 0.8944,
+      "segment_cos": 0.985,
+      "false_hit": true
+    },
+    {
+      "idx": 13,
+      "tone_cos": 0.9623,
+      "segment_cos": 0.9738,
+      "false_hit": true
+    },
+    {
+      "idx": 14,
+      "tone_cos": 0.8944,
+      "segment_cos": 0.9489,
+      "false_hit": true
+    },
+    {
+      "idx": 15,
+      "tone_cos": 1.0,
+      "segment_cos": 0.995,
+      "false_hit": true
+    },
+    {
+      "idx": 16,
+      "tone_cos": 0.75,
+      "segment_cos": 0.9743,
+      "false_hit": false
+    },
+    {
+      "idx": 17,
+      "tone_cos": 0.8981,
+      "segment_cos": 0.9693,
+      "false_hit": true
+    },
+    {
+      "idx": 18,
+      "tone_cos": 0.7071,
+      "segment_cos": 0.9881,
+      "false_hit": false
+    },
+    {
+      "idx": 19,
+      "tone_cos": 0.866,
+      "segment_cos": 0.986,
+      "false_hit": true
+    },
+    {
+      "idx": 20,
+      "tone_cos": 0.9382,
+      "segment_cos": 0.9859,
+      "false_hit": true
+    },
+    {
+      "idx": 21,
+      "tone_cos": 0.7035,
+      "segment_cos": 0.9793,
+      "false_hit": false
+    },
+    {
+      "idx": 22,
+      "tone_cos": 0.7071,
+      "segment_cos": 0.9386,
+      "false_hit": false
+    },
+    {
+      "idx": 23,
+      "tone_cos": 0.7303,
+      "segment_cos": 0.8875,
+      "false_hit": false
+    },
+    {
+      "idx": 24,
+      "tone_cos": 0.7071,
+      "segment_cos": 0.9603,
+      "false_hit": false
+    },
+    {
+      "idx": 25,
+      "tone_cos": 0.8944,
+      "segment_cos": 0.9857,
+      "false_hit": true
+    },
+    {
+      "idx": 26,
+      "tone_cos": 0.1534,
+      "segment_cos": 0.9544,
+      "false_hit": false
+    },
+    {
+      "idx": 27,
+      "tone_cos": 0.9,
+      "segment_cos": 0.9411,
+      "false_hit": true
+    },
+    {
+      "idx": 28,
+      "tone_cos": 1.0,
+      "segment_cos": 1.0,
+      "false_hit": true
+    },
+    {
+      "idx": 29,
+      "tone_cos": 0.7303,
+      "segment_cos": 0.9834,
+      "false_hit": false
+    }
+  ],
+  "comparison_vs_syllable_level": {
+    "syllable_level_30clip_default": 0.28,
+    "sentence_level_adversarial_default": 0.4667,
+    "delta_sentence_minus_syllable": 0.1867,
+    "interpretation": "Positive delta means sentence-level adversarial probes are HARDER for the cache (longer context dilutes the tonal contrast at L2 cosine), confirming the reviewer hypothesis. Negative delta means the adversarial set is easier than expected."
+  },
+  "headline": "At (tau_A=0.85, tau_B=0.93): 14/30 adversarial sentence-level minimal pairs false-hit (46.7%). At auto-calibrated (0.70, 0.92): 24/30 (80.0%). Delta vs syllable-level baseline: +0.1867."
+}
