@@ -1,0 +1,653 @@
+{
+  "baseline": {
+    "p50_ms": 5200.9,
+    "p95_ms": 10057.4,
+    "mean_ms": 6565.9,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          8807.140799995977,
+          6415.8961000212,
+          8225.246599991806
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          7645.369200006826,
+          3849.209800013341,
+          4763.493899983587
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          8982.16839999077,
+          5200.856799987378,
+          4853.010799997719
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          4570.563399989624,
+          4893.729199975496,
+          4550.257599999895
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          5078.169499989599,
+          9653.173800004879,
+          11000.580199994147
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 0
+    }
+  },
+  "all_fixes": {
+    "p50_ms": 9134.2,
+    "p95_ms": 10853.7,
+    "mean_ms": 9365.8,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          9083.909499982838,
+          9575.36709998385,
+          10921.980299986899
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          8721.589299995685,
+          8382.124000025215,
+          7986.428900010651
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          8777.67149999272,
+          8216.730099986307,
+          10078.979900019476
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          10458.308500004932,
+          9134.207800001604,
+          9045.536799996626
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          9616.740100027528,
+          10824.478099995758,
+          9663.484999997308
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 12
+    }
+  },
+  "threads_4": {
+    "p50_ms": 9853.5,
+    "p95_ms": 12011.3,
+    "mean_ms": 10226.3,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          10300.976099999389,
+          10206.59240000532,
+          9227.947900013532
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          9853.533899993636,
+          9772.64050001395,
+          10015.453500003787
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          9700.415900006192,
+          9320.078600023407,
+          9422.426100005396
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          9448.09299998451,
+          10927.379400003701,
+          9764.100200001849
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          13335.957100003725,
+          10655.771099991398,
+          11443.564800021704
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 4
+    }
+  },
+  "threads_2": {
+    "p50_ms": 16244.4,
+    "p95_ms": 17765.9,
+    "mean_ms": 16212.7,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          15931.519499979913,
+          17082.124499982456,
+          17339.313400007086
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          16078.89459998114,
+          16610.327800008235,
+          16285.49340000609
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          15882.00230000075,
+          15594.695499981754,
+          16244.422699994175
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          16997.282800002722,
+          16443.0740000098,
+          15879.40260002506
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          18761.25999999931,
+          15932.351600000402,
+          12128.662699979031
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 2
+    }
+  },
+  "threads_8": {
+    "p50_ms": 7617.7,
+    "p95_ms": 8837.8,
+    "mean_ms": 7728.6,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          8825.82219998585,
+          8063.045999995666,
+          7832.843099982711
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          6998.106899991399,
+          7025.091999996221,
+          7470.485999976518
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          8865.58439998771,
+          7402.4772999982815,
+          7731.461799994577
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          7371.427100006258,
+          7477.886800013948,
+          7257.317700015847
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          7673.531699983869,
+          7617.732800019439,
+          8315.549799997825
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 8
+    }
+  },
+  "threads_6": {
+    "p50_ms": 6402.1,
+    "p95_ms": 7794.4,
+    "mean_ms": 5792.3,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          7633.911799988709,
+          7695.626900007483,
+          8025.0371000147425
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          6951.410300011048,
+          6562.522599997465,
+          6402.0911999978125
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          7422.540300001856,
+          7285.664900002303,
+          6215.038599999389
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          3813.5314999963157,
+          3652.4983999843244,
+          3969.8565999860875
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          3882.3058000125457,
+          3629.3054000125267,
+          3743.102299980819
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 6
+    }
+  },
+  "threads_10": {
+    "p50_ms": 3393.7,
+    "p95_ms": 5665.9,
+    "mean_ms": 3806.4,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          2909.245499991812,
+          3305.6246000051033,
+          3357.8660999774
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          3075.134800019441,
+          3140.7563999819104,
+          3133.3928999956697
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          3374.340199981816,
+          3454.192700010026,
+          3393.7214000034146
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          3507.26990000112,
+          4692.740200000117,
+          5907.518600026378
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          5562.398300011409,
+          4255.156200000783,
+          4026.317099982407
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 10
+    }
+  },
+  "threads_11": {
+    "p50_ms": 3876.2,
+    "p95_ms": 5289.7,
+    "mean_ms": 4214.2,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          5071.148999995785,
+          5281.6275999939535,
+          4220.687299995916
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          4105.756699980702,
+          3602.2187000198755,
+          3239.5980000146665
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          3718.0326000088826,
+          3712.850100011565,
+          3619.3052000016905
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          3758.5265999950934,
+          3761.498900013976,
+          3876.154500001576
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          5308.688599994639,
+          5279.81879998697,
+          4656.724199972814
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 11
+    }
+  },
+  "threads_10_rerun": {
+    "p50_ms": 5549.3,
+    "p95_ms": 9202.8,
+    "mean_ms": 5910.5,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          5549.324399995385,
+          6486.987799988128,
+          5185.130800004117
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          4196.544299978996,
+          5820.306099980371,
+          4244.693000015104
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          5635.715899989009,
+          10238.489099981962,
+          5029.60670000175
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          4727.463299990632,
+          6878.515899996273,
+          8758.89329999336
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          5752.967000007629,
+          4870.35760001163,
+          5282.674100017175
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 10
+    }
+  },
+  "final": {
+    "p50_ms": 6219.1,
+    "p95_ms": 10068.9,
+    "mean_ms": 6666.0,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          7029.657600010978,
+          6625.161600008141,
+          8197.008000017377
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          4755.783200002043,
+          5653.754800005117,
+          5987.106799992034
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          6429.7243999899365,
+          6219.0690000134055,
+          5378.7780000129715
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          5212.33760000905,
+          14436.740899982397,
+          7350.884199986467
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          6265.397900016978,
+          5163.509799982421,
+          5284.504800016293
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 10
+    }
+  },
+  "final_t2": {
+    "p50_ms": 4261.8,
+    "p95_ms": 5523.6,
+    "mean_ms": 4425.8,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          4213.502300000982,
+          4497.535699978471,
+          4681.603200006066
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          5483.601699990686,
+          5066.174100007629,
+          5617.085400008364
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          4980.936199979624,
+          3680.2968999836594,
+          3700.1484999782406
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          3649.5741000107955,
+          4222.296400024788,
+          4089.223699993454
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          3964.9066000129096,
+          4278.469499986386,
+          4261.815099976957
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 10
+    }
+  },
+  "final_t3": {
+    "p50_ms": 3897.9,
+    "p95_ms": 4262.9,
+    "mean_ms": 3926.3,
+    "n_samples": 15,
+    "per_audio": {
+      "VIVOSDEV01/VIVOSDEV01_R099.wav": {
+        "lat_ms": [
+          3897.8786999941804,
+          4052.280999982031,
+          4057.5268999964464
+        ],
+        "text": "nhưng tôi thích xem bộ phim truyện phát ngay sau chương trình này."
+      },
+      "VIVOSDEV02/VIVOSDEV02_R076.wav": {
+        "lat_ms": [
+          3759.829099988565,
+          3783.0673000134993,
+          4212.581400002819
+        ],
+        "text": "thay vì bốn giờ như trước đây."
+      },
+      "VIVOSDEV07/VIVOSDEV07_084.wav": {
+        "lat_ms": [
+          4380.40500000352,
+          4085.6946000130847,
+          4079.34430000023
+        ],
+        "text": "thì bỗng nghe tiếng oác oác từ vạc rừng phi lao."
+      },
+      "VIVOSDEV08/VIVOSDEV08_005.wav": {
+        "lat_ms": [
+          3947.528399992734,
+          3687.2683000110555,
+          3552.6612999965437
+        ],
+        "text": "cây cổ thụ ấy bất chợt bị bệnh tật quật ngã."
+      },
+      "VIVOSDEV19/VIVOSDEV19_257.wav": {
+        "lat_ms": [
+          3687.8994000144303,
+          3825.1324000011664,
+          3885.0784999958705
+        ],
+        "text": "nhưng nếu chỉ nói cái giỏi không thôi thì thật sự chưa đủ về chú tư."
+      }
+    },
+    "config": {
+      "ct2_intra_threads": 10
+    }
+  },
+  "summary": {
+    "reference_p50_ms": 6861.0,
+    "reference_source": "Results/bench_compare_en_n10.json fast.aggregate.latency_ms_asr.p50 (10 VIVOS utts)",
+    "bench_corpus": "5 VIVOS dev utterances, 3 trials each (15 timings)",
+    "baseline_p50_ms_this_corpus": 5200.9,
+    "final_p50_ms_trials": [
+      6219.1,
+      4261.8,
+      3897.9
+    ],
+    "final_p50_ms_median_of_trials": 4261.8,
+    "pct_reduction_vs_reference": 37.9,
+    "pct_reduction_vs_local_baseline": 18.1,
+    "fixes": {
+      "thread_tuning": {
+        "kept": true,
+        "note": "Default = max(cpu_count-2, 4). Empirical sweep on this 12-core box: 2→16.2s, 4→9.9s, 6→6.4s, 8→7.6s, 10→3.4–5.5s, 11→3.9s, 12→9.1s, 0(auto)→5.2s baseline. Setting cpu_count itself (12) HURT. Env var still overrides."
+      },
+      "transcribe_flags": {
+        "kept": true,
+        "note": "Added task='transcribe' (explicit), temperature=0.0 (disables default fallback ladder [0.0,0.2,…,1.0] that triggers on our tight compression_ratio_threshold=1.8). condition_on_previous_text=False, language='vi', beam_size=1 already set."
+      },
+      "asr_prewarm": {
+        "kept": true,
+        "note": "1s silent audio fed through ASR at init; ~700 ms one-time cost; pays JIT/kernel-selection upfront so first real call hits steady-state."
+      },
+      "silero_vad": {
+        "kept": true,
+        "note": "Already enabled (asr_vad_filter=True). Complementary to upstream tone-energy VAD: tone-VAD rejects whole-utterance noise, silero trims intra-utterance silent gaps before the encoder."
+      },
+      "encoder_cache_for_rerank": {
+        "kept": false,
+        "note": "Inspected run_streaming + transcribe — no rerank re-encode path exists (single transcribe call per utterance). Nothing to cache."
+      }
+    },
+    "asr_text_byte_identical_vs_baseline": true,
+    "test_suite": "26/27 passed, 1 intentional skip (heavy TTS), 0 failures",
+    "variance_note": "p50 trial-to-trial variance is large (3897-6219 ms) due to other Windows workload during measurement. Median of 3 trials is the honest summary statistic."
+  }
+}

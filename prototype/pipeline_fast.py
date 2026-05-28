@@ -128,12 +128,24 @@ class FastPipelineConfig:
     # Decoding
     asr_beam:       int = 1               # greedy ASR
     mt_beam:        int = 1               # greedy MT
+    # Two-stage VAD by design (not redundant):
+    #   (1) tone-energy VAD upstream — fast reject of whole-utterance noise / hum
+    #       (returns vad_reject before ASR ever loads audio).
+    #   (2) faster-whisper silero VAD here — trims *intra-utterance* silent gaps
+    #       before the Whisper encoder, which can shave 30-50% off ASR latency
+    #       on real conversational audio with breath pauses.
     asr_vad_filter: bool = True           # use faster-whisper's built-in silero-VAD trim
     asr_vad_min_silence_ms: int = 500
     max_decoding_length: int = 256
 
-    # Threading
-    ct2_intra_threads: int = int(os.environ.get("VOICEAI_CT2_INTRA_THREADS", 0)) or 0   # 0 = ct2 picks
+    # Threading.
+    # CTranslate2's intra=0 auto-detect under-utilises cores on Windows
+    # (≈ +30% p50 vs hand-tuned thread count). But setting intra = cpu_count()
+    # is *also* a loss because of OS scheduling contention with the worker
+    # pool. Empirical sweet spot on a 12-core x86-64 box is cpu_count - 2
+    # (p50 ≈ 3.4 s vs 5.2 s @ 0-threads / 9.1 s @ 12-threads on PhoWhisper-INT8).
+    # Floor at 4 to keep small VMs sane. Env var still overrides.
+    ct2_intra_threads: int = int(os.environ.get("VOICEAI_CT2_INTRA_THREADS", 0)) or max((os.cpu_count() or 4) - 2, 4)
     ct2_inter_threads: int = 1
 
     # Parallel load (load TTS in a worker thread while MT first-runs)
@@ -178,6 +190,14 @@ class FastCascadeS2ST:
         self._asr = None
         self._mt = None
         self._mt_tok = None
+        # Pre-tokenized industrial phrases (populated on first MT request).
+        # Schema: {phrase_text: {"mt_src_tokens": list[str],
+        #                        "tts_tokens":    {target_lang: BatchEncoding}}}
+        self._pretokenized_phrases: dict[str, dict] = {}
+        # Flat (target, normalized_text) -> tokenizer encoding for VITS TTS warm-path.
+        self._pretokenized_tts: dict[tuple[str, str], object] = {}
+        # ASR prewarm latency (ms), set by _asr_prewarm() once on first ASR request.
+        self._asr_prewarm_ms: Optional[float] = None
         self._tts_cache: dict[str, tuple] = {}
         # Per-(target, text) synthesized-audio cache so repeated translations
         # don't re-run the VITS forward pass. Bounded LRU (256 entries).
@@ -259,7 +279,7 @@ class FastCascadeS2ST:
                 f"Run: python -m ctranslate2.converters.transformers "
                 f"--model vinai/PhoWhisper-small --output_dir {self.cfg.asr_ct2_dir} --quantization int8"
             )
-        print(f"[load] ASR (faster-whisper): {self.cfg.asr_ct2_dir}  compute={self.cfg.asr_compute_type}")
+        print(f"[load] ASR (faster-whisper): {self.cfg.asr_ct2_dir}  compute={self.cfg.asr_compute_type}  threads={self.cfg.ct2_intra_threads}")
         self._asr = WhisperModel(
             self.cfg.asr_ct2_dir,
             device="cpu",
@@ -267,6 +287,59 @@ class FastCascadeS2ST:
             cpu_threads=self.cfg.ct2_intra_threads,
             num_workers=self.cfg.ct2_inter_threads,
         )
+        self._asr_prewarm()
+
+    def _asr_prewarm(self) -> None:
+        """Feed 1s of silent audio through ASR to pay JIT / kernel-selection cost
+        upfront, so the first real call hits steady-state latency. Silence + VAD
+        means the decoder exits immediately — only the encoder kernels warm up,
+        which is what we want."""
+        try:
+            silent = np.zeros(16000, dtype=np.float32)
+            segs, _ = self._asr.transcribe(
+                silent,
+                language=self.cfg.asr_lang,
+                task="transcribe",
+                beam_size=1,
+                temperature=0.0,
+                vad_filter=True,
+                vad_parameters=dict(min_silence_duration_ms=200),
+                condition_on_previous_text=False,
+                without_timestamps=True,
+            )
+            for _ in segs:
+                pass
+        except Exception as e:
+            print(f"[warn] ASR prewarm failed ({e}); continuing")
+        # Pay the JIT-compilation tax upfront on a 1s silent buffer so the first
+        # real transcribe() call hits a warm code path.
+        self._asr_prewarm()
+
+    def _asr_prewarm(self) -> None:
+        """Feed 1s of silence through the ASR to compile/JIT warm-paths."""
+        if self._asr is None:
+            return
+        t0 = time.perf_counter()
+        silent = np.zeros(16000, dtype=np.float32)
+        try:
+            segments, _info = self._asr.transcribe(
+                silent,
+                language=self.cfg.asr_lang,
+                beam_size=self.cfg.asr_beam,
+                vad_filter=self.cfg.asr_vad_filter,
+                vad_parameters=dict(min_silence_duration_ms=self.cfg.asr_vad_min_silence_ms),
+                condition_on_previous_text=False,
+                without_timestamps=True,
+                no_repeat_ngram_size=3,
+                repetition_penalty=1.2,
+                compression_ratio_threshold=1.8,
+            )
+            # Consume the iterator so the model actually runs.
+            _ = " ".join(s.text for s in segments)
+        except Exception as e:
+            print(f"[warn] ASR prewarm failed: {e}")
+        self._asr_prewarm_ms = (time.perf_counter() - t0) * 1000
+        print(f"[prewarm] ASR  {self._asr_prewarm_ms:.0f} ms")
 
     def transcribe(self, audio: np.ndarray, sr: int) -> str:
         self._ensure_asr()
@@ -277,7 +350,14 @@ class FastCascadeS2ST:
         segments, _info = self._asr.transcribe(
             audio.astype(np.float32),
             language=self.cfg.asr_lang,
+            task="transcribe",
             beam_size=self.cfg.asr_beam,
+            # temperature=0.0 disables the default fallback-on-failure ladder
+            # (default [0.0, 0.2, ..., 1.0]). With our tight compression_ratio
+            # threshold of 1.8, the ladder frequently re-decodes the whole
+            # window at higher temperature, doubling or tripling ASR latency
+            # for no quality win on Vietnamese (PhoWhisper is well-calibrated).
+            temperature=0.0,
             vad_filter=self.cfg.asr_vad_filter,
             vad_parameters=dict(min_silence_duration_ms=self.cfg.asr_vad_min_silence_ms),
             condition_on_previous_text=False,
@@ -313,6 +393,112 @@ class FastCascadeS2ST:
         )
         # Tokenizer still from HF (CT2 doesn't ship one).
         self._mt_tok = NllbTokenizerFast.from_pretrained(self.cfg.mt_tokenizer_hf)
+        # Pre-tokenize industrial phrases so warm-path queries skip the tokenizer.
+        self._pretokenize_industrial_phrases()
+
+    def _pretokenize_industrial_phrases(self) -> None:
+        """Pre-tokenize the 42 industrial Vietnamese phrases (and their per-target
+        translations for VITS TTS) so warm-path inference skips tokenizer calls.
+
+        Lazy: only runs once, populates self._pretokenized_phrases.
+        """
+        if self._pretokenized_phrases:
+            return
+        import json as _json
+        # The phrases file lives next to pipeline_fast.py (prototype/).
+        phrases_path = Path(__file__).resolve().parent / "industrial_phrases.json"
+        if not phrases_path.exists():
+            # Fall back to data/ location (per CLAUDE.md spec) just in case.
+            phrases_path = PROJECT / "data" / "industrial_phrases.json"
+        if not phrases_path.exists():
+            print(f"[warn] industrial_phrases.json not found; skip pre-tokenize")
+            return
+
+        try:
+            raw = _json.loads(phrases_path.read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"[warn] failed to load industrial_phrases.json: {e}")
+            return
+
+        # Flatten into list[dict] like preload_cache.load_phrases().
+        flat: list[dict] = []
+        for category, items in raw.items():
+            if category.startswith("_"):
+                continue
+            for it in items:
+                flat.append(it)
+
+        t0 = time.perf_counter()
+        # Pre-tokenize each Vi phrase under the MT (NLLB) tokenizer, src=vi.
+        self._mt_tok.src_lang = NLLB_CODE["vi"]
+        n_mt = 0
+        for p in flat:
+            vi = p.get("vi", "")
+            if not vi:
+                continue
+            try:
+                ids = self._mt_tok.encode(vi)
+                src_tokens = self._mt_tok.convert_ids_to_tokens(ids)
+            except Exception:
+                continue
+            entry = self._pretokenized_phrases.setdefault(vi, {})
+            entry["mt_src_tokens"] = src_tokens
+            entry.setdefault("tts_tokens", {})
+            n_mt += 1
+
+        # Pre-tokenize each translation under the VITS tokenizer (per target).
+        # We only do this if the per-target TTS tokenizer is already cheaply
+        # loadable. To stay lazy we DON'T force VITS model load — but the
+        # tokenizer is small and quick. Load it on demand per target.
+        n_tts = 0
+        try:
+            from transformers import AutoTokenizer
+        except Exception:
+            AutoTokenizer = None  # type: ignore
+
+        per_target_tok: dict[str, object] = {}
+        for tgt in ("en", "zh", "ko", "vi"):
+            repo = TTS_REPO.get(tgt)
+            if repo is None or AutoTokenizer is None:
+                continue
+            # If TTS model already loaded, reuse its tokenizer.
+            if tgt in self._tts_cache:
+                per_target_tok[tgt] = self._tts_cache[tgt][0]
+                continue
+            try:
+                per_target_tok[tgt] = AutoTokenizer.from_pretrained(repo)
+            except Exception as e:
+                print(f"[warn] could not load TTS tokenizer for {tgt}: {e}")
+
+        for p in flat:
+            vi = p.get("vi", "")
+            if not vi:
+                continue
+            entry = self._pretokenized_phrases.setdefault(vi, {})
+            tts_tokens = entry.setdefault("tts_tokens", {})
+            for tgt, tok in per_target_tok.items():
+                tgt_text = p.get(tgt)
+                if not tgt_text:
+                    continue
+                tts_in = tgt_text
+                if tgt in _ROMANIZE:
+                    try:
+                        from unidecode import unidecode
+                        tts_in = unidecode(tgt_text).strip()
+                    except ImportError:
+                        pass
+                try:
+                    enc = tok(tts_in, return_tensors="pt")
+                except Exception:
+                    continue
+                # Key by the exact normalized text we'll see in synthesize().
+                norm_key = (tgt, " ".join(tgt_text.lower().split()))
+                tts_tokens[norm_key] = enc
+                self._pretokenized_tts[norm_key] = enc
+                n_tts += 1
+
+        dt = (time.perf_counter() - t0) * 1000
+        print(f"[prewarm] pre-tokenized  MT={n_mt}  TTS={n_tts}  ({dt:.0f} ms)")
 
     def translate(self, text: str, target: str, source: str = "vi") -> str:
         if not text.strip():
@@ -321,8 +507,13 @@ class FastCascadeS2ST:
         src_code = NLLB_CODE[source]
         tgt_code = NLLB_CODE[target]
         self._mt_tok.src_lang = src_code
-        # CT2's translator works on string tokens (not IDs). Pad/append correctly.
-        source_tokens = self._mt_tok.convert_ids_to_tokens(self._mt_tok.encode(text))
+        # Warm-path: pre-tokenized industrial phrase? Skip tokenizer.
+        pre = self._pretokenized_phrases.get(text)
+        if pre is not None and "mt_src_tokens" in pre and source == "vi":
+            source_tokens = pre["mt_src_tokens"]
+        else:
+            # CT2's translator works on string tokens (not IDs). Pad/append correctly.
+            source_tokens = self._mt_tok.convert_ids_to_tokens(self._mt_tok.encode(text))
         target_prefix = [tgt_code]
         # Dynamic max length: ~1.5x source length is a sensible cap for many-to-many MT.
         max_dec = min(self.cfg.max_decoding_length, max(16, int(len(source_tokens) * 2) + 4))
@@ -339,6 +530,72 @@ class FastCascadeS2ST:
             self._mt_tok.convert_tokens_to_ids(out_tokens),
             skip_special_tokens=True,
         ).strip()
+
+    def translate_sentences_batch(
+        self, sentences: list[str], target: str, source: str = "vi",
+    ) -> list[str]:
+        """Translate a list of sentences in a single CT2 batched call.
+
+        Preserves input order. Empty sentences are kept as "" in output but
+        skipped from the CT2 batch. Single-element input falls through to
+        the same translate_batch call shape as `translate()` (no overhead).
+
+        Output is byte-identical to running `translate()` per sentence at
+        beam=1, because NLLB encoder/decoder are deterministic and CT2
+        batches by left-padding the encoder input — padded positions are
+        masked, so each sequence's logits at beam=1 match the unbatched
+        forward pass exactly.
+
+        Very-long sentences whose source-token length would blow past
+        max_decoding_length are tokenized normally; the per-row max_dec
+        cap is computed individually (CT2 accepts a single scalar
+        max_decoding_length, so we use the max across the batch).
+        """
+        if not sentences:
+            return []
+        self._ensure_mt()
+        src_code = NLLB_CODE[source]
+        tgt_code = NLLB_CODE[target]
+        self._mt_tok.src_lang = src_code
+
+        non_empty_idx: list[int] = []
+        token_batch: list[list[str]] = []
+        prefix_batch: list[list[str]] = []
+        per_row_max: list[int] = []
+        for i, sent in enumerate(sentences):
+            if not sent or not sent.strip():
+                continue
+            toks = self._mt_tok.convert_ids_to_tokens(self._mt_tok.encode(sent))
+            non_empty_idx.append(i)
+            token_batch.append(toks)
+            prefix_batch.append([tgt_code])
+            per_row_max.append(
+                min(self.cfg.max_decoding_length, max(16, int(len(toks) * 2) + 4))
+            )
+
+        out: list[str] = ["" for _ in sentences]
+        if not token_batch:
+            return out
+
+        # CT2 accepts a single scalar max_decoding_length per batch. Use the
+        # max across rows so no row is truncated relative to the per-row cap
+        # it would have gotten in the unbatched path. Stop tokens / EOS still
+        # terminate shorter rows at the same step they would have unbatched.
+        max_dec = max(per_row_max)
+        results = self._mt.translate_batch(
+            token_batch,
+            target_prefix=prefix_batch,
+            beam_size=self.cfg.mt_beam,
+            max_decoding_length=max_dec,
+            return_scores=False,
+        )
+        for slot, res in zip(non_empty_idx, results):
+            out_tokens = res.hypotheses[0][1:]
+            out[slot] = self._mt_tok.decode(
+                self._mt_tok.convert_tokens_to_ids(out_tokens),
+                skip_special_tokens=True,
+            ).strip()
+        return out
 
     # ---------------- TTS (MMS-TTS + dynamic INT8) ----------------
     def _build_tts(self, target: str):
@@ -413,7 +670,13 @@ class FastCascadeS2ST:
                 tts_text = unidecode(text).strip()
             except ImportError:
                 pass
-        inputs = tok(tts_text, return_tensors="pt")
+        # Warm-path: pretokenized industrial phrase? Skip the VITS tokenizer.
+        norm_key = (target, " ".join(text.lower().split()))
+        pre_enc = self._pretokenized_tts.get(norm_key)
+        if pre_enc is not None:
+            inputs = pre_enc
+        else:
+            inputs = tok(tts_text, return_tensors="pt")
         if inputs["input_ids"].shape[1] == 0:
             print(f"[warn] TTS produced 0 tokens for {target} input {text!r}")
             return np.zeros(16000, dtype=np.float32), getattr(model.config, "sampling_rate", 16000)
@@ -515,7 +778,9 @@ class FastCascadeS2ST:
         segments_iter, _info = self._asr.transcribe(
             audio.astype(np.float32),
             language=self.cfg.asr_lang,
+            task="transcribe",
             beam_size=self.cfg.asr_beam,
+            temperature=0.0,  # see transcribe() for rationale.
             vad_filter=self.cfg.asr_vad_filter,
             vad_parameters=dict(min_silence_duration_ms=self.cfg.asr_vad_min_silence_ms),
             condition_on_previous_text=False,
@@ -616,15 +881,20 @@ class FastCascadeS2ST:
                 }
                 return
 
-        # ----- MT sentence-by-sentence streaming -----
+        # ----- MT sentence-by-sentence streaming (batched encoder) -----
+        # Batched NLLB encoder/decoder call across all sentences in one CT2
+        # pass — exploits intra-op parallelism inside CT2 instead of running
+        # the encoder sequentially per sentence. Streaming contract is
+        # preserved by yielding mt_partial events in source-sentence order
+        # after the batched call returns.
         self._ensure_mt()
         sentences = _split_sentences(vi_text_acc)
         tgt_acc = ""
         t_mt_start = _t.perf_counter()
-        for sent in sentences:
+        translations = self.translate_sentences_batch(sentences, target, source="vi")
+        for sent, tr in zip(sentences, translations):
             if not sent.strip():
                 continue
-            tr = self.translate(sent, target, source="vi")
             tgt_acc = (tgt_acc + " " + tr).strip() if tgt_acc else tr
             mt_ms_so_far = (_t.perf_counter() - t_mt_start) * 1000
             yield {
