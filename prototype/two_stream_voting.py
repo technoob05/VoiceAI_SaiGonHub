@@ -168,6 +168,42 @@ class TwoStreamCache:
             }
         return None
 
+    def lookup_existence(self, fp: TwoStreamFingerprint, target_lang: str) -> Optional[dict]:
+        """Existence-rule variant (response to reviewer Q1/W1).
+
+        Hit iff there exists ANY stored entry e such that
+            cos(f_A(q), f_A^(e)) >= tau_A  AND  cos(f_B(q), f_B^(e)) >= tau_B.
+        Among all qualifying entries, return the one maximizing the sum of
+        the two cosines (equivalent ordering to harmonic mean for tie-break).
+        """
+        self.stats.lookups += 1
+        candidates = []
+        for k, e in self._store.items():
+            if e.get("target_lang") != target_lang:
+                continue
+            t_score = float(np.dot(fp.tone,    e["fp"].tone))
+            s_score = float(np.dot(fp.segment, e["fp"].segment))
+            if t_score >= self.cfg.tone_threshold and s_score >= self.cfg.segment_threshold:
+                candidates.append((k, t_score, s_score))
+
+        if not candidates:
+            return None
+
+        best_id, best_t, best_s = max(candidates, key=lambda x: x[1] + x[2])
+        self.stats.both_hits += 1
+        self.stats.hits += 1
+        entry = self._store.pop(best_id)
+        self._store[best_id] = entry
+        combined = 2 * best_t * best_s / max(best_t + best_s, 1e-9)
+        return {
+            **entry,
+            "cosine":             combined,
+            "tone_score":         best_t,
+            "segment_score":      best_s,
+            "both_streams_agree": True,
+            "n_candidates":       len(candidates),
+        }
+
     def put(self, fp: TwoStreamFingerprint, target_lang: str, result: dict) -> None:
         self._next_id += 1
         self._store[self._next_id] = {

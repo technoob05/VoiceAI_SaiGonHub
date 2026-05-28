@@ -1,0 +1,50 @@
+{
+  "argmax_equality_rule": {
+    "rule": "argmax_equality",
+    "self_lookups": 30,
+    "self_hits": 30,
+    "self_hit_rate": 1.0,
+    "tonal_variant_lookups": 25,
+    "tonal_variant_correct_misses": 23,
+    "tonal_variant_correct_miss_rate": 0.92,
+    "tonal_variant_false_hits": 2,
+    "tonal_variant_false_hit_rate": 0.08,
+    "cache_stats_exp2": {
+      "n_entries": 5,
+      "max_entries": 128,
+      "lookups": 25,
+      "hits": 2,
+      "both_hits": 2,
+      "tone_only_hits": 3,
+      "segment_only_hits": 8,
+      "hit_rate": 0.08
+    }
+  },
+  "existence_rule": {
+    "rule": "existence",
+    "self_lookups": 30,
+    "self_hits": 30,
+    "self_hit_rate": 1.0,
+    "tonal_variant_lookups": 25,
+    "tonal_variant_correct_misses": 18,
+    "tonal_variant_correct_miss_rate": 0.72,
+    "tonal_variant_false_hits": 7,
+    "tonal_variant_false_hit_rate": 0.28,
+    "cache_stats_exp2": {
+      "n_entries": 5,
+      "max_entries": 128,
+      "lookups": 25,
+      "hits": 7,
+      "both_hits": 7,
+      "tone_only_hits": 0,
+      "segment_only_hits": 0,
+      "hit_rate": 0.28
+    }
+  },
+  "diff_existence_minus_argmax": {
+    "self_hit_rate_delta": 0.0,
+    "correct_miss_rate_delta": -0.2,
+    "false_hit_rate_delta": 0.2
+  },
+  "tonal_protection_100pct_under_existence": false
+}

@@ -1,0 +1,280 @@
+{
+  "status": "ok",
+  "experiment_summary": "Learned 36->16->6 MLP tone classifier replaces the heuristic 6-bin lookup in tone_histogram_from_f0. Reviewer Q10.",
+  "data": {
+    "minimal_pairs": {
+      "ma": [
+        "ma",
+        "mà",
+        "má",
+        "mả",
+        "mã",
+        "mạ"
+      ],
+      "ba": [
+        "ba",
+        "bà",
+        "bá",
+        "bả",
+        "bã",
+        "bạ"
+      ],
+      "ca": [
+        "ca",
+        "cà",
+        "cá",
+        "cả",
+        "cã",
+        "cạ"
+      ],
+      "la": [
+        "la",
+        "là",
+        "lá",
+        "lả",
+        "lã",
+        "lạ"
+      ],
+      "da": [
+        "da",
+        "dà",
+        "dá",
+        "dả",
+        "dã",
+        "dạ"
+      ],
+      "ta": [
+        "ta",
+        "tà",
+        "tá",
+        "tả",
+        "tã",
+        "tạ"
+      ]
+    },
+    "carrier": "nói {syl}",
+    "n_reps_per_cell": 5,
+    "n_clips_synthed": 180,
+    "n_train": 144,
+    "n_heldout": 36,
+    "input_dim": 36,
+    "contour_len": 32
+  },
+  "model": {
+    "arch": "MLP 36 -> 16 -> 6",
+    "hidden": 16,
+    "params": 766,
+    "weights_path": "data\\cache_snapshots\\learned_tone_classifier.npz",
+    "size_kb": 4.42
+  },
+  "training": {
+    "iters": 600,
+    "lr": 0.05,
+    "momentum": 0.9,
+    "batch_size": 32,
+    "elapsed_s": 0.18
+  },
+  "loss_curve": [
+    {
+      "iter": 0,
+      "loss": 2.2985,
+      "batch_acc": 0.156
+    },
+    {
+      "iter": 30,
+      "loss": 1.4857,
+      "batch_acc": 0.469
+    },
+    {
+      "iter": 60,
+      "loss": 1.0817,
+      "batch_acc": 0.625
+    },
+    {
+      "iter": 90,
+      "loss": 1.0498,
+      "batch_acc": 0.594
+    },
+    {
+      "iter": 120,
+      "loss": 1.016,
+      "batch_acc": 0.688
+    },
+    {
+      "iter": 150,
+      "loss": 0.7236,
+      "batch_acc": 0.688
+    },
+    {
+      "iter": 180,
+      "loss": 0.5822,
+      "batch_acc": 0.75
+    },
+    {
+      "iter": 210,
+      "loss": 0.4614,
+      "batch_acc": 0.844
+    },
+    {
+      "iter": 240,
+      "loss": 0.4288,
+      "batch_acc": 0.906
+    },
+    {
+      "iter": 270,
+      "loss": 0.2435,
+      "batch_acc": 0.969
+    },
+    {
+      "iter": 300,
+      "loss": 0.2592,
+      "batch_acc": 0.938
+    },
+    {
+      "iter": 330,
+      "loss": 0.6004,
+      "batch_acc": 0.781
+    },
+    {
+      "iter": 360,
+      "loss": 0.1691,
+      "batch_acc": 0.969
+    },
+    {
+      "iter": 390,
+      "loss": 0.3651,
+      "batch_acc": 0.906
+    },
+    {
+      "iter": 420,
+      "loss": 0.1921,
+      "batch_acc": 0.906
+    },
+    {
+      "iter": 450,
+      "loss": 0.1934,
+      "batch_acc": 0.938
+    },
+    {
+      "iter": 480,
+      "loss": 0.1466,
+      "batch_acc": 0.969
+    },
+    {
+      "iter": 510,
+      "loss": 0.2323,
+      "batch_acc": 0.844
+    },
+    {
+      "iter": 540,
+      "loss": 0.03,
+      "batch_acc": 1.0
+    },
+    {
+      "iter": 570,
+      "loss": 0.0853,
+      "batch_acc": 1.0
+    },
+    {
+      "iter": 599,
+      "loss": 0.1072,
+      "batch_acc": 0.938
+    }
+  ],
+  "classification": {
+    "train_accuracy": 0.9931,
+    "heldout_accuracy": 0.1667,
+    "heldout_confusion_matrix": [
+      [
+        0,
+        2,
+        1,
+        2,
+        0,
+        1
+      ],
+      [
+        0,
+        2,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        2,
+        1,
+        1,
+        0,
+        2,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        2,
+        1
+      ],
+      [
+        0,
+        2,
+        1,
+        1,
+        1,
+        1
+      ]
+    ],
+    "tone_classes": [
+      "ngang",
+      "huyen",
+      "sac",
+      "hoi",
+      "nga",
+      "nang"
+    ]
+  },
+  "minimal_pair_protect_score": {
+    "heuristic_on_same_clips": {
+      "intra_tone_cos_mean": 0.8848,
+      "intra_tone_cos_std": 0.0944,
+      "inter_syl_cos_mean": 0.8777,
+      "inter_syl_cos_std": 0.0846,
+      "protect_score": -0.0071,
+      "n_intra_pairs": 90,
+      "n_inter_pairs": 540
+    },
+    "learned_on_same_clips": {
+      "intra_tone_cos_mean": 0.6214,
+      "intra_tone_cos_std": 0.1516,
+      "inter_syl_cos_mean": 0.664,
+      "inter_syl_cos_std": 0.1733,
+      "protect_score": 0.0426,
+      "n_intra_pairs": 90,
+      "n_inter_pairs": 540
+    },
+    "baseline_from_pinned_results": {
+      "intra_tone_cos_mean": 0.6916,
+      "inter_syl_cos_mean": 0.7194,
+      "protect_score": 0.0279,
+      "source": "Results/minimal_pair_eval.json (synth nói X carrier, n_reps=1)"
+    },
+    "delta_learned_vs_baseline_heuristic": 0.0147,
+    "delta_learned_vs_heuristic_same_clips": 0.0497
+  },
+  "footprint_assessment": {
+    "size_kb": 4.42,
+    "target_kb": 50,
+    "passes_50kb": true,
+    "params_total": 766
+  }
+}

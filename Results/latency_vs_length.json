@@ -1,0 +1,234 @@
+{
+  "status": "ok",
+  "experiment_summary": "End-to-end latency on n=5 VIVOS clips at varying durations. CPU INT8. Reviewer Q7.",
+  "clips": [
+    {
+      "label": "short",
+      "path": "data/processed/vivos/vivos/test/waves/VIVOSDEV01/VIVOSDEV01_R034.wav",
+      "duration_s": 1.938,
+      "vi_text": "người ta nói.",
+      "tgt_text": "People say.",
+      "miss": {
+        "total_ms": 33883.7,
+        "asr_ms": 24942.5,
+        "mt_ms": 3666.5,
+        "tts_ms": 4753.2,
+        "cache_ms": 520.83
+      },
+      "hit": {
+        "trials": 5,
+        "p50_ms": 62.96,
+        "p95_ms": 119.46,
+        "min_ms": 40.98,
+        "max_ms": 133.12,
+        "all_ms": [
+          133.12,
+          62.96,
+          59.45,
+          64.84,
+          40.98
+        ]
+      },
+      "tts_only": {
+        "p50_ms": 2891.1,
+        "p95_ms": 3017.8,
+        "out_audio_dur_s_p50": 1.312,
+        "n_chars": 11,
+        "n_words": 2
+      }
+    },
+    {
+      "label": "medium",
+      "path": "data/processed/vivos/vivos/test/waves/VIVOSDEV01/VIVOSDEV01_R003.wav",
+      "duration_s": 3.688,
+      "vi_text": "cũng lên tiếng ủng hộ các kiến nghị này.",
+      "tgt_text": "And I'm also speaking out for these proposals.",
+      "miss": {
+        "total_ms": 22162.1,
+        "asr_ms": 12599.7,
+        "mt_ms": 3250.0,
+        "tts_ms": 6195.2,
+        "cache_ms": 115.42
+      },
+      "hit": {
+        "trials": 5,
+        "p50_ms": 72.42,
+        "p95_ms": 127.95,
+        "min_ms": 65.66,
+        "max_ms": 137.8,
+        "all_ms": [
+          137.8,
+          65.66,
+          71.16,
+          72.42,
+          88.53
+        ]
+      },
+      "tts_only": {
+        "p50_ms": 5349.9,
+        "p95_ms": 5588.0,
+        "out_audio_dur_s_p50": 3.392,
+        "n_chars": 46,
+        "n_words": 8
+      }
+    },
+    {
+      "label": "long",
+      "path": "data/processed/vivos/vivos/test/waves/VIVOSDEV01/VIVOSDEV01_R044.wav",
+      "duration_s": 5.219,
+      "vi_text": "ngọn lửa bạo động ở trung đông và phá vỡ loại trình hòa bình.",
+      "tgt_text": "The fires are raging in the Middle East and breaking the peace process.",
+      "miss": {
+        "total_ms": 33330.4,
+        "asr_ms": 16991.1,
+        "mt_ms": 6730.8,
+        "tts_ms": 9475.4,
+        "cache_ms": 126.46
+      },
+      "hit": {
+        "trials": 5,
+        "p50_ms": 125.5,
+        "p95_ms": 488.94,
+        "min_ms": 96.46,
+        "max_ms": 577.86,
+        "all_ms": [
+          577.86,
+          116.63,
+          133.28,
+          125.5,
+          96.46
+        ]
+      },
+      "tts_only": {
+        "p50_ms": 6855.0,
+        "p95_ms": 7256.8,
+        "out_audio_dur_s_p50": 4.512,
+        "n_chars": 71,
+        "n_words": 13
+      }
+    },
+    {
+      "label": "xlong-a",
+      "path": "data/processed/vivos/vivos/test/waves/VIVOSDEV13/VIVOSDEV13_097.wav",
+      "duration_s": 7.374,
+      "vi_text": "cuộc thi còn có hai giải nhì ba giải ba và bốn giải khuyến khích.",
+      "tgt_text": "There are two other prizes, three prizes, three prizes and four incentives.",
+      "miss": {
+        "total_ms": 29333.8,
+        "asr_ms": 12276.9,
+        "mt_ms": 5961.2,
+        "tts_ms": 10885.1,
+        "cache_ms": 207.62
+      },
+      "hit": {
+        "trials": 5,
+        "p50_ms": 148.21,
+        "p95_ms": 206.38,
+        "min_ms": 133.71,
+        "max_ms": 212.16,
+        "all_ms": [
+          212.16,
+          183.23,
+          140.76,
+          133.71,
+          148.21
+        ]
+      },
+      "tts_only": {
+        "p50_ms": 6148.7,
+        "p95_ms": 7147.7,
+        "out_audio_dur_s_p50": 5.008,
+        "n_chars": 75,
+        "n_words": 12
+      }
+    },
+    {
+      "label": "xlong-b",
+      "path": "data/processed/vivos/vivos/test/waves/VIVOSDEV13/VIVOSDEV13_105.wav",
+      "duration_s": 7.843,
+      "vi_text": "nhóc đỏ mặt tía tai nhóc thưa chị một tuổi thôi đấy.",
+      "tgt_text": "Red-faced boy with ears, one-year-old girl.",
+      "miss": {
+        "total_ms": 21113.7,
+        "asr_ms": 11053.4,
+        "mt_ms": 3926.3,
+        "tts_ms": 5988.0,
+        "cache_ms": 145.34
+      },
+      "hit": {
+        "trials": 5,
+        "p50_ms": 121.43,
+        "p95_ms": 348.16,
+        "min_ms": 89.13,
+        "max_ms": 401.76,
+        "all_ms": [
+          401.76,
+          133.75,
+          106.94,
+          121.43,
+          89.13
+        ]
+      },
+      "tts_only": {
+        "p50_ms": 4791.6,
+        "p95_ms": 6240.1,
+        "out_audio_dur_s_p50": 3.68,
+        "n_chars": 43,
+        "n_words": 6
+      }
+    }
+  ],
+  "fits": {
+    "hit_p50_linear": {
+      "slope_ms_per_s": 13.154,
+      "intercept_ms": 37.542,
+      "r2": 0.7923
+    },
+    "hit_p95_linear": {
+      "slope_ms_per_s": 31.618,
+      "intercept_ms": 93.374,
+      "r2": 0.2457
+    },
+    "hit_p50_power": {
+      "exponent": 0.598,
+      "coefficient": 40.152,
+      "r2": 0.8033
+    },
+    "miss_total_linear": {
+      "slope_ms_per_s": -1037.542,
+      "intercept_ms": 33372.824,
+      "r2": 0.1813
+    },
+    "miss_total_power": {
+      "exponent": -0.166,
+      "coefficient": 35377.995,
+      "r2": 0.194
+    },
+    "tts_only_linear": {
+      "slope_ms_per_s": 337.65,
+      "intercept_ms": 3447.294,
+      "r2": 0.3067
+    }
+  },
+  "projections": {
+    "typical_industrial_2.3s": {
+      "hit_ms": 67.8,
+      "miss_ms": 30986.5,
+      "ratio_x": 457.1
+    },
+    "longest_tested_s": {
+      "duration_s": 7.84,
+      "hit_ms": 140.7,
+      "miss_ms": 25235.4,
+      "ratio_x": 179.3
+    },
+    "headline_25ms_anchor": "Headline 25 ms cache-hit is approximately the p50 at short utterances; p95 and longer utterances drift up linearly with TTS output length."
+  },
+  "config": {
+    "target": "en",
+    "hit_trials": 5,
+    "miss_trials": 1,
+    "VOICEAI_TM": "0",
+    "VOICEAI_TONE_VAD": "0"
+  }
+}
