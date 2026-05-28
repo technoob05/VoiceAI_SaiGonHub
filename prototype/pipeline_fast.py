@@ -179,6 +179,11 @@ class FastCascadeS2ST:
         self._mt = None
         self._mt_tok = None
         self._tts_cache: dict[str, tuple] = {}
+        # Per-(target, text) synthesized-audio cache so repeated translations
+        # don't re-run the VITS forward pass. Bounded LRU (256 entries).
+        self._tts_audio_cache: dict[tuple[str, str], tuple[np.ndarray, int]] = {}
+        self._tts_audio_cache_order: list[tuple[str, str]] = []
+        self._tts_audio_cache_max = 256
         self._tts_thread: Optional[threading.Thread] = None
         # Tier 1 — Audio-level perceptual cache. Two flavors selectable by config:
         #   cache_two_stream=False (default) → 272-d single-vector cache (utterance_cache.py)
@@ -338,6 +343,12 @@ class FastCascadeS2ST:
     # ---------------- TTS (MMS-TTS + dynamic INT8) ----------------
     def _build_tts(self, target: str):
         import torch
+        # Cap intra-op threads for TTS so VITS forward doesn't starve ASR/MT
+        # on shared CPU cores. 4 threads is a sweet spot on 8-16 core x86-64.
+        try:
+            torch.set_num_threads(int(os.environ.get("VOICEAI_TTS_THREADS", "4")))
+        except Exception:
+            pass
         from transformers import AutoTokenizer, VitsModel
         repo = TTS_REPO[target]
         print(f"[load] TTS (INT8 dynamic quant): {repo}")
@@ -383,6 +394,18 @@ class FastCascadeS2ST:
         tok, model = self._ensure_tts(target)
         if not text.strip():
             return np.zeros(0, dtype=np.float32), getattr(model.config, "sampling_rate", 16000)
+        # Audio cache: same (target, normalized text) returns cached PCM without
+        # re-running the VITS forward pass. Huge win on industrial-phrase repeats.
+        cache_key = (target, " ".join(text.lower().split()))
+        cached = self._tts_audio_cache.get(cache_key)
+        if cached is not None:
+            # LRU touch
+            try:
+                self._tts_audio_cache_order.remove(cache_key)
+            except ValueError:
+                pass
+            self._tts_audio_cache_order.append(cache_key)
+            return cached
         tts_text = text
         if target in _ROMANIZE:
             try:
@@ -396,7 +419,14 @@ class FastCascadeS2ST:
             return np.zeros(16000, dtype=np.float32), getattr(model.config, "sampling_rate", 16000)
         with torch.inference_mode():
             wav = model(**inputs).waveform
-        return wav.squeeze().cpu().numpy().astype(np.float32), model.config.sampling_rate
+        out = (wav.squeeze().cpu().numpy().astype(np.float32), model.config.sampling_rate)
+        # Insert into LRU cache (bounded)
+        self._tts_audio_cache[cache_key] = out
+        self._tts_audio_cache_order.append(cache_key)
+        if len(self._tts_audio_cache_order) > self._tts_audio_cache_max:
+            old_key = self._tts_audio_cache_order.pop(0)
+            self._tts_audio_cache.pop(old_key, None)
+        return out
 
     # ---------------- Persistence helpers ----------------
     def save_snapshot(self, name: str = "default") -> dict:
