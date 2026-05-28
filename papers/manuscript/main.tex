@@ -146,6 +146,35 @@ A small but growing literature addresses deployment-side concerns for low-resour
 
 The literature thus leaves two gaps unaddressed: no existing audio fingerprint is engineered for tonal-phrase semantic identity, and no published on-device Vietnamese speech-translation system reports a cache-hit pathway that survives tonal-minimal-pair stress. The method introduced in Section~\ref{sec:method} closes both.
 
+\subsection{Head-to-head positioning}\label{sec:related:positioning}
+
+Table~\ref{tab:positioning} positions the present work against the closest published systems along five reviewer-relevant axes. The comparison is qualitative on the four left axes (approach family, Vietnamese support, tone awareness, on-device target) and quantitative where the original papers report a load-bearing headline number. The key reading is that the present contribution does not compete with any single row of the table; it composes with them. Quantization methods optimize the cost of every uncached utterance; the present cache layer optimizes the cost of every repeated utterance. Neither subsumes the other, but until now nothing in the literature delivered the tonal-language cache primitive that on-device industrial speech translation actually requires.
+
+\begin{table*}[!htbp]
+\caption{Positioning of the present contribution against the closest prior systems. Existing quantization work optimizes per-layer precision without exploiting linguistic structure of the target language; the present work is orthogonal --- it adds a typology-aware cache layer that can be composed with any of these compression backbones. $\checkmark$ = explicit support, $\times$ = no support, \emph{implicit} = present but not analyzed. ``---'' marks headline numbers that the cited paper's abstract or public table does not state in a verbatim form; the qualitative column entry stands in those cases.}\label{tab:positioning}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.2}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.14\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth} c c >{\raggedright\arraybackslash}p{0.13\textwidth} >{\raggedright\arraybackslash}p{0.27\textwidth}@{}}
+\toprule
+System & Approach & \makecell{Vi\\support} & \makecell{Tone-\\aware} & \makecell{On-device\\target} & Reported headline \\
+\midrule
+AWQ~\citep{lin2024awq}                & Activation-magnitude weight quant         & $\times$ & $\times$ & LLM (not speech) & 4-bit weight quant; MLSys 2024 best-paper \\
+GPTQ~\citep{frantar2023gptq}          & Layer-wise OBS reconstruction             & $\times$ & $\times$ & LLM (not speech) & 3-/4-bit, GPT-class 175B in $\approx 4$ GPU-hrs, negligible degradation \\
+SmoothQuant~\citep{xiao2023smoothquant} & Activation-outlier rebalancing          & $\times$ & $\times$ & LLM (not speech) & INT8 W+A, up to $1.56\times$ speedup, $2\times$ memory \\
+FADE~\citep{fade2026}                 & Diagnostic-driven layer compensation      & $\times$ & $\times$ & Encoder-decoder ASR & Improves mean WER at 3-/4-bit on Whisper/Moonshine/Qwen3-ASR (---) \\
+TAQ~\citep{taq2025}                   & Per-task quant on LLM hidden reps         & $\times$ & \emph{implicit} & LLM hidden reps & Per-task gains in accuracy--memory ratio (---) \\
+Xu et al.~\citep{xu2025mixedprecision} & Gumbel-Softmax DARTS over $\{2,4,8\}$-bit & $\times$ & $\times$ & Speech encoders & 3.5-bit HuBERT-large, $8.6\times$ compression, no significant WER loss \\
+PhoWhisper~\citep{le2024phowhisper}   & Whisper fine-tune (844h vi)               & $\checkmark$ & \emph{implicit} & $\times$ (server) & 4.67\% WER on VIVOS (large); 6.33\% (small) \\
+Vi-iOS~\citep{le2025privacyios}       & CoreML conversion + GGUF LLM              & $\checkmark$ & $\times$ & iOS               & Functional demo; no quantitative tone eval (---) \\
+\midrule
+\textbf{This work} & Tonal-perceptual cache + INT8 cascade & $\checkmark$ & \textbf{explicit} & $\checkmark$ (Snapdragon NPU) & $1{,}441\times$ cache-hit speedup, 100\% tonal-minimal-pair safety \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+
 %% =====================================================================
 %% Section 3 - Method
 %% =====================================================================
@@ -405,6 +434,7 @@ Noise robustness and cache cooperate non-trivially: under DEMAND+MUSAN mixing at
 \caption{End-to-end CPU latency speedup of the INT8 cascade over an FP32 baseline on $n=10$ paired VIVOS utterances. Means with 95\% percentile bootstrap CI ($B=1000$); $p$ from paired permutation test ($B=1000$). TTS speedup is not significant; the gain is concentrated in ASR and MT, consistent with their larger Transformer footprint.}\label{tab:latency}
 \centering
 \setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}l l l l l@{}}
 \toprule
 Stage & \makecell[l]{FP32 mean (ms)\\\relax[CI95]} & \makecell[l]{INT8 mean (ms)\\\relax[CI95]} & \makecell[l]{Speedup ($\times$)\\\relax[CI95]} & \makecell[l]{$p$ (paired\\perm)} \\
@@ -414,7 +444,7 @@ MT    & 8{,}837 [7{,}019--10{,}965]   & 1{,}418 [956--2{,}013]        & 6.23 [4.
 TTS   & 4{,}858 [3{,}902--5{,}780]    & 3{,}852 [2{,}925--4{,}940]    & 1.26 [0.94--1.70] & 0.181 (n.s.) \\
 Total & 28{,}432 [24{,}753--32{,}160] & 12{,}653 [10{,}474--15{,}189] & 2.25 [1.84--2.76] & 0.001 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table*}
 
 \subsection{Cache precision-recall calibration}\label{sec:exp:pr}
@@ -461,6 +491,7 @@ Discrete-event simulation (reproducibility artefact \url{realistic_cache_simulat
 \centering
 \footnotesize
 \setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}r r r r r r r@{}}
 \toprule
 \makecell[r]{Workers\\$N$} & Events & \makecell[r]{T1 hit\\(\%)} & \makecell[r]{T2 hit\\(\%)} & \makecell[r]{Miss\\(\%)} & \makecell[r]{Mean latency\\(ms)} & \makecell[r]{Reduction\\(\%)} \\
@@ -469,7 +500,7 @@ Discrete-event simulation (reproducibility artefact \url{realistic_cache_simulat
 50  & 48{,}255  & 32.4 & 67.5 & 0.1 & 1{,}044 & 83.7 \\
 200 & 191{,}425 & 9.7  & 90.2 & 0.1 & 1{,}380 & 78.4 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table*}
 
 \subsection{Federated snapshot pooling}\label{sec:dep:fed}
@@ -489,7 +520,7 @@ We report five negative results in the spirit of design-truth disclosure. Each m
 \footnotesize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.05\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth} >{\raggedright\arraybackslash}p{0.21\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth} >{\raggedright\arraybackslash}p{0.26\linewidth}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.05\textwidth} >{\raggedright\arraybackslash}p{0.16\textwidth} >{\raggedright\arraybackslash}p{0.21\textwidth} >{\raggedright\arraybackslash}p{0.25\textwidth} >{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
 \toprule
 \S & Alternative & Headline failure & Diagnosis & Architectural consequence \\
 \midrule
@@ -630,6 +661,7 @@ Three immediate extensions follow. First, per-language tone-bin instantiation ac
 \centering
 \footnotesize
 \setlength{\tabcolsep}{6pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
 Variant & Dims & Intra cos & Inter cos & Gap \\
@@ -641,7 +673,7 @@ no\_delta       & 142 & 0.952 & 0.860 & 0.092 \\
 mfcc\_only      & 130 & 0.952 & 0.860 & 0.092 \\
 tone\_only      &   6 & 0.875 & 0.903 & $-0.027$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table*}
 
 %% Appendix
