@@ -156,29 +156,30 @@ The literature thus leaves two gaps unaddressed: no existing audio fingerprint i
 
 \subsection{Head-to-head positioning}\label{sec:related:positioning}
 
-Table~\ref{tab:positioning} positions the present work against the closest published systems along five reviewer-relevant axes. The comparison is qualitative on the four left axes (approach family, Vietnamese support, tone awareness, on-device target) and quantitative where the original papers report a load-bearing headline number. The key reading is that the present contribution does not compete with any single row of the table; it composes with them. Quantization methods optimize the cost of every uncached utterance; the present cache layer optimizes the cost of every repeated utterance. Neither subsumes the other, but until now nothing in the literature delivered the tonal-language cache primitive that on-device industrial speech translation actually requires.
+Table~\ref{tab:positioning} positions the present work against the closest published systems. The comparison is qualitative on the two middle axes (Vietnamese support, tone awareness) and quantitative on the right axis (reported headline number from the cited paper). The key reading is that the present contribution does not compete with any single row of the table; it composes with them. Quantization methods optimize the cost of every uncached utterance; the present cache layer optimizes the cost of every repeated utterance. Neither subsumes the other, but until now nothing in the literature delivered the tonal-language cache primitive that on-device industrial speech translation actually requires.
 
-\begin{table*}[cols=6,pos=t]
-\caption{Positioning of the present contribution against the closest prior systems. Existing quantization work optimizes per-layer precision without exploiting linguistic structure of the target language; the present work is orthogonal, adding a typology-aware cache layer that can be composed with any of these compression backbones. $\checkmark$ = explicit support, $\times$ = no support, \emph{implicit} = present but not analyzed. ``---'' marks headline numbers that the cited paper's abstract or public table does not state in a verbatim form; the qualitative column entry stands in those cases.}\label{tab:positioning}
-\footnotesize
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular*}{\tblwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}p{2.9cm} c c >{\raggedright\arraybackslash}p{1.9cm} >{\raggedright\arraybackslash}p{4.5cm}@{}}
+\begin{table}[cols=4,pos=t]
+\caption{Positioning of the present contribution against the closest prior systems. $\checkmark$ = explicit, $\times$ = no, \emph{impl.} = implicit. ``---'' = no headline number stated by the cited paper.}\label{tab:positioning}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular*}{\tblwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{1.5cm} c c >{\raggedright\arraybackslash}p{4.0cm}@{}}
 \toprule
-System & Approach & \makecell{Vi\\support} & \makecell{Tone-\\aware} & \makecell{On-device\\target} & Reported headline \\
+System & \makecell{Vi} & \makecell{Tone} & Reported headline \\
 \midrule
-AWQ~\citep{lin2024awq}                & Activation-magnitude weight quant         & $\times$ & $\times$ & LLM (not speech) & 4-bit weight quant; MLSys 2024 best-paper \\
-GPTQ~\citep{frantar2023gptq}          & Layer-wise OBS reconstruction             & $\times$ & $\times$ & LLM (not speech) & 3-/4-bit, GPT-class 175B in $\approx 4$ GPU-hrs, negligible degradation \\
-SmoothQuant~\citep{xiao2023smoothquant} & Activation-outlier rebalancing          & $\times$ & $\times$ & LLM (not speech) & INT8 W+A, up to $1.56\times$ speedup, $2\times$ memory \\
-FADE~\citep{fade2026}                 & Diagnostic-driven layer compensation      & $\times$ & $\times$ & Encoder-decoder ASR & Improves mean WER at 3-/4-bit on Whisper/Moonshine/Qwen3-ASR (---) \\
-TAQ~\citep{taq2025}                   & Per-task quant on LLM hidden reps         & $\times$ & \emph{implicit} & LLM hidden reps & Per-task gains in accuracy--memory ratio (---) \\
-Xu et al.~\citep{xu2025mixedprecision} & Gumbel-Softmax DARTS over $\{2,4,8\}$-bit & $\times$ & $\times$ & Speech encoders & 3.5-bit HuBERT-large, $8.6\times$ compression, no significant WER loss \\
-PhoWhisper~\citep{le2024phowhisper}   & Whisper fine-tune (844h vi)               & $\checkmark$ & \emph{implicit} & $\times$ (server) & 4.67\% WER on VIVOS (large); 6.33\% (small) \\
-Vi-iOS~\citep{le2025privacyios}       & CoreML conversion + GGUF LLM              & $\checkmark$ & $\times$ & iOS               & Functional demo; no quantitative tone eval (---) \\
+AWQ~\citep{lin2024awq}                  & $\times$ & $\times$ & 4-bit weight quant; MLSys '24 best paper \\
+GPTQ~\citep{frantar2023gptq}            & $\times$ & $\times$ & 3-/4-bit, OPT-175B in $\approx$4 GPU-hrs \\
+SmoothQuant~\citep{xiao2023smoothquant} & $\times$ & $\times$ & INT8 W+A, up to $1.56\times$ speedup \\
+FADE~\citep{fade2026}                   & $\times$ & $\times$ & 3-/4-bit on Whisper/Moonshine (---) \\
+TAQ~\citep{taq2025}                     & $\times$ & impl. & Per-task accuracy--memory gains (---) \\
+Xu et al.~\citep{xu2025mixedprecision}  & $\times$ & $\times$ & 3.5-bit HuBERT, $8.6\times$ compression \\
+PhoWhisper~\citep{le2024phowhisper}     & $\checkmark$ & impl. & 4.67\% WER on VIVOS (large) \\
+Vi-iOS~\citep{le2025privacyios}         & $\checkmark$ & $\times$ & Functional demo, no tone eval (---) \\
 \midrule
-\textbf{This work} & Tonal-perceptual cache + INT8 cascade & $\checkmark$ & \textbf{explicit} & $\checkmark$ (Snapdragon NPU) & $1{,}441\times$ cache-hit speedup, 100\% tonal-minimal-pair safety \\
+\textbf{This work} & $\checkmark$ & \textbf{expl.} & $1{,}441\times$ cache-hit, 100\% tonal safety \\
 \bottomrule
 \end{tabular*}
-\end{table*}
+\end{table}
 
 %% =====================================================================
 %% Section 3 - Method
