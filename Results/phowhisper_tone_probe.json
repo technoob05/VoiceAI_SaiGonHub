@@ -1,0 +1,165 @@
+{
+  "model": "vinai/PhoWhisper-small",
+  "fallback_used": null,
+  "n_layers": 12,
+  "d_model": 768,
+  "n_clips": 360,
+  "syllables": [
+    "ma",
+    "ba",
+    "ca",
+    "la",
+    "da",
+    "ta",
+    "na",
+    "va",
+    "sa",
+    "ha",
+    "ga",
+    "ra"
+  ],
+  "n_train": 288,
+  "n_test": 72,
+  "random_baseline": 0.16666666666666666,
+  "per_layer": [
+    {
+      "layer": 1,
+      "train_acc": 1.0,
+      "test_acc": 0.875,
+      "n_params": 4614
+    },
+    {
+      "layer": 2,
+      "train_acc": 1.0,
+      "test_acc": 0.9583333333333334,
+      "n_params": 4614
+    },
+    {
+      "layer": 3,
+      "train_acc": 1.0,
+      "test_acc": 0.9722222222222222,
+      "n_params": 4614
+    },
+    {
+      "layer": 4,
+      "train_acc": 1.0,
+      "test_acc": 0.9305555555555556,
+      "n_params": 4614
+    },
+    {
+      "layer": 5,
+      "train_acc": 1.0,
+      "test_acc": 0.9444444444444444,
+      "n_params": 4614
+    },
+    {
+      "layer": 6,
+      "train_acc": 1.0,
+      "test_acc": 0.9305555555555556,
+      "n_params": 4614
+    },
+    {
+      "layer": 7,
+      "train_acc": 1.0,
+      "test_acc": 0.875,
+      "n_params": 4614
+    },
+    {
+      "layer": 8,
+      "train_acc": 1.0,
+      "test_acc": 0.875,
+      "n_params": 4614
+    },
+    {
+      "layer": 9,
+      "train_acc": 1.0,
+      "test_acc": 0.8472222222222222,
+      "n_params": 4614
+    },
+    {
+      "layer": 10,
+      "train_acc": 1.0,
+      "test_acc": 0.875,
+      "n_params": 4614
+    },
+    {
+      "layer": 11,
+      "train_acc": 1.0,
+      "test_acc": 0.8888888888888888,
+      "n_params": 4614
+    },
+    {
+      "layer": 12,
+      "train_acc": 1.0,
+      "test_acc": 0.9027777777777778,
+      "n_params": 4614
+    }
+  ],
+  "best_layer": 3,
+  "best_test_acc": 0.9722222222222222,
+  "best_layer_confusion_matrix": [
+    [
+      12,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      12,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      12,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      10,
+      0,
+      2
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      12,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      12
+    ]
+  ],
+  "tone_names": [
+    "ngang",
+    "huyen",
+    "sac",
+    "hoi",
+    "nga",
+    "nang"
+  ],
+  "delafuente_jurafsky_2024_reference_layer": 8,
+  "model_footprint_mb": 1851.4619750976562,
+  "probe_weights_per_layer_kb": 18.0234375,
+  "wall_time_s": 4147.208714700013,
+  "seed": 42,
+  "n_reps_per_cell": 5,
+  "figure_path": "papers/figures/fig_phowhisper_tone_probe.png"
+}

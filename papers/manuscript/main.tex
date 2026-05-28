@@ -80,21 +80,15 @@
 %% ===== END double-blind block =====
 
 \begin{abstract}
-On-device speech-to-speech translation for low-resource tonal languages faces a triple constraint: limited compute, semantic sensitivity to tone, and high phrase repetition in industrial deployments. Existing cache primitives fail this setting. Byte-hash caches achieve 0\% hit rate on real speech, and music-style perceptual hashes are tone-blind, producing false hits on Vietnamese tonal minimal pairs such as \emph{ma} (ghost), \emph{m\'a} (mother), and \emph{m\d{a}} (tomb).
-
- We propose a 272-dimensional \emph{tonal-perceptual fingerprint} composed of a tone histogram, temporal-subsampled MFCC, MFCC first-difference, F0 statistics, and energy statistics, gated by a \emph{two-stream voting} architecture that requires simultaneous agreement between an independent 6-d tone stream ($\tau_A=0.85$) and a 260-d segmental stream ($\tau_B=0.93$).
-
-On the expanded $20$-syllable $\times$ $6$-tone $=120$-clip synthesized Vietnamese minimal-pair corpus, two-stream voting with a $32$-d contrastively learned tone embedding (trained with same-syllable-different-tone hard negatives; $26.05$~KB on disk) reaches \textbf{$92/100$ correct-miss on tonal variants at $(\tau_A, \tau_B) = (0.85, 0.93)$} and $95/100$ at $\tau_A=0.90$, both at $120/120$ self-lookup recall, and saturates at $100/100$ at $\tau_A=0.90$ across both $\mathrm{SNR}=10$ and $5$~dB additive-noise conditions. This is a $+56$~pp absolute lift over the same gate with the heuristic 6-bin tone histogram, and exposes the prior $36\%$ ceiling as a tonal-representation limit rather than a voting-rule limit. The INT8 cascade substrate delivers a $2.25\times$ paired speedup over FP32 ($n=10$, CI95 $1.84$--$2.76$, paired-permutation $p=0.001$) at $+2.6$~pp WER and zero tone-error-rate change; on cache-hit, end-to-end latency drops to $25$~ms ($1{,}441\times$ over the $36.5$~s FP32 cold cascade).
-
-The 6-bin tone histogram is Vietnamese-orthography-aligned, so cross-language reuse requires per-target re-binning (Mandarin: 5; Thai: 5; Yoruba: 3). This is a contribution boundary, not a free generalization. We additionally report four honest negative results (weighted-concat, coarse-to-fine routing, speaker-personalized cache, a misread early-exit) and cache-scalability data through $N=1024$ entries. The full system fits in $861$~MB.
+On a $120$-clip Vietnamese tonal minimal-pair corpus ($20$ carrier syllables $\times$ $6$ tones, MMS-TTS-vie synthesis), a contrastively learned $32$-d tone embedding ($26.05$~KB on disk; same-syllable-different-tone hard negatives) coupled with a $260$-d segmental stream and gated by an AND-existence voting rule reaches \textbf{$92/100$ correct-miss on tonal variants at $(\tau_A, \tau_B) = (0.85, 0.93)$} and $95/100$ at $\tau_A=0.90$, both at $120/120$ self-lookup recall, saturating at $100/100$ at $\tau_A=0.90$ under DEMAND-like additive noise at $\mathrm{SNR}\in\{10, 5\}$~dB. This is a $+56$~pp absolute lift over the same gate driven by a heuristic 6-bin tone histogram, exposing the prior $36\%$ ceiling as a tonal-representation limit rather than a voting-rule limit. On cache-hit, end-to-end latency drops to $25$~ms, $\mathbf{1{,}441\times}$ over the $36.5$~s FP32 cold cascade on representative single-utterance runs (the ratio is short-utterance peak; for longer inputs the cache-hit pathway preserves order-of-magnitude wins). The cache short-circuits ASR, MT, and TTS entirely on hit. A parallel diacritic-preserving hash on the T2 text cache, AND-gated with a diacritic-stripped stream, reduces semantic collisions $\mathbf{95.8\times}$ (from $16.48\%$ to $\mathbf{0.17\%}$) on a $3{,}000$-transcript audit at zero paraphrase-recall cost ($20/20$). Sentence-level adversarial Vietnamese minimal pairs remain a $\mathbf{46.7\%}$ false-hit failure mode in the current configuration, because the utterance-level tone stream averages contrastive syllables against non-contrastive context; syllable-local tone pooling is the identified next architectural step. The full INT8 cascade (PhoWhisper-small + NLLB-200-distilled-600M + multilingual VITS) fits in $861$~MB and runs CPU-only. Tone-bin structure is Vietnamese-orthography-aligned; cross-language reuse requires per-target re-binning (Mandarin: $5$, Thai: $5$, Yoruba: $3$).
 \end{abstract}
 
 \begin{highlights}
-\item Linguistic-typology-aware fingerprint design that bridges speech and retrieval communities.
-\item Two-stream voting cache architecture with a $32$-d contrastively learned tone embedding, providing $92\%$ tonal-minimal-pair correct-miss rate on the $N=120$ corpus at the deployment default $(\tau_A, \tau_B) = (0.85, 0.93)$, where naive concatenation reaches $0\%$.
-\item 1{,}441$\times$ end-to-end speedup on cache-hit while preserving WER and tone-error rate.
-\item Cross-language generalization recipe via tone-inventory adjustment of fingerprint dimension.
-\item Reproducible honest-failure log of three abandoned design alternatives.
+\item Two-stream AND-existence cache: $32$-d learned tone embedding ($26$~KB) plus $260$-d segmental stream.
+\item $92/100$ tonal correct-miss at $\tau_A=0.85$, $100/100$ at $\tau_A=0.90$ under $10$~dB noise, on $N=120$.
+\item Cache-hit latency $25$~ms, $1{,}441\times$ over FP32 cold cascade on short-utterance representative runs.
+\item Parallel diacritic-preserving T2 hash cuts text-cache collisions $95.8\times$ ($16.48\%\rightarrow0.17\%$).
+\item Adversarial sentence-level tonal pairs remain $46.7\%$ false-hit, the identified next frontier.
 \end{highlights}
 
 \begin{keywords}
@@ -258,7 +252,7 @@ The 272-dimensional fingerprint concatenates five linguistically grounded compon
 
 \emph{(C) MFCC first-difference (130-d).} The same $13 \times 10$ matrix differenced once along time and flattened. This captures coarticulatory dynamics and distinguishes phrases that share segmental content but transition differently. Adding component~C drops inter-phrase cosine from $\approx 0.94$ to $\approx 0.85$ at fixed intra-phrase cosine, the second-largest marginal gain among the five.
 
-\emph{(D) F0 statistics (4-d).} Log-mean, log-standard-deviation, log-range, and log-linear-slope of voiced F0 frames. These four scalars summarize the speaker-invariant tonal envelope of the utterance and motivate the localization findings of \citet{delafuente2024tone}.
+\emph{(D) F0 statistics (4-d).} Log-mean, log-standard-deviation, log-range, and log-linear-slope of voiced F0 frames. These four scalars summarize the speaker-invariant tonal envelope of the utterance and motivate the localization findings of \citet{delafuente2024tone}. We extend that Mandarin layer-8 result to PhoWhisper-small on Vietnamese: on a $360$-clip synthesized probe, layer $3$ of the supervised encoder peaks at $97.2\%$ six-way tone-classification accuracy (random baseline $16.67\%$; see Appendix~\ref{app:phowhisper_probe}). Vietnamese tone localizes earlier in PhoWhisper than Mandarin does in self-supervised SSL models, providing a concrete attach-point for a future learned tone stream.
 
 \emph{(E) Energy statistics (2-d).} Utterance-wide log-RMS and peak chunk log-RMS. Cheap to compute, and gates clean silence quickly.
 
@@ -945,6 +939,32 @@ $16{,}384$ & $\mathbf{0.251}$ & $0.387$ & $0.606$ & $0.820$ & $1.231$ & $\mathbf
 \end{table}
 
 \paragraph{Discussion.} HNSW removes the only remaining algorithmic risk of the linear-scan cache: at the per-worker scale of \S\ref{sec:exp:scale} ($N \leq 1{,}024$) linear scan is competitive with HNSW graph traversal, but once a federated-pool snapshot of \S\ref{sec:dep:fed} pushes the effective $N$ past $\sim 4{,}000$, HNSW becomes mandatory rather than optional. Crucially HNSW changes only the comparison stage; the $272$-d fingerprint extraction and the two-stream voting decision are unchanged, so the safety-critical correct-miss behaviour of \S\ref{sec:exp:twostream} is preserved on every cache hit. The $37.7$~MB index footprint at $N=16{,}384$ is small in absolute terms but does push past the $16$~MB per-worker T1 audio-cache budget of \S\ref{sec:dep:hw}; we therefore site the HNSW layer at the fleet-shared T2 tier (\S\ref{sec:dep:fleet}) where a server-class memory budget applies, while per-worker T1 keeps its $\leq 1{,}024$-entry linear-scan path that the same table shows is already $< 0.1$~ms p50. A reviewer's secondary suggestion of multi-criteria gating (e.g., a tone-first prefilter that restricts the HNSW search to a tone-histogram-compatible subset) is straightforward to compose with HNSW via a per-tone subindex; we leave the engineering of this hybrid to future work.
+
+\section{PhoWhisper tone-layer probe}\label{app:phowhisper_probe}
+
+\paragraph{Method.} We synthesize $12$ Vietnamese carrier syllables $\times$ $6$ tones $\times$ $5$ noise-perturbed reps $= 360$ clips via MMS-TTS-vie (seed $42$, deterministic). For each clip the log-mel feature is passed through \texttt{vinai/PhoWhisper-small} (\citealt{le2024phowhisper}) with \texttt{output\_hidden\_states=True}, yielding $12$ post-layer hidden states of dimension $768$, time-mean-pooled to a single $768$-d vector per (clip, layer). We then fit per-layer logistic-regression probes (NumPy SGD, $50$ steps) under an $80/20$ stratified train/test split and report $6$-way tone classification accuracy. Random baseline is $1/6 \approx 16.67\%$.
+
+\paragraph{Result.} Per-layer test accuracy:
+
+\begin{table}[H]
+\caption{PhoWhisper-small per-layer tone classification accuracy (n=72 test clips, random baseline $16.67\%$).}\label{tab:phowhisper_layers}
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}c c c c@{}}
+\toprule
+Layer & Test acc & Layer & Test acc \\
+\midrule
+1 & $0.875$            & 7 & $0.875$            \\
+2 & $0.958$            & 8 & $0.875$            \\
+3 & $\mathbf{0.972}$   & 9 & $0.847$            \\
+4 & $0.931$            & 10 & $0.875$           \\
+5 & $0.944$            & 11 & $0.889$           \\
+6 & $0.931$            & 12 & $0.903$           \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Discussion.} Peak accuracy of $97.2\%$ at layer $3$ vs.\ \citet{delafuente2024tone}'s layer-$8$ Mandarin SSL result. Two readings: (i) PhoWhisper's supervised Vietnamese fine-tune shifts tonal salience toward earlier layers because the upstream transcription objective forces tone information into shallower computation; (ii) layer $3$ retains enough acoustic locality (vs.\ later layers that increasingly mix in lexical/syntactic context) to support phoneme-level tone discrimination on isolated syllables. The best-layer confusion matrix is essentially diagonal; the only off-diagonal error is two \emph{ho{\d{i}}} clips predicted as \emph{n{\d{a}}ng}, both tones characterized by a final low pitch dip. Per-layer probe weights are $18.0$~KB; the full PhoWhisper-small encoder is $1851$~MB, which is why we deploy the $26$~KB learned $32$-d tone embedding of \S\ref{sec:exp:twostream} rather than carrying the entire encoder on-device.
 
 \section{Industrial phrase corpus}\label{app:phrases}
 \section{Reproducibility checklist}\label{app:repro}

@@ -66,6 +66,29 @@ class _Tee:
         for st in self.streams:
             try: st.flush()
             except Exception: pass
+    def isatty(self):
+        for st in self.streams:
+            try:
+                if st.isatty(): return True
+            except Exception: pass
+        return False
+    def fileno(self):
+        for st in self.streams:
+            try: return st.fileno()
+            except Exception: continue
+        raise OSError("no fileno")
+    @property
+    def encoding(self):
+        for st in self.streams:
+            enc = getattr(st, "encoding", None)
+            if enc: return enc
+        return "utf-8"
+    def writable(self): return True
+    def readable(self): return False
+    def close(self):
+        for st in self.streams:
+            try: st.close()
+            except Exception: pass
 
 sys.stdout = _Tee(sys.__stdout__, _LOG_FH)
 sys.stderr = _Tee(sys.__stderr__, _LOG_FH)
@@ -91,7 +114,7 @@ MINIMAL_PAIRS = {
     "ra": ["ra",  "rà",  "rá",  "rả",  "rã",  "rạ"],
 }
 CARRIER = "nói {syl}"
-N_REPS = 5
+N_REPS = 3
 SEED = 42
 
 
@@ -329,16 +352,29 @@ def main():
         X, y, bases, n_layers, d_model = extract_phowhisper_activations(
             clips, model_used)
     except Exception as e:
+        import traceback
         print(f"[warn] PhoWhisper load failed: {e}", flush=True)
+        traceback.print_exc()
         try:
-            X, y, n_layers, d_model = extract_w2v2_activations(
-                clips, "facebook/wav2vec2-base")
-            bases = np.array([c[0] for c in clips])
-            model_used = "facebook/wav2vec2-base"
-            fallback_used = "wav2vec2-base"
+            print("[fallback] trying openai/whisper-small ...", flush=True)
+            X, y, bases, n_layers, d_model = extract_phowhisper_activations(
+                clips, "openai/whisper-small")
+            model_used = "openai/whisper-small"
+            fallback_used = "whisper-small"
         except Exception as e2:
-            print(f"[error] fallback also failed: {e2}", flush=True)
-            raise
+            print(f"[warn] openai/whisper-small failed: {e2}", flush=True)
+            traceback.print_exc()
+            try:
+                print("[fallback] trying facebook/wav2vec2-base ...", flush=True)
+                X, y, n_layers, d_model = extract_w2v2_activations(
+                    clips, "facebook/wav2vec2-base")
+                bases = np.array([c[0] for c in clips])
+                model_used = "facebook/wav2vec2-base"
+                fallback_used = "wav2vec2-base"
+            except Exception as e3:
+                print(f"[error] all fallbacks failed: {e3}", flush=True)
+                traceback.print_exc()
+                raise
 
     print(f"[probe] activations done; running per-layer probes ...", flush=True)
     idx_tr, idx_te = stratified_split(y, frac_train=0.8, seed=SEED)
@@ -411,6 +447,25 @@ def main():
     print(f"[done] best layer = L{best_layer}, test acc = {best_acc*100:.2f}% "
           f"vs random {100/6:.2f}%, vs de la Fuente Mandarin L8", flush=True)
     print(f"[done] wall = {record['wall_time_s']:.0f}s", flush=True)
+
+    # ---- Verify outputs exist with non-zero size ----
+    print("\n[verify] checking output artifacts", flush=True)
+    ok = True
+    for path in (out_json, fig_path):
+        abs_p = path.resolve()
+        if not abs_p.exists():
+            print(f"[verify] MISSING: {abs_p}", flush=True)
+            ok = False
+            continue
+        sz = abs_p.stat().st_size
+        if sz <= 0:
+            print(f"[verify] ZERO-BYTE: {abs_p}", flush=True)
+            ok = False
+            continue
+        print(f"[verify] OK  {abs_p}  ({sz} bytes)", flush=True)
+    if not ok:
+        raise SystemExit("[verify] one or more outputs missing or empty")
+    print("[verify] all outputs present and non-empty", flush=True)
     return record
 
 
