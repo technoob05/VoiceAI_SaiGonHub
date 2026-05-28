@@ -67,3 +67,12 @@ docs/paper/*.toc
 
 # ---------- Reserve room for results JSON (DO track these) ----------
 # Results/*.json   <- intentionally NOT ignored; we track exp outputs
+# Build / cache
+.deps/
+__pycache__/
+*.pyc
+
+# Large eval artifacts (regenerable; >50MB)
+Results/*_full.json
+data/raw/
+data/cache_snapshots/_federated_mock/_archive*
