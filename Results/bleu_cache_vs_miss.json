@@ -1,0 +1,408 @@
+{
+  "_meta": {
+    "task": "ACL reviewer Q4 — end-to-end translation quality",
+    "target": "en",
+    "n_phrases": 42,
+    "references_provenance": "Hand-curated by authors in prototype/industrial_phrases.json. Limitation: small reference set; future work to crowdsource larger Vi industrial reference corpus.",
+    "cache_hit_definition": "Cache returns byte-identical cached translation. We pre-warm the cache with the authors' references via preload_cache.py, so cache-hit text == reference text by construction. The 100-by-construction BLEU is the operationally meaningful number: a hit short-circuits MT entirely.",
+    "cache_miss_definition": "INT8 NLLB-200-distilled-600M (CT2) beam=1 greedy, Vi -> En, no cache lookup.",
+    "metric_impl": "sacrebleu",
+    "cascade_load_ms": 34972.2,
+    "cascade_mt_total_ms": 26059.0,
+    "cascade_mt_per_phrase_ms": 620.5
+  },
+  "corpus_metrics": {
+    "cache_hit": {
+      "bleu": 100.00000000000004,
+      "chrf": 100.0,
+      "ter": 0.0,
+      "bleu_signature": "BLEU = 100.00 100.0/100.0/100.0/100.0 (BP = 1.000 ratio = 1.000 hyp_len = 109 ref_len = 109)"
+    },
+    "cache_miss": {
+      "bleu": 9.690512282803653,
+      "chrf": 46.19234083070716,
+      "ter": 78.89908256880734,
+      "bleu_signature": "BLEU = 9.69 30.0/14.8/7.1/2.8 (BP = 1.000 ratio = 1.376 hyp_len = 150 ref_len = 109)"
+    }
+  },
+  "per_phrase": [
+    {
+      "i": 1,
+      "category": "safety",
+      "vi": "an toàn lao động",
+      "reference_en": "occupational safety",
+      "cache_hit_en": "occupational safety",
+      "cache_miss_en": "safety at work",
+      "mt_ms": 608.3
+    },
+    {
+      "i": 2,
+      "category": "safety",
+      "vi": "mặc đồ bảo hộ",
+      "reference_en": "wear protective equipment",
+      "cache_hit_en": "wear protective equipment",
+      "cache_miss_en": "wearing protective clothing",
+      "mt_ms": 741.1
+    },
+    {
+      "i": 3,
+      "category": "safety",
+      "vi": "cẩn thận",
+      "reference_en": "be careful",
+      "cache_hit_en": "be careful",
+      "cache_miss_en": "Be careful",
+      "mt_ms": 423.7
+    },
+    {
+      "i": 4,
+      "category": "safety",
+      "vi": "nguy hiểm",
+      "reference_en": "danger",
+      "cache_hit_en": "danger",
+      "cache_miss_en": "It's dangerous.",
+      "mt_ms": 713.9
+    },
+    {
+      "i": 5,
+      "category": "safety",
+      "vi": "khẩn cấp",
+      "reference_en": "emergency",
+      "cache_hit_en": "emergency",
+      "cache_miss_en": "emergency",
+      "mt_ms": 273.3
+    },
+    {
+      "i": 6,
+      "category": "safety",
+      "vi": "gọi y tế",
+      "reference_en": "call medical",
+      "cache_hit_en": "call medical",
+      "cache_miss_en": "Call the doctor.",
+      "mt_ms": 577.0
+    },
+    {
+      "i": 7,
+      "category": "safety",
+      "vi": "có người bị thương",
+      "reference_en": "someone is injured",
+      "cache_hit_en": "someone is injured",
+      "cache_miss_en": "Someone was hurt.",
+      "mt_ms": 559.8
+    },
+    {
+      "i": 8,
+      "category": "safety",
+      "vi": "tránh xa máy",
+      "reference_en": "stay away from the machine",
+      "cache_hit_en": "stay away from the machine",
+      "cache_miss_en": "Stay away from the machine.",
+      "mt_ms": 753.1
+    },
+    {
+      "i": 9,
+      "category": "safety",
+      "vi": "đứng lại",
+      "reference_en": "stop right there",
+      "cache_hit_en": "stop right there",
+      "cache_miss_en": "Get back on your feet.",
+      "mt_ms": 714.3
+    },
+    {
+      "i": 10,
+      "category": "safety",
+      "vi": "không được hút thuốc",
+      "reference_en": "no smoking",
+      "cache_hit_en": "no smoking",
+      "cache_miss_en": "Do not smoke.",
+      "mt_ms": 591.8
+    },
+    {
+      "i": 11,
+      "category": "production_line",
+      "vi": "dừng dây chuyền",
+      "reference_en": "stop the production line",
+      "cache_hit_en": "stop the production line",
+      "cache_miss_en": "Stop the line.",
+      "mt_ms": 585.3
+    },
+    {
+      "i": 12,
+      "category": "production_line",
+      "vi": "khởi động lại máy",
+      "reference_en": "restart the machine",
+      "cache_hit_en": "restart the machine",
+      "cache_miss_en": "Restart the machine.",
+      "mt_ms": 661.4
+    },
+    {
+      "i": 13,
+      "category": "production_line",
+      "vi": "máy bị lỗi",
+      "reference_en": "the machine is broken",
+      "cache_hit_en": "the machine is broken",
+      "cache_miss_en": "The machine is down.",
+      "mt_ms": 696.0
+    },
+    {
+      "i": 14,
+      "category": "production_line",
+      "vi": "kiểm tra chất lượng",
+      "reference_en": "quality check",
+      "cache_hit_en": "quality check",
+      "cache_miss_en": "Quality testing",
+      "mt_ms": 384.8
+    },
+    {
+      "i": 15,
+      "category": "production_line",
+      "vi": "đếm sản phẩm",
+      "reference_en": "count the products",
+      "cache_hit_en": "count the products",
+      "cache_miss_en": "counting the product",
+      "mt_ms": 564.4
+    },
+    {
+      "i": 16,
+      "category": "production_line",
+      "vi": "đóng gói",
+      "reference_en": "package it",
+      "cache_hit_en": "package it",
+      "cache_miss_en": "packaging",
+      "mt_ms": 413.5
+    },
+    {
+      "i": 17,
+      "category": "production_line",
+      "vi": "vận chuyển hàng",
+      "reference_en": "transport the goods",
+      "cache_hit_en": "transport the goods",
+      "cache_miss_en": "Carriage of goods",
+      "mt_ms": 722.2
+    },
+    {
+      "i": 18,
+      "category": "production_line",
+      "vi": "đưa cờ-lê cho tôi",
+      "reference_en": "pass me the wrench",
+      "cache_hit_en": "pass me the wrench",
+      "cache_miss_en": "Give me the chessboard.",
+      "mt_ms": 1304.3
+    },
+    {
+      "i": 19,
+      "category": "production_line",
+      "vi": "mở van",
+      "reference_en": "open the valve",
+      "cache_hit_en": "open the valve",
+      "cache_miss_en": "Open the valve.",
+      "mt_ms": 675.6
+    },
+    {
+      "i": 20,
+      "category": "production_line",
+      "vi": "đóng van",
+      "reference_en": "close the valve",
+      "cache_hit_en": "close the valve",
+      "cache_miss_en": "close the valve",
+      "mt_ms": 567.6
+    },
+    {
+      "i": 21,
+      "category": "communication",
+      "vi": "xin chào",
+      "reference_en": "hello",
+      "cache_hit_en": "hello",
+      "cache_miss_en": "- How are you?",
+      "mt_ms": 639.5
+    },
+    {
+      "i": 22,
+      "category": "communication",
+      "vi": "cảm ơn",
+      "reference_en": "thank you",
+      "cache_hit_en": "thank you",
+      "cache_miss_en": "Thank you.",
+      "mt_ms": 511.7
+    },
+    {
+      "i": 23,
+      "category": "communication",
+      "vi": "không có gì",
+      "reference_en": "you're welcome",
+      "cache_hit_en": "you're welcome",
+      "cache_miss_en": "There's nothing.",
+      "mt_ms": 693.8
+    },
+    {
+      "i": 24,
+      "category": "communication",
+      "vi": "xin lỗi",
+      "reference_en": "sorry",
+      "cache_hit_en": "sorry",
+      "cache_miss_en": "I'm sorry about that.",
+      "mt_ms": 788.6
+    },
+    {
+      "i": 25,
+      "category": "communication",
+      "vi": "bạn có hiểu không",
+      "reference_en": "do you understand",
+      "cache_hit_en": "do you understand",
+      "cache_miss_en": "Do you understand?",
+      "mt_ms": 592.5
+    },
+    {
+      "i": 26,
+      "category": "communication",
+      "vi": "tôi không hiểu",
+      "reference_en": "I don't understand",
+      "cache_hit_en": "I don't understand",
+      "cache_miss_en": "I don't know.",
+      "mt_ms": 724.8
+    },
+    {
+      "i": 27,
+      "category": "communication",
+      "vi": "vui lòng nói lại",
+      "reference_en": "please say it again",
+      "cache_hit_en": "please say it again",
+      "cache_miss_en": "Please tell me again.",
+      "mt_ms": 672.2
+    },
+    {
+      "i": 28,
+      "category": "communication",
+      "vi": "cần giúp đỡ",
+      "reference_en": "I need help",
+      "cache_hit_en": "I need help",
+      "cache_miss_en": "I need help.",
+      "mt_ms": 566.6
+    },
+    {
+      "i": 29,
+      "category": "communication",
+      "vi": "đi tới khu vực này",
+      "reference_en": "go to this area",
+      "cache_hit_en": "go to this area",
+      "cache_miss_en": "Going to this area.",
+      "mt_ms": 748.4
+    },
+    {
+      "i": 30,
+      "category": "communication",
+      "vi": "báo cáo cho quản lý",
+      "reference_en": "report to the manager",
+      "cache_hit_en": "report to the manager",
+      "cache_miss_en": "report to management",
+      "mt_ms": 499.5
+    },
+    {
+      "i": 31,
+      "category": "schedule",
+      "vi": "tan ca",
+      "reference_en": "end of shift",
+      "cache_hit_en": "end of shift",
+      "cache_miss_en": "What?",
+      "mt_ms": 383.7
+    },
+    {
+      "i": 32,
+      "category": "schedule",
+      "vi": "vào ca",
+      "reference_en": "start of shift",
+      "cache_hit_en": "start of shift",
+      "cache_miss_en": "- What?",
+      "mt_ms": 441.4
+    },
+    {
+      "i": 33,
+      "category": "schedule",
+      "vi": "nghỉ giải lao",
+      "reference_en": "take a break",
+      "cache_hit_en": "take a break",
+      "cache_miss_en": "Retirement",
+      "mt_ms": 386.8
+    },
+    {
+      "i": 34,
+      "category": "schedule",
+      "vi": "giờ ăn trưa",
+      "reference_en": "lunch break",
+      "cache_hit_en": "lunch break",
+      "cache_miss_en": "It's lunch time.",
+      "mt_ms": 727.9
+    },
+    {
+      "i": 35,
+      "category": "schedule",
+      "vi": "hết giờ làm",
+      "reference_en": "time is up",
+      "cache_hit_en": "time is up",
+      "cache_miss_en": "I'm out of time.",
+      "mt_ms": 932.2
+    },
+    {
+      "i": 36,
+      "category": "schedule",
+      "vi": "ngày mai đến đúng giờ",
+      "reference_en": "be on time tomorrow",
+      "cache_hit_en": "be on time tomorrow",
+      "cache_miss_en": "Tomorrow is the right time.",
+      "mt_ms": 822.7
+    },
+    {
+      "i": 37,
+      "category": "schedule",
+      "vi": "làm thêm giờ",
+      "reference_en": "work overtime",
+      "cache_hit_en": "work overtime",
+      "cache_miss_en": "I'll work extra hours.",
+      "mt_ms": 860.5
+    },
+    {
+      "i": 38,
+      "category": "common_objects",
+      "vi": "đem nước",
+      "reference_en": "bring water",
+      "cache_hit_en": "bring water",
+      "cache_miss_en": "Bring some water.",
+      "mt_ms": 563.7
+    },
+    {
+      "i": 39,
+      "category": "common_objects",
+      "vi": "đèn pin",
+      "reference_en": "flashlight",
+      "cache_hit_en": "flashlight",
+      "cache_miss_en": "the battery lamp",
+      "mt_ms": 531.7
+    },
+    {
+      "i": 40,
+      "category": "common_objects",
+      "vi": "găng tay",
+      "reference_en": "gloves",
+      "cache_hit_en": "gloves",
+      "cache_miss_en": "gloves",
+      "mt_ms": 404.7
+    },
+    {
+      "i": 41,
+      "category": "common_objects",
+      "vi": "mũ bảo hiểm",
+      "reference_en": "safety helmet",
+      "cache_hit_en": "safety helmet",
+      "cache_miss_en": "the cover",
+      "mt_ms": 447.8
+    },
+    {
+      "i": 42,
+      "category": "common_objects",
+      "vi": "thang",
+      "reference_en": "ladder",
+      "cache_hit_en": "ladder",
+      "cache_miss_en": "The ladder.",
+      "mt_ms": 583.6
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "config": {
+    "n_mfcc": 13,
+    "sr_target": 16000,
+    "dtw_radius_frac": 0.2,
+    "n_pairs_per_class": 200,
+    "seed": 0
+  },
+  "vivos_pair_meta": {
+    "n_unique_texts": 10334,
+    "n_multi_speaker_groups": 107,
+    "n_pos_pairs": 200,
+    "n_neg_pairs": 200
+  },
+  "vivos_pair_eval": {
+    "n_pos_pairs": 200,
+    "n_neg_pairs": 200,
+    "pos_sim_mean": 0.940903,
+    "pos_sim_median": 0.951415,
+    "pos_sim_std": 0.032786,
+    "neg_sim_mean": 0.904002,
+    "neg_sim_median": 0.908327,
+    "neg_sim_std": 0.035007,
+    "best_f1_threshold": 0.935326,
+    "precision": 0.783626,
+    "recall": 0.67,
+    "f1": 0.722372,
+    "true_positives": 134,
+    "false_positives": 37,
+    "dtw_ms_per_pair_mean": 240.558,
+    "dtw_ms_per_pair_median": 180.031,
+    "dtw_ms_per_pair_p95": 650.134,
+    "dtw_ms_per_pair_p99": 1256.816,
+    "dtw_total_seconds": 116.122
+  },
+  "tonal_minimal_pair_eval": {
+    "tau_used": 0.935326,
+    "n_clips_synthesized": 30,
+    "self_lookups": 30,
+    "self_hits": 30,
+    "self_hit_rate": 1.0,
+    "tonal_variant_lookups": 25,
+    "tonal_variant_correct_misses": 0,
+    "tonal_variant_correct_miss_rate": 0.0,
+    "tonal_variant_false_hits": 25,
+    "tonal_variant_false_hit_rate": 1.0,
+    "per_query": [
+      {
+        "base": "ma",
+        "tone": "má",
+        "sim_vs_ngang": 0.9796,
+        "hit": true
+      },
+      {
+        "base": "ma",
+        "tone": "mả",
+        "sim_vs_ngang": 0.9815,
+        "hit": true
+      },
+      {
+        "base": "ma",
+        "tone": "mạ",
+        "sim_vs_ngang": 0.9877,
+        "hit": true
+      },
+      {
+        "base": "ma",
+        "tone": "mã",
+        "sim_vs_ngang": 0.9742,
+        "hit": true
+      },
+      {
+        "base": "ma",
+        "tone": "mà",
+        "sim_vs_ngang": 0.984,
+        "hit": true
+      },
+      {
+        "base": "ba",
+        "tone": "bá",
+        "sim_vs_ngang": 0.9951,
+        "hit": true
+      },
+      {
+        "base": "ba",
+        "tone": "bả",
+        "sim_vs_ngang": 0.987,
+        "hit": true
+      },
+      {
+        "base": "ba",
+        "tone": "bạ",
+        "sim_vs_ngang": 0.9866,
+        "hit": true
+      },
+      {
+        "base": "ba",
+        "tone": "bã",
+        "sim_vs_ngang": 0.9772,
+        "hit": true
+      },
+      {
+        "base": "ba",
+        "tone": "bà",
+        "sim_vs_ngang": 0.9872,
+        "hit": true
+      },
+      {
+        "base": "ca",
+        "tone": "cá",
+        "sim_vs_ngang": 0.9817,
+        "hit": true
+      },
+      {
+        "base": "ca",
+        "tone": "cả",
+        "sim_vs_ngang": 0.9846,
+        "hit": true
+      },
+      {
+        "base": "ca",
+        "tone": "cạ",
+        "sim_vs_ngang": 0.9867,
+        "hit": true
+      },
+      {
+        "base": "ca",
+        "tone": "cã",
+        "sim_vs_ngang": 0.9631,
+        "hit": true
+      },
+      {
+        "base": "ca",
+        "tone": "cà",
+        "sim_vs_ngang": 0.9817,
+        "hit": true
+      },
+      {
+        "base": "la",
+        "tone": "lá",
+        "sim_vs_ngang": 0.9908,
+        "hit": true
+      },
+      {
+        "base": "la",
+        "tone": "lả",
+        "sim_vs_ngang": 0.9883,
+        "hit": true
+      },
+      {
+        "base": "la",
+        "tone": "lạ",
+        "sim_vs_ngang": 0.9876,
+        "hit": true
+      },
+      {
+        "base": "la",
+        "tone": "lã",
+        "sim_vs_ngang": 0.9571,
+        "hit": true
+      },
+      {
+        "base": "la",
+        "tone": "là",
+        "sim_vs_ngang": 0.9864,
+        "hit": true
+      },
+      {
+        "base": "da",
+        "tone": "dá",
+        "sim_vs_ngang": 0.9749,
+        "hit": true
+      },
+      {
+        "base": "da",
+        "tone": "dả",
+        "sim_vs_ngang": 0.9891,
+        "hit": true
+      },
+      {
+        "base": "da",
+        "tone": "dạ",
+        "sim_vs_ngang": 0.9848,
+        "hit": true
+      },
+      {
+        "base": "da",
+        "tone": "dã",
+        "sim_vs_ngang": 0.9676,
+        "hit": true
+      },
+      {
+        "base": "da",
+        "tone": "dà",
+        "sim_vs_ngang": 0.9847,
+        "hit": true
+      }
+    ]
+  },
+  "note": "DTW with cosine distance over 13-d MFCC + Sakoe-Chiba band. sim = exp(-D / (T1+T2)). Operating-point tau* picked on VIVOS pairs by max-F1. Minimal-pair correct-miss measured at the SAME tau* — this is the head-to-head comparison vs two_stream_existence_eval (existence-rule and argmax-equality rules)."
+}

@@ -1,0 +1,334 @@
+{
+  "n_syllables": 20,
+  "n_tones": 6,
+  "n_clips_target": 120,
+  "n_clips_synth": 120,
+  "carrier_template": "noi {syl}",
+  "syllable_groups": {
+    "ma": [
+      "ma",
+      "má",
+      "mả",
+      "mạ",
+      "mã",
+      "mà"
+    ],
+    "ba": [
+      "ba",
+      "bá",
+      "bả",
+      "bạ",
+      "bã",
+      "bà"
+    ],
+    "ca": [
+      "ca",
+      "cá",
+      "cả",
+      "cạ",
+      "cã",
+      "cà"
+    ],
+    "la": [
+      "la",
+      "lá",
+      "lả",
+      "lạ",
+      "lã",
+      "là"
+    ],
+    "da": [
+      "da",
+      "dá",
+      "dả",
+      "dạ",
+      "dã",
+      "dà"
+    ],
+    "ta": [
+      "ta",
+      "tá",
+      "tả",
+      "tạ",
+      "tã",
+      "tà"
+    ],
+    "na": [
+      "na",
+      "ná",
+      "nả",
+      "nạ",
+      "nã",
+      "nà"
+    ],
+    "sa": [
+      "sa",
+      "sá",
+      "sả",
+      "sạ",
+      "sã",
+      "sà"
+    ],
+    "ha": [
+      "ha",
+      "há",
+      "hả",
+      "hạ",
+      "hã",
+      "hà"
+    ],
+    "va": [
+      "va",
+      "vá",
+      "vả",
+      "vạ",
+      "vã",
+      "và"
+    ],
+    "pa": [
+      "pa",
+      "pá",
+      "pả",
+      "pạ",
+      "pã",
+      "pà"
+    ],
+    "ga": [
+      "ga",
+      "gá",
+      "gả",
+      "gạ",
+      "gã",
+      "gà"
+    ],
+    "ka": [
+      "ka",
+      "ká",
+      "kả",
+      "kạ",
+      "kã",
+      "kà"
+    ],
+    "ra": [
+      "ra",
+      "rá",
+      "rả",
+      "rạ",
+      "rã",
+      "rà"
+    ],
+    "xa": [
+      "xa",
+      "xá",
+      "xả",
+      "xạ",
+      "xã",
+      "xà"
+    ],
+    "gia": [
+      "gia",
+      "giá",
+      "giả",
+      "giạ",
+      "giã",
+      "già"
+    ],
+    "kha": [
+      "kha",
+      "khá",
+      "khả",
+      "khạ",
+      "khã",
+      "khà"
+    ],
+    "nga": [
+      "nga",
+      "ngá",
+      "ngả",
+      "ngạ",
+      "ngã",
+      "ngà"
+    ],
+    "nha": [
+      "nha",
+      "nhá",
+      "nhả",
+      "nhạ",
+      "nhã",
+      "nhà"
+    ],
+    "tha": [
+      "tha",
+      "thá",
+      "thả",
+      "thạ",
+      "thã",
+      "thà"
+    ]
+  },
+  "snr_conditions_db": [
+    20,
+    15,
+    10,
+    5
+  ],
+  "operating_points": [
+    {
+      "tau_A": 0.85,
+      "tau_B": 0.93
+    },
+    {
+      "tau_A": 0.9,
+      "tau_B": 0.93
+    }
+  ],
+  "noise_model": "synthetic DEMAND-like (pink-tilted noise + 85/110 Hz rumble); RMS-scaled to SNR per clip",
+  "rule": "existence (cos>=tau_A AND cos>=tau_B for at least one cached entry)",
+  "results_by_condition": {
+    "clean": {
+      "snr_db": null,
+      "by_operating_point": {
+        "tau_A=0.85_tau_B=0.93": {
+          "tau_A": 0.85,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 36,
+          "correct_miss_rate": 0.36,
+          "false_hits": 64,
+          "false_hit_rate": 0.64
+        },
+        "tau_A=0.9_tau_B=0.93": {
+          "tau_A": 0.9,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 57,
+          "correct_miss_rate": 0.57,
+          "false_hits": 43,
+          "false_hit_rate": 0.43
+        }
+      }
+    },
+    "snr_20dB": {
+      "snr_db": 20.0,
+      "by_operating_point": {
+        "tau_A=0.85_tau_B=0.93": {
+          "tau_A": 0.85,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 29,
+          "correct_miss_rate": 0.29,
+          "false_hits": 71,
+          "false_hit_rate": 0.71
+        },
+        "tau_A=0.9_tau_B=0.93": {
+          "tau_A": 0.9,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 34,
+          "correct_miss_rate": 0.34,
+          "false_hits": 66,
+          "false_hit_rate": 0.66
+        }
+      }
+    },
+    "snr_15dB": {
+      "snr_db": 15.0,
+      "by_operating_point": {
+        "tau_A=0.85_tau_B=0.93": {
+          "tau_A": 0.85,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 39,
+          "correct_miss_rate": 0.39,
+          "false_hits": 61,
+          "false_hit_rate": 0.61
+        },
+        "tau_A=0.9_tau_B=0.93": {
+          "tau_A": 0.9,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 45,
+          "correct_miss_rate": 0.45,
+          "false_hits": 55,
+          "false_hit_rate": 0.55
+        }
+      }
+    },
+    "snr_10dB": {
+      "snr_db": 10.0,
+      "by_operating_point": {
+        "tau_A=0.85_tau_B=0.93": {
+          "tau_A": 0.85,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 56,
+          "correct_miss_rate": 0.56,
+          "false_hits": 44,
+          "false_hit_rate": 0.44
+        },
+        "tau_A=0.9_tau_B=0.93": {
+          "tau_A": 0.9,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 59,
+          "correct_miss_rate": 0.59,
+          "false_hits": 41,
+          "false_hit_rate": 0.41
+        }
+      }
+    },
+    "snr_5dB": {
+      "snr_db": 5.0,
+      "by_operating_point": {
+        "tau_A=0.85_tau_B=0.93": {
+          "tau_A": 0.85,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 53,
+          "correct_miss_rate": 0.53,
+          "false_hits": 47,
+          "false_hit_rate": 0.47
+        },
+        "tau_A=0.9_tau_B=0.93": {
+          "tau_A": 0.9,
+          "tau_B": 0.93,
+          "n_clips_total": 120,
+          "self_hits": 120,
+          "self_recall": 1.0,
+          "n_tonal_probes": 100,
+          "correct_misses": 58,
+          "correct_miss_rate": 0.58,
+          "false_hits": 42,
+          "false_hit_rate": 0.42
+        }
+      }
+    }
+  }
+}
