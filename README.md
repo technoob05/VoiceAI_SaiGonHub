@@ -12,12 +12,32 @@ The research spine is **tone-aware mixed-precision quantization**: allocate per-
 ## Quick start
 
 ### 1. Install
-```bash
+```powershell
 git clone <this-repo>
 cd VoiceAI_SaiGonHub
-python -m pip install -r requirements.txt    # (you'll create this from imports as needed)
-# Minimum runtime deps: transformers soundfile pyarrow torch huggingface_hub gradio
+py -3.14 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 ```
+
+Model acquisition is an explicit online setup phase; the submission runtime never
+downloads a missing model automatically. Follow
+[docs/SETUP_SUBMISSION.md](docs/SETUP_SUBMISSION.md) for model preparation,
+offline environment flags, manifest verification and the separate T4/device contracts.
+
+Before a production-style launch, enforce the offline policy and verify every model
+asset, then start the resident supervisor with a source selected before ASR:
+
+```powershell
+python scripts/offline_bootstrap.py preflight --profile six-direction
+python device/supervisor.py --mic --pair vi,en --source vi --multilingual-asr
+python device/acceptance.py --probe-level full --iterations 10 --interval-s 2
+```
+
+The bootstrap fails closed on dependency drift, unsafe environment flags, incomplete
+downloads or a bad SHA-256 manifest. See [device/README.md](device/README.md) for the
+acceptance/soak gate and [privacy policy](docs/PRIVACY_AND_DATA_HANDLING.md) for local
+data handling.
 
 ### 2. Pull Tier 1 data (~25 GB to D:; first run)
 ```bash

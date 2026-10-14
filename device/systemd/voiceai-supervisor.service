@@ -1,0 +1,43 @@
+# voiceai-supervisor.service — the resident, always-warm pipeline.
+#
+# UNTESTED: written on a Windows dev box, no Linux/ARM target was available.
+# Paths assume the repo is at /opt/voiceai; edit WorkingDirectory/ExecStart.
+#
+# The two settings that matter for a live demo, and why:
+#
+#   Restart=always + RestartSec=5
+#       The AIBOX lesson (systemd/geniex-keepalive.conf) was that a unit which
+#       systemd does not actually track will report "active" forever while the
+#       model is dead. Type=simple here means systemd tracks THIS process, so a
+#       crash really does trigger a restart. It still cannot see a live process
+#       with a dead model — that is what voiceai-watchdog.timer is for.
+#
+#   TimeoutStartSec=900
+#       Cold start is minutes: 250 s measured on an x86 dev box (ASR 25 s,
+#       corrector 22 s, MT load+pretokenize ~190 s, TTS ~1 s). ARM will be
+#       slower. A default 90 s timeout would kill the service mid-load, forever.
+
+[Unit]
+Description=VoiceAI resident speech-translation supervisor (always warm)
+After=network.target sound.target
+# No network is used at runtime; After=network.target only orders it sanely.
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/voiceai
+Environment=VOICEAI_DEVICE_PORT=8731
+Environment=VOICEAI_TARGET=en
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 -u device/supervisor.py --port 8731 --target en
+Restart=always
+RestartSec=5
+TimeoutStartSec=900
+# Never let the kernel pick this process first under memory pressure: it is the
+# product. (AIBOX lost its VLM to a global OOM kill mid-session.)
+OOMScoreAdjust=-500
+Nice=-5
+StandardOutput=append:/opt/voiceai/device/logs/supervisor.stdout.log
+StandardError=append:/opt/voiceai/device/logs/supervisor.stdout.log
+
+[Install]
+WantedBy=multi-user.target

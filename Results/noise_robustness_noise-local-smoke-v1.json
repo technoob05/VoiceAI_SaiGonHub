@@ -1,0 +1,886 @@
+{
+  "status": "complete",
+  "synthetic_noise_disclaimer": "SYNTHETIC NOISE, NOT DEMAND/MUSAN. CLAUDE.md prescribes DEMAND PSTATION + DKITCHEN and MUSAN; neither corpus is on disk and the Kaggle kernel has no Internet, so the noise here is generated deterministically from a seed. Results are valid for relative comparison within this run only and are NOT comparable to published numbers on DEMAND or MUSAN. The paper must rerun this grid on the real corpora before any noise-robustness claim ships.",
+  "noise_generators": {
+    "pink": "synthetic broadband stationary 1/f noise (NOT DEMAND PSTATION)",
+    "hum": "synthetic 50 Hz machine hum + 12 harmonics (NOT DEMAND PSTATION)"
+  },
+  "config": {
+    "condition": "noise-local-smoke-v1",
+    "samples": 3,
+    "warmup_samples": 1,
+    "snr_db": [
+      0.0,
+      10.0
+    ],
+    "noise_types": [
+      "pink",
+      "hum"
+    ],
+    "seed": 20260820,
+    "sample_rate": 16000,
+    "device": "cpu",
+    "asr_compute_type": "int8",
+    "required_gpu_substring": "",
+    "vad_trials_per_cell": 4,
+    "vad_segment_s": 3.0,
+    "asr_model": "phowhisper-small-int8",
+    "resolved_config_path": "D:\\PhD_LetGoo\\PhD_Farming\\Legacy\\EACL\\VoiceAI_SaiGonHub\\exp\\noise_config.json"
+  },
+  "environment": {
+    "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "gpu_names": [],
+    "on_kaggle": false,
+    "kaggle_kernel_run_type": ""
+  },
+  "model_load_ms": {
+    "asr": 4625.807700000223,
+    "gtcrn": 448.2579000004989
+  },
+  "notes": [
+    "ASR runs with vad_filter=False so the measured damage is the noise, not faster-whisper's internal VAD; clean WER here is therefore not identical to the vad_filter=True numbers in Results/kaggle_t4.",
+    "SNR is referenced to the RMS of the speech-active region, not the whole file, so leading/trailing silence does not shift the level.",
+    "Denoiser enhancement is reported as SI-SDR improvement measured in this run; the +10.4 dB in prototype/EDGE_UPGRADES.md is NOT reused."
+  ],
+  "clean_baseline": {
+    "n": 3,
+    "wer_mean": 0.030303030303030304,
+    "cer_mean": 0.008547008547008546,
+    "wer_ci": {
+      "n": 3,
+      "mean": 0.030303030303030304,
+      "lo": 0.0,
+      "hi": 0.0909090909090909,
+      "resamples": 1000
+    },
+    "cer_ci": {
+      "n": 3,
+      "mean": 0.008547008547008546,
+      "lo": 0.0,
+      "hi": 0.025641025641025644,
+      "resamples": 1000
+    },
+    "wer_per_utterance": [
+      0.0,
+      0.09090909090909091,
+      0.0
+    ],
+    "cer_per_utterance": [
+      0.0,
+      0.02564102564102564,
+      0.0
+    ],
+    "asr_latency_ms": {
+      "n": 3,
+      "mean": 25617.463166666614,
+      "p50": 22018.45239999966,
+      "p95": 34320.505420000336,
+      "min": 19146.536899999774,
+      "max": 35687.40020000041
+    },
+    "rows": [
+      {
+        "id": "VIVOSDEV01_R003",
+        "duration_s": 3.6875,
+        "hypothesis": "cũng lên tiếng ủng hộ các kiến nghị này.",
+        "wer": 0.0,
+        "cer": 0.0,
+        "ref_words": 9,
+        "ref_chars": 31
+      },
+      {
+        "id": "VIVOSDEV01_R012",
+        "duration_s": 4.1875,
+        "hypothesis": "những cơn gió mạnh và mưa đóng băng gây trơn trượt.",
+        "wer": 0.09090909090909091,
+        "cer": 0.02564102564102564,
+        "ref_words": 11,
+        "ref_chars": 39
+      },
+      {
+        "id": "VIVOSDEV01_R027",
+        "duration_s": 4.71875,
+        "hypothesis": "di tích có bảy phỗng ông và hai phỗng bà được làm bằng gỗ mít.",
+        "wer": 0.0,
+        "cer": 0.0,
+        "ref_words": 15,
+        "ref_chars": 47
+      }
+    ]
+  },
+  "experiment_n1_n2_grid": [
+    {
+      "noise_type": "pink",
+      "noise_description": "synthetic broadband stationary 1/f noise (NOT DEMAND PSTATION)",
+      "requested_snr_db": 0.0,
+      "measured_snr_db": {
+        "n": 3,
+        "mean": 7.000211985140901e-10,
+        "p50": -5.166908336539809e-08,
+        "p95": 2.2608830910489051e-07,
+        "min": -2.0318109464064892e-07,
+        "max": 2.569502416015893e-07
+      },
+      "n": 3,
+      "skipped": [],
+      "noisy": {
+        "wer_mean": 0.14814814814814814,
+        "cer_mean": 0.06771905742393046,
+        "wer_ci": {
+          "n": 3,
+          "mean": 0.14814814814814814,
+          "lo": 0.0,
+          "hi": 0.3333333333333333,
+          "resamples": 1000
+        },
+        "wer_per_utterance": [
+          0.1111111111111111,
+          0.0,
+          0.3333333333333333
+        ],
+        "cer_per_utterance": [
+          0.0967741935483871,
+          0.0,
+          0.10638297872340426
+        ]
+      },
+      "denoised": {
+        "wer_mean": 0.2531986531986532,
+        "cer_mean": 0.12516058638227479,
+        "wer_ci": {
+          "n": 3,
+          "mean": 0.2531986531986532,
+          "lo": 0.1111111111111111,
+          "hi": 0.4666666666666666,
+          "resamples": 1000
+        },
+        "wer_per_utterance": [
+          0.1111111111111111,
+          0.18181818181818182,
+          0.4666666666666667
+        ],
+        "cer_per_utterance": [
+          0.06451612903225806,
+          0.07692307692307693,
+          0.23404255319148937
+        ]
+      },
+      "denoiser_wer_delta_mean": 0.10505050505050506,
+      "denoiser_wer_delta_ci": {
+        "n": 3,
+        "mean": 0.10505050505050506,
+        "lo": 0.0,
+        "hi": 0.1818181818181818,
+        "resamples": 1000
+      },
+      "denoiser_verdict": "hurts",
+      "si_sdr_in_db": {
+        "n": 3,
+        "mean": -0.938141443304206,
+        "p50": -1.0001587305910296,
+        "p95": -0.35982209673050225,
+        "min": -1.5255920174644784,
+        "max": -0.28867358185711023
+      },
+      "si_sdr_out_db": {
+        "n": 3,
+        "mean": 7.423821525459899,
+        "p50": 7.459821869485732,
+        "p95": 7.61763535927259,
+        "min": 7.176472515422833,
+        "max": 7.63517019147113
+      },
+      "si_sdr_improvement_db": {
+        "n": 3,
+        "mean": 8.361962968764104,
+        "p50": 8.459980600076761,
+        "p95": 8.677856139606256,
+        "min": 7.92384377332824,
+        "max": 8.702064532887311
+      },
+      "denoise_latency_ms": {
+        "n": 3,
+        "mean": 1222.2965666669552,
+        "p50": 1220.9730000004129,
+        "p95": 1331.4929099998153,
+        "min": 1102.1438000007038,
+        "max": 1343.772899999749
+      },
+      "denoise_rtf": {
+        "n": 3,
+        "mean": 0.2951930703640402,
+        "p50": 0.32090099104471614,
+        "p95": 0.33009028893508086,
+        "min": 0.23356689801339417,
+        "max": 0.3311113220340103
+      },
+      "rows": [
+        {
+          "id": "VIVOSDEV01_R003",
+          "duration_s": 3.6875,
+          "measured_snr_db": -5.166908336539809e-08,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "cũng lên tiếng ủng hộ các thiếu nghị này.",
+            "wer": 0.1111111111111111,
+            "cer": 0.0967741935483871,
+            "ref_words": 9,
+            "ref_chars": 31
+          },
+          "denoised": {
+            "hypothesis": "cũng lên tiếng ủng hộ các tiếng nghị này.",
+            "wer": 0.1111111111111111,
+            "cer": 0.06451612903225806,
+            "ref_words": 9,
+            "ref_chars": 31
+          },
+          "denoise_ms": 1220.9730000004129,
+          "denoise_rtf": 0.3311113220340103
+        },
+        {
+          "id": "VIVOSDEV01_R012",
+          "duration_s": 4.1875,
+          "measured_snr_db": -2.0318109464064892e-07,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "những cơn gió mạnh và mưa đóng băng gây trơn trợt.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 11,
+            "ref_chars": 39
+          },
+          "denoised": {
+            "hypothesis": "những cơn gió mạnh và mưa nóng băng gây trơn trờ.",
+            "wer": 0.18181818181818182,
+            "cer": 0.07692307692307693,
+            "ref_words": 11,
+            "ref_chars": 39
+          },
+          "denoise_ms": 1343.772899999749,
+          "denoise_rtf": 0.32090099104471614
+        },
+        {
+          "id": "VIVOSDEV01_R027",
+          "duration_s": 4.71875,
+          "measured_snr_db": 2.569502416015893e-07,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "di tích có bảy phóng ong và hai phổng bài được làm bằng lỗ mít.",
+            "wer": 0.3333333333333333,
+            "cer": 0.10638297872340426,
+            "ref_words": 15,
+            "ref_chars": 47
+          },
+          "denoised": {
+            "hypothesis": "di tích có bảy phòng học và hai phòng bò được làm làng rộ mứt.",
+            "wer": 0.4666666666666667,
+            "cer": 0.23404255319148937,
+            "ref_words": 15,
+            "ref_chars": 47
+          },
+          "denoise_ms": 1102.1438000007038,
+          "denoise_rtf": 0.23356689801339417
+        }
+      ]
+    },
+    {
+      "noise_type": "pink",
+      "noise_description": "synthetic broadband stationary 1/f noise (NOT DEMAND PSTATION)",
+      "requested_snr_db": 10.0,
+      "measured_snr_db": {
+        "n": 3,
+        "mean": 10.000000024927033,
+        "p50": 10.000000042675381,
+        "p95": 10.000000053805273,
+        "min": 9.999999977063789,
+        "max": 10.000000055041928
+      },
+      "n": 3,
+      "skipped": [],
+      "noisy": {
+        "wer_mean": 0.030303030303030304,
+        "cer_mean": 0.008547008547008546,
+        "wer_ci": {
+          "n": 3,
+          "mean": 0.030303030303030304,
+          "lo": 0.0,
+          "hi": 0.0909090909090909,
+          "resamples": 1000
+        },
+        "wer_per_utterance": [
+          0.0,
+          0.09090909090909091,
+          0.0
+        ],
+        "cer_per_utterance": [
+          0.0,
+          0.02564102564102564,
+          0.0
+        ]
+      },
+      "denoised": {
+        "wer_mean": 0.030303030303030304,
+        "cer_mean": 0.008547008547008546,
+        "wer_ci": {
+          "n": 3,
+          "mean": 0.030303030303030304,
+          "lo": 0.0,
+          "hi": 0.0909090909090909,
+          "resamples": 1000
+        },
+        "wer_per_utterance": [
+          0.0,
+          0.09090909090909091,
+          0.0
+        ],
+        "cer_per_utterance": [
+          0.0,
+          0.02564102564102564,
+          0.0
+        ]
+      },
+      "denoiser_wer_delta_mean": 0.0,
+      "denoiser_wer_delta_ci": {
+        "n": 3,
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "resamples": 1000
+      },
+      "denoiser_verdict": "tie",
+      "si_sdr_in_db": {
+        "n": 3,
+        "mean": 9.058826752198248,
+        "p50": 9.01097771679619,
+        "p95": 9.632673245164794,
+        "min": 8.463752013703914,
+        "max": 9.701750526094639
+      },
+      "si_sdr_out_db": {
+        "n": 3,
+        "mean": 14.850956631429602,
+        "p50": 14.927815569334912,
+        "p95": 14.971749075107915,
+        "min": 14.648423749204532,
+        "max": 14.97663057574936
+      },
+      "si_sdr_improvement_db": {
+        "n": 3,
+        "mean": 5.792129879231354,
+        "p50": 5.6374460324083415,
+        "p95": 6.381401803308733,
+        "min": 5.274880049654721,
+        "max": 6.464063555630998
+      },
+      "denoise_latency_ms": {
+        "n": 3,
+        "mean": 1150.2190666669776,
+        "p50": 1085.3492000005645,
+        "p95": 1505.651719999787,
+        "min": 812.9560000006677,
+        "max": 1552.3519999997006
+      },
+      "denoise_rtf": {
+        "n": 3,
+        "mean": 0.28414891614713306,
+        "p50": 0.25918786865685123,
+        "p95": 0.40479791906900187,
+        "min": 0.17228206622530706,
+        "max": 0.4209768135592408
+      },
+      "rows": [
+        {
+          "id": "VIVOSDEV01_R003",
+          "duration_s": 3.6875,
+          "measured_snr_db": 9.999999977063789,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "cũng lên tiếng ủng hộ các kiến nghị này.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 9,
+            "ref_chars": 31
+          },
+          "denoised": {
+            "hypothesis": "cũng lên tiếng ủng hộ các kiến nghị này.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 9,
+            "ref_chars": 31
+          },
+          "denoise_ms": 1552.3519999997006,
+          "denoise_rtf": 0.4209768135592408
+        },
+        {
+          "id": "VIVOSDEV01_R012",
+          "duration_s": 4.1875,
+          "measured_snr_db": 10.000000055041928,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "những cơn gió mạnh và mưa đóng băng gây trơn trượt.",
+            "wer": 0.09090909090909091,
+            "cer": 0.02564102564102564,
+            "ref_words": 11,
+            "ref_chars": 39
+          },
+          "denoised": {
+            "hypothesis": "những cơn gió mạnh và mưa đóng băng gây trơn trượt.",
+            "wer": 0.09090909090909091,
+            "cer": 0.02564102564102564,
+            "ref_words": 11,
+            "ref_chars": 39
+          },
+          "denoise_ms": 1085.3492000005645,
+          "denoise_rtf": 0.25918786865685123
+        },
+        {
+          "id": "VIVOSDEV01_R027",
+          "duration_s": 4.71875,
+          "measured_snr_db": 10.000000042675381,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "di tích có bảy phỗng ông và hai phỗng bà được làm bằng gỗ mít.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 15,
+            "ref_chars": 47
+          },
+          "denoised": {
+            "hypothesis": "di tích có bảy phỗng ông và hai phỗng bà được làm bằng gỗ mít.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 15,
+            "ref_chars": 47
+          },
+          "denoise_ms": 812.9560000006677,
+          "denoise_rtf": 0.17228206622530706
+        }
+      ]
+    },
+    {
+      "noise_type": "hum",
+      "noise_description": "synthetic 50 Hz machine hum + 12 harmonics (NOT DEMAND PSTATION)",
+      "requested_snr_db": 0.0,
+      "measured_snr_db": {
+        "n": 3,
+        "mean": 5.195130475312146e-08,
+        "p50": 2.6444385666827974e-09,
+        "p95": 1.7790000558513628e-07,
+        "min": -4.416337067228286e-08,
+        "max": 1.9737284636496445e-07
+      },
+      "n": 3,
+      "skipped": [],
+      "noisy": {
+        "wer_mean": 0.030303030303030304,
+        "cer_mean": 0.008547008547008546,
+        "wer_ci": {
+          "n": 3,
+          "mean": 0.030303030303030304,
+          "lo": 0.0,
+          "hi": 0.0909090909090909,
+          "resamples": 1000
+        },
+        "wer_per_utterance": [
+          0.0,
+          0.09090909090909091,
+          0.0
+        ],
+        "cer_per_utterance": [
+          0.0,
+          0.02564102564102564,
+          0.0
+        ]
+      },
+      "denoised": {
+        "wer_mean": 0.07474747474747474,
+        "cer_mean": 0.036915802873249685,
+        "wer_ci": {
+          "n": 3,
+          "mean": 0.07474747474747474,
+          "lo": 0.0,
+          "hi": 0.13333333333333333,
+          "resamples": 1000
+        },
+        "wer_per_utterance": [
+          0.0,
+          0.09090909090909091,
+          0.13333333333333333
+        ],
+        "cer_per_utterance": [
+          0.0,
+          0.02564102564102564,
+          0.0851063829787234
+        ]
+      },
+      "denoiser_wer_delta_mean": 0.044444444444444446,
+      "denoiser_wer_delta_ci": {
+        "n": 3,
+        "mean": 0.044444444444444446,
+        "lo": 0.0,
+        "hi": 0.13333333333333333,
+        "resamples": 1000
+      },
+      "denoiser_verdict": "hurts",
+      "si_sdr_in_db": {
+        "n": 3,
+        "mean": -0.7745406391175526,
+        "p50": -0.7335061574759062,
+        "p95": -0.27174374147441077,
+        "min": -1.369678953513618,
+        "max": -0.22043680636313345
+      },
+      "si_sdr_out_db": {
+        "n": 3,
+        "mean": 10.334499267220504,
+        "p50": 10.258593020294704,
+        "p95": 10.609203255081416,
+        "min": 10.096744833531314,
+        "max": 10.648159947835495
+      },
+      "si_sdr_improvement_db": {
+        "n": 3,
+        "mean": 11.109039906338056,
+        "p50": 10.83025099100722,
+        "p95": 11.899080110314925,
+        "min": 10.479029826657838,
+        "max": 12.017838901349114
+      },
+      "denoise_latency_ms": {
+        "n": 3,
+        "mean": 765.2115666663425,
+        "p50": 748.2371999994939,
+        "p95": 946.6521000002103,
+        "min": 578.6992999992435,
+        "max": 968.69820000029
+      },
+      "denoise_rtf": {
+        "n": 3,
+        "mean": 0.1821318888577915,
+        "p50": 0.2029117830507102,
+        "p95": 0.20504951049055678,
+        "min": 0.13819684776101337,
+        "max": 0.20528703576165086
+      },
+      "rows": [
+        {
+          "id": "VIVOSDEV01_R003",
+          "duration_s": 3.6875,
+          "measured_snr_db": 1.9737284636496445e-07,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "cũng lên tiếng ủng hộ các kiến nghị này.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 9,
+            "ref_chars": 31
+          },
+          "denoised": {
+            "hypothesis": "cũng lên tiếng ủng hộ các kiến nghị này.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 9,
+            "ref_chars": 31
+          },
+          "denoise_ms": 748.2371999994939,
+          "denoise_rtf": 0.2029117830507102
+        },
+        {
+          "id": "VIVOSDEV01_R012",
+          "duration_s": 4.1875,
+          "measured_snr_db": -4.416337067228286e-08,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "những cơn gió mạnh và mưa đóng băng gây trơn trợn.",
+            "wer": 0.09090909090909091,
+            "cer": 0.02564102564102564,
+            "ref_words": 11,
+            "ref_chars": 39
+          },
+          "denoised": {
+            "hypothesis": "những cơn gió mạnh và mưa đóng băng gây trơn trợn.",
+            "wer": 0.09090909090909091,
+            "cer": 0.02564102564102564,
+            "ref_words": 11,
+            "ref_chars": 39
+          },
+          "denoise_ms": 578.6992999992435,
+          "denoise_rtf": 0.13819684776101337
+        },
+        {
+          "id": "VIVOSDEV01_R027",
+          "duration_s": 4.71875,
+          "measured_snr_db": 2.6444385666827974e-09,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "di tích có bảy phỗng ông và hai phỗng bà được làm bằng gỗ mít.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 15,
+            "ref_chars": 47
+          },
+          "denoised": {
+            "hypothesis": "di tích có bảy phển ông và hai phển bà được làm bằng gỗ mít.",
+            "wer": 0.13333333333333333,
+            "cer": 0.0851063829787234,
+            "ref_words": 15,
+            "ref_chars": 47
+          },
+          "denoise_ms": 968.69820000029,
+          "denoise_rtf": 0.20528703576165086
+        }
+      ]
+    },
+    {
+      "noise_type": "hum",
+      "noise_description": "synthetic 50 Hz machine hum + 12 harmonics (NOT DEMAND PSTATION)",
+      "requested_snr_db": 10.0,
+      "measured_snr_db": {
+        "n": 3,
+        "mean": 10.000000054572553,
+        "p50": 10.000000303915613,
+        "p95": 10.000000326492302,
+        "min": 9.99999953080122,
+        "max": 10.000000329000823
+      },
+      "n": 3,
+      "skipped": [],
+      "noisy": {
+        "wer_mean": 0.030303030303030304,
+        "cer_mean": 0.008547008547008546,
+        "wer_ci": {
+          "n": 3,
+          "mean": 0.030303030303030304,
+          "lo": 0.0,
+          "hi": 0.0909090909090909,
+          "resamples": 1000
+        },
+        "wer_per_utterance": [
+          0.0,
+          0.09090909090909091,
+          0.0
+        ],
+        "cer_per_utterance": [
+          0.0,
+          0.02564102564102564,
+          0.0
+        ]
+      },
+      "denoised": {
+        "wer_mean": 0.030303030303030304,
+        "cer_mean": 0.008547008547008546,
+        "wer_ci": {
+          "n": 3,
+          "mean": 0.030303030303030304,
+          "lo": 0.0,
+          "hi": 0.0909090909090909,
+          "resamples": 1000
+        },
+        "wer_per_utterance": [
+          0.0,
+          0.09090909090909091,
+          0.0
+        ],
+        "cer_per_utterance": [
+          0.0,
+          0.02564102564102564,
+          0.0
+        ]
+      },
+      "denoiser_wer_delta_mean": 0.0,
+      "denoiser_wer_delta_ci": {
+        "n": 3,
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "resamples": 1000
+      },
+      "denoiser_verdict": "tie",
+      "si_sdr_in_db": {
+        "n": 3,
+        "mean": 9.206549174400251,
+        "p50": 9.264698608392372,
+        "p95": 9.683512725361458,
+        "min": 8.624901287561471,
+        "max": 9.730047627246913
+      },
+      "si_sdr_out_db": {
+        "n": 3,
+        "mean": 16.589085074884363,
+        "p50": 16.64020860112657,
+        "p95": 16.735663333781993,
+        "min": 16.380777208338365,
+        "max": 16.746269415188152
+      },
+      "si_sdr_improvement_db": {
+        "n": 3,
+        "mean": 7.38253590048411,
+        "p50": 7.116078599945993,
+        "p95": 8.020839174858612,
+        "min": 6.910160973879657,
+        "max": 8.121368127626681
+      },
+      "denoise_latency_ms": {
+        "n": 3,
+        "mean": 927.8561333330799,
+        "p50": 800.2341999999771,
+        "p95": 1244.5340499995837,
+        "min": 689.4334999997227,
+        "max": 1293.90069999954
+      },
+      "denoise_rtf": {
+        "n": 3,
+        "mean": 0.22837173895785587,
+        "p50": 0.16958605562913423,
+        "p95": 0.33275809844415705,
+        "min": 0.1646408358208293,
+        "max": 0.35088832542360404
+      },
+      "rows": [
+        {
+          "id": "VIVOSDEV01_R003",
+          "duration_s": 3.6875,
+          "measured_snr_db": 9.99999953080122,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "cũng lên tiếng ủng hộ các kiến nghị này.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 9,
+            "ref_chars": 31
+          },
+          "denoised": {
+            "hypothesis": "cũng lên tiếng ủng hộ các kiến nghị này.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 9,
+            "ref_chars": 31
+          },
+          "denoise_ms": 1293.90069999954,
+          "denoise_rtf": 0.35088832542360404
+        },
+        {
+          "id": "VIVOSDEV01_R012",
+          "duration_s": 4.1875,
+          "measured_snr_db": 10.000000329000823,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "những cơn gió mạnh và mưa đóng băng gây trơn trượt.",
+            "wer": 0.09090909090909091,
+            "cer": 0.02564102564102564,
+            "ref_words": 11,
+            "ref_chars": 39
+          },
+          "denoised": {
+            "hypothesis": "những cơn gió mạnh và mưa đóng băng gây trơn trợn.",
+            "wer": 0.09090909090909091,
+            "cer": 0.02564102564102564,
+            "ref_words": 11,
+            "ref_chars": 39
+          },
+          "denoise_ms": 689.4334999997227,
+          "denoise_rtf": 0.1646408358208293
+        },
+        {
+          "id": "VIVOSDEV01_R027",
+          "duration_s": 4.71875,
+          "measured_snr_db": 10.000000303915613,
+          "peak_limited": false,
+          "noisy": {
+            "hypothesis": "di tích có bảy phỗng ông và hai phỗng bà được làm bằng gỗ mít.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 15,
+            "ref_chars": 47
+          },
+          "denoised": {
+            "hypothesis": "di tích có bảy phỗng ông và hai phỗng bà được làm bằng gỗ mít.",
+            "wer": 0.0,
+            "cer": 0.0,
+            "ref_words": 15,
+            "ref_chars": 47
+          },
+          "denoise_ms": 800.2341999999771,
+          "denoise_rtf": 0.16958605562913423
+        }
+      ]
+    }
+  ],
+  "denoise_latency_ms_all_cells": {
+    "n": 12,
+    "mean": 1016.3958333333388,
+    "p50": 1027.0237000004272,
+    "p95": 1437.633494999727,
+    "min": 578.6992999992435,
+    "max": 1552.3519999997006
+  },
+  "experiment_n3_vad_false_trigger": {
+    "definition": "Fraction of noise-only segments (no speech present) on which SileroVAD.is_speech returns True. Every such trigger costs a full ASR pass on nothing.",
+    "segment_s": 3.0,
+    "corpus_mean_speech_active_rms": 0.06147612922616216,
+    "cells": [
+      {
+        "noise_type": "pink",
+        "equivalent_snr_db": 0.0,
+        "noise_rms": 0.06147612922616216,
+        "trials": 4,
+        "false_trigger_rate_raw": 0.0,
+        "false_trigger_rate_after_gtcrn": 0.0
+      },
+      {
+        "noise_type": "pink",
+        "equivalent_snr_db": 10.0,
+        "noise_rms": 0.019440459008551698,
+        "trials": 4,
+        "false_trigger_rate_raw": 0.0,
+        "false_trigger_rate_after_gtcrn": 0.0
+      },
+      {
+        "noise_type": "hum",
+        "equivalent_snr_db": 0.0,
+        "noise_rms": 0.06147612922616216,
+        "trials": 4,
+        "false_trigger_rate_raw": 0.0,
+        "false_trigger_rate_after_gtcrn": 0.0
+      },
+      {
+        "noise_type": "hum",
+        "equivalent_snr_db": 10.0,
+        "noise_rms": 0.019440459008551698,
+        "trials": 4,
+        "false_trigger_rate_raw": 0.0,
+        "false_trigger_rate_after_gtcrn": 0.0
+      }
+    ]
+  },
+  "headline": {
+    "cells_total": 4,
+    "cells_denoiser_helps": 0,
+    "cells_denoiser_hurts": 2,
+    "cells_tie": 2,
+    "mean_wer_delta_all_cells": 0.03737373737373738,
+    "worst_cell": {
+      "noise_type": "pink",
+      "snr_db": 0.0,
+      "wer_delta": 0.10505050505050506,
+      "si_sdr_improvement_db": 8.361962968764104
+    },
+    "best_cell": {
+      "noise_type": "hum",
+      "snr_db": 0.0,
+      "wer_delta": 0.044444444444444446,
+      "si_sdr_improvement_db": 11.109039906338056
+    },
+    "denoise_latency_ms": {
+      "n": 12,
+      "mean": 1016.3958333333388,
+      "p50": 1027.0237000004272,
+      "p95": 1437.633494999727,
+      "min": 578.6992999992435,
+      "max": 1552.3519999997006
+    },
+    "interpretation": "A positive wer_delta means GTCRN made the transcript WORSE than the raw noisy audio. Perceptual enhancement (SI-SDR up) and ASR accuracy can move in opposite directions; if they do here, the deployment decision follows WER, not SI-SDR.",
+    "caveat": "SYNTHETIC NOISE, NOT DEMAND/MUSAN. CLAUDE.md prescribes DEMAND PSTATION + DKITCHEN and MUSAN; neither corpus is on disk and the Kaggle kernel has no Internet, so the noise here is generated deterministically from a seed. Results are valid for relative comparison within this run only and are NOT comparable to published numbers on DEMAND or MUSAN. The paper must rerun this grid on the real corpora before any noise-robustness claim ships."
+  }
+}

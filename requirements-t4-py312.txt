@@ -1,0 +1,12 @@
+# Exact offline wheels printed by the successful Kaggle T4 runs.
+# Install these with --no-index/--no-deps on the pinned Kaggle Python 3.12 base;
+# they are not a standalone replacement for the base image.
+av==16.0.1
+coloredlogs==15.0.1
+ctranslate2==4.7.2
+faster-whisper==1.2.1
+flatbuffers==25.12.19
+humanfriendly==10.0
+onnxruntime==1.22.0
+sherpa_onnx==1.13.4
+sherpa_onnx_core==1.13.4

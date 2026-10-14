@@ -1,0 +1,79 @@
+{
+  "_meta": {
+    "description": "Vietnamese industrial/workplace TERMS (not whole phrases) with en/zh/ko equivalents.",
+    "rationale": "NLLB-200-distilled-600M loses Vietnamese domain compounds: 'xe nang' becomes 'the train', 'may nen khi' becomes 'the air'. Substituting the English term into the Vietnamese source before translation recovers them in every target language (measured 2026-08-19). This file is the substitution table; industrial_phrases.json remains the whole-utterance memory.",
+    "scope": "Terms only. Keep entries short and unambiguous - a long entry is a phrase and belongs in industrial_phrases.json.",
+    "source": "Authored for this project. Not verified by a native zh/ko reviewer; see the caveat in glossary_mt.py."
+  },
+  "machinery": [
+    {"vi": "xe nâng", "en": "forklift", "zh": "叉车", "ko": "지게차"},
+    {"vi": "máy nén khí", "en": "air compressor", "zh": "空气压缩机", "ko": "공기 압축기"},
+    {"vi": "băng chuyền", "en": "conveyor belt", "zh": "传送带", "ko": "컨베이어 벨트"},
+    {"vi": "dây chuyền", "en": "production line", "zh": "生产线", "ko": "생산 라인"},
+    {"vi": "máy tiện", "en": "lathe", "zh": "车床", "ko": "선반"},
+    {"vi": "máy hàn", "en": "welding machine", "zh": "焊机", "ko": "용접기"},
+    {"vi": "máy phát điện", "en": "generator", "zh": "发电机", "ko": "발전기"},
+    {"vi": "cầu trục", "en": "overhead crane", "zh": "行车", "ko": "천장 크레인"},
+    {"vi": "xe cẩu", "en": "crane truck", "zh": "吊车", "ko": "크레인 트럭"},
+    {"vi": "máy bơm", "en": "pump", "zh": "水泵", "ko": "펌프"},
+    {"vi": "động cơ", "en": "motor", "zh": "电机", "ko": "모터"},
+    {"vi": "van an toàn", "en": "safety valve", "zh": "安全阀", "ko": "안전 밸브"},
+    {"vi": "đồng hồ đo áp", "en": "pressure gauge", "zh": "压力表", "ko": "압력계"},
+    {"vi": "tủ điện", "en": "electrical cabinet", "zh": "配电柜", "ko": "배전반"},
+    {"vi": "cầu dao", "en": "circuit breaker", "zh": "断路器", "ko": "차단기"},
+    {"vi": "khuôn dập", "en": "stamping die", "zh": "冲压模具", "ko": "프레스 금형"},
+    {"vi": "bảo trì", "en": "maintenance", "zh": "维护", "ko": "정비"}
+  ],
+  "safety": [
+    {"vi": "đồ bảo hộ", "en": "protective equipment", "zh": "防护装备", "ko": "보호 장비"},
+    {"vi": "kính bảo hộ", "en": "safety goggles", "zh": "护目镜", "ko": "보안경"},
+    {"vi": "mũ bảo hộ", "en": "safety helmet", "zh": "安全帽", "ko": "안전모"},
+    {"vi": "găng tay", "en": "gloves", "zh": "手套", "ko": "장갑"},
+    {"vi": "giày bảo hộ", "en": "safety shoes", "zh": "劳保鞋", "ko": "안전화"},
+    {"vi": "dây đai an toàn", "en": "safety harness", "zh": "安全带", "ko": "안전벨트"},
+    {"vi": "nút dừng khẩn cấp", "en": "emergency stop button", "zh": "紧急停止按钮", "ko": "비상 정지 버튼"},
+    {"vi": "bình chữa cháy", "en": "fire extinguisher", "zh": "灭火器", "ko": "소화기"},
+    {"vi": "lối thoát hiểm", "en": "emergency exit", "zh": "紧急出口", "ko": "비상구"},
+    {"vi": "khu vực nguy hiểm", "en": "hazardous area", "zh": "危险区域", "ko": "위험 구역"},
+    {"vi": "điện giật", "en": "electric shock", "zh": "触电", "ko": "감전"},
+    {"vi": "rò rỉ khí", "en": "gas leak", "zh": "气体泄漏", "ko": "가스 누출"},
+    {"vi": "quá nhiệt", "en": "overheating", "zh": "过热", "ko": "과열"},
+    {"vi": "tai nạn lao động", "en": "workplace accident", "zh": "工伤事故", "ko": "산업 재해"},
+    {"vi": "an toàn lao động", "en": "occupational safety", "zh": "劳动安全", "ko": "산업 안전"}
+  ],
+  "logistics": [
+    {"vi": "kho hàng", "en": "warehouse", "zh": "仓库", "ko": "창고"},
+    {"vi": "xuất kho", "en": "warehouse dispatch", "zh": "出库", "ko": "출고"},
+    {"vi": "nhập kho", "en": "warehouse receipt", "zh": "入库", "ko": "입고"},
+    {"vi": "lô hàng", "en": "shipment", "zh": "货批", "ko": "화물"},
+    {"vi": "pa lết", "en": "pallet", "zh": "托盘", "ko": "팔레트"},
+    {"vi": "thùng hàng", "en": "carton", "zh": "纸箱", "ko": "상자"},
+    {"vi": "phiếu giao hàng", "en": "delivery note", "zh": "送货单", "ko": "납품서"},
+    {"vi": "kiểm tra chất lượng", "en": "quality inspection", "zh": "质量检验", "ko": "품질 검사"},
+    {"vi": "hàng lỗi", "en": "defective goods", "zh": "不良品", "ko": "불량품"},
+    {"vi": "tồn kho", "en": "inventory", "zh": "库存", "ko": "재고"},
+    {"vi": "bốc dỡ", "en": "loading and unloading", "zh": "装卸", "ko": "상하차"}
+  ],
+  "worksite": [
+    {"vi": "công trường", "en": "construction site", "zh": "工地", "ko": "공사 현장"},
+    {"vi": "nhà xưởng", "en": "factory workshop", "zh": "厂房", "ko": "공장동"},
+    {"vi": "giàn giáo", "en": "scaffolding", "zh": "脚手架", "ko": "비계"},
+    {"vi": "bê tông", "en": "concrete", "zh": "混凝土", "ko": "콘크리트"},
+    {"vi": "cốt thép", "en": "rebar", "zh": "钢筋", "ko": "철근"},
+    {"vi": "máy trộn", "en": "mixer", "zh": "搅拌机", "ko": "믹서"},
+    {"vi": "ca đêm", "en": "night shift", "zh": "夜班", "ko": "야간 근무"},
+    {"vi": "tan ca", "en": "end of shift", "zh": "下班", "ko": "퇴근"},
+    {"vi": "vào ca", "en": "start of shift", "zh": "上班", "ko": "출근"},
+    {"vi": "tăng ca", "en": "overtime", "zh": "加班", "ko": "잔업"},
+    {"vi": "quản đốc", "en": "shift supervisor", "zh": "车间主任", "ko": "현장 감독"},
+    {"vi": "tổ trưởng", "en": "team leader", "zh": "组长", "ko": "조장"}
+  ],
+  "medical": [
+    {"vi": "sơ cứu", "en": "first aid", "zh": "急救", "ko": "응급 처치"},
+    {"vi": "băng gạc", "en": "bandage", "zh": "绷带", "ko": "붕대"},
+    {"vi": "xe cứu thương", "en": "ambulance", "zh": "救护车", "ko": "구급차"},
+    {"vi": "phòng y tế", "en": "medical room", "zh": "医务室", "ko": "의무실"},
+    {"vi": "bỏng", "en": "burn injury", "zh": "烧伤", "ko": "화상"},
+    {"vi": "gãy xương", "en": "bone fracture", "zh": "骨折", "ko": "골절"}
+  ]
+}

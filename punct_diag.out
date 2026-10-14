@@ -1,0 +1,9 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\DELL 3450\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py:760: UserWarning: Not enough free disk space to download the file. The expected file size is: 1112.48 MB. The target location C:\Users\DELL 3450\.cache\huggingface\hub\models--1-800-BAD-CODE--xlm-roberta_punctuation_fullstop_truecase\blobs only has 340.85 MB free disk space.
+  warnings.warn(
+C:\Users\DELL 3450\AppData\Roaming\Python\Python314\site-packages\onnxruntime\capi\onnxruntime_inference_collection.py:149: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'
+  warnings.warn(
+MODEL LOADED
+TYPE <class 'list'> LEN 2
+REPR: ['Tiếng cọc gạch khựng lệ của những khớp sắt.']
+REPR: ['Xin chào tất cả các bạn.', 'Tôi là Duy Minh.', 'Nó rất nhanh và ổn định.']

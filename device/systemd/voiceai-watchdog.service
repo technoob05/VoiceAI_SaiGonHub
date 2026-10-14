@@ -1,0 +1,19 @@
+# voiceai-watchdog.service — one probe cycle; the timer drives it.
+# UNTESTED on Linux/ARM (written on Windows).
+#
+# --once runs a single REAL light probe (MT + TTS forward pass). If it fails,
+# watchdog.py writes an evidence bundle to device/evidence/ and exits non-zero;
+# OnFailure then restarts the supervisor, which re-warms every stage on start.
+# Evidence is collected BEFORE the restart destroys the process state — that is
+# the whole point of the AIBOX geniex-watchdog.sh design.
+
+[Unit]
+Description=VoiceAI liveness probe (real inference, not is-active)
+After=voiceai-supervisor.service
+OnFailure=voiceai-supervisor-restart.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/voiceai
+ExecStart=/usr/bin/python3 -u device/watchdog.py --once --port 8731
+TimeoutStartSec=180

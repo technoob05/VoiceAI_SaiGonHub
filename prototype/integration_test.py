@@ -85,7 +85,10 @@ STATE: dict = {"pipe": None, "cold_init_ms": None}
 # ---------------------------------------------------------------------------
 def test_cold_init():
     from pipeline_fast import FastCascadeS2ST, FastPipelineConfig
-    cfg = FastPipelineConfig()
+    # This legacy integration suite explicitly exercises cache mechanics. The
+    # submission runtime keeps both caches off by default for semantic safety.
+    cfg = FastPipelineConfig(cache_enabled=True, cache_two_stream=False,
+                             tm_enabled=True, tts_auto_download=True)
     t0 = time.perf_counter()
     pipe = FastCascadeS2ST(cfg)
     # Ensure all three model heads load — that's the "cold" we care about.
@@ -236,7 +239,9 @@ def test_persistence_roundtrip():
     # Build a fresh pipeline instance (skip heavy model loads — they're not
     # needed to verify cache persistence).
     from pipeline_fast import FastCascadeS2ST, FastPipelineConfig
-    fresh = FastCascadeS2ST(FastPipelineConfig())
+    fresh = FastCascadeS2ST(FastPipelineConfig(
+        cache_enabled=True, cache_two_stream=False,
+        tm_enabled=True, tts_auto_download=True))
     info = fresh.load_snapshot(name="integration_test")
     t1_n = (info.get("t1") or {}).get("loaded") or (info.get("t1") or {}).get("n_loaded")
     t2_n = (info.get("t2") or {}).get("loaded") or (info.get("t2") or {}).get("n_loaded")

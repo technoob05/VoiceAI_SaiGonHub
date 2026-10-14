@@ -1,0 +1,336 @@
+{
+  "manifest_version": 1,
+  "generated_utc": "2026-08-20T00:43:35Z",
+  "generated_on": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.0",
+    "machine": "AMD64"
+  },
+  "note": "Hashes generated against the real files on the Windows dev box. Copy this file with the models; regenerating it on the target device defeats the purpose.",
+  "total_bytes": 2189076740,
+  "asset_count": 46,
+  "assets": [
+    {
+      "stage": "asr",
+      "path": "data/raw/models_ct2/phowhisper-small-int8/config.json",
+      "bytes": 2609,
+      "sha256": "364e66f09ce360358f61e549786419eedc8e6ab709186304dc77f84a3c4966c8",
+      "required": true
+    },
+    {
+      "stage": "asr",
+      "path": "data/raw/models_ct2/phowhisper-small-int8/generation_config.json",
+      "bytes": 3832,
+      "sha256": "ba8dbcc6416b036d6f596ab70619bb713f0e996a0bbd142cc8e8eea80b93ebd7",
+      "required": true
+    },
+    {
+      "stage": "asr",
+      "path": "data/raw/models_ct2/phowhisper-small-int8/model.bin",
+      "bytes": 248203797,
+      "sha256": "25c9e77010ce22372d6c12831d2f33fb1a86bdceb9fa9cd41f4596fd37b71db1",
+      "required": true
+    },
+    {
+      "stage": "asr",
+      "path": "data/raw/models_ct2/phowhisper-small-int8/preprocessor_config.json",
+      "bytes": 339,
+      "sha256": "a6a76d28c93edb273669eb9e0b0636a2bddbb1272c3261e47b7ca6dfdbac1b8d",
+      "required": true
+    },
+    {
+      "stage": "asr",
+      "path": "data/raw/models_ct2/phowhisper-small-int8/special_tokens_map.json",
+      "bytes": 2077,
+      "sha256": "b0aac6950381c4ae2f60b3f0fab04bcfe399a6a320cb3e4c7aee2d52924d733e",
+      "required": true
+    },
+    {
+      "stage": "asr",
+      "path": "data/raw/models_ct2/phowhisper-small-int8/tokenizer.json",
+      "bytes": 2204003,
+      "sha256": "c218b12acbc2168cad951ae8a8c8d345df09dfa63b787214d4ac27762170fd7b",
+      "required": true
+    },
+    {
+      "stage": "asr",
+      "path": "data/raw/models_ct2/phowhisper-small-int8/tokenizer_config.json",
+      "bytes": 805,
+      "sha256": "14f84bdf4b9ecdbd4738ddc81c17a1baedfc02bb93c6e049c951e15a1b40b70d",
+      "required": true
+    },
+    {
+      "stage": "asr",
+      "path": "data/raw/models_ct2/phowhisper-small-int8/vocabulary.json",
+      "bytes": 1119969,
+      "sha256": "aa4e6188766a36f6a7f3e44db3f74823c6fee0bf33a9559247e18fedb3bc8d55",
+      "required": true
+    },
+    {
+      "stage": "asr_multilingual",
+      "path": "data/raw/models_ct2/whisper-small-multilingual/.gitattributes",
+      "bytes": 1477,
+      "sha256": "db7c0371f46f0840b8f25794c1e3321c9b5820a8cb6ba9694a46fc64b8fae5a6",
+      "required": false
+    },
+    {
+      "stage": "asr_multilingual",
+      "path": "data/raw/models_ct2/whisper-small-multilingual/config.json",
+      "bytes": 2370,
+      "sha256": "b55496ac7940a7ae47d2c01eab40edfd8701feec1229d9cce3b40014383fb828",
+      "required": false
+    },
+    {
+      "stage": "asr_multilingual",
+      "path": "data/raw/models_ct2/whisper-small-multilingual/model.bin",
+      "bytes": 483546902,
+      "sha256": "3e305921506d8872816023e4c273e75d2419fb89b24da97b4fe7bce14170d671",
+      "required": false
+    },
+    {
+      "stage": "asr_multilingual",
+      "path": "data/raw/models_ct2/whisper-small-multilingual/README.md",
+      "bytes": 1998,
+      "sha256": "329373481008c7c38654aff8ecdcf0163c211557cc7ba8e2ef6f2f84b4f75ec8",
+      "required": false
+    },
+    {
+      "stage": "asr_multilingual",
+      "path": "data/raw/models_ct2/whisper-small-multilingual/tokenizer.json",
+      "bytes": 2203239,
+      "sha256": "fb7b63191e9bb045082c79fd742a3106a12c99513ab30df4a0d47fa6cb6fd0ab",
+      "required": false
+    },
+    {
+      "stage": "asr_multilingual",
+      "path": "data/raw/models_ct2/whisper-small-multilingual/vocabulary.txt",
+      "bytes": 459861,
+      "sha256": "34ce3fe1c5041027b3f8d42912270993f986dbc4bb34cf27f951e34a1e453913",
+      "required": false
+    },
+    {
+      "stage": "mt",
+      "path": "data/raw/models_ct2/nllb-200-distilled-600M-int8/config.json",
+      "bytes": 233,
+      "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee",
+      "required": true
+    },
+    {
+      "stage": "mt",
+      "path": "data/raw/models_ct2/nllb-200-distilled-600M-int8/model.bin",
+      "bytes": 622596105,
+      "sha256": "398726640cc2a02cc6a35277fa3cf2159ce8a1a66b48aa1b6c8837a47e3dd00c",
+      "required": true
+    },
+    {
+      "stage": "mt",
+      "path": "data/raw/models_ct2/nllb-200-distilled-600M-int8/sentencepiece.bpe.model",
+      "bytes": 4852054,
+      "sha256": "14bb8dfb35c0ffdea7bc01e56cea38b9e3d5efcdcb9c251d6b40538e1aab555a",
+      "required": true
+    },
+    {
+      "stage": "mt",
+      "path": "data/raw/models_ct2/nllb-200-distilled-600M-int8/shared_vocabulary.json",
+      "bytes": 6177383,
+      "sha256": "768aa4170693765cb4c62fc485ea4fd954cd3e5a44bc645d11d83f41f2393776",
+      "required": true
+    },
+    {
+      "stage": "mt",
+      "path": "data/raw/models_ct2/nllb-200-distilled-600M-int8/special_tokens_map.json",
+      "bytes": 3548,
+      "sha256": "992bd4ed610d644d6823081937bcc91bb8878dd556cea4ae5327f2480361330e",
+      "required": true
+    },
+    {
+      "stage": "mt",
+      "path": "data/raw/models_ct2/nllb-200-distilled-600M-int8/tokenizer.json",
+      "bytes": 17331176,
+      "sha256": "e316b82de11d0f951f370943b3c438311629547285129b0b81dadabd01bca665",
+      "required": true
+    },
+    {
+      "stage": "mt",
+      "path": "data/raw/models_ct2/nllb-200-distilled-600M-int8/tokenizer_config.json",
+      "bytes": 564,
+      "sha256": "d1aa8c3697d3e35674f97b5b7e9c99d22b010f528e80140257d97316be90d044",
+      "required": true
+    },
+    {
+      "stage": "corrector",
+      "path": "data/raw/models_ct2/vietnamese-correction-v2-int8/config.json",
+      "bytes": 233,
+      "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee",
+      "required": false
+    },
+    {
+      "stage": "corrector",
+      "path": "data/raw/models_ct2/vietnamese-correction-v2-int8/dict.txt",
+      "bytes": 360025,
+      "sha256": "4af19721ccc7a2bf2ef9fa63344377659e5b7a2652b764bc964edd8ed86827ae",
+      "required": false
+    },
+    {
+      "stage": "corrector",
+      "path": "data/raw/models_ct2/vietnamese-correction-v2-int8/model.bin",
+      "bytes": 404578022,
+      "sha256": "35c5e63bda29daff8706190f1943800cbb22dc6ed9f405c853ac0b22b8989f89",
+      "required": false
+    },
+    {
+      "stage": "corrector",
+      "path": "data/raw/models_ct2/vietnamese-correction-v2-int8/sentencepiece.bpe.model",
+      "bytes": 5069051,
+      "sha256": "cfc8146abe2a0488e9e2a0c56de7952f7c11ab059eca145a0a727afce0db2865",
+      "required": false
+    },
+    {
+      "stage": "corrector",
+      "path": "data/raw/models_ct2/vietnamese-correction-v2-int8/shared_vocabulary.json",
+      "bytes": 612147,
+      "sha256": "ddeda970a9952422b105d90645e38090ecea203c62755b190241b07c102c72a8",
+      "required": false
+    },
+    {
+      "stage": "corrector",
+      "path": "data/raw/models_ct2/vietnamese-correction-v2-int8/special_tokens_map.json",
+      "bytes": 279,
+      "sha256": "d5469a60db23249c7f8945013d78df30b44b6bf686c6bb4740f4223f77b1b535",
+      "required": false
+    },
+    {
+      "stage": "corrector",
+      "path": "data/raw/models_ct2/vietnamese-correction-v2-int8/tokenizer_config.json",
+      "bytes": 1168,
+      "sha256": "89b377c9218aa644a2e32553a90abfbf93c6aec074b0ab97fe8a52f21c45ffba",
+      "required": false
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/vi_VN-vais1000-medium/tokens.txt",
+      "bytes": 921,
+      "sha256": "87c8ef66eae5473ed0cc0366b3964c736ca6c5f676c979522ea31234e47430b9",
+      "required": true
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/vi_VN-vais1000-medium/vi_VN-vais1000-medium.onnx",
+      "bytes": 63149198,
+      "sha256": "df1512ef3265609f147ae23726b8c8867c6d28e60acb9ffca3545e11783b809f",
+      "required": true
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/vi_VN-vais1000-medium/vi_VN-vais1000-medium.onnx.json",
+      "bytes": 4860,
+      "sha256": "fafb9da1354ed4b77c31af228ed41fb41cd825c14cffa105454b25e6ae751ee0",
+      "required": true
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/en_US-lessac-medium/en_US-lessac-medium.onnx",
+      "bytes": 63149198,
+      "sha256": "4ba07d8549906668ee855fd9abf9faf66c5db74742712ff026a159f7277fca9f",
+      "required": true
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/en_US-lessac-medium/en_US-lessac-medium.onnx.json",
+      "bytes": 4885,
+      "sha256": "efe19c417bed055f2d69908248c6ba650fa135bc868b0e6abb3da181dab690a0",
+      "required": true
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/en_US-lessac-medium/tokens.txt",
+      "bytes": 921,
+      "sha256": "87c8ef66eae5473ed0cc0366b3964c736ca6c5f676c979522ea31234e47430b9",
+      "required": true
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/vits-melo-tts-zh_en/lexicon.txt",
+      "bytes": 6837671,
+      "sha256": "7236884b02435ac5d10cf69b4be40a61b45aa676b5300f0e412f185748fee528",
+      "required": false
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/vits-melo-tts-zh_en/model.onnx",
+      "bytes": 170429550,
+      "sha256": "bf30582eb1b012250a35b1a4a80e7dfbcf8485e7bb9de0d95efbbeef0e4ad86d",
+      "required": false
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/vits-melo-tts-zh_en/tokens.txt",
+      "bytes": 655,
+      "sha256": "d18664a7e12bd7ea1022ddaf951e534e136815016c5a809d6b64156bffb4369d",
+      "required": false
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/vits-mimic3-ko_KO-kss_low/ko_KO-kss_low.onnx",
+      "bytes": 62793110,
+      "sha256": "552af73776a1c2a705d828e1435592419eb42b1de9cc2bcb3bb5bcf6efb90cd9",
+      "required": false
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/vits-mimic3-ko_KO-kss_low/ko_KO-kss_low.onnx.json",
+      "bytes": 3411,
+      "sha256": "983e991172b35d0108a83acf9b1b911a7cc65fcce06753102b29f75f539535c3",
+      "required": false
+    },
+    {
+      "stage": "tts",
+      "path": "data/raw/piper-models/vits-mimic3-ko_KO-kss_low/tokens.txt",
+      "bytes": 260,
+      "sha256": "d2a7e6696166162a0613812a02f23f2f682a12e05a4cc9864193a3c71c1f3ecb",
+      "required": false
+    },
+    {
+      "stage": "frontend",
+      "path": "data/raw/onnx-frontend/gtcrn_simple.onnx",
+      "bytes": 535638,
+      "sha256": "e77603ac0c23dac3227dd2d7135b3a585cbee2679048aecfa886657d3ae1b534",
+      "required": true
+    },
+    {
+      "stage": "frontend",
+      "path": "data/raw/onnx-frontend/silero_vad.onnx",
+      "bytes": 643854,
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "required": true
+    },
+    {
+      "stage": "mt_tokenizer",
+      "path": "data/raw/hf_cache/hub/models--facebook--nllb-200-distilled-600M/snapshots/f8d333a098d19b4fd9a8b18f94170487ad3f821d/sentencepiece.bpe.model",
+      "bytes": 4852054,
+      "sha256": "14bb8dfb35c0ffdea7bc01e56cea38b9e3d5efcdcb9c251d6b40538e1aab555a",
+      "required": true
+    },
+    {
+      "stage": "mt_tokenizer",
+      "path": "data/raw/hf_cache/hub/models--facebook--nllb-200-distilled-600M/snapshots/f8d333a098d19b4fd9a8b18f94170487ad3f821d/special_tokens_map.json",
+      "bytes": 3548,
+      "sha256": "992bd4ed610d644d6823081937bcc91bb8878dd556cea4ae5327f2480361330e",
+      "required": true
+    },
+    {
+      "stage": "mt_tokenizer",
+      "path": "data/raw/hf_cache/hub/models--facebook--nllb-200-distilled-600M/snapshots/f8d333a098d19b4fd9a8b18f94170487ad3f821d/tokenizer.json",
+      "bytes": 17331176,
+      "sha256": "e316b82de11d0f951f370943b3c438311629547285129b0b81dadabd01bca665",
+      "required": true
+    },
+    {
+      "stage": "mt_tokenizer",
+      "path": "data/raw/hf_cache/hub/models--facebook--nllb-200-distilled-600M/snapshots/f8d333a098d19b4fd9a8b18f94170487ad3f821d/tokenizer_config.json",
+      "bytes": 564,
+      "sha256": "d1aa8c3697d3e35674f97b5b7e9c99d22b010f528e80140257d97316be90d044",
+      "required": true
+    }
+  ]
+}
