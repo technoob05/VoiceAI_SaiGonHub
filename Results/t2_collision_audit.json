@@ -1443,5 +1443,5 @@
     }
   ],
   "source": "vivos_train_prompts",
-  "_all_collisions_truncated": "top 100 of 741553 total"
+  "_all_collisions_truncation_note": "truncated from 741553 to 100"
 }

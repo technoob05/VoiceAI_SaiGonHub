@@ -2,9 +2,6 @@
 
 End-to-end Vietnamese-centric speech-to-speech translation, **public checkpoints only**, runs on CPU. Use this as the engineering baseline; replace components with our tone-aware quantized variants when ready.
 
-For the offline live workflow with final-only Vietnamese correction, see
-[REALTIME_TRANSLATION.md](REALTIME_TRANSLATION.md).
-
 Three pipelines + two UIs + one benchmark:
 
 | Entry point | What it is | Quality | Speed (CPU) |

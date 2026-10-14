@@ -3,11 +3,6 @@ data/raw/
 data/processed/
 kaggle_uploads/*.zip
 kaggle_uploads/build_log.txt
-kaggle_uploads/voiceai-t4-models/
-kaggle_uploads/voiceai-t4-models-flat/
-kaggle_uploads/voiceai-t4-kernel/
-kaggle_uploads/voiceai-t4-config/
-kaggle_uploads/kaggle-backups/
 
 # ---------- Generated audio / logs ----------
 *.wav
@@ -72,27 +67,3 @@ docs/paper/*.toc
 
 # ---------- Reserve room for results JSON (DO track these) ----------
 # Results/*.json   <- intentionally NOT ignored; we track exp outputs
-# Build / cache
-.deps/
-__pycache__/
-*.pyc
-
-# Large eval artifacts (regenerable; >50MB)
-Results/*_full.json
-data/raw/
-data/cache_snapshots/_federated_mock/_archive*
-
-# Cloned reference repos (reproducible via git clone; keep only NOTICE.md tracked)
-references/*
-!references/NOTICE.md
-kaggle_uploads/voiceai-t4-kernel-full/
-kaggle_uploads/voiceai-t4-wheels-py312/
-kaggle_uploads/voiceai-t4-srclib/
-
-# Bulk Kaggle staging (backed up on Kaggle, kept out of git)
-kaggle_uploads/*
-!kaggle_uploads/README.md
-!kaggle_uploads/model_files.csv
-!kaggle_uploads/model_files_full.csv
-data/cache_snapshots/
-.tmp/
